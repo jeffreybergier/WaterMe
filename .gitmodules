@@ -1,6 +1,0 @@
-[submodule "WaterMe/GitSubmodules/SimpleImageViewer"]
-	path = WaterMe/GitSubmodules/SimpleImageViewer
-	url = https://jeffreybergier@github.com/jeffreybergier/SimpleImageViewer.git
-[submodule "WaterMe/GitSubmodules/TOCropViewController"]
-	path = WaterMe/GitSubmodules/TOCropViewController
-	url = https://github.com/TimOliver/TOCropViewController.git

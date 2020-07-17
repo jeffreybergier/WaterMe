@@ -54,10 +54,7 @@
 		48F56050247FA9060049F14D /* ReminderVesselCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5604F247FA9060049F14D /* ReminderVesselCollectionTests.swift */; };
 		5002ADE523E6AC5F00CBC2B9 /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 5002ADE423E6AC5F00CBC2B9 /* NSObject+Runtime.m */; };
 		500679AF1F4BF3DB00F8100D /* ReminderMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500679AE1F4BF3DB00F8100D /* ReminderMainViewController.swift */; };
-		500D24072474C1800070162E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 500D24062474C1800070162E /* Realm */; };
 		500D24092474C1800070162E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 500D24082474C1800070162E /* RealmSwift */; };
-		500D240A2474C18C0070162E /* CropViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500D23FA2474C1560070162E /* CropViewController.framework */; };
-		500D240B2474C18C0070162E /* CropViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 500D23FA2474C1560070162E /* CropViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5010C22E213F779F00D1832C /* ReminderSummary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5010C22D213F779F00D1832C /* ReminderSummary.storyboard */; };
 		5010C230213F77B200D1832C /* ReminderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010C22F213F77B200D1832C /* ReminderSummaryViewController.swift */; };
 		5010C232213F806500D1832C /* ReminderSummaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010C231213F806500D1832C /* ReminderSummaryTableViewController.swift */; };
@@ -111,8 +108,6 @@
 		503476F624557A7800C3DAD3 /* SPMShim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503476E624557A6200C3DAD3 /* SPMShim.framework */; };
 		503476FB24557A7D00C3DAD3 /* SPMShim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503476E624557A6200C3DAD3 /* SPMShim.framework */; };
 		5034770224557CB200C3DAD3 /* Cheers in Frameworks */ = {isa = PBXBuildFile; productRef = 5034770124557CB200C3DAD3 /* Cheers */; };
-		50380EB4245584F800271545 /* SimpleImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50380EB1245584ED00271545 /* SimpleImageViewer.framework */; };
-		50380EB5245584F800271545 /* SimpleImageViewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50380EB1245584ED00271545 /* SimpleImageViewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5045CBA91EFCCA5C008E6D6A /* ReminderEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5045CBA81EFCCA5C008E6D6A /* ReminderEdit.storyboard */; };
 		5045CBAB1EFCCB50008E6D6A /* ReminderEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045CBAA1EFCCB50008E6D6A /* ReminderEditViewController.swift */; };
 		5045CBAD1EFCCB5B008E6D6A /* ReminderEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045CBAC1EFCCB5B008E6D6A /* ReminderEditTableViewController.swift */; };
@@ -174,6 +169,7 @@
 		50AA4A481F00A28500D81831 /* LastPerformedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA4A471F00A28500D81831 /* LastPerformedTableViewCell.swift */; };
 		50B511A51EFE0C9F00ED1DF4 /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B511A41EFE0C9F00ED1DF4 /* TextFieldTableViewCell.xib */; };
 		50B511A71EFE144700ED1DF4 /* ReminderKindTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B511A61EFE144700ED1DF4 /* ReminderKindTableViewCell.swift */; };
+		50B54EB324C1115300AB46F4 /* SimpleImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 50B54EB224C1115300AB46F4 /* SimpleImageViewer */; };
 		50B6F6132365355800C49832 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6F6122365355800C49832 /* Result+Convenience.swift */; };
 		50B779CD2154700A00AC6240 /* UIAlertController+UserFacingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B779CC2154700A00AC6240 /* UIAlertController+UserFacingError.swift */; };
 		50B779CF215470B300AC6240 /* UIBarButtonItem+WaterMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B779CE215470B300AC6240 /* UIBarButtonItem+WaterMe.swift */; };
@@ -214,6 +210,7 @@
 		50E8B1E81EE1C20200ACCDAF /* ReminderVesselEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1E71EE1C20200ACCDAF /* ReminderVesselEditTableViewController.swift */; };
 		50E8B1EA1EE1C39400ACCDAF /* ReminderVesselIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1E91EE1C39400ACCDAF /* ReminderVesselIconTableViewCell.swift */; };
 		50E8B1EC1EE1CDC200ACCDAF /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1EB1EE1CDC200ACCDAF /* TextFieldTableViewCell.swift */; };
+		50EC810724C12CB3001A91A5 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 50EC810624C12CB3001A91A5 /* CropViewController */; };
 		50F388E01FF6D9C10031ED45 /* CoreDataMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F388DF1FF6D9C10031ED45 /* CoreDataMigrator.swift */; };
 		50F388E41FF6DA490031ED45 /* WaterMeData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50F388E11FF6DA490031ED45 /* WaterMeData.xcdatamodeld */; };
 		50F7A360200844390063A1FC /* StarterRealm.realm in Resources */ = {isa = PBXBuildFile; fileRef = 50F7A362200844390063A1FC /* StarterRealm.realm */; };
@@ -254,48 +251,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 48A7B0D22467FCB100DC0861;
 			remoteInfo = Calculate;
-		};
-		500D23F92474C1560070162E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2238CF3C1FC029A90081B957;
-			remoteInfo = CropViewController;
-		};
-		500D23FB2474C1560070162E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 144B8CC91D22CAFF0085D774;
-			remoteInfo = TOCropViewController;
-		};
-		500D23FD2474C1560070162E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2234246A1ABBC0CD00BBC2B1;
-			remoteInfo = TOCropViewControllerExample;
-		};
-		500D23FF2474C1560070162E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2238CF201FC0269C0081B957;
-			remoteInfo = CropViewControllerExample;
-		};
-		500D24012474C1560070162E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2F5062DC1F53E2D900AA9F14;
-			remoteInfo = "TOCropViewControllerExample-Extension";
-		};
-		500D24032474C1560070162E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 220611971B2E6777001A467B;
-			remoteInfo = TOCropViewControllerTests;
 		};
 		5034764D24552CFD00C3DAD3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -346,34 +301,6 @@
 			remoteGlobalIDString = 503476E524557A6200C3DAD3;
 			remoteInfo = SPMShim;
 		};
-		50380EAE245584ED00271545 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A07E76D31ECC94A400B77D46;
-			remoteInfo = Example;
-		};
-		50380EB0245584ED00271545 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A0BF70A71EDC5B1400109F6E;
-			remoteInfo = SimpleImageViewer;
-		};
-		50380EB2245584ED00271545 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A02EE5D41EF1897D000EAB41;
-			remoteInfo = SimpleImageViewerTests;
-		};
-		50380EB62455850200271545 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A0BF70A61EDC5B1400109F6E;
-			remoteInfo = SimpleImageViewer;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -384,10 +311,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				503476EE24557A6200C3DAD3 /* SPMShim.framework in Embed Frameworks */,
-				500D240B2474C18C0070162E /* CropViewController.framework in Embed Frameworks */,
 				5034767C24552D0700C3DAD3 /* Store.framework in Embed Frameworks */,
 				48A7B0E92467FCB100DC0861 /* Calculate.framework in Embed Frameworks */,
-				50380EB5245584F800271545 /* SimpleImageViewer.framework in Embed Frameworks */,
 				5034765924552CFD00C3DAD3 /* Datum.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -442,7 +367,6 @@
 		5002ADE323E6AC5600CBC2B9 /* NSObject+Runtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Runtime.h"; sourceTree = "<group>"; };
 		5002ADE423E6AC5F00CBC2B9 /* NSObject+Runtime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Runtime.m"; sourceTree = "<group>"; };
 		500679AE1F4BF3DB00F8100D /* ReminderMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderMainViewController.swift; sourceTree = "<group>"; };
-		500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TOCropViewControllerExample.xcodeproj; path = GitSubmodules/TOCropViewController/TOCropViewControllerExample.xcodeproj; sourceTree = "<group>"; };
 		5010C22D213F779F00D1832C /* ReminderSummary.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReminderSummary.storyboard; sourceTree = "<group>"; };
 		5010C22F213F77B200D1832C /* ReminderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSummaryViewController.swift; sourceTree = "<group>"; };
 		5010C231213F806500D1832C /* ReminderSummaryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSummaryTableViewController.swift; sourceTree = "<group>"; };
@@ -496,8 +420,6 @@
 		503476E624557A6200C3DAD3 /* SPMShim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SPMShim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		503476E824557A6200C3DAD3 /* SPMShim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMShim.h; sourceTree = "<group>"; };
 		503476E924557A6200C3DAD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50380E99245584B900271545 /* SimpleImageViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SimpleImageViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SimpleImageViewer.xcodeproj; path = GitSubmodules/SimpleImageViewer/SimpleImageViewer.xcodeproj; sourceTree = "<group>"; };
 		5045CBA81EFCCA5C008E6D6A /* ReminderEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReminderEdit.storyboard; sourceTree = "<group>"; };
 		5045CBAA1EFCCB50008E6D6A /* ReminderEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderEditViewController.swift; sourceTree = "<group>"; };
 		5045CBAC1EFCCB5B008E6D6A /* ReminderEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderEditTableViewController.swift; sourceTree = "<group>"; };
@@ -634,7 +556,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				500D24092474C1800070162E /* RealmSwift in Frameworks */,
-				500D24072474C1800070162E /* Realm in Frameworks */,
 				503476FB24557A7D00C3DAD3 /* SPMShim.framework in Frameworks */,
 				48A7B1042467FE3800DC0861 /* Calculate.framework in Frameworks */,
 			);
@@ -680,11 +601,11 @@
 			files = (
 				48A7B0E82467FCB100DC0861 /* Calculate.framework in Frameworks */,
 				5034770224557CB200C3DAD3 /* Cheers in Frameworks */,
+				50B54EB324C1115300AB46F4 /* SimpleImageViewer in Frameworks */,
 				5034765824552CFD00C3DAD3 /* Datum.framework in Frameworks */,
 				503476ED24557A6200C3DAD3 /* SPMShim.framework in Frameworks */,
-				500D240A2474C18C0070162E /* CropViewController.framework in Frameworks */,
-				50380EB4245584F800271545 /* SimpleImageViewer.framework in Frameworks */,
 				5034767B24552D0700C3DAD3 /* Store.framework in Frameworks */,
+				50EC810724C12CB3001A91A5 /* CropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,19 +737,6 @@
 				5010C22C213F777E00D1832C /* ReminderSummary */,
 			);
 			path = ReminderMain;
-			sourceTree = "<group>";
-		};
-		500D23EF2474C1550070162E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				500D23FA2474C1560070162E /* CropViewController.framework */,
-				500D23FC2474C1560070162E /* TOCropViewController.framework */,
-				500D23FE2474C1560070162E /* TOCropViewControllerExample.app */,
-				500D24002474C1560070162E /* CropViewControllerExample.app */,
-				500D24022474C1560070162E /* TOCropViewControllerExample-Extension.appex */,
-				500D24042474C1560070162E /* TOCropViewControllerTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		5010C22C213F777E00D1832C /* ReminderSummary */ = {
@@ -965,16 +873,6 @@
 			);
 			name = SPMShim;
 			path = Frameworks/SPMShim;
-			sourceTree = "<group>";
-		};
-		50380EA9245584ED00271545 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				50380EAF245584ED00271545 /* Example.app */,
-				50380EB1245584ED00271545 /* SimpleImageViewer.framework */,
-				50380EB3245584ED00271545 /* SimpleImageViewerTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		50402387200ABD8F004C7FA7 /* PurchaseConfirmation */ = {
@@ -1241,11 +1139,8 @@
 		8CCD0EA6DFF9C0E9A378684C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				50380E99245584B900271545 /* SimpleImageViewer.framework */,
 				5034763B24552BCF00C3DAD3 /* Store.framework */,
 				5034761324552B5200C3DAD3 /* Datum.framework */,
-				500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */,
-				50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1342,7 +1237,6 @@
 			);
 			name = Datum;
 			packageProductDependencies = (
-				500D24062474C1800070162E /* Realm */,
 				500D24082474C1800070162E /* RealmSwift */,
 			);
 			productName = Datum;
@@ -1440,7 +1334,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				50380EB72455850200271545 /* PBXTargetDependency */,
 				5034765724552CFD00C3DAD3 /* PBXTargetDependency */,
 				5034767A24552D0700C3DAD3 /* PBXTargetDependency */,
 				503476EC24557A6200C3DAD3 /* PBXTargetDependency */,
@@ -1449,6 +1342,8 @@
 			name = WaterMe;
 			packageProductDependencies = (
 				5034770124557CB200C3DAD3 /* Cheers */,
+				50B54EB224C1115300AB46F4 /* SimpleImageViewer */,
+				50EC810624C12CB3001A91A5 /* CropViewController */,
 			);
 			productName = WaterMe;
 			productReference = 50BB0F501EBFCDE500850FF4 /* WaterMe.app */;
@@ -1526,19 +1421,11 @@
 				503476D02455792800C3DAD3 /* XCRemoteSwiftPackageReference "XCGLogger" */,
 				5034770024557CB200C3DAD3 /* XCRemoteSwiftPackageReference "Cheers" */,
 				500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				50B54EB124C1115300AB46F4 /* XCRemoteSwiftPackageReference "SimpleImageViewer" */,
+				50EC810524C12CB3001A91A5 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 50BB0F511EBFCDE500850FF4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 50380EA9245584ED00271545 /* Products */;
-					ProjectRef = 50380EA8245584ED00271545 /* SimpleImageViewer.xcodeproj */;
-				},
-				{
-					ProductGroup = 500D23EF2474C1550070162E /* Products */;
-					ProjectRef = 500D23EE2474C1550070162E /* TOCropViewControllerExample.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				50BB0F4F1EBFCDE500850FF4 /* WaterMe */,
@@ -1552,72 +1439,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		500D23FA2474C1560070162E /* CropViewController.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CropViewController.framework;
-			remoteRef = 500D23F92474C1560070162E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		500D23FC2474C1560070162E /* TOCropViewController.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TOCropViewController.framework;
-			remoteRef = 500D23FB2474C1560070162E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		500D23FE2474C1560070162E /* TOCropViewControllerExample.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = TOCropViewControllerExample.app;
-			remoteRef = 500D23FD2474C1560070162E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		500D24002474C1560070162E /* CropViewControllerExample.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = CropViewControllerExample.app;
-			remoteRef = 500D23FF2474C1560070162E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		500D24022474C1560070162E /* TOCropViewControllerExample-Extension.appex */ = {
-			isa = PBXReferenceProxy;
-			fileType = "wrapper.app-extension";
-			path = "TOCropViewControllerExample-Extension.appex";
-			remoteRef = 500D24012474C1560070162E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		500D24042474C1560070162E /* TOCropViewControllerTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = TOCropViewControllerTests.xctest;
-			remoteRef = 500D24032474C1560070162E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		50380EAF245584ED00271545 /* Example.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Example.app;
-			remoteRef = 50380EAE245584ED00271545 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		50380EB1245584ED00271545 /* SimpleImageViewer.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SimpleImageViewer.framework;
-			remoteRef = 50380EB0245584ED00271545 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		50380EB3245584ED00271545 /* SimpleImageViewerTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SimpleImageViewerTests.xctest;
-			remoteRef = 50380EB2245584ED00271545 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		48A7B0D12467FCB100DC0861 /* Resources */ = {
@@ -1995,11 +1816,6 @@
 			isa = PBXTargetDependency;
 			target = 503476E524557A6200C3DAD3 /* SPMShim */;
 			targetProxy = 503476FD24557A7D00C3DAD3 /* PBXContainerItemProxy */;
-		};
-		50380EB72455850200271545 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SimpleImageViewer;
-			targetProxy = 50380EB62455850200271545 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2725,14 +2541,25 @@
 				kind = branch;
 			};
 		};
+		50B54EB124C1115300AB46F4 /* XCRemoteSwiftPackageReference "SimpleImageViewer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jeffreybergier/SimpleImageViewer.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		50EC810524C12CB3001A91A5 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jeffreybergier/TOCropViewController.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		500D24062474C1800070162E /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
 		500D24082474C1800070162E /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
@@ -2752,6 +2579,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5034770024557CB200C3DAD3 /* XCRemoteSwiftPackageReference "Cheers" */;
 			productName = Cheers;
+		};
+		50B54EB224C1115300AB46F4 /* SimpleImageViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50B54EB124C1115300AB46F4 /* XCRemoteSwiftPackageReference "SimpleImageViewer" */;
+			productName = SimpleImageViewer;
+		};
+		50EC810624C12CB3001A91A5 /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50EC810524C12CB3001A91A5 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
 		};
 /* End XCSwiftPackageProductDependency section */
 

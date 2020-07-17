@@ -29,6 +29,24 @@
         }
       },
       {
+        "package": "SimpleImageViewer",
+        "repositoryURL": "https://github.com/jeffreybergier/SimpleImageViewer.git",
+        "state": {
+          "branch": "master",
+          "revision": "552c734932f68cb23c9e5987cfd828a27391a97a",
+          "version": null
+        }
+      },
+      {
+        "package": "TOCropViewController",
+        "repositoryURL": "https://github.com/jeffreybergier/TOCropViewController.git",
+        "state": {
+          "branch": "master",
+          "revision": "647e07fd2591f1766a088e97c06d9228e999f863",
+          "version": null
+        }
+      },
+      {
         "package": "XCGLogger",
         "repositoryURL": "https://github.com/DaveWoodCom/XCGLogger",
         "state": {
