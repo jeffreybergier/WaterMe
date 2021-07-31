@@ -313,26 +313,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        self.didLaunchInBackground = application.applicationState == .background
-        "performFetchWithCompletionHandler".log() // TODO: Remove error logging
-        // TODO: Figure out how to connect these to actual work being done.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            completionHandler(.newData)
+        let isInBackground = application.applicationState == .background
+        self.didLaunchInBackground = isInBackground
+        defer {
+            // TODO: Figure out how to connect these to actual work being done.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                completionHandler(.newData)
+            }
         }
+        guard isInBackground else { return }
+        "performFetchWithCompletionHandler".log() // TODO: Remove error logging
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        self.didLaunchInBackground = application.applicationState == .background
+        let isInBackground = application.applicationState == .background
+        self.didLaunchInBackground = isInBackground
+        defer {
+            // TODO: Figure out how to connect these to actual work being done.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                completionHandler(.newData)
+            }
+        }
+        guard isInBackground else { return }
         var errorInfo: [String: Any] = [:]
         for (key, value) in userInfo {
             errorInfo[key.description] = value
         }
-        let error = NSError(domain: "didReceiveRemoteNotification", code: -1, userInfo: errorInfo)
+        let error = NSError(domain: "didReceiveRemoteNotification", code: -7676, userInfo: errorInfo)
         error.log() // TODO: Remove error logging
-        // TODO: Figure out how to connect these to actual work being done.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            completionHandler(.newData)
-        }
     }
 }
 
