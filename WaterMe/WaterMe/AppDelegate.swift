@@ -164,6 +164,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Let things know that we launched in the background
         self.didLaunchInBackground = application.applicationState == .background
         
+        // configure background fetch
+        application.setMinimumBackgroundFetchInterval(3/*hours*/ * 60/*minutes*/ * 60/*seconds*/)
+        
         // Remote notifications used for CloudKit
         application.registerForRemoteNotifications()
 
