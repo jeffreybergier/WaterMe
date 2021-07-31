@@ -494,10 +494,10 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 "Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud." = "La sincronizzazione non è riuscita a causa di un problema con la password di iCloud. Controlla la tua password in Impostazioni → ID Apple → iCloud.";
 
 /* Alert Message: Indicates there was an issue because iCloud reached a rate limit. */
-"Sync couldn't be completed because of an iCloud rate limit. Syncing will automatically resume later." = "LOCALIZE ME";
+"Sync couldn't be completed because of an iCloud rate limit. Syncing will automatically resume later." = "Impossibile completare la sincronizzazione a causa del limite di trasferimento di iCloud. La sincronizzazione riprenderà automaticamente in seguito.";
 
 /* Alert Message: Indicates there was an issue because the user's iCloud storage is full. */
-"Sync failed because your iCloud storage is full. You can buy more iCloud storage, delete data in iCloud, or disable iCloud sync for WaterMe in the settings app." = "LOCALIZE ME";
+"Sync failed because your iCloud storage is full. You can buy more iCloud storage, delete data in iCloud, or disable iCloud sync for WaterMe in the settings app." = "La sincronizzazione non è riuscita perché lo spazio di archiviazione di iCloud è pieno. Puoi acquistare più spazio di archiviazione iCloud, eliminare dati in iCloud o disabilitare la sincronizzazione di iCloud per WaterMe nell'app delle impostazioni. ";
 
 /* Alert Message: Indicates there was a network error. Syncing will automatically resume when connected again. */
 "Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume." = "Sincronizzazione non riuscita a causa di un problema di rete. La prossima volta che sarà disponibile una connessione di rete, la sincronizzazione riprenderà automaticamente.";
