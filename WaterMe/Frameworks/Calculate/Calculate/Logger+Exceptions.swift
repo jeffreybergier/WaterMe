@@ -31,15 +31,16 @@ internal class ExceptionDestination<T: ServerlessLoggerEventProtocol>: Logger.De
         
         // If the error is of a certain kind, drop it on the floor
         if let error = logDetails.userInfo[Event.kErrorKey] as? NSError {
-            switch error.domain {
-            case CSIndexErrorDomain:
-                switch error.code {
-                // Couldn’t communicate with a helper application.
-                case -1003:
-                    return
-                default:
-                    break
-                }
+            switch (error.domain, error.code) {
+            // Couldn’t communicate with a helper application.
+            case (CSIndexErrorDomain, -1003):
+                return
+            // Couldn't initialize without iCloud Account
+            case (NSCocoaErrorDomain, 134400):
+                return
+            // remote notifications are not supported in the simulator
+            case (NSCocoaErrorDomain, 3010):
+                return
             default:
                 break
             }
