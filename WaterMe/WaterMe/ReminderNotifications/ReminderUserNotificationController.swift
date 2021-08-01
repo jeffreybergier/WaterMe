@@ -45,6 +45,16 @@ class ReminderUserNotificationController {
                                                                 expirationHandler: nil)
         // hop on a background queue to do the processing
         self.queue.async {
+            // completion block for when things are finished
+            let completion = {
+                DispatchQueue.main.async {
+                    // tell the OS I'm done with the background task
+                    guard let id = self.backgroundTaskID else { return }
+                    self.backgroundTaskID = nil
+                    application.endBackgroundTask(id)
+                }
+            }
+            
             // clear out all the old stuff before making new stuff
             let center = UNUserNotificationCenter.current()
             center.removeAllPendingNotificationRequests()
@@ -58,6 +68,7 @@ class ReminderUserNotificationController {
             // make sure we have data to work with before continuing
             guard values.isEmpty == false else {
                 "Reminder array was empty".log(as: .debug)
+                completion()
                 return
             }
 
@@ -65,6 +76,7 @@ class ReminderUserNotificationController {
             guard center.notificationAuthorizationStatus.boolValue else {
                 "User has turned System notification toggle off".log(as: .info)
                 Analytics.log(event: Analytics.NotificationPermission.scheduleDeniedBySystem)
+                completion()
                 return
             }
             // generate notification object requests
@@ -73,15 +85,8 @@ class ReminderUserNotificationController {
                           extras: Analytics.NotificationPermission.extras(forCount: requests.count))
             guard requests.isEmpty == false else {
                 "No notifications to schedule".log(as: .debug)
+                completion()
                 return
-            }
-
-            // completion block for when things are finished
-            let completion = {
-                // tell the OS I'm done with the background task
-                guard let id = self.backgroundTaskID else { return }
-                self.backgroundTaskID = nil
-                application.endBackgroundTask(id)
             }
 
             // ask the notification center to schedule the notifications

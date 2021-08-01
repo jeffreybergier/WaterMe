@@ -39,9 +39,9 @@ class CoreSpotlightIndexer {
             "Background task already in progress. Bailing.".log(as: .info)
             return
         }
+        self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: self.taskName,
+                                                                         expirationHandler: nil)
         self.queue.async {
-            self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: self.taskName,
-                                                                             expirationHandler: nil)
             self.raw_perform(with: values)
             DispatchQueue.main.async {
                 guard let id = self.backgroundTaskID else { return }
