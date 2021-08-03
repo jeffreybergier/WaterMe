@@ -33,6 +33,11 @@ class CoreSpotlightIndexer {
     private static var backgroundTaskID: UIBackgroundTaskIdentifier?
 
     class func perform(with values: [ReminderAndVesselValue]) {
+        // make sure we can index
+        guard CSSearchableIndex.isIndexingAvailable() else {
+            "Indexing not available on this device".log(as: .info)
+            return
+        }
         // make sure there isn't already a background task in progress
         guard self.backgroundTaskID == nil else {
             Analytics.log(event: Analytics.NotificationPermission.scheduleAlreadyInProgress)
