@@ -736,7 +736,7 @@ extension CloudSyncProgressView {
             = NSLocalizedString("iCloud Sync is restricted by parental or administrator controls.",
                                 comment: "Alert Message: iCloud is restricted on this device. The user cannot fix this issue.")
         static let iCloudLoggedOutErrorAlertMessage: String
-            = NSLocalizedString("To use iCloud Sync with WaterMe, please sign into your iCloud account. If you do not want to see this error, disable 'Sync via iCloud' in Settings.",
+            = NSLocalizedString("To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings.",
                                 comment: "Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe.")
         static let unsupportedDeviceErrorAlertMessage: String
             = NSLocalizedString("iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings.",

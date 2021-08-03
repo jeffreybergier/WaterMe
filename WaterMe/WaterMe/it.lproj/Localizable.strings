@@ -509,7 +509,7 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 "iCloud Sync is restricted by parental or administrator controls." = "Sincronizzazione iCould limitata dai controlli parentali o amministratore.";
 
 /* Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe. */
-"To use iCloud Sync with WaterMe, please sign into your iCloud account. If you do not want to see this error, disable 'Sync via iCloud' in Settings." = "Per utilizzare Sincronizzazione iCloud con WaterMe, accedi al tuo account iCloud. Se non vuoi visualizzare questo errore, disattiva la sincronizzazione di iCloud in Impostazioni.";
+"To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings." = "Per utilizzare Sincronizzazione iCloud con WaterMe, accedi al tuo account iCloud y abilitare 'iCloud Drive.' Se non vuoi visualizzare questo errore, disattiva la 'Sincronizzazione di iCloud' in Impostazioni.";
 
 /* Alert Message: The device is running an old version of iOS and cannot use iCloud Sync. */
 "iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings." = "Sincronizzazione iCloud è disponibile solo con dispositivi con iOS 14 o versioni successive. Se non vuoi visualizzare questo errore, disattiva la sincronizzazione di iCloud in Impostazioni.";
