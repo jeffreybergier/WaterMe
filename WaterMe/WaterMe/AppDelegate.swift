@@ -28,6 +28,7 @@ import AVFoundation
 import StoreKit
 import UIKit
 import Calculate
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -150,8 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token6 = ud.observe(\.CLOUD_SYNC) { _, _ in
             cloudSyncChanges()
         }
-        // TODO: test to make sure this notification actually does something
-        _ = nc.addObserver(forName: .NSUbiquityIdentityDidChange, object: nil, queue: nil)
+        _ = nc.addObserver(forName: .CKAccountChanged, object: nil, queue: nil)
         { _ in
             cloudSyncChanges()
         }
