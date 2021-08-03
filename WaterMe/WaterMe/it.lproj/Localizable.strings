@@ -415,7 +415,7 @@
 "Unable to save changes because the item was deleted. Possibly from another device." = "Impossibile salvare le modifiche perché l'elemento è stato eliminato. Forse da un altro dispositivo.";
 
 /* Realm Error: Save: Message: There was an error performing maintenance. The app is probably not usable if this error happens. */
-// TODO: "Error performing maintenance. Check to make sure there is free space available on this device." = "Error performing maintenance. Check to make sure there is free space available on this device.";
+"Error performing maintenance. Check to make sure there is free space available on this device." = "Errore durante la manutenzione. Verificare che ci sia spazio libero disponibile su questo dispositivo.";
 
 /* Alert: App Update: Title: Alert title that tells the user that an update is available for WaterMe */
 "Update Available" = "Nuovo aggiornamento disponibile";
