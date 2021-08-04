@@ -38,7 +38,6 @@ class ReminderUserNotificationController {
         }
         
         let application = UIApplication.shared
-        let appDelegate = AppDelegate.shared
         
         // tell the OS I'm running a background task
         self.backgroundTaskID = application.beginBackgroundTask(withName: self.taskName,
@@ -58,10 +57,10 @@ class ReminderUserNotificationController {
             // clear out all the old stuff before making new stuff
             let center = UNUserNotificationCenter.current()
             center.removeAllPendingNotificationRequests()
-            if appDelegate.didLaunchInBackground == false {
+            if application.applicationState == .active {
                 // only clear the delivered notifications if the app was
-                // launched normally. If it was launched automatically,
-                // we just want to update future notifications and badge
+                // is in the foreground. If things are being updated
+                // in the background, then don't clear delivered notifications
                 center.removeAllDeliveredNotifications()
             }
 

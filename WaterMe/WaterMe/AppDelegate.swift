@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let loggerDelegate = LoggerErrorDelegate()
     // swiftlint:enable weak_delegate
     private(set) var reminderObserver: GlobalReminderObserver?
-    private(set) var didLaunchInBackground: Bool = false
     private lazy var basicControllerResult = NewBasicController(of: UserDefaults.standard.controllerKind)
 
     let purchaseController = PurchaseController()
@@ -161,9 +160,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
-        // Let things know that we launched in the background
-        self.didLaunchInBackground = application.applicationState == .background
-        
         // configure background fetch
         application.setMinimumBackgroundFetchInterval(3/*hours*/ * 60/*minutes*/ * 60/*seconds*/)
         
@@ -307,17 +303,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         error.log()
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        self.didLaunchInBackground = false
-    }
-    
-    func applicationWillResignActive(_ application: UIApplication) {
-        self.didLaunchInBackground = false
-    }
-    
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let isInBackground = application.applicationState == .background
-        self.didLaunchInBackground = isInBackground
         // TODO: Figure out how to connect these to actual work being done.
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             completionHandler(.newData)
@@ -325,8 +311,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let isInBackground = application.applicationState == .background
-        self.didLaunchInBackground = isInBackground
         // TODO: Figure out how to connect these to actual work being done.
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             completionHandler(.newData)
