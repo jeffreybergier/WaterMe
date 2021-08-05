@@ -42,6 +42,17 @@ class ReminderUserNotificationController {
         // tell the OS I'm running a background task
         self.backgroundTaskID = application.beginBackgroundTask(withName: self.taskName,
                                                                 expirationHandler: nil)
+        
+        // clear out all the old stuff before making new stuff
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+        if application.applicationState == .active {
+            // only clear the delivered notifications if the app was
+            // is in the foreground. If things are being updated
+            // in the background, then don't clear delivered notifications
+            center.removeAllDeliveredNotifications()
+        }
+        
         // hop on a background queue to do the processing
         self.queue.async {
             // completion block for when things are finished
@@ -52,16 +63,6 @@ class ReminderUserNotificationController {
                     self.backgroundTaskID = nil
                     application.endBackgroundTask(id)
                 }
-            }
-            
-            // clear out all the old stuff before making new stuff
-            let center = UNUserNotificationCenter.current()
-            center.removeAllPendingNotificationRequests()
-            if application.applicationState == .active {
-                // only clear the delivered notifications if the app was
-                // is in the foreground. If things are being updated
-                // in the background, then don't clear delivered notifications
-                center.removeAllDeliveredNotifications()
             }
 
             // make sure we have data to work with before continuing
