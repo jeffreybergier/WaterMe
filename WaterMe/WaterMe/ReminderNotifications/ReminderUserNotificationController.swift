@@ -46,12 +46,7 @@ class ReminderUserNotificationController {
         // clear out all the old stuff before making new stuff
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
-        if application.applicationState == .active {
-            // only clear the delivered notifications if the app was
-            // is in the foreground. If things are being updated
-            // in the background, then don't clear delivered notifications
-            center.removeAllDeliveredNotifications()
-        }
+        center.removeAllDeliveredNotifications()
         
         // hop on a background queue to do the processing
         self.queue.async {
@@ -137,8 +132,7 @@ class ReminderUserNotificationController {
         // add that to the number of extra days the user requested
         let totalReminderDays = (numberOfDaysToLastReminder ?? 0) + reminderDays
 
-        // loop through the number of days the user wants to be reminded for
-        // get all reminders that happened on or before the end of the day of `futureReminderTime`
+        // batch all the reminders into days
         let matches = (0 ..< totalReminderDays).compactMap() { i -> (Date, [ReminderAndVesselValue])? in
             let testDate = calendar.date(byAdding: .day, value: i, to: now)!
             let endOfDayInTestDate = calendar.endOfDay(for: testDate)
@@ -152,13 +146,7 @@ class ReminderUserNotificationController {
         }
 
         // convert the matches into one notification each
-        // this makes it so the user only gets 1 notification per day at the time they requested
         let reminders = matches.compactMap() { reminderTime, matches -> UNNotificationRequest? in
-            // if the interval is less 0 or less, we don't want to schedule a notification
-            // all that needs to happen in this case is the badge icon get updated, and that can be done elsewhere
-            let interval = reminderTime.timeIntervalSince(now)
-            guard interval > 0 else { return nil }
-
             // construct the notification
             let _content = UNMutableNotificationContent()
             let dateComponents = calendar.userNotificationCompatibleDateComponents(with: reminderTime)
