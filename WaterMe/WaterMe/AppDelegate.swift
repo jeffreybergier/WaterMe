@@ -116,9 +116,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // Clean things up
                     self?.window?.rootViewController = nil
                     self?.basicControllerResult = .failure(.loadError)
+                    self?.reminderObserver = nil
                 }
                 // Create new VC with recreated data source
                 let controller = NewBasicController(of: UserDefaults.standard.controllerKind)
+                self?.reminderObserver = .init(result: controller)
                 self?.basicControllerResult = controller
                 self?.window?.rootViewController = ReminderMainViewController.newVC(basic: controller)
             }
@@ -188,10 +190,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? AVAudioSession.sharedInstance().setCategory(.ambient)
 
         let result = self.basicControllerResult
+        self.reminderObserver = GlobalReminderObserver(result: result)
         let vc = ReminderMainViewController.newVC(basic: result)
-        if case .success(let basicRC) = result {
-            self.reminderObserver = GlobalReminderObserver(basicController: basicRC)
-        }
 
         // When a new build is detected, we set a date
         // Two weeks after that date, the user is eligible to be asked for a review

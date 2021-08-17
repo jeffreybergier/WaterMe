@@ -781,12 +781,18 @@ private class WaterMe_PersistentContainer: NSPersistentContainer {
     override class func defaultDirectoryURL() -> URL {
         return CD_BasicController.storeDirectoryURL
     }
+    deinit {
+        Loggable.default?.verbose()
+    }
 }
 
 @available(iOS 14.0, *)
 private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
     override class func defaultDirectoryURL() -> URL {
         return CD_BasicController.storeDirectoryURL
+    }
+    deinit {
+        Loggable.default?.verbose()
     }
 }
 

@@ -250,6 +250,10 @@ class CloudSyncProgressView: ZStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        Loggable.default?.verbose()
+    }
 }
 
 extension CloudSyncProgressView: ZStackViewAnimationDelegate {

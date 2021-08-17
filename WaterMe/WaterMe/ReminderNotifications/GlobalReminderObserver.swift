@@ -47,7 +47,8 @@ class GlobalReminderObserver {
     private let taskName = String(describing: GlobalReminderObserver.self) + UUID().uuidString
     private var backgroundTaskID: UIBackgroundTaskIdentifier?
 
-    init(basicController: BasicController) {
+    init?(result: Result<BasicController, DatumError>) {
+        guard let basicController = result.value else { return nil }
         self.basicRC = basicController
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.applicationDidEnterBackground(with:)),
@@ -55,11 +56,11 @@ class GlobalReminderObserver {
                                                object: nil)
         self.significantTimePassedDetector.delegate = self
 
-        self.basicRC.reminderVesselsDeleted = { vessels in
-            self.shortcutSuggester?.deleteActivities(for: vessels)
+        self.basicRC.reminderVesselsDeleted = { [weak self] vessels in
+            self?.shortcutSuggester?.deleteActivities(for: vessels)
         }
-        self.basicRC.remindersDeleted = { reminders in
-            self.shortcutSuggester?.deleteActivities(for: reminders)
+        self.basicRC.remindersDeleted = { [weak self] reminders in
+            self?.shortcutSuggester?.deleteActivities(for: reminders)
         }
         DispatchQueue.main.async {
             let collection = basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).value
