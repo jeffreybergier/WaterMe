@@ -39,6 +39,13 @@ class ReminderNotificationUIDelegate: NSObject, UNUserNotificationCenterDelegate
             // that just happened to arrive while the user is using the app
             completionHandler([.badge, .sound, .list, .banner])
         } else {
+            // if the trigger is NIL that means it was fired while the app was open and its for the past
+            guard notification.request.trigger != nil else {
+                completionHandler([.badge])
+                return
+            }
+            // if its not NIL that means its a scheduled notification
+            // that just happened to arrive while the user is using the app
             completionHandler([.alert, .badge, .sound])
         }
     }

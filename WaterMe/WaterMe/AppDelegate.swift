@@ -163,7 +163,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // configure background fetch
-        application.setMinimumBackgroundFetchInterval(3/*hours*/ * 60/*minutes*/ * 60/*seconds*/)
+        if #available(iOS 14, *) {
+            application.setMinimumBackgroundFetchInterval(3/*hours*/ * 60/*minutes*/ * 60/*seconds*/)
+        } else {
+            application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
+        }
         
         // Remote notifications used for CloudKit
         application.registerForRemoteNotifications()
