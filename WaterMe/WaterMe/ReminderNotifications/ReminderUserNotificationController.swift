@@ -150,10 +150,9 @@ class ReminderUserNotificationController {
             // construct the notification
             let _content = UNMutableNotificationContent()
             let dateComponents = calendar.userNotificationCompatibleDateComponents(with: reminderTime)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-
-            // crash in debug if this doesn't match my expectations
-            assert(trigger.nextTriggerDate() == reminderTime)
+            let trigger = reminderTime >= now
+                ? UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+                : nil
 
             // shuffle the names so that different plant names show in the notifications
             let plantNames = ReminderAndVesselValue.uniqueParentPlantNames(from: matches).shuffled()
