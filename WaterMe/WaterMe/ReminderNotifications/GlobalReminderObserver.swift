@@ -62,10 +62,9 @@ class GlobalReminderObserver {
         self.basicRC.remindersDeleted = { [weak self] reminders in
             self?.shortcutSuggester?.deleteActivities(for: reminders)
         }
-        DispatchQueue.main.async {
-            let collection = basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).value
-            self.token = collection?.observe({ [weak self] in self?.dataChanged($0) })
-        }
+        let collection = basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).value
+        self.token = collection?.observe({ [weak self] in self?.dataChanged($0) })
+        self.resetTimer()
     }
 
     func notificationPermissionsMayHaveChanged() {
@@ -76,7 +75,6 @@ class GlobalReminderObserver {
         switch changes {
         case .initial(let data):
             self.data = data
-            self.dataChanged(of: .all)
         case .update:
             self.resetTimer()
         case .error(let error):

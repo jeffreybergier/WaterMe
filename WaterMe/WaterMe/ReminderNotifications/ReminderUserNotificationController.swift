@@ -46,7 +46,9 @@ class ReminderUserNotificationController {
         // clear out all the old stuff before making new stuff
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
-        center.removeAllDeliveredNotifications()
+        if UIApplication.shared.applicationState == .active {
+            center.removeAllDeliveredNotifications()
+        }
         
         // hop on a background queue to do the processing
         self.queue.async {
