@@ -309,14 +309,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // TODO: Figure out how to connect these to actual work being done.
+        let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            application.endBackgroundTask(task)
             completionHandler(.newData)
         }
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // TODO: Figure out how to connect these to actual work being done.
+        let task = application.beginBackgroundTask(withName: "didReceiveRemoteNotification:", expirationHandler: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            application.endBackgroundTask(task)
             completionHandler(.newData)
         }
     }
