@@ -90,23 +90,24 @@ class ReminderUserNotificationController {
             var idx = 0
             var scheduleLoop: ((Error?) -> Void)!
             scheduleLoop = { error in
-                if let error = error {
-                    // error, time to bail
-                    error.log()
-                    Analytics.log(error: error)
-                    assertionFailure()
-                    completion()
-                    // TODO: Add error for AppDelegate that main app knows about
-                    // TODO: Remove all pending notifications
-                } else if idx < requests.count {
-                    // normal looping / iteration
-                    center.add(requests[idx], withCompletionHandler: scheduleLoop)
-                } else {
-                    // finished successfully!
-                    "Scheduled Notifications: \(requests.count)".log(as: .debug)
-                    completion()
+                self.queue.async {
+                    if let error = error {
+                        // error, time to bail
+                        error.log()
+                        Analytics.log(error: error)
+                        assertionFailure()
+                        completion()
+                        // TODO: Add error for AppDelegate that main app knows about
+                    } else if idx < requests.count {
+                        // normal looping / iteration
+                        center.add(requests[idx], withCompletionHandler: scheduleLoop)
+                    } else {
+                        // finished successfully!
+                        "Scheduled Notifications: \(requests.count)".log(as: .debug)
+                        completion()
+                    }
+                    idx += 1
                 }
-                idx += 1
             }
             scheduleLoop(nil)
         }
@@ -144,6 +145,7 @@ class ReminderUserNotificationController {
             }
             guard matches.isEmpty == false else { return nil }
             let reminderTimeInSameDayAsTestDate = calendar.dateWithExact(hour: reminderHour, onSameDayAs: testDate)
+            guard reminderTimeInSameDayAsTestDate >= now else { return nil }
             return (reminderTimeInSameDayAsTestDate, matches)
         }
 
@@ -167,7 +169,9 @@ class ReminderUserNotificationController {
 
             // swiftlint:disable:next force_cast
             let content = _content.copy() as! UNNotificationContent
-            let request = UNNotificationRequest(identifier: reminderTime.description, content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                                content: content,
+                                                trigger: trigger)
 
             return request
         }
