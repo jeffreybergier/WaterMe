@@ -647,8 +647,9 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
  Ecco fatto! Ogni giorno riceverete una, e una sola, notifica che vi ricorda di prendervi cura delle vostre piante.
 
  - Supporta diversi tipi di promemoria per pianta
- - Acqua, fertilizzanti, potatura e altro ancora
+     - Acqua, fertilizzanti, potatura e altro ancora
  - È facile capire quali piante devono essere curate e quando.
+ - Sincronizza i dati su tutti i tuoi dispositivi iOS tramite iCloud.
  - Supporta il lavoro veloce con l'interfaccia Trascina e rilascia.
  - Personalizza le notifiche di tempo che vengono inviate ogni giorno.
  - Curate il vostro giardino con la vostra voce utilizzando le scorciatoie di Siri.
@@ -656,7 +657,6 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
  - Supporta lo Schermo diviso e Slide Over iPad Multitasking.
  - Supporta il tipologia dinamica.
  - Supporta Voiceover e altre funzioni di accessibilità iOS.
- - Non supporta ancora la sincronizzazione delle piante tra più dispositivi.
  */
 
 // Keywords
