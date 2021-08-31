@@ -341,7 +341,7 @@ extension ReminderCollectionViewController {
                 cv.reloadItems(at: mods)
             }, completion: { success in
                 guard success == false else { return }
-                "CollectionView failed to Reload Sections: This usually happens when data changes really fast".log(as: .warning)
+                "CollectionView failed to Reload Sections: This usually happens when data changes really fast".log(as: .info)
                 cv.reloadData()
             })
         }, shouldCatch: { exception in

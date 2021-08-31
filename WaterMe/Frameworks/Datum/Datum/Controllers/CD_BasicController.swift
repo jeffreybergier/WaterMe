@@ -44,7 +44,7 @@ internal class CD_BasicController: BasicController {
         case .sync:
             guard #available(iOS 14.0, *) else {
                 let message = "Attempted to load Sync container from iOS 13 or lower."
-                message.log()
+                message.log(as: .info)
                 fallthrough
             }
             return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)

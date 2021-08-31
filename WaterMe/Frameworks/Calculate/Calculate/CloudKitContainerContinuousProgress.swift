@@ -89,8 +89,15 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
         DispatchQueue.main.async {
             self.objectWillChange.send()
             if let error = event.error {
-                error.log()
-                self.errorQ.append(.init(error))
+                let convertedError = CloudKitSyncError(error)
+                // only report the original error to the server
+                // if its an unknown error
+                if case .unknown = convertedError.typed {
+                    error.log()
+                } else {
+                    error.log(as: .info)
+                }
+                self.errorQ.append(convertedError)
             }
             if self.io.contains(event.identifier) {
                 "- \(event.identifier)".log(as: .debug)
