@@ -587,8 +587,14 @@ extension CD_BasicController {
         }
     }
     
+    // have to make 2 functions because of type issues in maintenance token code in INIT
     fileprivate func maintenance_oneTrueVesselShare() -> Result<CD_VesselShare, DatumError> {
-        let context = self.container.viewContext
+        return self.maintenance_oneTrueVesselShare(context: nil)
+    }
+    
+    /* Used for migration only */
+    internal func maintenance_oneTrueVesselShare(context: NSManagedObjectContext?) -> Result<CD_VesselShare, DatumError> {
+        let context = context ?? self.container.viewContext
         do {
             // Clean up any errors caused by weird syncing
             // 1. Fetch all VesselShare objects
