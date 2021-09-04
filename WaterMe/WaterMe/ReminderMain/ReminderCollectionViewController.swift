@@ -330,7 +330,7 @@ extension ReminderCollectionViewController {
         guard failureReason == nil else {
             let error = NSError(errorFromSanityCheckFailureReason: failureReason!)
             Analytics.log(error: error)
-            error.log()
+            error.log(as: .notice)
             cv.reloadData()
             return
         }
@@ -341,7 +341,7 @@ extension ReminderCollectionViewController {
                 cv.reloadItems(at: mods)
             }, completion: { success in
                 guard success == false else { return }
-                "CollectionView failed to Reload Sections: This usually happens when data changes really fast".log(as: .info)
+                "CollectionView failed to Reload Sections: This usually happens when data changes really fast".log(as: .notice)
                 cv.reloadData()
             })
         }, shouldCatch: { exception in
@@ -350,7 +350,7 @@ extension ReminderCollectionViewController {
             }
             let error = NSError(collectionViewBatchUpdateException: exception)
             Analytics.log(error: error)
-            error.log(as: .severe)
+            error.log(as: .error)
             return true
         }, finally: { exceptionWasCaught in
             guard exceptionWasCaught == true else { return }
