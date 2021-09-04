@@ -115,6 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 autoreleasepool {
                     // Clean things up
                     self?.window?.rootViewController = nil
+                    self?.window?.style_configureTemporaryReset()
                     self?.basicControllerResult = .failure(.loadError)
                     self?.reminderObserver = nil
                 }
@@ -128,6 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         UserDefaults.standard.didChangeValue(for: \.CLOUD_SYNC)
                     }
                     self?.basicControllerResult = controller
+                    self?.window?.style_unconfigureTemporaryReset()
                     self?.window?.rootViewController = ReminderMainViewController.newVC(basic: controller)
                 }
             }

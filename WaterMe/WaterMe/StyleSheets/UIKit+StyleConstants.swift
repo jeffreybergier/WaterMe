@@ -174,9 +174,14 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func style_setCornerRadius() {
+        self.layer.cornerRadius = self.maxCornerRadius(withDesiredRadius: UIApplication.style_cornerRadius)
+    }
+}
+
 extension UIWindow {
-    override func style_configure() {
-        super.style_configure()
+    func style_configureTemporaryReset() {
         let ud = UserDefaults.standard
         if #available(iOS 13.0, *) {
             switch ud.darkMode {
@@ -191,11 +196,9 @@ extension UIWindow {
             self.backgroundColor = .white
         }
     }
-}
-
-extension UIView {
-    func style_setCornerRadius() {
-        self.layer.cornerRadius = self.maxCornerRadius(withDesiredRadius: UIApplication.style_cornerRadius)
+    
+    func style_unconfigureTemporaryReset() {
+        self.backgroundColor = nil
     }
 }
 

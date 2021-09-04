@@ -34,32 +34,32 @@ class HACK_CloudSyncHangDetector {
     private var token: Any?
     private var timer: Timer?
     
-    private let progressChangedClosure: (HACK_CloudSyncHangDetector, Progress) -> Void = { detector, progress in
-        "Progress: \(progress.fractionCompleted)%".log(as: .debug)
-        switch progress.fractionCompleted {
-        case 1, 0:
-            "Timer: Cancelled".log(as: .debug)
-            detector.cancelTimer()
-        default:
-            "Timer: Started".log(as: .debug)
-            detector.resetTimer()
+    private let progressWillChangeClosure: (HACK_CloudSyncHangDetector, Progress) -> Void = { detector, progress in
+        // need to wait for a split second because
+        // this is objectWillChange (not did change)
+        DispatchQueue.main.async {
+            "Progress: \(progress.fractionCompleted)%".log(as: .debug)
+            switch progress.fractionCompleted {
+            case 1, 0:
+                "Timer: Cancelled".log(as: .debug)
+                detector.cancelTimer()
+            default:
+                "Timer: Started".log(as: .debug)
+                detector.resetTimer()
+            }
         }
     }
     
     init?(result: Result<BasicController, DatumError>, onHang: @escaping () -> Void) {
-        guard #available(iOS 14.0, *) else { return nil }
         guard
+            #available(iOS 14.0, *),
             case .success(let controller) = result,
             let progress = controller.syncProgress
         else { return nil }
         self.onHangClosure = onHang
         self.token = progress.objectWillChange.sink { [weak self, weak progress] in
             guard let progress = progress, let self = self else { return }
-            // need to wait for a split second because
-            // this is objectWillChange (not did change)
-            DispatchQueue.main.async {
-                self.progressChangedClosure(self, progress.progress)
-            }
+            self.progressWillChangeClosure(self, progress.progress)
         }
     }
     
@@ -68,11 +68,7 @@ class HACK_CloudSyncHangDetector {
         self.onHangClosure = onHang
         self.token = progress.objectWillChange.sink { [weak self, weak progress] in
             guard let progress = progress, let self = self else { return }
-            // need to wait for a split second because
-            // this is objectWillChange (not did change)
-            DispatchQueue.main.async {
-                self.progressChangedClosure(self, progress.progress)
-            }
+            self.progressWillChangeClosure(self, progress.progress)
         }
     }
     
