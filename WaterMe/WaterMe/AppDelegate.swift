@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // swiftlint:disable weak_delegate
     private let notificationUIDelegate = ReminderNotificationUIDelegate()
     private let loggerDelegate = LoggerErrorDelegate()
-    // swiftlint:enable weak_delegate
+    private var cloudSyncHangDetector: HACK_CloudSyncHangDetector?
     private(set) var reminderObserver: GlobalReminderObserver?
     private lazy var basicControllerResult = NewBasicController(of: UserDefaults.standard.controllerKind)
 
@@ -118,11 +118,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self?.basicControllerResult = .failure(.loadError)
                     self?.reminderObserver = nil
                 }
-                // Create new VC with recreated data source
-                let controller = NewBasicController(of: UserDefaults.standard.controllerKind)
-                self?.reminderObserver = .init(result: controller)
-                self?.basicControllerResult = controller
-                self?.window?.rootViewController = ReminderMainViewController.newVC(basic: controller)
+                // Need to wait for CoreData to be fully deallocated
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    // Create new VC with recreated data source
+                    let controller = NewBasicController(of: UserDefaults.standard.controllerKind)
+                    self?.reminderObserver = .init(result: controller)
+                    self?.cloudSyncHangDetector = HACK_CloudSyncHangDetector(result: controller) {
+                        UserDefaults.standard.willChangeValue(for: \.CLOUD_SYNC)
+                        UserDefaults.standard.didChangeValue(for: \.CLOUD_SYNC)
+                    }
+                    self?.basicControllerResult = controller
+                    self?.window?.rootViewController = ReminderMainViewController.newVC(basic: controller)
+                }
             }
         }
         // register for notifications about the increase contrast setting
@@ -152,9 +159,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token6 = ud.observe(\.CLOUD_SYNC) { _, _ in
             cloudSyncChanges()
         }
-        _ = nc.addObserver(forName: .CKAccountChanged, object: nil, queue: nil)
-        { _ in
-            cloudSyncChanges()
+        // on first launch, this fires right away and causes everything
+        // to blow up. This delay lets us miss this initial notification
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            _ = nc.addObserver(forName: .CKAccountChanged, object: nil, queue: nil)
+            { _ in
+                cloudSyncChanges()
+            }
         }
         self.userDefaultObserverTokens += [token1, token2, token3, token4, token5, token6]
     }
@@ -195,6 +206,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let result = self.basicControllerResult
         self.reminderObserver = GlobalReminderObserver(result: result)
+        self.cloudSyncHangDetector = HACK_CloudSyncHangDetector(result: result) {
+            UserDefaults.standard.willChangeValue(for: \.CLOUD_SYNC)
+            UserDefaults.standard.didChangeValue(for: \.CLOUD_SYNC)
+        }
         let vc = ReminderMainViewController.newVC(basic: result)
 
         // When a new build is detected, we set a date

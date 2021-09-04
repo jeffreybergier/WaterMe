@@ -158,7 +158,7 @@ extension UINavigationBar {
 }
 
 extension UIView {
-    func style_configure() {
+    @objc func style_configure() {
         // configure dark mode
         let ud = UserDefaults.standard
         if #available(iOS 13.0, *) {
@@ -170,6 +170,25 @@ extension UIView {
             case .forceDark:
                 self.overrideUserInterfaceStyle = .dark
             }
+        }
+    }
+}
+
+extension UIWindow {
+    override func style_configure() {
+        super.style_configure()
+        let ud = UserDefaults.standard
+        if #available(iOS 13.0, *) {
+            switch ud.darkMode {
+            case .system:
+                self.backgroundColor = .systemBackground
+            case .forceLight:
+                self.backgroundColor = .white
+            case .forceDark:
+                self.backgroundColor = .black
+            }
+        } else {
+            self.backgroundColor = .white
         }
     }
 }

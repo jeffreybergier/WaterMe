@@ -224,6 +224,7 @@
 		7334FE1D26429286004381A0 /* CloudSyncErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334FE1C26429286004381A0 /* CloudSyncErrors.swift */; };
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
+		73BDEE8726E3401B00C57FAE /* HACK_CloudSyncHangDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BDEE8626E3401B00C57FAE /* HACK_CloudSyncHangDetector.swift */; };
 		73D02F66263F683300E90138 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F64263F683200E90138 /* TestDB.sqlite */; };
 		73D02F67263F683300E90138 /* TestDB.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F65263F683300E90138 /* TestDB.sqlite-wal */; };
 		73D02F69263F69ED00E90138 /* SchemaMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */; };
@@ -533,6 +534,7 @@
 		733BC95226880E9700F821D6 /* Result+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
 		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
+		73BDEE8626E3401B00C57FAE /* HACK_CloudSyncHangDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HACK_CloudSyncHangDetector.swift; sourceTree = "<group>"; };
 		73D02F64263F683200E90138 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
 		73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMigrationTests.swift; sourceTree = "<group>"; };
@@ -1150,6 +1152,7 @@
 				731B01E726411E8B00165220 /* CloudSyncProgressView.swift */,
 				7334FE1C26429286004381A0 /* CloudSyncErrors.swift */,
 				733BC954268821A800F821D6 /* ZStackView.swift */,
+				73BDEE8626E3401B00C57FAE /* HACK_CloudSyncHangDetector.swift */,
 			);
 			path = CloudSyncInfo;
 			sourceTree = "<group>";
@@ -1675,6 +1678,7 @@
 				5096D19821547764006E1019 /* Color.swift in Sources */,
 				509A0867215FFEF700389339 /* SiriShortcutTableViewCell.swift in Sources */,
 				5096D19C21547991006E1019 /* NSAttributedString+Font.swift in Sources */,
+				73BDEE8726E3401B00C57FAE /* HACK_CloudSyncHangDetector.swift in Sources */,
 				50DD7A38215D6BBF00047B0C /* EmojiImageView.swift in Sources */,
 				50E8B1EA1EE1C39400ACCDAF /* ReminderVesselIconTableViewCell.swift in Sources */,
 				5087A9201EE337C10046E687 /* EmojiPickerCollectionViewCell.swift in Sources */,
