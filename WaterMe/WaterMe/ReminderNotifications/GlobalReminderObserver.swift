@@ -119,7 +119,7 @@ class GlobalReminderObserver {
 
     private func resetTimer() {
         self.timer?.invalidate()
-        self.timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { timer in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
             timer.invalidate()
             self.timer?.invalidate()
             self.timer = nil
