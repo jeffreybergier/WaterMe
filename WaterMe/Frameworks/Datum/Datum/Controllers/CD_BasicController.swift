@@ -42,12 +42,13 @@ internal class CD_BasicController: BasicController {
         
         switch kind {
         case .sync:
-            guard #available(iOS 14.0, *) else {
+            if #available(iOS 14.0, *) {
+                return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)
+            } else {
                 let message = "Attempted to load Sync container from iOS 13 or lower."
                 message.log(as: .info)
                 fallthrough
             }
-            return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)
         case .local:
             let container = WaterMe_PersistentContainer(name: "WaterMe", managedObjectModel: mom)
             let description = container.persistentStoreDescriptions.first!
@@ -191,12 +192,25 @@ internal class CD_BasicController: BasicController {
         // debug only sanity checks
         assert(Thread.isMainThread)
         
+        // get vesselshare or bail
+        let vesselShareResult = self.maintenance_oneTrueVesselShare()
+        let vesselShare: CD_VesselShare
+        switch vesselShareResult {
+        case .success(let vs):
+            vesselShare = vs
+        case .failure(let error):
+            return .failure(error)
+        }
+        
+        // create new vessel
         let context = self.container.viewContext
         let vessel = CD_ReminderVessel(context: context)
+        
         // enforce at least 1 reminder
         let newReminder = CD_Reminder(context: context)
         context.insert(newReminder)
         context.insert(vessel)
+        
         // core data hooks up the inverse relationship
         newReminder.raw_vessel = vessel
         if let displayName = displayName {
@@ -205,16 +219,11 @@ internal class CD_BasicController: BasicController {
         if let icon = icon {
             vessel.icon = icon
         }
+        vessel.raw_share = vesselShare
         
-        let vesselShareResult = self.maintenance_oneTrueVesselShare()
-        switch vesselShareResult {
-        case .failure(let error):
-            return .failure(error)
-        case .success(let vesselShare):
-            vessel.raw_share = vesselShare
-            return context.waterme_save().map {
-                CD_ReminderVesselWrapper(vessel, context: { self.container.viewContext })
-            }
+        // save
+        return context.waterme_save().map {
+            CD_ReminderVesselWrapper(vessel, context: { self.container.viewContext })
         }
     }
 
@@ -592,7 +601,7 @@ extension CD_BasicController {
         return self.maintenance_oneTrueVesselShare(context: nil)
     }
     
-    /* Used for migration only */
+    /* internal for migration only */
     internal func maintenance_oneTrueVesselShare(context: NSManagedObjectContext?) -> Result<CD_VesselShare, DatumError> {
         let context = context ?? self.container.viewContext
         do {
@@ -611,21 +620,23 @@ extension CD_BasicController {
                 let originalVesselShare = fetchResult[0]
                 return .success(originalVesselShare)
             default:
-                // 1.a Find the oldest one
+                // 1. Find the vesselShare with highest count of vessels
                 let sorted = fetchResult.sorted(by: { $0.raw_vessels?.count ?? 0 > $1.raw_vessels?.count ?? 0 })
                 let willKeepShare = sorted[0]
                 sorted.dropFirst().forEach { willDeleteShare in
-                    // 1.b Get all vessels from all other ones
+                    // 2. Move vessels to willKeep vesselShare
                     let vessels = (willDeleteShare.raw_vessels?.copy() as? NSSet) ?? []
                     for vessel in vessels {
                         guard let vessel = vessel as? CD_ReminderVessel else { continue }
                         willDeleteShare.removeFromRaw_vessels(vessel)
                         willKeepShare.addToRaw_vessels(vessel)
                     }
-                    // 1.c Delete all shares other than oldest one
+                    // 3. Delete all shares other than oldest one
                     context.delete(willDeleteShare)
                 }
+                // 4. Save
                 try context.save()
+                // 5. Mark the data as dirty so everything syncs
                 UserDefaults.standard.didRunWithoutCloudSync = true
                 "2+ VesselShares present, but was able to clean.".log(as: .warning)
                 return .success(willKeepShare)
