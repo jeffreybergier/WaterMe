@@ -48,9 +48,14 @@ extension NSError {
     public convenience init(collectionViewBatchUpdateException exception: NSException) {
         let code = 1003
         let message = exception.reason ?? "CollectionView Threw Exception During Batch Update"
-        let userInfo: [String : Any] = [
+        var userInfo: [String : Any] = [
+            NSLocalizedFailureErrorKey : exception.name,
             NSLocalizedFailureReasonErrorKey : message
         ]
+        for (_key, value) in exception.userInfo ?? [:] {
+            let key = _key as? String ?? _key.description
+            userInfo[key] = value
+        }
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
 
