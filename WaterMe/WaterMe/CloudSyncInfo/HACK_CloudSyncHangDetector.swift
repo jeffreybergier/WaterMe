@@ -51,6 +51,9 @@ class HACK_CloudSyncHangDetector {
     }
     
     init?(result: Result<BasicController, DatumError>, onHang: @escaping () -> Void) {
+        // TODO: Remove this or remove this class
+        return nil
+        
         guard
             #available(iOS 14.0, *),
             case .success(let controller) = result,
@@ -65,6 +68,9 @@ class HACK_CloudSyncHangDetector {
     
     @available(iOS 13.0, *)
     init(progress: AnyContinousProgress<GenericInitializationError, CloudKitSyncError>, onHang: @escaping () -> Void) {
+        // TODO: Remove this or remove this class
+        fatalError("Not used")
+        
         self.onHangClosure = onHang
         self.token = progress.objectWillChange.sink { [weak self, weak progress] in
             guard let progress = progress, let self = self else { return }

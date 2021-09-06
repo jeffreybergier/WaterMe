@@ -161,16 +161,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token6 = ud.observe(\.CLOUD_SYNC) { _, _ in
             cloudSyncChanges()
         }
-        // on first launch, this fires right away and causes everything
-        // to blow up. This delay lets us miss this initial notification
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            _ = nc.addObserver(forName: .CKAccountChanged, object: nil, queue: nil)
-            { _ in
-                cloudSyncChanges()
+        
+        if #available(iOS 14.0, *) {
+            // on first launch, this fires right away and causes everything
+            // to blow up. This delay lets us miss this initial notification
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                let token7 = nc.publisher(for: .CKAccountChanged)
+                    .debounce(for: .seconds(1), scheduler: RunLoop.main)
+                    .sink { _ in cloudSyncChanges() }
+                self.combinePublisherTokens += [token7]
             }
         }
         self.userDefaultObserverTokens += [token1, token2, token3, token4, token5, token6]
     }
+    
+    // TODO: Move this if experiment works
+    private var combinePublisherTokens: [Any] = []
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
