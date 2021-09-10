@@ -45,10 +45,15 @@ class ReminderUserNotificationController {
         
         // clear out all the old stuff before making new stuff
         let center = UNUserNotificationCenter.current()
+        // if there is a notification on the user's phone and we update
+        // in the background then I don't want to clear the notification.
+        // this flag tells the scheduler to also schedule one on the same day
+        // if needed.
+        // If all the notifications were already cleared then we don't need
+        // one for the day.
+        let needsTodayNotification = !center.sync_getDeliveredNotifications().isEmpty
         center.removeAllPendingNotificationRequests()
-        if UIApplication.shared.applicationState == .active {
-            center.removeAllDeliveredNotifications()
-        }
+        center.removeAllDeliveredNotifications()
         
         // hop on a background queue to do the processing
         self.queue.async {
@@ -77,7 +82,8 @@ class ReminderUserNotificationController {
                 return
             }
             // generate notification object requests
-            let requests = type(of: self).notificationRequests(from: values)
+            let requests = type(of: self).notificationRequests(from: values,
+                                                               needsTodayNotification: needsTodayNotification)
             Analytics.log(event: Analytics.NotificationPermission.scheduleSucceeded,
                           extras: Analytics.NotificationPermission.extras(forCount: requests.count))
             guard requests.isEmpty == false else {
@@ -113,7 +119,7 @@ class ReminderUserNotificationController {
         }
     }
 
-    private class func notificationRequests(from values: [ReminderAndVesselValue]) -> [UNNotificationRequest] {
+    private class func notificationRequests(from values: [ReminderAndVesselValue], needsTodayNotification: Bool) -> [UNNotificationRequest] {
         // make sure we have data to work with
         guard values.isEmpty == false else { return [] }
 
@@ -125,6 +131,7 @@ class ReminderUserNotificationController {
         // get some constants we'll use throughout
         let calendar = Calendar.current
         let now = Date()
+        let startOfToday = calendar.startOfDay(for: now)
 
         // find the last reminder time and how many days away it is
         let numberOfDaysToLastReminder = values.last?.reminder.nextPerformDate.map() { endDate -> Int in
@@ -145,7 +152,7 @@ class ReminderUserNotificationController {
             }
             guard matches.isEmpty == false else { return nil }
             let reminderTimeInSameDayAsTestDate = calendar.dateWithExact(hour: reminderHour, onSameDayAs: testDate)
-            guard reminderTimeInSameDayAsTestDate >= now else { return nil }
+            guard reminderTimeInSameDayAsTestDate >= (needsTodayNotification ? startOfToday : now) else { return nil }
             return (reminderTimeInSameDayAsTestDate, matches)
         }
 
@@ -200,5 +207,18 @@ extension ReminderUserNotificationController.LocalizedString {
             let string = String(format: self.bodyManyItems, item1, items.count - 1)
             return string
         }
+    }
+}
+
+extension UNUserNotificationCenter {
+    fileprivate func sync_getDeliveredNotifications() -> [UNNotification] {
+        var output: [UNNotification]?
+        let semaphore = DispatchSemaphore(value: 0)
+        self.getDeliveredNotifications {
+            output = $0
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return output ?? []
     }
 }
