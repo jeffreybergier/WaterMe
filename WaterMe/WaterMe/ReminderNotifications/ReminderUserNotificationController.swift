@@ -43,17 +43,20 @@ class ReminderUserNotificationController {
         self.backgroundTaskID = application.beginBackgroundTask(withName: self.taskName,
                                                                 expirationHandler: nil)
         
-        // clear out all the old stuff before making new stuff
         let center = UNUserNotificationCenter.current()
+        // clear out all the old stuff before making new stuff
+        center.removeAllPendingNotificationRequests()
+        let allDeliveredNotifications = center.sync_getDeliveredNotifications()
+        let notificationsToRemove = type(of: self).identifiersForRemindersBeforeToday(allDeliveredNotifications, Calendar.current)
+        center.removeDeliveredNotifications(withIdentifiers: notificationsToRemove)
         // if there is a notification on the user's phone and we update
         // in the background then I don't want to clear the notification.
         // this flag tells the scheduler to also schedule one on the same day
         // if needed.
         // If all the notifications were already cleared then we don't need
         // one for the day.
-        let needsTodayNotification = !center.sync_getDeliveredNotifications().isEmpty
-        center.removeAllPendingNotificationRequests()
-        center.removeAllDeliveredNotifications()
+        let needsTodayNotification = allDeliveredNotifications.count > notificationsToRemove.count
+        
         
         // hop on a background queue to do the processing
         self.queue.async {
@@ -176,7 +179,7 @@ class ReminderUserNotificationController {
 
             // swiftlint:disable:next force_cast
             let content = _content.copy() as! UNNotificationContent
-            let request = UNNotificationRequest(identifier: UUID().uuidString,
+            let request = UNNotificationRequest(identifier: reminderTime.description,
                                                 content: content,
                                                 trigger: trigger)
 
@@ -185,6 +188,15 @@ class ReminderUserNotificationController {
 
         // done!
         return reminders
+    }
+    
+    private static func identifiersForRemindersBeforeToday(_ all: [UNNotification],
+                                                           _ calendar: Calendar) -> [String]
+    {
+        let startOfToday = calendar.startOfDay(for: Date())
+        return all
+            .filter { $0.date >= startOfToday }
+            .map { $0.request.identifier }
     }
 }
 
