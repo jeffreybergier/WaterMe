@@ -195,7 +195,7 @@ class ReminderUserNotificationController {
     {
         let startOfToday = calendar.startOfDay(for: Date())
         return all
-            .filter { $0.date >= startOfToday }
+            .filter { $0.date <= startOfToday }
             .map { $0.request.identifier }
     }
 }
