@@ -31,32 +31,38 @@ class ReminderUserNotificationController {
     private var backgroundTaskID: UIBackgroundTaskIdentifier?
 
     func perform(with values: [ReminderAndVesselValue]) {
+        
+        // get reusable objects
+        let application = UIApplication.shared
+        let calendar = Calendar.current
+        let center = UNUserNotificationCenter.current()
+        let now = Date()
+        
+        // make sure we have permission to schedule
+        guard center.canScheduleNotifications else {
+            Analytics.log(event: Analytics.NotificationPermission.permissionDenied)
+            return
+        }
+        
         // make sure there isn't already a background task in progress
         guard self.backgroundTaskID == nil else {
             Analytics.log(event: Analytics.NotificationPermission.scheduleAlreadyInProgress)
             return
         }
         
-        let application = UIApplication.shared
-        
         // tell the OS I'm running a background task
         self.backgroundTaskID = application.beginBackgroundTask(withName: self.taskName,
                                                                 expirationHandler: nil)
-        
-        let center = UNUserNotificationCenter.current()
-        // clear out all the old stuff before making new stuff
+
+        // clear already scheduled notifications as we're going to schedule new ones
         center.removeAllPendingNotificationRequests()
-        let allDeliveredNotifications = center.sync_getDeliveredNotifications()
-        let notificationsToRemove = type(of: self).identifiersForRemindersBeforeToday(allDeliveredNotifications, Calendar.current)
-        center.removeDeliveredNotifications(withIdentifiers: notificationsToRemove)
-        // if there is a notification on the user's phone and we update
-        // in the background then I don't want to clear the notification.
-        // this flag tells the scheduler to also schedule one on the same day
-        // if needed.
-        // If all the notifications were already cleared then we don't need
-        // one for the day.
-        let needsTodayNotification = allDeliveredNotifications.count > notificationsToRemove.count
-        
+        // clear out all reminders except the one for today
+        let startOfToday = calendar.startOfDay(for: now)
+        let notificationsToRemove = center.sync_getDeliveredNotifications()
+                                          .filter { $0.date <= startOfToday }
+        center.removeDeliveredNotifications(
+            withIdentifiers: notificationsToRemove.map { $0.request.identifier }
+        )
         
         // hop on a background queue to do the processing
         self.queue.async {
@@ -86,7 +92,8 @@ class ReminderUserNotificationController {
             }
             // generate notification object requests
             let requests = type(of: self).notificationRequests(from: values,
-                                                               needsTodayNotification: needsTodayNotification)
+                                                               calendar: calendar,
+                                                               now: now)
             Analytics.log(event: Analytics.NotificationPermission.scheduleSucceeded,
                           extras: Analytics.NotificationPermission.extras(forCount: requests.count))
             guard requests.isEmpty == false else {
@@ -122,7 +129,10 @@ class ReminderUserNotificationController {
         }
     }
 
-    private class func notificationRequests(from values: [ReminderAndVesselValue], needsTodayNotification: Bool) -> [UNNotificationRequest] {
+    private class func notificationRequests(from values: [ReminderAndVesselValue],
+                                            calendar: Calendar,
+                                            now: Date) -> [UNNotificationRequest]
+    {
         // make sure we have data to work with
         guard values.isEmpty == false else { return [] }
 
@@ -130,11 +140,6 @@ class ReminderUserNotificationController {
         let reminderHour = UserDefaults.standard.reminderHour
         let reminderDays = UserDefaults.standard.reminderDays
         let notificationLimit = UNUserNotificationCenter.notificationLimit
-
-        // get some constants we'll use throughout
-        let calendar = Calendar.current
-        let now = Date()
-        let startOfToday = calendar.startOfDay(for: now)
 
         // find the last reminder time and how many days away it is
         let numberOfDaysToLastReminder = values.last?.reminder.nextPerformDate.map() { endDate -> Int in
@@ -155,7 +160,7 @@ class ReminderUserNotificationController {
             }
             guard matches.isEmpty == false else { return nil }
             let reminderTimeInSameDayAsTestDate = calendar.dateWithExact(hour: reminderHour, onSameDayAs: testDate)
-            guard reminderTimeInSameDayAsTestDate >= (needsTodayNotification ? startOfToday : now) else { return nil }
+            guard reminderTimeInSameDayAsTestDate >= now else { return nil }
             return (reminderTimeInSameDayAsTestDate, matches)
         }
 
@@ -188,15 +193,6 @@ class ReminderUserNotificationController {
 
         // done!
         return reminders
-    }
-    
-    private static func identifiersForRemindersBeforeToday(_ all: [UNNotification],
-                                                           _ calendar: Calendar) -> [String]
-    {
-        let startOfToday = calendar.startOfDay(for: Date())
-        return all
-            .filter { $0.date <= startOfToday }
-            .map { $0.request.identifier }
     }
 }
 

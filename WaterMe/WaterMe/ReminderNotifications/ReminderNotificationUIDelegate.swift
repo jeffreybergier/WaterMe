@@ -82,6 +82,17 @@ extension UNUserNotificationCenter {
         let settings = self.settings
         return settings?.authorizationStatus ?? .authorized
     }
+    
+    var canScheduleNotifications: Bool {
+        switch self.notificationAuthorizationStatus {
+        case .denied, .notDetermined:
+            return false
+        case .authorized, .ephemeral, .provisional:
+            fallthrough
+        @unknown default:
+            return true
+        }
+    }
 
     var notificationBadgeStatus: UNNotificationSetting {
         let settings = self.settings
