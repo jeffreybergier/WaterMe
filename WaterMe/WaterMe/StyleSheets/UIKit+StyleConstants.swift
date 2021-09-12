@@ -158,7 +158,7 @@ extension UINavigationBar {
 }
 
 extension UIView {
-    @objc func style_configure() {
+    func style_configure() {
         // configure dark mode
         let ud = UserDefaults.standard
         if #available(iOS 13.0, *) {
