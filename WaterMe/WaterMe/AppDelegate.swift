@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // swiftlint:disable weak_delegate
     private let notificationUIDelegate = ReminderNotificationUIDelegate()
     private let loggerDelegate = LoggerErrorDelegate()
-    private var cloudSyncHangDetector: HACK_CloudSyncHangDetector?
     private(set) var reminderObserver: GlobalReminderObserver?
     private lazy var basicControllerResult = NewBasicController(of: UserDefaults.standard.controllerKind)
 
@@ -124,10 +123,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // Create new VC with recreated data source
                     let controller = NewBasicController(of: UserDefaults.standard.controllerKind)
                     self?.reminderObserver = .init(result: controller)
-                    self?.cloudSyncHangDetector = HACK_CloudSyncHangDetector(result: controller) {
-                        UserDefaults.standard.willChangeValue(for: \.CLOUD_SYNC)
-                        UserDefaults.standard.didChangeValue(for: \.CLOUD_SYNC)
-                    }
                     self?.basicControllerResult = controller
                     self?.window?.style_unconfigureTemporaryReset()
                     self?.window?.rootViewController = ReminderMainViewController.newVC(basic: controller)
@@ -214,10 +209,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let result = self.basicControllerResult
         self.reminderObserver = GlobalReminderObserver(result: result)
-        self.cloudSyncHangDetector = HACK_CloudSyncHangDetector(result: result) {
-            UserDefaults.standard.willChangeValue(for: \.CLOUD_SYNC)
-            UserDefaults.standard.didChangeValue(for: \.CLOUD_SYNC)
-        }
         let vc = ReminderMainViewController.newVC(basic: result)
 
         // When a new build is detected, we set a date
