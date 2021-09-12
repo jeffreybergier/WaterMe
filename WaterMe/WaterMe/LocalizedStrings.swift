@@ -197,12 +197,6 @@ extension UIAlertController {
         static let darkModeImproperMessage: String =
             NSLocalizedString("The dark mode settings for WaterMe only work when running iOS 13 or higher.",
                               comment: "Alert: Dark Mode Improper: Message: Message of alert that is presented when Dark Mode settings are configured on iOS 11 or 12.")
-        static let cloudSyncImproperTitle: String =
-            NSLocalizedString("iCloud Sync",
-                              comment: "Duplicate of 'CloudSyncInfoViewController.Title'")
-        static let cloudSyncImproperMessage: String =
-            NSLocalizedString("iCloud Sync is only supported on devices running iOS 14 or higher.",
-                              comment: "Alert: Cloud Sync Improper: Message: Message of alert that is presented when iCloud Sync is enabled on devices running iOS 11, 12, or 13. iCloud Sync requires iOS 14.")
 
     }
 }
@@ -452,17 +446,6 @@ extension CoreDataMigratorViewController {
     }
 }
 
-extension CloudSyncInfoViewController {
-    enum LocalizedString {
-        static let title =
-            NSLocalizedString("iCloud Sync",
-                              comment: "Cloud Sync Info: Title: Lets the user know that iCloud sync is possible")
-        static let body =
-            NSLocalizedString("WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen.",
-                              comment: "Cloud Sync Info: Body: Lets the user know how iCloud sync works and that it can be enabled and disabled from the settings app.")
-    }
-}
-
 extension PurchaseThanksViewController {
     enum LocalizedString {
         static let title =
@@ -521,6 +504,9 @@ extension DatumError {
         static let objectDeletedMessage =
             NSLocalizedString("Unable to save changes because the item was deleted. Possibly from another device.",
                               comment: "Realm Error: Object Deleted: Message: Error saving because the object that is being saved has already been deleted.")
+        static let maintenanceMessage =
+            NSLocalizedString("Error performing maintenance. Check to make sure there is free space available on this device.",
+                              comment: "Realm Error: Save: Message: There was an error performing maintenance. The app is probably not usable if this error happens.")
     }
 }
 
@@ -723,5 +709,60 @@ extension UserActivityError {
         static let siriShortcutContinuationErrorAlertMessage: String
             = NSLocalizedString("There was an error executing this Siri Shortcut. If you see this error repeatedly, it may help to delete and recreate it.",
                                 comment: "Alert Message: Error ocurred when executing an existing Shortcut.")
+    }
+}
+
+extension CloudSyncProgressView {
+    enum LocalizedString {
+        static let errorAlertTitle: String
+            = NSLocalizedString("iCloud Sync Error",
+                                comment: "Alert Title: Indicates there was an error with iCloud Sync.")
+        static let errorPasswordAlertMessage: String
+            = NSLocalizedString("Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud.",
+                                comment: "Alert Message: Indicates there was an issue with the password used for iCloud. This requires going to the phone's settings app.")
+        static let errorStorageLimitAlertMessage: String
+            = NSLocalizedString("Sync couldn't be completed because of an iCloud rate limit. Syncing will automatically resume later.",
+                                comment: "Alert Message: Indicates there was an issue because iCloud reached a rate limit.")
+        static let errorRateLimitAlertMessage: String
+            = NSLocalizedString("Sync failed because your iCloud storage is full. You can buy more iCloud storage, delete data in iCloud, or disable iCloud sync for WaterMe in the settings app.",
+                                comment: "Alert Message: Indicates there was an issue because the user's iCloud storage is full.")
+        static let errorNetworkAlertMessage: String
+            = NSLocalizedString("Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume.",
+                                comment: "Alert Message: Indicates there was a network error. Syncing will automatically resume when connected again.")
+        static let notDeterminedErrorAlertMessage: String
+            = NSLocalizedString("Unable to detect your iCloud account status. Turning your device off and on may resolve this issue.",
+                                comment: "Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help.")
+        static let restrictedErrorAlertMessage: String
+            = NSLocalizedString("iCloud Sync is restricted by parental or administrator controls.",
+                                comment: "Alert Message: iCloud is restricted on this device. The user cannot fix this issue.")
+        static let iCloudLoggedOutErrorAlertMessage: String
+            = NSLocalizedString("To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings.",
+                                comment: "Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe.")
+        static let unsupportedDeviceErrorAlertMessage: String
+            = NSLocalizedString("iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings.",
+                                comment: "Alert Message: The device is running an old version of iOS and cannot use iCloud Sync.")
+        static let statusSyncComplete: String
+            = NSLocalizedString("iCloud Sync Complete",
+                                comment: "Status Bar: iCloud sync recently completed. Not a button.")
+        static let statusSyncInProgress: String
+            = NSLocalizedString("Syncing with iCloud…",
+                                comment: "Status Bar: iCloud syncing is currently in progress. Not a button.")
+        static let statusSyncError: String
+            = NSLocalizedString("Sync Error",
+                                comment: "Status Bar: iCloud syncing had an error. A tappable button.")
+        static let statusSyncUnavailable: String
+            = NSLocalizedString("iCloud Sync Unavailable",
+                                comment: "Status Bar: iCloud syncing unavailable on this device. A tappable button.")
+    }
+}
+
+extension CloudSyncInfoViewController {
+    enum LocalizedString {
+        static let title =
+            NSLocalizedString("iCloud Sync",
+                              comment: "Cloud Sync Info: Title: Lets the user know that iCloud sync is possible")
+        static let body =
+            NSLocalizedString("WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen.",
+                              comment: "Cloud Sync Info: Body: Lets the user know how iCloud sync works and that it can be enabled and disabled from the settings app.")
     }
 }

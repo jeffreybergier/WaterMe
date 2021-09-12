@@ -75,13 +75,12 @@ internal class RealmToCoreDataMigrator: Migratable {
 
         // Get off main thread
         self.queue.async {
-            
             // Get needed contexts and realms
             let context = destination.container.newBackgroundContext()
             context.performAndWait {
                 guard
                     let realm = try? source.realm.get(),
-                    let rhsShare = (try? context.fetch(CD_VesselShare.request))?.first
+                    let rhsShare = try? destination.maintenance_oneTrueVesselShare(context: context).get()
                 else {
                     let e = MigratableError.startError
                     DispatchQueue.main.async { completion(.failure(e)) }

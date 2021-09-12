@@ -28,6 +28,7 @@ import SwiftUI
 import CoreData
 import Combine
 import CloudKit
+import Collections
 
 // TODO: Replace this file with original from Umbrella library
 
@@ -39,38 +40,9 @@ import CloudKit
 @available(iOS 14.0, OSX 11.0, *)
 public class CloudKitContainerContinuousProgress: ContinousProgress {
     
-    public enum Error: UserFacingError {
-                
-        case accountStatusCritical(NSError)
-        case accountStatus(CKAccountStatus)
-        case sync(NSError)
-        
-        public var errorCode: Int {
-            switch self {
-            case .accountStatusCritical:
-                return 1001
-            case .accountStatus:
-                return 1002
-            case .sync:
-                return 1003
-            }
-        }
-        public var isCritical: Bool { false }
-        public var recoveryActions: [RecoveryAction] { [.openWaterMeSettings] }
-        public var title: String? { "Noun.iCloud" }
-        public var message: String? {
-            switch self {
-            case .accountStatus:
-                return "Phrase.ErroriCloudAccount"
-            case .accountStatusCritical(let error), .sync(let error):
-                return .init(error.localizedDescription)
-            }
-        }
-    }
-    
-    public var initializeError: UserFacingError?
+    public var initializeError: GenericInitializationError?
     public let progress: Progress
-    public var errorQ = ErrorQueue()
+    public var errorQ = Deque<CloudKitSyncError>()
     
     private let syncName = NSPersistentCloudKitContainer.eventChangedNotification
     private let accountName = Notification.Name.CKAccountChanged
@@ -101,19 +73,11 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
             DispatchQueue.main.async {
                 self.objectWillChange.send()
                 if let error = error {
-                    error.log()
-                    let error = error as NSError
-                    self.initializeError = Error.accountStatusCritical(error)
+                    error.log(as: .severe)
+                    self.initializeError = .couldNotDetermine
                     return
                 }
-                switch account {
-                case .available:
-                    self.initializeError = nil
-                case .couldNotDetermine, .restricted, .noAccount:
-                    fallthrough
-                @unknown default:
-                    self.initializeError = Error.accountStatus(account)
-                }
+                self.initializeError = .init(rawValue: account)
             }
         }
     }
@@ -121,13 +85,19 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
     @objc private func observeSync(_ aNotification: Notification) {
         let key = NSPersistentCloudKitContainer.eventNotificationUserInfoKey
         guard let event = aNotification.userInfo?[key]
-                as? NSPersistentCloudKitContainer.Event else { return }
+                      as? NSPersistentCloudKitContainer.Event else { return }
         DispatchQueue.main.async {
             self.objectWillChange.send()
             if let error = event.error {
-                error.log()
-                let error = error as NSError
-                self.errorQ.append(Error.sync(error))
+                let convertedError = CloudKitSyncError(error)
+                // only report the original error to the server
+                // if its an unknown error
+                if case .unknown = convertedError.typed {
+                    error.log()
+                } else {
+                    error.log(as: .info)
+                }
+                self.errorQ.append(convertedError)
             }
             if self.io.contains(event.identifier) {
                 "- \(event.identifier)".log(as: .debug)

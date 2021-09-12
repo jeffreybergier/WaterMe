@@ -47,7 +47,7 @@ public protocol BasicController: AnyObject {
     var kind: ControllerKind { get }
     
     @available(iOS 14.0, *)
-    var syncProgress: AnyContinousProgress? { get }
+    var syncProgress: AnyContinousProgress<GenericInitializationError, CloudKitSyncError>? { get }
 
     // MARK: Create
     func newReminder(for vessel: ReminderVessel) -> Result<Reminder, DatumError>

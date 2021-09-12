@@ -47,7 +47,7 @@ fileprivate class SyncContainer: NSPersistentCloudKitContainer {
     }
 }
 
-class CoreDataSchemaMigrationTests: XCTestCase {
+class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
         
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -66,12 +66,65 @@ class CoreDataSchemaMigrationTests: XCTestCase {
     }
     
     func test_nonSync_initialize_simpleMigration() throws {
-        _ = try CD_BasicController(kind: .__testing_withClass(NonSyncContainer.self))
+        let c = try CD_BasicController(kind: .__testing_withClass(NonSyncContainer.self))
+        try self.verifyMigratedData(c)
     }
     
     @available(iOS 14.0, *)
     func test_sync_initialize_simpleMigration() throws {
-        _ = try CD_BasicController(kind: .__testing_withClass(SyncContainer.self))
+        let c = try CD_BasicController(kind: .__testing_withClass(SyncContainer.self))
+        try self.verifyMigratedData(c)
+    }
+    
+    private func verifyMigratedData(_ c: BasicController) throws {
+        let reminders = try c.groupedReminders().get()
+        let wait = self.expectation(description: "Reminders")
+        self.token = reminders.observe {
+            switch $0 {
+            case .initial(let data):
+                XCTAssertEqual(data.numberOfSections, 6)
+                XCTAssertEqual(data.numberOfItems(inSection: 0), 9)
+                XCTAssertEqual(data.numberOfItems(inSection: 1), 0)
+                XCTAssertEqual(data.numberOfItems(inSection: 2), 0)
+                XCTAssertEqual(data.numberOfItems(inSection: 3), 0)
+                XCTAssertEqual(data.numberOfItems(inSection: 4), 0)
+                XCTAssertEqual(data.numberOfItems(inSection: 5), 0)
+                let _0_0 = data[IndexPath(row: 0, section: 0)]!
+                XCTAssertEqual(_0_0.interval, 1)
+                XCTAssertEqual(_0_0.kind, .water)
+                XCTAssertNil(_0_0.lastPerformDate)
+                XCTAssertEqual(_0_0.note, "Welcome to WaterMe! This is your first plant. Use the button below to edit this plant and make it your own. When you’re ready to add all your plants, tap the ‘Add Plant’ button at the top right of the screen.")
+                XCTAssertEqual(_0_0.vessel!.displayName, "Plant 1")
+                let _0_1 = data[IndexPath(row: 1, section: 0)]!
+                XCTAssertEqual(_0_1.interval, 7)
+                XCTAssertEqual(_0_1.kind, .move(location: nil))
+                XCTAssertNil(_0_1.lastPerformDate)
+                XCTAssertNil(_0_1.note)
+                XCTAssertEqual(_0_1.vessel!.displayName, "Dead Rose")
+                let _0_2 = data[IndexPath(row: 2, section: 0)]!
+                XCTAssertEqual(_0_2.interval, 7)
+                XCTAssertEqual(_0_2.kind, .water)
+                XCTAssertNil(_0_2.lastPerformDate)
+                XCTAssertNil(_0_2.note)
+                XCTAssertNil(_0_2.vessel!.displayName)
+                let _0_3 = data[IndexPath(row: 3, section: 0)]!
+                XCTAssertEqual(_0_3.interval, 1)
+                XCTAssertEqual(_0_3.kind, .trim)
+                XCTAssertNotNil(_0_3.lastPerformDate)
+                XCTAssertNil(_0_3.note)
+                XCTAssertEqual(_0_3.vessel!.displayName, "Plant 1")
+                let _1_0 = data[IndexPath(row: 8, section: 0)]!
+                XCTAssertEqual(_1_0.interval, 7)
+                XCTAssertEqual(_1_0.kind, .water)
+                XCTAssertNotNil(_1_0.lastPerformDate)
+                XCTAssertNil(_1_0.note)
+                XCTAssertEqual(_1_0.vessel!.displayName, "Dead Rose")
+            case .update, .error:
+                XCTFail()
+            }
+            wait.fulfill()
+        }
+        self.wait(for: [wait], timeout: 0.3)
     }
     
 }

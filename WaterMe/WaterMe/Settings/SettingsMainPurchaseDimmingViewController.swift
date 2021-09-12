@@ -81,7 +81,7 @@ class SettingsMainPurchaseDimmingViewController: SettingsMainViewController {
         self.purchaseInProgress = nil
         let _vc = PurchaseThanksViewController.newVC(for: transaction) { vc in
             guard let vc = vc else { self.checkForPurchasesInFlight(); return; }
-            vc.dismiss(animated: true) { self.checkForPurchasesInFlight() }
+            vc.dismissNoForReal(completion: { self.checkForPurchasesInFlight() })
         }
         guard let vc = _vc else { return }
         self.present(vc, animated: true, completion: nil)

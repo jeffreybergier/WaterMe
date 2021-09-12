@@ -192,7 +192,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             let cell = _cell as? ReminderVesselIconTableViewCell
             cell?.configure(with: self.delegate?.vesselResult?.value?.icon)
             cell?.iconButtonTapped = { [unowned self] sender in
-                self.delegate?.userChosePhotoChange(controller: self, sender: .left(sender))
+                self.delegate?.userChosePhotoChange(controller: self, sender: .left((sender, .center)))
             }
             return _cell
         case .reminders:
@@ -255,17 +255,13 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
         case .name, .photo:
             return UISwipeActionsConfiguration(actions: [])
         case .reminders:
-            // TODO: Add comfirm box for deleting
             let deleteAction = UIContextualAction(style: .destructive,
                                                   title: UIAlertController.LocalizedString.buttonTitleDelete)
             { [unowned self] _, _, successfullyDeleted in
-                // TODO: Improve this
-                // This causes bug when swiping to delete where popover
-                // on iPAd is pointed way over outside the table/
-                // let cell = tableView.cellForRow(at: indexPath)
-                // let sender = cell.map { PopoverSender.left($0) }
+                let cell = tableView.cellForRow(at: indexPath)
+                let sender = cell.map { PopoverSender.left(($0, .topTrailing)) }
                 let confirmation = UIAlertController(localizedDeleteConfirmationWithOptions: [],
-                                                     sender: nil)
+                                                     sender: sender)
                 { confirmed in
                     switch confirmed {
                     case .cancel, .pause:

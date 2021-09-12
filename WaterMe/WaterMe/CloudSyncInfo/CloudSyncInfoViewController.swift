@@ -3,7 +3,7 @@
 //  WaterMe
 //
 //  Created by Jeffrey Bergier on 14/1/18.
-//  Copyright © 2018 Saturday Apps.
+//  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //

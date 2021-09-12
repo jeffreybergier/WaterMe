@@ -42,7 +42,11 @@ public enum Loggable {
                                                            logLevel: .warning,
                                                            errorDelegate: delegate)
             config.storageLocation.appName = "WaterMe"
-            _log = try? Logger(configuration: config)
+            let destination = try? ExceptionDestination<Event>(configuration: config)
+            _log = try? Logger(configuration: config, includeDefaultXCGDestinations: true, includeDefaultJSBDestinations: destination == nil)
+            if let destination = destination {
+                _log?.add(destination: destination)
+            }
         }
         let log = _log ?? XCGLogger(identifier: identifier, includeDefaultDestinations: true)
         #if DEBUG

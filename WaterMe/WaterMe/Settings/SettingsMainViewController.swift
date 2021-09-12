@@ -52,7 +52,7 @@ class SettingsMainViewController: StandardViewController {
                 Analytics.log(viewOperation: .emailDeveloper)
                 let vc = EmailDeveloperViewController.newVC() { vc in
                     guard let vc = vc else { deselectRowAnimated?(true); return; }
-                    vc.dismiss(animated: true, completion: { deselectRowAnimated?(true) })
+                    vc.dismissNoForReal(completion: { deselectRowAnimated?(true) })
                 }
                 self.present(vc, animated: true, completion: nil)
             case .openSettings:

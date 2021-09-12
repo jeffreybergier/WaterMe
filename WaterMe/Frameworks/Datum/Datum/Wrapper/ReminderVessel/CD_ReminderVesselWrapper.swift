@@ -54,13 +54,15 @@ internal struct CD_ReminderVesselWrapper: ReminderVessel {
             queue.async { block(.change(.init(changedPointlessBloop: true))) }
         }
         
-        let token5 = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave,
+        let token5 = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange,
                                                             object: nil,
                                                             queue: nil)
         { [weak wrappedObject] notification in
             guard let wrappedObject = wrappedObject else { return }
             let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? NSSet
-            if deletedObjects?.contains(wrappedObject) == true {
+            for object in deletedObjects ?? [] {
+                let object = object as? NSManagedObject
+                guard object?.objectID == wrappedObject.objectID else { continue }
                 queue.async { block(.deleted) }
                 return
             }

@@ -110,12 +110,17 @@ extension InfoTableViewCell {
             self.stackView1?.isHidden = true
         }
         _ = {
-            let nextPerformDate = reminder?.nextPerformDate ?? Date()
-            let dueDateString = self.dueDateFormatter.string(from: nextPerformDate)
-            self.label2?.attributedText = NSAttributedString(string: dueDateString,
-                                                             font: .reminderSummaryPrimaryLabel)
             self.sublabel2?.attributedText = NSAttributedString(string: ReminderSummaryViewController.LocalizedString.subheadNextPerformDate,
                                                                 font: .reminderSummarySublabel)
+            if reminder?.isEnabled ?? true {
+                let nextPerformDate = reminder?.nextPerformDate ?? Date()
+                let dueDateString = self.dueDateFormatter.string(from: nextPerformDate)
+                self.label2?.attributedText = NSAttributedString(string: dueDateString,
+                                                                 font: .reminderSummaryPrimaryLabel)
+            } else {
+                self.label2?.attributedText = NSAttributedString(string: ReminderSection.LocalizedString.pause,
+                                                                 font: .reminderSummaryPrimaryLabel)
+            }
         }()
     }
 }

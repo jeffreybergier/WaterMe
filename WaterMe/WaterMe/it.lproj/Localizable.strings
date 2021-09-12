@@ -177,12 +177,6 @@
 /* Purchase Thanks: Subtitle: Reminding the user what we’re thanking them for. */
 "In-App Purchase" = "Acquisto in App";
 
-/* Cloud Sync Info: Title: Lets the user know that iCloud sync is possible */
-"iCloud Sync" = "LOCALIZE ME";
-
-/* Cloud Sync Info: Body: Lets the user know how iCloud sync works and that it can be enabled and disabled from the settings app. */
-"WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen." = "LOCALIZE ME";
-
 /* Settings: Info Cell: Title: Text in the tip jar area that explains why someone should give money. */
 "I’m Jeff, a professional iOS Developer and UX Designer. I like making small and polished apps in my spare time. If you find WaterMe useful and would like to fund its development, consider supporting the app with the buttons below." = "Ciao io sono Jeff, sviluppatore professionale di iOS e UX Designer. Mi piace creare piccole e raffinate applicazioni nel mio tempo libero e WatwerMe è una di queste. Se trovate utile WaterMe e volete finanziarne lo sviluppo, avete la possibilità di supportare l'app con i pulsanti sottostanti.";
 
@@ -366,9 +360,6 @@
 /* Alert: Dark Mode Improper: Message: Message of alert that is presented when Dark Mode settings are configured on iOS 11 or 12. */
 "The dark mode settings for WaterMe only work when running iOS 13 or higher." = "Le impostazioni Dark Mode per WaterMe funzionano solo se si utilizza iOS 13 o superiore.";
 
-/* Alert: Cloud Sync Improper: Message: Message of alert that is presented when iCloud Sync is enabled on devices running iOS 11, 12, or 13. iCloud Sync requires iOS 14. */
-"iCloud Sync is only supported on devices running iOS 14 or higher." = "LOCALIZE ME";
-
 /* Purchase Thanks: Body: Body text thanking the user for their support. */
 "Thank you for your purchase. Your support is critical to the continued development of WaterMe." = "Grazie per l'acquisto. Il vostro sostegno è fondamentale per il continuo sviluppo di WaterMe.";
 
@@ -423,6 +414,9 @@
 /* Realm Error: Object Deleted: Message: Error saving because the object that is being saved has already been deleted. */
 "Unable to save changes because the item was deleted. Possibly from another device." = "Impossibile salvare le modifiche perché l'elemento è stato eliminato. Forse da un altro dispositivo.";
 
+/* Realm Error: Save: Message: There was an error performing maintenance. The app is probably not usable if this error happens. */
+"Error performing maintenance. Check to make sure there is free space available on this device." = "Errore durante la manutenzione. Verificare che ci sia spazio libero disponibile su questo dispositivo.";
+
 /* Alert: App Update: Title: Alert title that tells the user that an update is available for WaterMe */
 "Update Available" = "Nuovo aggiornamento disponibile";
 
@@ -474,6 +468,63 @@
 /* Notification Body: 1 Item: When 1 plant needs to be taken care of in a day, this is the body text of the notification. */
 "‘%@’ needs attention today." = "‘%@’ bisogno di attenzione oggi.";
 
+/*
+
+_  _____ _                 _    _____
+(_)/ ____| |               | |  / ____|
+_| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
+| | |    | |/ _ \| | | |/ _` |  \___ \| | | | '_ \ / __|
+| | |____| | (_) | |_| | (_| |  ____) | |_| | | | | (__
+|_|\_____|_|\___/ \__,_|\__,_| |_____/ \__, |_| |_|\___|
+                                       __/ |
+                                      |___/
+
+*/
+
+/* Cloud Sync Info: Title: Lets the user know that iCloud sync is possible */
+"iCloud Sync" = "Sincronizzazione iCloud";
+
+/* Cloud Sync Info: Body: Lets the user know how iCloud sync works and that it can be enabled and disabled from the settings app. */
+"WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen." = "WaterMe ora sincronizza automaticamente tutte le piante e i promemoria tramite iCloud. Puoi attivare e disattivare la sincronizzazione nella schermata delle impostazioni.";
+
+/* Alert Title: Indicates there was an error with iCloud Sync. */
+"iCloud Sync Error" = "Errore di sincronizzazione iCloud";
+
+/* Alert Message: Indicates there was an issue with the password used for iCloud. This requires going to the phone's settings app. */
+"Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud." = "La sincronizzazione non è riuscita a causa di un problema con la password di iCloud. Controlla la tua password in Impostazioni → ID Apple → iCloud.";
+
+/* Alert Message: Indicates there was an issue because iCloud reached a rate limit. */
+"Sync couldn't be completed because of an iCloud rate limit. Syncing will automatically resume later." = "Impossibile completare la sincronizzazione a causa del limite di trasferimento di iCloud. La sincronizzazione riprenderà automaticamente in seguito.";
+
+/* Alert Message: Indicates there was an issue because the user's iCloud storage is full. */
+"Sync failed because your iCloud storage is full. You can buy more iCloud storage, delete data in iCloud, or disable iCloud sync for WaterMe in the settings app." = "La sincronizzazione non è riuscita perché lo spazio di archiviazione di iCloud è pieno. Puoi acquistare più spazio di archiviazione iCloud, eliminare dati in iCloud o disabilitare la sincronizzazione di iCloud per WaterMe nell'app delle impostazioni. ";
+
+/* Alert Message: Indicates there was a network error. Syncing will automatically resume when connected again. */
+"Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume." = "Sincronizzazione non riuscita a causa di un problema di rete. La prossima volta che sarà disponibile una connessione di rete, la sincronizzazione riprenderà automaticamente.";
+
+/* Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help. */
+"Unable to detect your iCloud account status. Turning your device off and on may resolve this issue." = "Lo stato del tuo account iCloud non può essere rilevato. Spegnere e riaccendere il dispositivo potrebbe risolvere questo problema.";
+
+/* Alert Message: iCloud is restricted on this device. The user cannot fix this issue. */
+"iCloud Sync is restricted by parental or administrator controls." = "Sincronizzazione iCould limitata dai controlli parentali o amministratore.";
+
+/* Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe. */
+"To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings." = "Per utilizzare Sincronizzazione iCloud con WaterMe, accedi al tuo account iCloud y abilitare 'iCloud Drive.' Se non vuoi visualizzare questo errore, disattiva la 'Sincronizzazione di iCloud' in Impostazioni.";
+
+/* Alert Message: The device is running an old version of iOS and cannot use iCloud Sync. */
+"iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings." = "Sincronizzazione iCloud è disponibile solo con dispositivi con iOS 14 o versioni successive. Se non vuoi visualizzare questo errore, disattiva la sincronizzazione di iCloud in Impostazioni.";
+
+/* Status Bar: iCloud sync recently completed. Not a button. */
+"iCloud Sync Complete" = "Sincronizzazione iCloud completa";
+
+/* Status Bar: iCloud syncing is currently in progress. Not a button. */
+"Syncing with iCloud…" = "Sincronizzando con iCloud...";
+
+/* Status Bar: iCloud syncing had an error. A tappable button. */
+"Sync Error" = "Errore di sincronizzazione";
+
+/* Status Bar: iCloud syncing unavailable on this device. A tappable button. */
+"iCloud Sync Unavailable" = "Sincronizzazione iCloud non disponibile";
 /*
  
    _____        _          __  __ _                 _   _
@@ -596,8 +647,9 @@
  Ecco fatto! Ogni giorno riceverete una, e una sola, notifica che vi ricorda di prendervi cura delle vostre piante.
 
  - Supporta diversi tipi di promemoria per pianta
- - Acqua, fertilizzanti, potatura e altro ancora
+     - Acqua, fertilizzanti, potatura e altro ancora
  - È facile capire quali piante devono essere curate e quando.
+ - Sincronizza i dati su tutti i tuoi dispositivi iOS tramite iCloud.
  - Supporta il lavoro veloce con l'interfaccia Trascina e rilascia.
  - Personalizza le notifiche di tempo che vengono inviate ogni giorno.
  - Curate il vostro giardino con la vostra voce utilizzando le scorciatoie di Siri.
@@ -605,7 +657,6 @@
  - Supporta lo Schermo diviso e Slide Over iPad Multitasking.
  - Supporta il tipologia dinamica.
  - Supporta Voiceover e altre funzioni di accessibilità iOS.
- - Non supporta ancora la sincronizzazione delle piante tra più dispositivi.
  */
 
 // Keywords

@@ -252,7 +252,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
         Analytics.log(viewOperation: .emailDeveloper)
         let vc = EmailDeveloperViewController.newVC() { vc in
             guard let vc = vc else { return }
-            vc.dismiss(animated: true, completion: nil)
+            vc.dismissNoForReal()
         }
         self.present(vc, animated: true, completion: nil)
     }

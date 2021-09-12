@@ -37,7 +37,7 @@ extension Realm {
     }
 }
 
-internal class RLM_BasicController: BasicController {
+internal class RLM_BasicController: BasicController {    
 
     // MARK: Observation Closures
 
@@ -48,10 +48,9 @@ internal class RLM_BasicController: BasicController {
     // MARK: Initialization
 
     internal let kind: ControllerKind
-    private let _syncProgress: AnyObject? = nil
     @available(iOS 14.0, *)
-    internal var syncProgress: AnyContinousProgress? {
-        _syncProgress as? AnyContinousProgress
+    internal var syncProgress: AnyContinousProgress<GenericInitializationError, CloudKitSyncError>? {
+        return nil
     }
     private let config: Realm.Configuration
     #if DEBUG

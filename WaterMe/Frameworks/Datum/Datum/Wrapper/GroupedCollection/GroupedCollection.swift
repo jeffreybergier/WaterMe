@@ -138,7 +138,7 @@ internal class GroupedCollection<
         guard collection.count > row else {
             let error = NSError(outOfBoundsRowAtIndexPath: index)
             assertionFailure(String(describing: error))
-            error.log()
+            error.log(as: .info)
             return nil
         }
 

@@ -137,7 +137,7 @@ extension ReminderMainViewController {
                                                             editVessel: vessel,
                                                             userActivityCompletion: completion)
             { vc in
-                vc.dismiss(animated: true, completion: nil)
+                vc.dismissNoForReal()
             }
             self.present(vc, animated: true, completion: nil)
         }

@@ -29,14 +29,20 @@ class ReminderNotificationUIDelegate: NSObject, UNUserNotificationCenterDelegate
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void)
     {
-        // if the trigger is NIL that means it was fired while the app was open and its for the past
-        guard notification.request.trigger != nil else {
-            completionHandler([.badge])
-            return
+        if #available(iOS 14.0, *) {
+            // if the trigger is NIL that means it was fired while the app was open and its for the past
+            guard notification.request.trigger != nil else {
+                completionHandler([.list, .badge])
+                return
+            }
+            // if its not NIL that means its a scheduled notification
+            // that just happened to arrive while the user is using the app
+            completionHandler([.alert, .badge, .sound])
+        } else {
+            // on old OS's there is no way to send a notification
+            // directly to the list, so just show it.
+            completionHandler([.alert, .badge, .sound])
         }
-        // if its not NIL that means its a scheduled notification
-        // that just happened to arrive while the user is using the app
-        completionHandler([.alert, .badge, .sound])
     }
 
     // called when the user taps a notification whether app is open or closed
@@ -75,6 +81,17 @@ extension UNUserNotificationCenter {
     var notificationAuthorizationStatus: UNAuthorizationStatus {
         let settings = self.settings
         return settings?.authorizationStatus ?? .authorized
+    }
+    
+    var canScheduleNotifications: Bool {
+        switch self.notificationAuthorizationStatus {
+        case .denied, .notDetermined:
+            return false
+        case .authorized, .ephemeral, .provisional:
+            fallthrough
+        @unknown default:
+            return true
+        }
     }
 
     var notificationBadgeStatus: UNNotificationSetting {

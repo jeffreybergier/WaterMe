@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="2.6.1.001">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2.6.1.001">
     <entity name="CD_Base" representedClassName="CD_Base" isAbstract="YES" syncable="YES" codeGenerationType="category">
         <attribute name="raw_bloop" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" elementID="bloop"/>
         <attribute name="raw_dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" elementID="dateCreated"/>

@@ -131,13 +131,13 @@ extension CropViewController {
 
 extension ImagePickerCropperViewController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        cropViewController.dismiss(animated: true) {
+        cropViewController.dismissNoForReal() {
             self.completionHandler?(image, self)
         }
     }
 
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
-        cropViewController.dismiss(animated: true) {
+        cropViewController.dismissNoForReal() {
             self.completionHandler?(nil, self)
         }
     }

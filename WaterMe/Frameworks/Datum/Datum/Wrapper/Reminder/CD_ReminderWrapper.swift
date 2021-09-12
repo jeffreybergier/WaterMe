@@ -46,19 +46,23 @@ internal struct CD_ReminderWrapper: Reminder {
 
     func observe(_ block: @escaping (ReminderChange) -> Void) -> ObservationToken {
         Token.wrap { [weak wrappedObject] in
-            return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave,
+            return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange,
                                                           object: nil,
                                                           queue: nil)
             { [weak wrappedObject] notification in
                 guard let wrappedObject = wrappedObject else { return }
                 let queue = DispatchQueue.main
                 let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? NSSet
-                if updatedObjects?.contains(wrappedObject) == true {
+                for object in updatedObjects ?? [] {
+                    let object = object as? NSManagedObject
+                    guard object?.objectID == wrappedObject.objectID else { continue }
                     queue.async { block(.change(())) }
                     return
                 }
                 let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? NSSet
-                if deletedObjects?.contains(wrappedObject) == true {
+                for object in deletedObjects ?? [] {
+                    let object = object as? NSManagedObject
+                    guard object?.objectID == wrappedObject.objectID else { continue }
                     queue.async { block(.deleted) }
                     return
                 }

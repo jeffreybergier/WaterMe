@@ -70,6 +70,35 @@ extension UIAlertController {
         let rawValue: Int
         static let pause = ReminderDeleteConfirmationOptions(rawValue: 1 << 0)
     }
+    
+    convenience init(error: UserFacingError,
+                     sender: PopoverSender?,
+                     selectionHandler: ((RecoveryAction?) -> Void)? = nil)
+    {
+        self.init(title: error.title, message: error.message, preferredStyle: sender == nil ? .alert : .actionSheet)
+        error.recoveryActions.forEach { option in
+            let action = UIAlertAction(title: option.title,
+                                       style: option.actionStyle)
+            { _ in
+                option.automaticExecution?()
+                selectionHandler?(option)
+            }
+            self.addAction(action)
+        }
+        let dismiss = UIAlertAction(title: LocalizedString.buttonTitleDismiss,
+                                    style: .cancel,
+                                    handler: { _ in selectionHandler?(nil) })
+        self.addAction(dismiss)
+        guard let sender = sender else { return }
+        switch sender {
+        case .right(let bbi):
+            self.popoverPresentationController?.barButtonItem = bbi
+        case .left(let (view, location)):
+            self.popoverPresentationController?.sourceView = view
+            self.popoverPresentationController?.sourceRect = view.bounds.rect(with: location)
+            self.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        }
+    }
 
     convenience init(localizedDeleteConfirmationWithOptions options: ReminderDeleteConfirmationOptions,
                      sender: PopoverSender?,
@@ -95,9 +124,9 @@ extension UIAlertController {
         switch sender {
         case .right(let bbi):
             self.popoverPresentationController?.barButtonItem = bbi
-        case .left(let view):
+        case .left(let (view, location)):
             self.popoverPresentationController?.sourceView = view
-            self.popoverPresentationController?.sourceRect = view.bounds.centerRect
+            self.popoverPresentationController?.sourceRect = view.bounds.rect(with: location)
             self.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         }
     }
@@ -127,20 +156,6 @@ extension UIAlertController {
                                             preferredStyle: .alert)
             let dismiss = UIAlertAction(title: LocalizedString.buttonTitleDismiss, style: .cancel) { _ in
                 ud.darkMode = .system
-            }
-            alertVC.addAction(dismiss)
-            return alertVC
-        }
-    }
-    class func newLocalizedCloudSyncImproperlyConfigured() -> UIAlertController? {
-        if #available(iOS 14.0, *) { return nil } else {
-            let ud = UserDefaults.standard
-            guard case .sync = ud.controllerKind else { return nil }
-            let alertVC = UIAlertController(title: LocalizedString.cloudSyncImproperTitle,
-                                            message: LocalizedString.cloudSyncImproperMessage,
-                                            preferredStyle: .alert)
-            let dismiss = UIAlertAction(title: LocalizedString.buttonTitleDismiss, style: .cancel) { _ in
-                ud.controllerKind = .local
             }
             alertVC.addAction(dismiss)
             return alertVC

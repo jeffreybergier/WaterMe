@@ -180,6 +180,28 @@ extension UIView {
     }
 }
 
+extension UIWindow {
+    func style_configureTemporaryReset() {
+        let ud = UserDefaults.standard
+        if #available(iOS 13.0, *) {
+            switch ud.darkMode {
+            case .system:
+                self.backgroundColor = .systemBackground
+            case .forceLight:
+                self.backgroundColor = .white
+            case .forceDark:
+                self.backgroundColor = .black
+            }
+        } else {
+            self.backgroundColor = .white
+        }
+    }
+    
+    func style_unconfigureTemporaryReset() {
+        self.backgroundColor = nil
+    }
+}
+
 extension ReminderSummaryViewController {
     static let style_leadingTrailingPadding: CGFloat = 8
     static let style_bottomPadding: CGFloat = style_leadingTrailingPadding
@@ -261,5 +283,11 @@ extension AVPlayerItem {
             request.finish(with: pass2, context: nil)
         }
         return item
+    }
+}
+
+extension CloudSyncProgressView {
+    enum Style {
+        static let statusIconTextGap: CGFloat = -8
     }
 }

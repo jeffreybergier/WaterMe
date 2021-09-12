@@ -29,7 +29,7 @@ class DismissHandlingImageViewerController: ImageViewerController {
         if let config = self.configuration as? DismissHandlingImageViewerConfiguration {
             config.completion(self)
         } else {
-            self.dismiss(animated: true, completion: nil)
+            self.dismissNoForReal()
         }
     }
 }

@@ -155,3 +155,25 @@ internal class UpdatingFetchedResultsControllerDelegate: NSObject, NSFetchedResu
         }
     }
 }
+
+extension UserDefaults {
+    
+    enum Constants {
+        // Make sure this stays in sync with UserDefaults File
+        static let kDidRunWithoutCloudSync = "DID_RUN_WITHOUT_CLOUD_SYNC"
+    }
+    
+    var didRunWithoutCloudSync: Bool {
+        get {
+            guard #available(iOS 14, *) else { return true }
+            guard let number = self.object(forKey: Constants.kDidRunWithoutCloudSync) as? NSNumber
+                else { fatalError("Must call configure() before accessing user defaults") }
+            return number.boolValue
+        }
+        set {
+            guard #available(iOS 14, *) else { return }
+            self.set(NSNumber(value: newValue), forKey: Constants.kDidRunWithoutCloudSync)
+        }
+    }
+    
+}
