@@ -165,9 +165,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let token7 = nc.publisher(for: .CKAccountChanged)
                     .debounce(for: .seconds(1), scheduler: RunLoop.main)
-                    .sink { _ in
+                    .sink { aNotification in
                         // TODO: Take out this log
-                        "Fired: CKAccountChanged:NSNotification.Name".log()
+                        ("Fired: CKAccountChanged:NSNotification.Name: \n" + aNotification.debugDescription).log()
                         cloudSyncChanges()
                     }
                 self.combinePublisherTokens += [token7]
