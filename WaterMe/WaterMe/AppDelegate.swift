@@ -154,6 +154,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notificationChanges()
         }
         let token6 = ud.observe(\.CLOUD_SYNC) { _, _ in
+            // TODO: Take out this log
+            "PREF CHANGE: CLOUD_SYNC".log()
             cloudSyncChanges()
         }
         
@@ -163,7 +165,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let token7 = nc.publisher(for: .CKAccountChanged)
                     .debounce(for: .seconds(1), scheduler: RunLoop.main)
-                    .sink { _ in cloudSyncChanges() }
+                    .sink { _ in
+                        // TODO: Take out this log
+                        "Fired: CKAccountChanged:NSNotification.Name".log()
+                        cloudSyncChanges()
+                    }
                 self.combinePublisherTokens += [token7]
             }
         }
