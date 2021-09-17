@@ -30,6 +30,19 @@ import Combine
 import CloudKit
 import Collections
 
+extension CKContainer {
+    public class var sync_accountStatus: CKAccountStatus {
+        var status: CKAccountStatus!
+        let wait = DispatchSemaphore(value: 0)
+        CKContainer.default().accountStatus { _status, _ in
+            status = _status
+            wait.signal()
+        }
+        wait.wait()
+        return status
+    }
+}
+
 // TODO: Replace this file with original from Umbrella library
 
 // Highly inspired by
@@ -69,16 +82,9 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
     }
     
     @objc private func observeAccount() {
-        CKContainer.default().accountStatus() { account, error in
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-                if let error = error {
-                    error.log(as: .severe)
-                    self.initializeError = .couldNotDetermine
-                    return
-                }
-                self.initializeError = .init(rawValue: account)
-            }
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            self.initializeError = .init(rawValue: CKContainer.sync_accountStatus)
         }
     }
     
