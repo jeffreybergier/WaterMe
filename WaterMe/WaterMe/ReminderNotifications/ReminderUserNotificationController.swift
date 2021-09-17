@@ -56,10 +56,10 @@ class ReminderUserNotificationController {
 
         // clear already scheduled notifications as we're going to schedule new ones
         center.removeAllPendingNotificationRequests()
-        // clear out all reminders except the one for today
-        let startOfToday = calendar.startOfDay(for: now)
+        // clear out all reminders except the newest one
         let notificationsToRemove = center.sync_getDeliveredNotifications()
-                                          .filter { $0.date <= startOfToday }
+                                          .sorted { $0.date <= $1.date }
+                                          .dropLast()
         center.removeDeliveredNotifications(
             withIdentifiers: notificationsToRemove.map { $0.request.identifier }
         )
