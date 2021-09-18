@@ -62,6 +62,7 @@ class ReminderUserNotificationController {
                              .dropLast()
                              .map { $0.request.identifier }
             guard !toDelete.isEmpty else { return }
+            return // TODO: try and fix disappearing notification problem
             DispatchQueue.main.async {
                 center.removeDeliveredNotifications(withIdentifiers: toDelete)
             }
