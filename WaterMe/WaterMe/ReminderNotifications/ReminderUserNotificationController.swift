@@ -102,27 +102,38 @@ class ReminderUserNotificationController {
                 return
             }
 
-            // ask the notification center to schedule the notifications
+            // Schedule the notifications via notification center
+            // This is an async loop powered by the completion handler
+            // of the center.addRequest function
             var idx = 0
             var scheduleLoop: ((Error?) -> Void)!
             scheduleLoop = { error in
-                self.queue.async {
-                    if let error = error {
-                        // error, time to bail
-                        error.log()
-                        Analytics.log(error: error)
-                        assertionFailure()
-                        completion()
-                        // TODO: Add error for AppDelegate that main app knows about
-                    } else if idx < requests.count {
-                        // normal looping / iteration
-                        center.add(requests[idx], withCompletionHandler: scheduleLoop)
-                    } else {
-                        // finished successfully!
-                        "Scheduled Notifications: \(requests.count)".log(as: .debug)
-                        completion()
-                    }
+                if let error = error {
+                    // error, time to bail
+                    error.log()
+                    Analytics.log(error: error)
+                    assertionFailure()
+                    completion()
+                    // TODO: Add error for AppDelegate that main app knows about
+                    return
+                } else if idx < requests.count {
+                    // get the request
+                    let req = requests[idx]
+                    // bump the loop count
                     idx += 1
+                    // Schedule the notification
+                    // Docs say this can be called from any thread
+                    center.add(req) { error in
+                        // In the completion handler, start the loop over.
+                        // completion handler called on arbitrary thread
+                        self.queue.async { scheduleLoop(error) }
+                    }
+                    return
+                } else {
+                    // finished successfully!
+                    "Scheduled Notifications: \(requests.count)".log(as: .debug)
+                    completion()
+                    return
                 }
             }
             scheduleLoop(nil)
