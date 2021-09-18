@@ -57,12 +57,15 @@ class ReminderUserNotificationController {
         // clear already scheduled notifications as we're going to schedule new ones
         center.removeAllPendingNotificationRequests()
         // clear out all reminders except the newest one
-        let notificationsToRemove = center.sync_getDeliveredNotifications()
-                                          .sorted { $0.date <= $1.date }
-                                          .dropLast()
-        center.removeDeliveredNotifications(
-            withIdentifiers: notificationsToRemove.map { $0.request.identifier }
-        )
+        center.getDeliveredNotifications {
+            let toDelete = $0.sorted { $0.date <= $1.date }
+                             .dropLast()
+                             .map { $0.request.identifier }
+            guard !toDelete.isEmpty else { return }
+            DispatchQueue.main.async {
+                center.removeDeliveredNotifications(withIdentifiers: toDelete)
+            }
+        }
         
         // hop on a background queue to do the processing
         self.queue.async {
@@ -226,18 +229,5 @@ extension ReminderUserNotificationController.LocalizedString {
             let string = String(format: self.bodyManyItems, item1, items.count - 1)
             return string
         }
-    }
-}
-
-extension UNUserNotificationCenter {
-    fileprivate func sync_getDeliveredNotifications() -> [UNNotification] {
-        var output: [UNNotification]?
-        let semaphore = DispatchSemaphore(value: 0)
-        self.getDeliveredNotifications {
-            output = $0
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return output ?? []
     }
 }
