@@ -29,6 +29,7 @@ import StoreKit
 import UIKit
 import Calculate
 import CloudKit
+import Combine
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -309,20 +310,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // TODO: Figure out how to connect these to actual work being done.
-        let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            application.endBackgroundTask(task)
-            completionHandler(.newData)
-        }
+        self.common_application(application, performFetchWithCompletionHandler: completionHandler)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // TODO: Figure out how to connect these to actual work being done.
-        let task = application.beginBackgroundTask(withName: "didReceiveRemoteNotification:", expirationHandler: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+        self.common_application(application, performFetchWithCompletionHandler: completionHandler)
+    }
+    
+    private var backgroundUpdateSink: Any?
+    private var backgroundUpdateTimer: Timer?
+    private var backgroundUpdateMinWaitTimer: Timer?
+    private var backgroundUpdateMaxWaitTimer: Timer?
+    
+    func common_application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        guard
+            #available(iOS 14.0, *),
+            let progress = self.basicControllerResult.value?.syncProgress
+        else {
+            completionHandler(.noData)
+            return
+        }
+        let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
+        // if no sink message is received this will fire and shut things down
+        self.backgroundUpdateMinWaitTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+            (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
+            self.backgroundUpdateSink = nil
+            self.backgroundUpdateMaxWaitTimer?.invalidate()
+            self.backgroundUpdateMaxWaitTimer = nil
+            self.backgroundUpdateMinWaitTimer?.invalidate()
+            self.backgroundUpdateMinWaitTimer = nil
+            application.endBackgroundTask(task)
+            completionHandler(.noData)
+        }
+        // if things just take forever to sync, this will fire and shut everything down
+        self.backgroundUpdateMaxWaitTimer = Timer.scheduledTimer(withTimeInterval: 25, repeats: false) { _ in
+            (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
+            self.backgroundUpdateSink = nil
+            self.backgroundUpdateMaxWaitTimer?.invalidate()
+            self.backgroundUpdateMaxWaitTimer = nil
+            self.backgroundUpdateMinWaitTimer?.invalidate()
+            self.backgroundUpdateMinWaitTimer = nil
             application.endBackgroundTask(task)
             completionHandler(.newData)
+        }
+        // normal operation
+        self.backgroundUpdateSink = progress.objectWillChange.sink {
+            self.backgroundUpdateMinWaitTimer?.invalidate()
+            self.backgroundUpdateMinWaitTimer = nil
+            self.backgroundUpdateTimer?.invalidate()
+            self.backgroundUpdateTimer = nil
+            self.backgroundUpdateTimer = Timer.scheduledTimer(
+                withTimeInterval: 4, // this must be a lot longer than timer in `GlobalReminderObserver`
+                repeats: false
+            ) { _ in
+                defer {
+                    // cancel the timer no matter what happens
+                    self.backgroundUpdateTimer?.invalidate()
+                    self.backgroundUpdateTimer = nil
+                }
+                guard
+                    progress.progress.fractionCompleted == 1
+                 || progress.progress.fractionCompleted == 0
+                else { return }
+                
+                // we're done and we can finish
+                application.endBackgroundTask(task)
+                completionHandler(.newData)
+                (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
+                self.backgroundUpdateSink = nil
+                self.backgroundUpdateMaxWaitTimer?.invalidate()
+                self.backgroundUpdateMaxWaitTimer = nil
+            }
         }
     }
 }
