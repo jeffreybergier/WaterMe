@@ -362,10 +362,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.backgroundUpdateMinWaitTimer = nil
             self.backgroundUpdateTimer?.invalidate()
             self.backgroundUpdateTimer = nil
-            self.backgroundUpdateTimer = Timer.scheduledTimer(
-                withTimeInterval: 4, // this must be a lot longer than timer in `GlobalReminderObserver`
-                repeats: false
-            ) { _ in
+            self.backgroundUpdateTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
                 defer {
                     // cancel the timer no matter what happens
                     self.backgroundUpdateTimer?.invalidate()
@@ -376,13 +373,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  || progress.progress.fractionCompleted == 0
                 else { return }
                 
-                // we're done and we can finish
-                application.endBackgroundTask(task)
-                completionHandler(.newData)
+                // we're done syncing, now we can manually force notifications
+                self.reminderObserver?.dataChanged(of: .all)
                 (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
                 self.backgroundUpdateSink = nil
                 self.backgroundUpdateMaxWaitTimer?.invalidate()
                 self.backgroundUpdateMaxWaitTimer = nil
+                Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { timer in
+                    // we're done and we can finish
+                    timer.invalidate()
+                    application.endBackgroundTask(task)
+                    completionHandler(.newData)
+                }
             }
         }
     }
