@@ -318,68 +318,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private var backgroundUpdateSink: Any?
-    private var backgroundUpdateTimer: Timer?
-    private var backgroundUpdateMinWaitTimer: Timer?
-    private var backgroundUpdateMaxWaitTimer: Timer?
     
     func common_application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // This code is long and horrible, but it basically just sits around
-        // and waits for iCloud to sync. It has a couple of failsafes in case
-        // things appear not to be syncing correctly.
-        guard
-            #available(iOS 14.0, *),
-            let progress = self.basicControllerResult.value?.syncProgress
-        else {
+        guard #available(iOS 14.0, *), let progress = self.basicControllerResult.value?.syncProgress else {
             completionHandler(.noData)
             return
         }
+        
+        // This code is long and horrible, but it basically just sits around
+        // and waits for iCloud to sync. It has a couple of failsafes in case
+        // things appear not to be syncing correctly.
+        
+        // setup objects to be finished later
+        let startTime = Date()
+        var syncTimer: Timer? // the normal timer that is waiting for the sync to finish
+        var minWaitTimer: Timer? // timer that shuts everything down if Sink never produces any signals
+        var maxWaitTimer: Timer? // timer that waits super long and shuts things down if sync doesn't finish
         let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
-        // if no sink message is received this will fire and shut things down
-        self.backgroundUpdateMinWaitTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+        
+        minWaitTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+            "Background Sync Failed: minWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
             (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self.backgroundUpdateSink = nil
-            self.backgroundUpdateMaxWaitTimer?.invalidate()
-            self.backgroundUpdateMaxWaitTimer = nil
-            self.backgroundUpdateMinWaitTimer?.invalidate()
-            self.backgroundUpdateMinWaitTimer = nil
+            syncTimer?.invalidate()
+            minWaitTimer?.invalidate()
+            maxWaitTimer?.invalidate()
             application.endBackgroundTask(task)
             completionHandler(.noData)
         }
-        // if things just take forever to sync, this will fire and shut everything down
-        self.backgroundUpdateMaxWaitTimer = Timer.scheduledTimer(withTimeInterval: 25, repeats: false) { _ in
+        maxWaitTimer = Timer.scheduledTimer(withTimeInterval: 25, repeats: false) { _ in
+            "Background Sync Failed: maxWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
             (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self.backgroundUpdateSink = nil
-            self.backgroundUpdateMaxWaitTimer?.invalidate()
-            self.backgroundUpdateMaxWaitTimer = nil
-            self.backgroundUpdateMinWaitTimer?.invalidate()
-            self.backgroundUpdateMinWaitTimer = nil
+            syncTimer?.invalidate()
+            minWaitTimer?.invalidate()
+            maxWaitTimer?.invalidate()
             application.endBackgroundTask(task)
             completionHandler(.newData)
         }
-        // normal operation
-        self.backgroundUpdateSink = progress.objectWillChange.sink {
-            self.backgroundUpdateMinWaitTimer?.invalidate()
-            self.backgroundUpdateMinWaitTimer = nil
-            self.backgroundUpdateTimer?.invalidate()
-            self.backgroundUpdateTimer = nil
-            self.backgroundUpdateTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
-                defer {
-                    // cancel the timer no matter what happens
-                    self.backgroundUpdateTimer?.invalidate()
-                    self.backgroundUpdateTimer = nil
-                }
-                guard
-                    progress.progress.fractionCompleted == 1
-                 || progress.progress.fractionCompleted == 0
-                else { return }
+        self.backgroundUpdateSink = progress.objectWillChange.sink { [weak self] in
+            minWaitTimer?.invalidate()
+            syncTimer?.invalidate()
+            syncTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                guard progress.progress.fractionCompleted == 1 || progress.progress.fractionCompleted == 0 else { return }
+                // we're done syncing
                 
-                // we're done syncing, now we can manually force notifications
-                self.reminderObserver?.dataChanged(of: .all)
-                (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
-                self.backgroundUpdateSink = nil
-                self.backgroundUpdateMaxWaitTimer?.invalidate()
-                self.backgroundUpdateMaxWaitTimer = nil
+                // clean up all the timers
+                syncTimer?.invalidate()
+                minWaitTimer?.invalidate()
+                maxWaitTimer?.invalidate()
+                
+                // clean up the Sink
+                (self?.backgroundUpdateSink as? AnyCancellable)?.cancel()
+                self?.backgroundUpdateSink = nil
+                
+                // manually force notifications
+                self?.reminderObserver?.dataChanged(of: .all)
+                
+                // wait for notifications to be scheduled
                 Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { timer in
+                    "Background Sync Completed: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
                     // we're done and we can finish
                     timer.invalidate()
                     application.endBackgroundTask(task)
