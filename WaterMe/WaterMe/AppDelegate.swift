@@ -323,6 +323,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var backgroundUpdateMaxWaitTimer: Timer?
     
     func common_application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // This code is long and horrible, but it basically just sits around
+        // and waits for iCloud to sync. It has a couple of failsafes in case
+        // things appear not to be syncing correctly.
         guard
             #available(iOS 14.0, *),
             let progress = self.basicControllerResult.value?.syncProgress
