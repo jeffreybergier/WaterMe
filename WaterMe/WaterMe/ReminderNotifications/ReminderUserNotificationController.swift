@@ -198,7 +198,7 @@ class ReminderUserNotificationController {
 
             // swiftlint:disable:next force_cast
             let content = _content.copy() as! UNNotificationContent
-            let request = UNNotificationRequest(identifier: reminderTime.description,
+            let request = UNNotificationRequest(identifier: UUID().uuidString,
                                                 content: content,
                                                 trigger: trigger)
 
