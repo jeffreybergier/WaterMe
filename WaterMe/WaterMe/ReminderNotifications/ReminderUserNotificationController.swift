@@ -56,6 +56,7 @@ class ReminderUserNotificationController {
 
         // clear already scheduled notifications as we're going to schedule new ones
         center.removeAllPendingNotificationRequests()
+        /* TODO: Re-enable maybe?
         // clear out all reminders except the newest one
         center.getDeliveredNotifications {
             let toDelete = $0.sorted { $0.date <= $1.date }
@@ -66,6 +67,7 @@ class ReminderUserNotificationController {
                 center.removeDeliveredNotifications(withIdentifiers: toDelete)
             }
         }
+        */
         
         // hop on a background queue to do the processing
         self.queue.async {
