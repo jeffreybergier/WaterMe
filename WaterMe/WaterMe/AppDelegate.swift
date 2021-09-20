@@ -332,41 +332,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // setup objects to be finished later
         let startTime = Date()
         var syncTimer: Timer? // the normal timer that is waiting for the sync to finish
-        var minWaitTimer: Timer? // timer that shuts everything down if Sink never produces any signals
-        var maxWaitTimer: Timer? // timer that waits super long and shuts things down if sync doesn't finish
+        var startWaitLimitTimer: Timer? // timer that shuts everything down if Sink never produces any signals
+        var finishWaitLimitTimer: Timer? // timer that waits super long and shuts things down if sync doesn't finish
         let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
         
-        minWaitTimer = Timer.scheduledTimer(withTimeInterval: 6, repeats: false) { _ in
+        // configure timings
+        let syncTime: TimeInterval = 4
+        let startWaitLimitTime: TimeInterval = 10
+        let finishWaitLimitTime: TimeInterval = 25
+        let scheduleWaitLimitTime: TimeInterval = 2
+        
+        startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false) { _ in
             "Background Sync Failed: minWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
             (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self.backgroundUpdateSink = nil
             syncTimer?.invalidate()
-            minWaitTimer?.invalidate()
-            maxWaitTimer?.invalidate()
+            startWaitLimitTimer?.invalidate()
+            finishWaitLimitTimer?.invalidate()
             application.endBackgroundTask(task)
             completionHandler(.noData)
         }
-        maxWaitTimer = Timer.scheduledTimer(withTimeInterval: 25, repeats: false) { _ in
+        finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false) { _ in
             "Background Sync Failed: maxWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
             (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self.backgroundUpdateSink = nil
             syncTimer?.invalidate()
-            minWaitTimer?.invalidate()
-            maxWaitTimer?.invalidate()
+            startWaitLimitTimer?.invalidate()
+            finishWaitLimitTimer?.invalidate()
             application.endBackgroundTask(task)
             completionHandler(.newData)
         }
         self.backgroundUpdateSink = progress.objectWillChange.sink { [weak self] in
-            minWaitTimer?.invalidate()
+            startWaitLimitTimer?.invalidate()
             syncTimer?.invalidate()
-            syncTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            syncTimer = Timer.scheduledTimer(withTimeInterval: syncTime, repeats: false) { _ in
                 guard progress.progress.fractionCompleted == 1 || progress.progress.fractionCompleted == 0 else { return }
                 // we're done syncing
                 
                 // clean up all the timers
                 syncTimer?.invalidate()
-                minWaitTimer?.invalidate()
-                maxWaitTimer?.invalidate()
+                startWaitLimitTimer?.invalidate()
+                finishWaitLimitTimer?.invalidate()
                 
                 // clean up the Sink
                 (self?.backgroundUpdateSink as? AnyCancellable)?.cancel()
@@ -376,7 +382,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self?.reminderObserver?.dataChanged(of: .all)
                 
                 // wait for notifications to be scheduled
-                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
+                Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime, repeats: false) { timer in
                     "Background Sync Completed: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
                     // we're done and we can finish
                     timer.invalidate()
