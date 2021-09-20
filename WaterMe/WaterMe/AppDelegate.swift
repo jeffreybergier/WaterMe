@@ -338,7 +338,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // configure timings
         let syncTime: TimeInterval = 4
-        let startWaitLimitTime: TimeInterval = 8
+        let startWaitLimitTime: TimeInterval = 5
         let finishWaitLimitTime: TimeInterval = 23
         let scheduleWaitLimitTime: TimeInterval = 2
         
@@ -358,14 +358,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false) { _ in
-            String(format: "Background Sync Completed: startWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
+            String(format: "Background Sync Failed: startWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
             preFinishClosure()
             Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
                                  repeats: false,
                                  block: finishClosure)
         }
         finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false) { _ in
-            String(format: "Background Sync Completed: finishWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
+            String(format: "Background Sync Failed: finishWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
             preFinishClosure()
             Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
                                  repeats: false,
