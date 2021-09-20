@@ -336,7 +336,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var maxWaitTimer: Timer? // timer that waits super long and shuts things down if sync doesn't finish
         let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
         
-        minWaitTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+        minWaitTimer = Timer.scheduledTimer(withTimeInterval: 6, repeats: false) { _ in
             "Background Sync Failed: minWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
             (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self.backgroundUpdateSink = nil
@@ -376,7 +376,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self?.reminderObserver?.dataChanged(of: .all)
                 
                 // wait for notifications to be scheduled
-                Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { timer in
+                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
                     "Background Sync Completed: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
                     // we're done and we can finish
                     timer.invalidate()
