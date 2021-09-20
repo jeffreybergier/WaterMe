@@ -338,57 +338,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // configure timings
         let syncTime: TimeInterval = 4
-        let startWaitLimitTime: TimeInterval = 10
-        let finishWaitLimitTime: TimeInterval = 25
+        let startWaitLimitTime: TimeInterval = 8
+        let finishWaitLimitTime: TimeInterval = 23
         let scheduleWaitLimitTime: TimeInterval = 2
         
-        startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false) { _ in
-            "Background Sync Failed: minWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
-            (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
-            self.backgroundUpdateSink = nil
+        let preFinishClosure: () -> Void = { [weak self] in
+            (self?.backgroundUpdateSink as? AnyCancellable)?.cancel()
+            self?.backgroundUpdateSink = nil
             syncTimer?.invalidate()
             startWaitLimitTimer?.invalidate()
             finishWaitLimitTimer?.invalidate()
-            application.endBackgroundTask(task)
-            completionHandler(.noData)
+            self?.reminderObserver?.dataChanged(of: .all)
         }
-        finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false) { _ in
-            "Background Sync Failed: maxWaitTimer: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
-            (self.backgroundUpdateSink as? AnyCancellable)?.cancel()
-            self.backgroundUpdateSink = nil
-            syncTimer?.invalidate()
-            startWaitLimitTimer?.invalidate()
-            finishWaitLimitTimer?.invalidate()
+        
+        let finishClosure: (Timer) -> Void = { timer in
+            timer.invalidate()
             application.endBackgroundTask(task)
             completionHandler(.newData)
         }
-        self.backgroundUpdateSink = progress.objectWillChange.sink { [weak self] in
+        
+        startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false) { _ in
+            String(format: "Background Sync Completed: startWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
+            preFinishClosure()
+            Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
+                                 repeats: false,
+                                 block: finishClosure)
+        }
+        finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false) { _ in
+            String(format: "Background Sync Completed: finishWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
+            preFinishClosure()
+            Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
+                                 repeats: false,
+                                 block: finishClosure)
+        }
+        self.backgroundUpdateSink = progress.objectWillChange.sink {
             startWaitLimitTimer?.invalidate()
             syncTimer?.invalidate()
             syncTimer = Timer.scheduledTimer(withTimeInterval: syncTime, repeats: false) { _ in
                 guard progress.progress.fractionCompleted == 1 || progress.progress.fractionCompleted == 0 else { return }
-                // we're done syncing
-                
-                // clean up all the timers
-                syncTimer?.invalidate()
-                startWaitLimitTimer?.invalidate()
-                finishWaitLimitTimer?.invalidate()
-                
-                // clean up the Sink
-                (self?.backgroundUpdateSink as? AnyCancellable)?.cancel()
-                self?.backgroundUpdateSink = nil
-                
-                // manually force notifications
-                self?.reminderObserver?.dataChanged(of: .all)
-                
-                // wait for notifications to be scheduled
-                Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime, repeats: false) { timer in
-                    "Background Sync Completed: \(Date().timeIntervalSince(startTime))".log() // TODO: Change to debug level
-                    // we're done and we can finish
-                    timer.invalidate()
-                    application.endBackgroundTask(task)
-                    completionHandler(.newData)
-                }
+                String(format: "Background Sync Completed: syncTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
+                preFinishClosure()
+                Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
+                                     repeats: false,
+                                     block: finishClosure)
             }
         }
     }
