@@ -56,18 +56,6 @@ class ReminderUserNotificationController {
 
         // clear already scheduled notifications as we're going to schedule new ones
         center.removeAllPendingNotificationRequests()
-        /* TODO: Re-enable maybe?
-        // clear out all reminders except the newest one
-        center.getDeliveredNotifications {
-            let toDelete = $0.sorted { $0.date <= $1.date }
-                             .dropLast()
-                             .map { $0.request.identifier }
-            guard !toDelete.isEmpty else { return }
-            DispatchQueue.main.async {
-                center.removeDeliveredNotifications(withIdentifiers: toDelete)
-            }
-        }
-        */
         
         // hop on a background queue to do the processing
         self.queue.async {
@@ -80,27 +68,51 @@ class ReminderUserNotificationController {
                     application.endBackgroundTask(id)
                 }
             }
+            
+            // only called if a guard statement below fails
+            let bail = {
+                "Abandoned Scheduling notifications".log()
+                center.removeAllDeliveredNotifications()
+            }
 
             // make sure we have data to work with before continuing
             guard values.isEmpty == false else {
                 "Reminder array was empty".log(as: .debug)
+                bail()
                 completion()
                 return
             }
 
             // make sure we're authorized to send notifications
             guard center.notificationAuthorizationStatus.boolValue else {
-                "User has turned System notification toggle off".log(as: .info)
+                "User has turned System notification toggle off".log(as: .debug)
                 Analytics.log(event: Analytics.NotificationPermission.scheduleDeniedBySystem)
+                bail()
                 completion()
                 return
             }
             // generate notification object requests
-            let requests = type(of: self).notificationRequests(from: values,
-                                                               calendar: calendar,
-                                                               now: now)
-            Analytics.log(event: Analytics.NotificationPermission.scheduleSucceeded,
-                          extras: Analytics.NotificationPermission.extras(forCount: requests.count))
+            let allRequests = type(of: self).notificationRequests(from: values,
+                                                                  calendar: calendar,
+                                                                  now: now)
+            // filter out requests that are not for the future
+            let requests = allRequests.filter { $0.trigger != nil }
+            
+            // check if we actually filtered anything out
+            // so we know how to clear out already delivered notifications
+            if allRequests.count == requests.count {
+                // all requests are in the future, its safe to clear all notifications
+                "Removed Notifications: All".log()
+                center.removeAllDeliveredNotifications()
+            } else {
+                // there is a notification for today, so clear all notifications except today's
+                let toDelete = center.sync_getDeliveredNotifications()
+                                     .filter { !calendar.isDate($0.date, inSameDayAs: now) }
+                                     .map { $0.request.identifier }
+                center.removeDeliveredNotifications(withIdentifiers: toDelete)
+                "Removed Notifications: \(toDelete.count)".log()
+            }
+            
             guard requests.isEmpty == false else {
                 "No notifications to schedule".log(as: .debug)
                 completion()
@@ -137,6 +149,8 @@ class ReminderUserNotificationController {
                 } else {
                     // finished successfully!
                     "Scheduled Notifications: \(requests.count)".log(as: .debug)
+                    Analytics.log(event: Analytics.NotificationPermission.scheduleSucceeded,
+                                  extras: Analytics.NotificationPermission.extras(forCount: requests.count))
                     completion()
                     return
                 }
@@ -156,6 +170,7 @@ class ReminderUserNotificationController {
         let reminderHour = UserDefaults.standard.reminderHour
         let reminderDays = UserDefaults.standard.reminderDays
         let notificationLimit = UNUserNotificationCenter.notificationLimit
+        let startOfToday = calendar.startOfDay(for: now)
 
         // find the last reminder time and how many days away it is
         let numberOfDaysToLastReminder = values.last?.reminder.nextPerformDate.map() { endDate -> Int in
@@ -176,7 +191,7 @@ class ReminderUserNotificationController {
             }
             guard matches.isEmpty == false else { return nil }
             let reminderTimeInSameDayAsTestDate = calendar.dateWithExact(hour: reminderHour, onSameDayAs: testDate)
-            guard reminderTimeInSameDayAsTestDate >= now else { return nil }
+            guard reminderTimeInSameDayAsTestDate >= startOfToday else { return nil }
             return (reminderTimeInSameDayAsTestDate, matches)
         }
 
@@ -231,5 +246,18 @@ extension ReminderUserNotificationController.LocalizedString {
             let string = String(format: self.bodyManyItems, item1, items.count - 1)
             return string
         }
+    }
+}
+
+extension UNUserNotificationCenter {
+    fileprivate func sync_getDeliveredNotifications() -> [UNNotification] {
+        var output: [UNNotification]?
+        let semaphore = DispatchSemaphore(value: 0)
+        self.getDeliveredNotifications {
+            output = $0
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return output ?? []
     }
 }
