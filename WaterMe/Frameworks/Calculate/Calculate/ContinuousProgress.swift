@@ -50,7 +50,7 @@ public protocol ContinousProgress: ObservableObject {
 
 @available(iOS 13.0, *)
 public class AnyContinousProgress<InitError: Swift.Error, QError: Swift.Error>: ContinousProgress {
-    
+
     public let objectWillChange: ObservableObjectPublisher
     public var initializeError: InitError? { _initializeError() }
     public var progress: Progress { _progress() }
@@ -58,12 +58,12 @@ public class AnyContinousProgress<InitError: Swift.Error, QError: Swift.Error>: 
         get { _errorQ_get() }
         set { _errorQ_set(newValue) }
     }
-    
+
     private var _initializeError: () -> InitError?
     private var _progress: () -> Progress
     private var _errorQ_get: () -> Deque<QError>
     private var _errorQ_set: (Deque<QError>) -> Void
-    
+
     public init<T: ContinousProgress>(_ progress: T) where
         T.ObjectWillChangePublisher == ObservableObjectPublisher,
         T.InitializeError == InitError,
@@ -86,11 +86,11 @@ public class NoContinousProgress: ContinousProgress {
 }
 
 public enum GenericInitializationError: Swift.Error, RawRepresentable {
-    
+
     case couldNotDetermine
     case restricted
     case noAccount
-    
+
     public init?(rawValue: CKAccountStatus) {
         switch rawValue {
         case .available:
@@ -105,7 +105,7 @@ public enum GenericInitializationError: Swift.Error, RawRepresentable {
             self = .couldNotDetermine
         }
     }
-    
+
     public var rawValue: CKAccountStatus {
         switch self {
         case .couldNotDetermine:

@@ -28,7 +28,7 @@ public protocol ErrorInitable {
 }
 
 open class TypedNSError<T: ErrorInitable>: ErrorInitable, CustomNSError {
-    
+
     open class var errorDomain: String { "com.saturdayapps.WaterMe.InvalidDomain" }
     open var errorCode: Int { self.untyped.code }
     open var errorUserInfo: [String : Any] {
@@ -36,10 +36,10 @@ open class TypedNSError<T: ErrorInitable>: ErrorInitable, CustomNSError {
         userInfo["JSBOriginalErrorDomainKey"] = self.untyped.domain
         return userInfo
     }
-    
+
     public let typed: T
     public let untyped: NSError
-    
+
     public required init(_ error: Error) {
         self.untyped = error as NSError
         self.typed = .init(error)

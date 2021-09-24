@@ -24,14 +24,14 @@
 import UIKit
 
 public class ZStackView: UIView {
-    
+
     public enum Error: Swift.Error {
         case givenViewNotManaged
     }
-    
+
     public private(set) var arrangedSubviews: [UIView] = []
     public weak var animationDelegate: ZStackViewAnimationDelegate?
-    
+
     public func addArrangedSubview(_ view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
@@ -44,7 +44,7 @@ public class ZStackView: UIView {
         self.bringSubviewToFront(view)
         self.arrangedSubviews = [view] + self.arrangedSubviews
     }
-    
+
     @discardableResult
     public func removeArrangedSubview(_ view: UIView) -> Result<Void, Error> {
         let beforeCount = self.arrangedSubviews.count
@@ -54,7 +54,7 @@ public class ZStackView: UIView {
         view.removeFromSuperview()
         return .success(())
     }
-    
+
     @discardableResult
     public func bringArrangedSubviewToFront(_ view: UIView) -> Result<Void, Error> {
         guard let index = self.arrangedSubviews.firstIndex(of: view) else { return .failure(.givenViewNotManaged) }
@@ -66,7 +66,7 @@ public class ZStackView: UIView {
         self.animationDelegate?.didReorderArrangedSubviews(self)
         return .success(())
     }
-    
+
 }
 
 public protocol ZStackViewAnimationDelegate: AnyObject {

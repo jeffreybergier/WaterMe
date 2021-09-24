@@ -45,7 +45,7 @@ class SettingsMainViewController: StandardViewController {
         super.viewDidLoad()
 
         self.title = LocalizedString.title
-        
+
         self.tableViewController?.settingsRowChosen = { [unowned self] chosen, deselectRowAnimated in
             switch chosen {
             case .emailDeveloper:

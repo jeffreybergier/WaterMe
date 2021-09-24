@@ -29,7 +29,7 @@ internal struct RLM_ReminderWrapper: Reminder {
         self.vessel = wrappedObject.vessel.map { RLM_ReminderVesselWrapper($0) }
         self.wrappedObject = wrappedObject
     }
-    
+
     var kind: ReminderKind { self.wrappedObject.kind }
     var uuid: String { self.wrappedObject.uuid }
     var interval: Int { self.wrappedObject.interval }
@@ -53,7 +53,7 @@ internal struct RLM_ReminderWrapper: Reminder {
             }
         }
     }
-    
+
     func observePerforms(_ block: @escaping (ReminderPerformCollectionChange) -> Void) -> ObservationToken {
         fatalError("Not Implemented")
     }

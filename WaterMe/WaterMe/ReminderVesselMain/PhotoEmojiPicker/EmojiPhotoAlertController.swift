@@ -25,11 +25,11 @@ import Photos
 import UIKit
 
 extension UIAlertController {
-    
+
     enum EmojiPhotoChoice {
         case photos, camera, emoji, viewCurrentPhoto, error(UIViewController)
     }
-        
+
     class var cameraLocalizedString: String {
         switch ImagePickerCropperViewController.cameraPermission {
         case .authorized, .notDetermined:
@@ -40,7 +40,7 @@ extension UIAlertController {
             return UIAlertController.LocalizedString.buttonTitleCameraLocked
         }
     }
-    
+
     class func emojiPhotoActionSheet(withAlreadyChosenImage alreadyChosenImage: Bool,
                                      completionHandler: @escaping (EmojiPhotoChoice) -> Void) -> UIAlertController
     {
@@ -54,7 +54,7 @@ extension UIAlertController {
                                   style: .default) { _ in completionHandler(.photos) }
         let cancel = UIAlertAction(title: UIAlertController.LocalizedString.buttonTitleCancel,
                                    style: .cancel, handler: nil)
-        
+
         alertVC.addAction(emoji)
         let front = UIImagePickerController.isCameraDeviceAvailable(.front)
         let rear = UIImagePickerController.isCameraDeviceAvailable(.rear)
@@ -84,7 +84,7 @@ extension UIAlertController {
         alertVC.addAction(cancel)
         return alertVC
     }
-    
+
     class func cameraRestrictedAlert() -> UIAlertController {
         let alertVC = UIAlertController(title: ReminderVesselEditViewController.LocalizedString.alertTitleCameraRestricted,
                                         message: ReminderVesselEditViewController.LocalizedString.alertBodyCameraRestricted,
@@ -93,7 +93,7 @@ extension UIAlertController {
         alertVC.addAction(cancel)
         return alertVC
     }
-    
+
     class func cameraDeniedAlert() -> UIAlertController {
         let alertVC = UIAlertController(title: ReminderVesselEditViewController.LocalizedString.alertTitlePermissionDenied,
                                         message: ReminderVesselEditViewController.LocalizedString.alertBodyCameraDenied,

@@ -196,7 +196,7 @@ extension UIWindow {
             self.backgroundColor = .white
         }
     }
-    
+
     func style_unconfigureTemporaryReset() {
         self.backgroundColor = nil
     }

@@ -25,25 +25,25 @@ import Datum
 import UIKit
 
 class ReminderKindTableViewCell: SimpleLabelTableViewCell {
-    
+
     override class var reuseID: String { return "ReminderKindTableViewCell" }
-    
+
     override func setup() {
         super.setup()
         self.prepareForReuse()
     }
-    
+
     func configure(rowNumber: Int, compareWith compare: ReminderKind) {
         let id = ReminderKind(row: rowNumber)
         self.label.attributedText = NSAttributedString(string: id.localizedShortString, font: .selectableTableViewCell)
         self.accessoryType = id.isSameKind(as: compare) ? .checkmark : .none
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.label.attributedText = nil
     }
-    
+
 }
 
 extension ReminderKind {

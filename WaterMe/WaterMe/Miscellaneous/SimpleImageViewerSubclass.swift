@@ -35,9 +35,9 @@ class DismissHandlingImageViewerController: ImageViewerController {
 }
 
 class DismissHandlingImageViewerConfiguration: ImageViewerConfiguration {
-    
+
     let completion: ((UIViewController) -> Void)
-    
+
     init(image: UIImage? = nil,
          imageView: UIImageView? = nil,
          imageBlock: ImageBlock? = nil,

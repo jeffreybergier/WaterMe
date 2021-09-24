@@ -24,16 +24,16 @@
 import CoreData
 
 internal struct CD_ReminderWrapper: Reminder {
-    
+
     internal let wrappedObject: CD_Reminder
     private let context: LazyContext
-    
+
     internal init(_ wrappedObject: CD_Reminder, context: @escaping LazyContext) {
         self.context = context
         self.vessel = wrappedObject.raw_vessel.map { CD_ReminderVesselWrapper($0, context: context) }
         self.wrappedObject = wrappedObject
     }
-    
+
     var kind: ReminderKind { self.wrappedObject.kind }
     var uuid: String { self.wrappedObject.objectID.uriRepresentation().absoluteString }
     var interval: Int { Int(self.wrappedObject.raw_interval) }
@@ -69,7 +69,7 @@ internal struct CD_ReminderWrapper: Reminder {
             }
         }
     }
-    
+
     func observePerforms(_ block: @escaping (ReminderPerformCollectionChange) -> Void) -> ObservationToken {
         fatalError("Not implemented")
     }

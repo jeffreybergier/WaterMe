@@ -24,10 +24,10 @@
 import UIKit
 
 class EmojiPickerCollectionViewCell: UICollectionViewCell {
-    
+
     static let reuseID = "EmojiPickerCollectionViewCell"
     class var nib: UINib { return UINib(nibName: self.reuseID, bundle: Bundle(for: self.self)) }
-    
+
     @IBOutlet private weak var emojiLabel: UILabel?
     private var emojiString: String?
 
@@ -35,7 +35,7 @@ class EmojiPickerCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.prepareForReuse()
     }
-    
+
     func configure(withEmojiString emojiString: String) {
         let accessibility = self.traitCollection.preferredContentSizeCategory.isAccessibilityCategory
         self.emojiString = emojiString
@@ -57,7 +57,7 @@ class EmojiPickerCollectionViewCell: UICollectionViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         self.updateLayout()
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.emojiString = nil

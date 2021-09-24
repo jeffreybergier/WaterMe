@@ -24,7 +24,7 @@
 import Datum
 
 extension ReminderMainViewController {
-    
+
     func continueUserActivityResultIfNeeded() {
         guard let result = self.userActivityResultToContinue.first else { return }
         self.isReady.insert(.userActivityInProgress)

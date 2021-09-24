@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // configure main thread checking
         DispatchQueue.configureMainQueue()
-        
+
         // as early as possible, configure standard defaults
         let ud = UserDefaults.standard
         ud.configure()
@@ -82,11 +82,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let self = self,
                     let window = self.window
                 else { return }
-                
+
                 // need to rip the view hierarchy out of the window and put it back in
                 // in order for the new UIAppearance to take effect
                 UIApplication.style_configure()
-                
+
                 // force window to update everything by
                 // get the old vc in iOS 13
                 var newVC: UIViewController!
@@ -159,10 +159,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token6 = ud.observe(\.CLOUD_SYNC) { _, _ in
             cloudSyncChanges()
         }
-        
+
         self.userDefaultObserverTokens += [token1, token2, token3, token4, token5, token6]
     }
-    
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
@@ -172,7 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalNever)
         }
-        
+
         // Remote notifications used for CloudKit
         application.registerForRemoteNotifications()
 
@@ -228,7 +228,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // show window
         self.window = window
         window.makeKeyAndVisible()
-        
+
         return true
     }
 
@@ -275,7 +275,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
         return true
     }
-    
+
     func application(_ application: UIApplication,
                      shouldRestoreSecureApplicationState coder: NSCoder) -> Bool
     {
@@ -295,14 +295,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         return self.application(application, shouldSaveSecureApplicationState: coder)
     }
-    
+
     @available(*, deprecated, message: "This is deprecated. Only implemented for old iOS support.")
     func application(_ application: UIApplication,
                      shouldRestoreApplicationState coder: NSCoder) -> Bool
     {
         return self.application(application, shouldRestoreSecureApplicationState: coder)
     }
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         "didRegisterForRemoteNotifications".log(as: .debug)
     }
@@ -310,47 +310,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         error.log()
     }
-    
+
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         self.common_application(application, performFetchWithCompletionHandler: completionHandler)
     }
-    
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         self.common_application(application, performFetchWithCompletionHandler: completionHandler)
     }
-    
+
     private var backgroundUpdateSink: Any?
-    
+
     func common_application(_ application: UIApplication, performFetchWithCompletionHandler iOS_completion: @escaping (UIBackgroundFetchResult) -> Void) {
         guard #available(iOS 14.0, *), let progress = self.basicControllerResult.value?.syncProgress else {
             iOS_completion(.noData)
             return
         }
-        
+
         // This code is long and horrible, but it basically just sits around
         // and waits for iCloud to sync. It has a couple of failsafes in case
         // things appear not to be syncing correctly.
-        
+
         // setup objects to be finished later
         let startTime = Date()
         var syncTimer: Timer? // the normal timer that is waiting for the sync to finish
         var startWaitLimitTimer: Timer? // timer that shuts everything down if Sink never produces any signals
         var finishWaitLimitTimer: Timer? // timer that waits super long and shuts things down if sync doesn't finish
         let task = application.beginBackgroundTask(withName: "performFetchWithCompletionHandler:", expirationHandler: nil)
-        
+
         // configure timings
         let syncTime: TimeInterval = 4
         let startWaitLimitTime: TimeInterval = 5
         let finishWaitLimitTime: TimeInterval = 23
         let scheduleWaitLimitTime: TimeInterval = 2
-        
+
         let completion: (Timer) -> Void = { timer in
             String(format: "Background Sync Completed: syncTimer: %.02fs", Date().timeIntervalSince(startTime)).log(as: .debug)
             timer.invalidate()
             application.endBackgroundTask(task)
             iOS_completion(.newData)
         }
-        
+
         let preCompletion: (Timer) -> Void = { [weak self] timer in
             (self?.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self?.backgroundUpdateSink = nil
@@ -363,7 +363,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                  repeats: false,
                                  block: completion)
         }
-        
+
         startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false, block: preCompletion)
         finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false, block: preCompletion)
         self.backgroundUpdateSink = progress.objectWillChange.sink {

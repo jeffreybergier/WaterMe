@@ -47,7 +47,7 @@ extension UserActivityConfigurator: NSUserActivityDelegate {
 
             let reminderVessel = self.currentReminderVessel?()
             let reminder = self.currentReminderAndVessel?()
-            
+
             switch kind {
             case .editReminderVessel:
                 self.updateEditReminderVessel(activity: activity,

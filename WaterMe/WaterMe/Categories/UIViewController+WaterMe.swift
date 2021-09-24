@@ -34,7 +34,7 @@ extension UIViewController {
             completion?()
         }
     }
-    
+
     // For whatever reason, the `dismissViewController` method of UIVC does
     // different things when a view controller is being presented.
     // In situations where another VC is presented, this method just dismisses

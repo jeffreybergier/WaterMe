@@ -24,21 +24,21 @@
 import CoreData
 
 internal class CD_ReminderVesselCollection: BaseCollection {
-    
+
     private let controller: CD_ReminderVesselQuery.Controller
     private var context: LazyContext!
-    
+
     init(_ controller: CD_ReminderVesselQuery.Controller, context: @escaping LazyContext) {
         self.controller = controller
         self.context = context
     }
-        
+
     subscript(index: Int) -> ReminderVessel? {
         let reminderVessel = self.controller.object(at: IndexPath(row: index, section: 0))
         return CD_ReminderVesselWrapper(reminderVessel,
                                         context: self.context)
     }
-    
+
     func count(at index: Int?) -> Int? {
         guard index != nil else { return 1 }
         return self.controller.fetchedObjects?.count
@@ -69,19 +69,19 @@ internal class CD_ReminderVesselCollection: BaseCollection {
 }
 
 internal class CD_ReminderVesselQuery: CollectionQuery {
-    
+
     typealias Controller = NSFetchedResultsController<CD_ReminderVessel>
-    
+
     private let controller: Controller
     private let context: LazyContext
     // swiftlint:disable:next weak_delegate
     private var delegate: UpdatingFetchedResultsControllerDelegate?
-    
+
     init(_ controller: Controller, context: @escaping LazyContext) {
         self.controller = controller
         self.context = context
     }
-    
+
     func observe(_ block: @escaping (CollectionChange<AnyCollection<ReminderVessel, Int>, Int>) -> Void) -> ObservationToken {
         self.delegate = .init { block(.update($0.transformed())) }
         self.controller.delegate = self.delegate

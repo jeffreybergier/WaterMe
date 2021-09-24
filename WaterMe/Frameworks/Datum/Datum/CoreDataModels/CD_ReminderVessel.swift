@@ -30,7 +30,7 @@ internal class CD_ReminderVessel: CD_Base {
     class var request: NSFetchRequest<CD_ReminderVessel> {
         NSFetchRequest<CD_ReminderVessel>(entityName: self.entityName)
     }
-    
+
     override func awakeFromInsert() {
         super.awakeFromInsert()
         self.raw_kindString = ReminderVesselKind.plant.rawValue

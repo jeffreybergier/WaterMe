@@ -26,9 +26,9 @@ import XCGLogger
 import ServerlessLogger
 
 internal class ExceptionDestination<T: ServerlessLoggerEventProtocol>: Logger.Destination<T> {
-    
+
     override func process(logDetails: LogDetails) {
-        
+
         // If the error is of a certain kind, drop it on the floor
         if let error = logDetails.userInfo[Event.kErrorKey] as? NSError {
             switch (error.domain, error.code) {
@@ -45,9 +45,9 @@ internal class ExceptionDestination<T: ServerlessLoggerEventProtocol>: Logger.De
                 break
             }
         }
-        
+
         // otherwise call super
         super.process(logDetails: logDetails)
     }
-    
+
 }

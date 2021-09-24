@@ -25,7 +25,7 @@ import Foundation
 import Calculate
 
 extension Bundle {
-    
+
     internal var isReleaseBuild: Bool {
         #if RELEASE
         return true

@@ -82,7 +82,7 @@ extension DatumError: UserFacingError {
 }
 
 extension RecoveryAction: RecoveryActionSelectable {
-    
+
     public var title: String {
         switch self {
         case .cancel:
@@ -134,7 +134,7 @@ extension ModelCompleteError: UserFacingError {
     public var isCritical: Bool {
         return false
     }
-    
+
     public var title: String? {
         return UIAlertController.LocalizedString.titleUnsolvedIssues
     }

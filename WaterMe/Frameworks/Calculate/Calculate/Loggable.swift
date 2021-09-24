@@ -27,7 +27,7 @@ import ServerlessLogger
 
 /// Dummy singleton that doesn't do much except hold the default logger
 public enum Loggable {
-    
+
     public internal(set) static var `default`: XCGLogger?
 
     public static func configure(with delegate: ServerlessLoggerErrorDelegate?) {

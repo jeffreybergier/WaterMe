@@ -25,9 +25,9 @@ import Datum
 import UIKit
 
 class ReminderIntervalPickerViewController: StandardViewController {
-    
+
     typealias CompletionHandler = (UIViewController, Int?) -> Void
-    
+
     class func newVC(from storyboard: UIStoryboard!,
                      existingValue: Int,
                      popoverSourceView: UIView?,
@@ -50,31 +50,31 @@ class ReminderIntervalPickerViewController: StandardViewController {
         }
         return navVC
     }
-    
+
     @IBOutlet private weak var pickerView: UIPickerView?
 
     private var completionHandler: CompletionHandler!
     private var existingValue: Int = ReminderConstants.defaultInterval
-    
+
     private let data: [Int] = (ReminderConstants.minimumInterval...ReminderConstants.maximumInterval).map({ $0 })
     private let formatter = DateComponentsFormatter.newReminderIntervalFormatter
     private var rowCache: [Int : NSAttributedString] = [:]
     private var heightCache: CGFloat?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = LocalizedString.title
         self.view.backgroundColor = Color.systemBackgroundColor
-        
+
         let existingIndex = self.data.firstIndex(of: self.existingValue) ?? 0
         self.pickerView?.selectRow(existingIndex, inComponent: 0, animated: false)
     }
-    
+
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         self.completionHandler(self, nil)
     }
-    
+
     @IBAction private func doneButtonTapped(_ sender: Any) {
         let selectedIndex = self.pickerView?.selectedRow(inComponent: 0) ?? 0
         let selectedItem = self.data[selectedIndex]
@@ -100,7 +100,7 @@ extension ReminderIntervalPickerViewController: UIPickerViewDelegate {
         view.sizeToFit()
         return view
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         if let cache = self.heightCache { return cache }
         let height = self.attributedString(forRow: 100).size().height + 8

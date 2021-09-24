@@ -30,14 +30,14 @@ public protocol CollectionQuery {
 public struct AnyCollectionQuery<Element, Index>: CollectionQuery {
 
     private let _observe: (@escaping (CollectionChange<AnyCollection<Element, Index>, Index>) -> Void) -> ObservationToken
-    
+
     internal init<T: CollectionQuery>(_ query: T)
         where T.Element == Element,
               T.Index == Index
     {
         _observe = query.observe
     }
-    
+
     public func observe(_ closure: @escaping (CollectionChange<AnyCollection<Element, Index>, Index>) -> Void) -> ObservationToken {
         return _observe(closure)
     }

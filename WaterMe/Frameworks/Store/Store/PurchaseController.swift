@@ -62,7 +62,7 @@ public class PurchaseController {
 internal class Purchaser: NSObject, SKPaymentTransactionObserver {
 
     internal var transactionsUpdated: (([InFlightTransaction]) -> Void)?
-    
+
     override init() {
         super.init()
         SKPaymentQueue.default().add(self)

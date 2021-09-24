@@ -24,7 +24,7 @@
 import Foundation
 
 extension Calendar {
-    
+
     public func dateByAddingNumberOfDays(_ numberOfDays: Int, to date: Date) -> Date {
         if let date = self.date(byAdding: .day, value: numberOfDays, to: date) {
             return date

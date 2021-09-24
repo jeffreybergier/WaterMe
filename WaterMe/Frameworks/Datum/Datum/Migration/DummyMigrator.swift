@@ -49,7 +49,7 @@ internal class DummyMigrator: Migratable {
 }
 
 internal class DummyErrorMigrator: Migratable {
-    
+
     private var completion: MigratableResult?
 
     @discardableResult func start(destination: BasicController,

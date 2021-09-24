@@ -104,7 +104,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
                                font: .migratorSecondaryButton),
                                for: .normal
         )
-        
+
         self.progressView?.isHidden = false
         self.bodyLabel?.isHidden = false
         self.migrateButton?.alpha = 0 // setting alpha to 0 improves animations
@@ -247,7 +247,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
         vc.popoverPresentationController?.sourceView = (sender as? UIView) ?? self.view
         self.present(vc, animated: true, completion: nil)
     }
-    
+
     @IBAction private func contactDeveloperButtonTapped(_ sender: Any) {
         Analytics.log(viewOperation: .emailDeveloper)
         let vc = EmailDeveloperViewController.newVC { vc in

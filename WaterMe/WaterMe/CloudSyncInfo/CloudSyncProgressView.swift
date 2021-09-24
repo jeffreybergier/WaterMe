@@ -26,19 +26,19 @@ import Calculate
 import Datum
 
 class CloudSyncProgressView: ZStackView {
-    
+
     /// Sends the progress view and a closure to complete when done with performing lifecycle changes
     /// Pass true in closure to mark the item as able to be completed and false to indicate it could not be completed
     typealias LifecycleDelegate = (CloudSyncProgressView, ((Bool) -> Void)?) -> Void
-    
+
     enum Lifecycle {
         case show, hide, present(UserFacingError, UIButton)
     }
-    
+
     private enum State {
         case idle, syncing, error, unavailable
     }
-    
+
     private let idleButton        = UIButton(type: .system)
     private let syncingButton     = UIButton(type: .system)
     private let errorButton       = UIButton(type: .system)
@@ -47,13 +47,13 @@ class CloudSyncProgressView: ZStackView {
     private var lastError: UserFacingError?
     private var lastErrorResetTimer: Timer?
     private var syncProgressActivityTimer: Timer?
-    
+
     private let _progress: Any?
     @available(iOS 13.0, *)
     private var progress: AnyContinousProgress<GenericInitializationError, CloudKitSyncError>? {
         return _progress as? AnyContinousProgress<GenericInitializationError, CloudKitSyncError>
     }
-    
+
     private var state: State = .idle {
         didSet {
             let view: UIView
@@ -70,7 +70,7 @@ class CloudSyncProgressView: ZStackView {
             self.bringArrangedSubviewToFront(view)
         }
     }
-    
+
     var lifecycleDelegate: LifecycleDelegate? {
         didSet {
             self.lastError = nil
@@ -86,9 +86,9 @@ class CloudSyncProgressView: ZStackView {
                                     })
         }
     }
-    
+
     init(controller: BasicController?) {
-        
+
         defer {
             self.animationDelegate = self
             self.addArrangedSubview(self.idleButton)
@@ -104,22 +104,22 @@ class CloudSyncProgressView: ZStackView {
             self.errorButton.addTarget(self, action: #selector(self.showNextError(_:)), for: .touchUpInside)
             self.unavailableButton.addTarget(self, action: #selector(self.showUnavailableError(_:)), for: .touchUpInside)
         }
-        
+
         guard #available(iOS 14.0, *) else {
             self._progress = nil
             super.init(frame: .zero)
             return
         }
-        
+
         self._progress = controller?.syncProgress
         super.init(frame: .zero)
         self.progressToken = controller?.syncProgress?.objectWillChange.sink { [weak self] in
             self?.activateTimer()
         }
     }
-    
+
     private func updateLabels() {
-        
+
         let edge: WritableKeyPath<UIEdgeInsets, CGFloat>
             = self.traitCollection.layoutDirection == .rightToLeft
             ? \.right
@@ -128,22 +128,22 @@ class CloudSyncProgressView: ZStackView {
         self.syncingButton.imageEdgeInsets[keyPath: edge] = Style.statusIconTextGap
         self.errorButton.imageEdgeInsets[keyPath: edge] = Style.statusIconTextGap
         self.unavailableButton.imageEdgeInsets[keyPath: edge] = Style.statusIconTextGap
-        
+
         if #available(iOS 13.0, *) {
             self.idleButton.setImage(UIImage(systemName: "checkmark.icloud"), for: .normal)
             self.syncingButton.setImage(UIImage(systemName: "arrow.clockwise.icloud"), for: .normal)
             self.errorButton.setImage(UIImage(systemName: "exclamationmark.icloud"), for: .normal)
             self.unavailableButton.setImage(UIImage(systemName: "xmark.icloud"), for: .normal)
         }
-        
+
         // Setting AttributedStrings on buttons breaks their automatic coloring
         // Setting font manually here
-        
+
         self.idleButton.titleLabel?.font = Font.migratorSecondaryButton.attributes[.font] as? UIFont
         self.syncingButton.titleLabel?.font = Font.migratorSecondaryButton.attributes[.font] as? UIFont
         self.errorButton.titleLabel?.font = Font.migratorSecondaryButton.attributes[.font] as? UIFont
         self.unavailableButton.titleLabel?.font = Font.migratorSecondaryButton.attributes[.font] as? UIFont
-        
+
         self.idleButton.setTitle(
             LocalizedString.statusSyncComplete,
             for: .normal
@@ -161,23 +161,23 @@ class CloudSyncProgressView: ZStackView {
             for: .normal
         )
     }
-    
+
     private func activateTimer() {
         let invalidate = {
             self.syncProgressActivityTimer?.invalidate()
             self.syncProgressActivityTimer = nil
         }
-        
+
         guard #available(iOS 14.0, *), let progress = self.progress else {
             invalidate()
             self.state = .unavailable
             self.lifecycle = .show
             return
         }
-        
+
         guard self.syncProgressActivityTimer == nil else { return }
         defer { self.syncProgressActivityTimer?.fire() }
-        
+
         self.syncProgressActivityTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true)
         { [weak self] _ in
             let error: UserFacingError? = progress.initializeError
@@ -224,21 +224,21 @@ class CloudSyncProgressView: ZStackView {
             }
         }
     }
-    
+
     @objc private func showNextError(_ sender: UIButton) {
         guard let error: UserFacingError = self.lastError else { return }
         self.lifecycle = .present(error, sender)
     }
-    
+
     @objc private func showUnavailableError(_ sender: UIButton) {
         self.lifecycle = .present(Error.notAvailable, sender)
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.updateLabels()
     }
-    
+
     override func didMoveToWindow() {
         super.didMoveToWindow()
         guard self.window != nil else { return }
@@ -246,11 +246,11 @@ class CloudSyncProgressView: ZStackView {
         let oldState = self.state
         self.state = oldState
     }
-    
+
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         Loggable.default?.verbose()
     }

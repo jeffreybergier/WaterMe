@@ -45,7 +45,7 @@ public protocol BasicController: AnyObject {
     var userDidPerformReminder: ((Set<ReminderValue>) -> Void)? { get set }
 
     var kind: ControllerKind { get }
-    
+
     @available(iOS 14.0, *)
     var syncProgress: AnyContinousProgress<GenericInitializationError, CloudKitSyncError>? { get }
 
@@ -82,12 +82,12 @@ extension HasBasicController {
 }
 
 public enum ControllerKind: RawRepresentable {
-    
+
     case local
     case sync
     case __testing_inMemory
     case __testing_withClass(NSPersistentContainer.Type)
-    
+
     public var rawValue: Bool {
         switch self {
         case .local:
@@ -98,7 +98,7 @@ public enum ControllerKind: RawRepresentable {
             fatalError("RawValue unsupported while testing")
         }
     }
-    
+
     public init(rawValue: Bool) {
         self = rawValue ? .sync : .local
     }

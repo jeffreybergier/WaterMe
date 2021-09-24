@@ -41,14 +41,14 @@ class ReminderVesselMainViewController: StandardViewController, HasProController
         navVC.presentationController?.delegate = vc
         return navVC
     }
-    
+
     /*@IBOutlet*/ private weak var collectionVC: ReminderVesselCollectionViewController?
 
     private lazy var doneBBI: UIBarButtonItem = UIBarButtonItem(localizedDoneButtonWithTarget: self,
                                                                 action: #selector(self.doneButtonTapped(_:)))
     private lazy var addReminderVesselBBI: UIBarButtonItem = UIBarButtonItem(__legacy_localizedAddReminderVesselBBIButtonWithTarget: self,
                                                                              action: #selector(self.addReminderVesselButtonTapped(_:)))
-    
+
     var basicRC: BasicController?
     var proRC: ProController?
 
@@ -60,7 +60,7 @@ class ReminderVesselMainViewController: StandardViewController, HasProController
         self.navigationItem.leftBarButtonItem = self.addReminderVesselBBI
         self.navigationItem.rightBarButtonItem = self.doneBBI
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -71,7 +71,7 @@ class ReminderVesselMainViewController: StandardViewController, HasProController
             UIAlertController.presentAlertVC(for: error, over: self)
         }
     }
-    
+
     @IBAction private func addReminderVesselButtonTapped(_ sender: NSObject?) {
         self.editReminderVessel(nil)
     }
@@ -79,7 +79,7 @@ class ReminderVesselMainViewController: StandardViewController, HasProController
     @IBAction private func doneButtonTapped(_ sender: Any) {
         self.completionHandler?(self)
     }
-    
+
     private func editReminderVessel(_ vessel: ReminderVessel?) {
         guard let basicRC = self.basicRC else { return }
         let deselectAction: (() -> Void)? = vessel == nil ? nil : { self.collectionVC?.collectionView?.deselectAllItems(animated: true) }
@@ -88,7 +88,7 @@ class ReminderVesselMainViewController: StandardViewController, HasProController
         }
         self.present(editVC, animated: true, completion: nil)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if var destVC = segue.destination as? ReminderVesselCollectionViewController {
             self.collectionVC = destVC

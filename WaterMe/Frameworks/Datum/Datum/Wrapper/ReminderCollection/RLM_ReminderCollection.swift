@@ -24,44 +24,44 @@
 import RealmSwift
 
 internal class RLM_ReminderCollection: BaseCollection {
-    
+
     private let collection: AnyRealmCollection<RLM_Reminder>
     private let transform: (RLM_Reminder) -> Reminder = { RLM_ReminderWrapper($0) }
-    
+
     internal init(_ collection: AnyRealmCollection<RLM_Reminder>) {
         self.collection = collection
     }
-    
+
     subscript(index: Int) -> Reminder? { self.transform(self.collection[index]) }
-    
+
     func count(at index: Int?) -> Int? {
         guard index != nil else { return 1 }
         return self.collection.count
     }
-    
+
     func compactMap<NewElement>(_ transform: (Element?) throws -> NewElement?) rethrows -> [NewElement] {
         return try self.collection.compactMap { try transform(self.transform($0)) }
     }
-    
+
     func index(of item: Reminder) -> Int? {
         // swiftlint:disable:next force_cast
         let reminder = (item as! RLM_ReminderWrapper).wrappedObject
         return self.collection.index(of: reminder)
     }
-    
+
     func indexOfItem(with identifier: Identifier) -> Int? {
         return self.collection.index(matching: "\(#keyPath(RLM_Reminder.uuid)) == %@", identifier.uuid)
     }
 }
 
 internal class RLM_ReminderQuery: CollectionQuery {
-    
+
     private let collection: AnyRealmCollection<RLM_Reminder>
-    
+
     init(_ collection: AnyRealmCollection<RLM_Reminder>) {
         self.collection = collection
     }
-    
+
     func observe(_ block: @escaping (ReminderCollectionChange) -> Void) -> ObservationToken {
         return self.collection.observe { realmChange in
             switch realmChange {

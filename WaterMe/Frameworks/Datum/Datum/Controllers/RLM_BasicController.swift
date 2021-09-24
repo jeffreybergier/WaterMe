@@ -40,14 +40,14 @@ extension Realm {
 }
 
 // swiftlint:disable:next type_body_length
-internal class RLM_BasicController: BasicController {    
+internal class RLM_BasicController: BasicController {
 
     // MARK: Observation Closures
 
     internal var remindersDeleted: ((Set<ReminderValue>) -> Void)?
     internal var reminderVesselsDeleted: ((Set<ReminderVesselValue>) -> Void)?
     internal var userDidPerformReminder: ((Set<ReminderValue>) -> Void)?
-    
+
     // MARK: Initialization
 
     internal let kind: ControllerKind
@@ -94,7 +94,7 @@ internal class RLM_BasicController: BasicController {
         }
         self.config = realmConfig
     }
-    
+
     // MARK: WaterMeClient API
 
     internal func allVessels(sorted: ReminderVesselSortOrder,
@@ -228,7 +228,7 @@ internal class RLM_BasicController: BasicController {
             return realm.waterMe_commitWrite()
         }
     }
-    
+
     internal func newReminder(for vessel: ReminderVessel) -> Result<Reminder, DatumError> {
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! RLM_ReminderVesselWrapper).wrappedObject
@@ -240,7 +240,7 @@ internal class RLM_BasicController: BasicController {
             return realm.waterMe_commitWrite().map({ RLM_ReminderWrapper(reminder) })
         }
     }
-    
+
     internal func newReminderVessel(displayName: String? = nil,
                                     icon: ReminderVesselIcon? = nil)
                                     -> Result<ReminderVessel, DatumError>
@@ -256,13 +256,13 @@ internal class RLM_BasicController: BasicController {
             // enforce at least one reminder rule
             let reminder = RLM_Reminder()
             v.reminders.append(reminder)
-            
+
             realm.beginWrite()
             realm.add(v)
             return realm.waterMe_commitWrite().map({ RLM_ReminderVesselWrapper(v) })
         }
     }
-    
+
     internal func update(displayName: String? = nil,
                          icon: ReminderVesselIcon? = nil,
                          in vessel: ReminderVessel) -> Result<Void, DatumError>
@@ -294,7 +294,7 @@ internal class RLM_BasicController: BasicController {
             return realm.waterMe_commitWrite()
         }
     }
-    
+
     internal func update(kind: ReminderKind? = nil,
                          interval: Int? = nil,
                          isEnabled: Bool? = nil,
@@ -329,7 +329,7 @@ internal class RLM_BasicController: BasicController {
             return realm.waterMe_commitWrite()
         }
     }
-        
+
     internal func delete(vessel: ReminderVessel) -> Result<Void, DatumError> {
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! RLM_ReminderVesselWrapper).wrappedObject
@@ -346,19 +346,19 @@ internal class RLM_BasicController: BasicController {
         }
         return result
     }
-    
+
     private func delete(vessel: RLM_ReminderVessel, inOpenRealm realm: Realm) {
         for reminder in vessel.reminders {
             self.delete(reminder: reminder, inOpenRealm: realm)
         }
         realm.delete(vessel)
     }
-        
+
     internal func delete(reminder: Reminder) -> Result<Void, DatumError> {
         // swiftlint:disable:next force_cast
         let reminder = (reminder as! RLM_ReminderWrapper).wrappedObject
         if let vessel = reminder.vessel, vessel.reminders.count <= 1 {
-            return .failure(.unableToDeleteLastReminder) 
+            return .failure(.unableToDeleteLastReminder)
         }
         let reminderValue = ReminderValue(reminder: reminder)
         let result: Result<Void, DatumError> = self.realm.flatMap { realm in
@@ -371,7 +371,7 @@ internal class RLM_BasicController: BasicController {
         }
         return result
     }
-    
+
     private func delete(reminder: RLM_Reminder, inOpenRealm realm: Realm) {
         for perform in reminder.performed {
             realm.delete(perform)

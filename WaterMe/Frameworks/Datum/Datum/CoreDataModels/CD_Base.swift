@@ -30,17 +30,17 @@ internal class CD_Base: NSManagedObject {
     class var requestBase: NSFetchRequest<CD_Base> {
         NSFetchRequest<CD_Base>(entityName: self.entityName)
     }
-    
+
     override func awakeFromInsert() {
         super.awakeFromInsert()
         let now = Date()
         self.raw_dateCreated = now
         self.raw_dateModified = now
     }
-    
+
     override func willSave() {
         super.willSave()
-        
+
         let now = Date()
         let mod = self.raw_dateModified ?? now
         let interval = abs(mod.timeIntervalSince(now))

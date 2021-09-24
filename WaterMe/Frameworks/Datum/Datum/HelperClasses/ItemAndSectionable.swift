@@ -30,7 +30,7 @@ public protocol ItemAndSectionable {
 }
 
 public enum ItemAndSectionSanityCheckFailureReason {
-    
+
     case sectionCountMismatch(oldSectionCount: Int, newSectionCount: Int)
     case modifiedSectionMismatch(section: Int, oldCount: Int, newCount: Int, insCount: Int, delsCount: Int)
     case unmodifiedSectionMismatch(section: Int, oldCount: Int, newCount: Int)

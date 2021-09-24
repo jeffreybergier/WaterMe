@@ -52,15 +52,15 @@ extension CKContainer {
 /// Note, this class is not tested because it relies on NSNotificationCenter and other singletons.
 @available(iOS 14.0, OSX 11.0, *)
 public class CloudKitContainerContinuousProgress: ContinousProgress {
-    
+
     public var initializeError: GenericInitializationError?
     public let progress: Progress
     public var errorQ = Deque<CloudKitSyncError>()
-    
+
     private let syncName = NSPersistentCloudKitContainer.eventChangedNotification
     private let accountName = Notification.Name.CKAccountChanged
     private var io: Set<UUID> = []
-    
+
     /// If container is not NSPersistentCloudKitContainer this class never shows any progress.
     public init(_ container: NSPersistentContainer) {
         self.progress = .init(totalUnitCount: 0)
@@ -80,14 +80,14 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
                        object: nil)
         self.observeAccount()
     }
-    
+
     @objc private func observeAccount() {
         DispatchQueue.main.async {
             self.objectWillChange.send()
             self.initializeError = .init(rawValue: CKContainer.sync_accountStatus)
         }
     }
-    
+
     @objc private func observeSync(_ aNotification: Notification) {
         let key = NSPersistentCloudKitContainer.eventNotificationUserInfoKey
         guard let event = aNotification.userInfo?[key]
@@ -117,7 +117,7 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
             "progress: \(self.progress.completedUnitCount) / \(self.progress.totalUnitCount)".log(as: .debug)
         }
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self, name: self.syncName, object: nil)
         NotificationCenter.default.removeObserver(self, name: self.accountName, object: nil)

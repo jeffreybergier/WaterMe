@@ -28,7 +28,7 @@ internal struct RLM_ReminderVesselWrapper: ReminderVessel {
     internal init(_ wrappedObject: RLM_ReminderVessel) {
         self.wrappedObject = wrappedObject
     }
-    
+
     public var uuid: String { self.wrappedObject.uuid }
     public var displayName: String? { self.wrappedObject.displayName }
     public var icon: ReminderVesselIcon? { self.wrappedObject.icon }
@@ -57,7 +57,7 @@ extension RLM_ReminderVesselWrapper {
             }
         }
     }
-    
+
     func observeReminders(_ block: @escaping (ReminderCollectionChange) -> Void) -> ObservationToken {
         return self.wrappedObject.reminders.observe { realmChange in
             switch realmChange {

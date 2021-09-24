@@ -25,7 +25,7 @@ import Foundation
 import Datum
 
 extension UserDefaults {
-    
+
     enum Constants {
         static let kFirstRun = "FIRST_RUN"
         static let kCloudSync = "CLOUD_SYNC"
@@ -100,7 +100,7 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue.rawValue), forKey: Constants.kDarkMode)
         }
     }
-    
+
     var askForNotifications: Bool {
         get {
             guard let number = self.object(forKey: Constants.kFirstRun) as? NSNumber
@@ -111,7 +111,7 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue), forKey: Constants.kFirstRun)
         }
     }
-    
+
     var controllerKind: ControllerKind {
         get {
             guard let number = self.object(forKey: Constants.kCloudSync) as? NSNumber
@@ -122,7 +122,7 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue.rawValue), forKey: Constants.kCloudSync)
         }
     }
-    
+
     var hasCloudSyncInfoShown: Bool {
         get {
             guard #available(iOS 14, *) else { return true }
@@ -135,7 +135,7 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue), forKey: Constants.kCloudSyncInfoShown)
         }
     }
-    
+
     var reminderHour: Int {
         get {
             guard let number = self.object(forKey: Constants.kReminderHour) as? NSNumber
@@ -146,7 +146,7 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue), forKey: Constants.kReminderHour)
         }
     }
-    
+
     var reminderDays: Int {
         get {
             guard let number = self.object(forKey: Constants.kNumberOfReminderDays) as? NSNumber
@@ -157,7 +157,7 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue), forKey: Constants.kNumberOfReminderDays)
         }
     }
-    
+
     func configure() {
         self.register(defaults: [
             Constants.kFirstRun                : true,
@@ -172,12 +172,12 @@ extension UserDefaults {
         ])
 
         let build = self.lastBuildNumber
-        
+
         if let build = build, build <= 201027 {
             // fix bug where this toggle is always off in v1.0 and it needs to be on in 2.0
             self.askForNotifications = true
         }
-        
+
         if let build = build {
             // if the user is upgrading from an old build then mark this
             // info screen as not seen.

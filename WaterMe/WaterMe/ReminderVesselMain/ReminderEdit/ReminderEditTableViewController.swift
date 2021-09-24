@@ -46,7 +46,7 @@ protocol ReminderEditTableViewControllerDelegate: AnyObject {
 class ReminderEditTableViewController: StandardTableViewController {
 
     weak var delegate: ReminderEditTableViewControllerDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,7 +68,7 @@ class ReminderEditTableViewController: StandardTableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 40
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let reminder = self.delegate?.reminderResult?.value else {
             assertionFailure("Missing Reminder Object")
@@ -118,12 +118,12 @@ class ReminderEditTableViewController: StandardTableViewController {
             return indexPath
         }
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard let reminder = self.delegate?.reminderResult?.value else { return 0 }
         return Section.count(for: reminder.kind)
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let reminder = self.delegate?.reminderResult?.value else {
             assertionFailure("Missing Reminder Object")
@@ -197,7 +197,7 @@ class ReminderEditTableViewController: StandardTableViewController {
             return _cell
         }
     }
-    
+
     func forceTextFieldToBecomeFirstResponder() {
         guard let reminder = self.delegate?.reminderResult?.value else {
             assertionFailure("Missing Reminder Object")
@@ -217,7 +217,7 @@ class ReminderEditTableViewController: StandardTableViewController {
             assertionFailure("Water and Fertilize Reminders don't have a textfield to select")
         }
     }
-    
+
     func forceScrollToIsEnabledRow() {
         guard let reminder = self.delegate?.reminderResult?.value else {
             assertionFailure("Missing Reminder Object")
@@ -235,11 +235,11 @@ class ReminderEditTableViewController: StandardTableViewController {
             self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
-    
+
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(false)
     }
-    
+
     private func updated(text newText: String, for oldKind: ReminderKind) {
         let newKind: ReminderKind
         defer {
@@ -256,7 +256,7 @@ class ReminderEditTableViewController: StandardTableViewController {
             fatalError("Wrong Kind Encountered")
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let reminder = self.delegate?.reminderResult?.value else {
             assertionFailure("Missing Reminder Object")

@@ -64,7 +64,7 @@ class ReminderSummaryViewController: StandardViewController {
     @IBOutlet private weak var darkBackgroundView: UIView?
     @IBOutlet var tableViewControllerLeadingTrailingConstraints: [NSLayoutConstraint]?
     @IBOutlet var tableViewMaximumWidthConstraint: NSLayoutConstraint!
-    
+
     private(set) var isPresentedAsPopover = false
 
     var reminderResult: Result<Reminder, DatumError>!
@@ -101,7 +101,7 @@ class ReminderSummaryViewController: StandardViewController {
             self.updateViewForPresentation()
         }, completion: nil)
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.updateViewForPresentation()
@@ -219,7 +219,7 @@ extension ReminderSummaryViewController /*: UIAdaptivePresentationControllerDele
         // have our view controller update based on our new presentation
         self.updateViewForPresentation()
     }
-    
+
     override func adaptivePresentationStyle(for controller: UIPresentationController,
                                             traitCollection tc: UITraitCollection) -> UIModalPresentationStyle
     {

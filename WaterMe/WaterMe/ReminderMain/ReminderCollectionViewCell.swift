@@ -25,10 +25,10 @@ import Datum
 import UIKit
 
 class ReminderCollectionViewCell: UICollectionViewCell {
-    
+
     static let reuseID = "ReminderCollectionViewCell"
     class var nib: UINib { return UINib(nibName: self.reuseID, bundle: Bundle(for: self.self)) }
-    
+
     @IBOutlet private weak var labelOne: UILabel?
     @IBOutlet private weak var labelTwo: UILabel?
     @IBOutlet private weak var largeEmojiImageView: EmojiImageView?
@@ -37,10 +37,10 @@ class ReminderCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var justPerformedView: UIView?
 
     private var lastPerformedDate: Date?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.largeEmojiImageView?.size = .large
         self.largeEmojiImageView?.ring = true
         self.smallEmojiImageView?.size = .small
@@ -48,16 +48,16 @@ class ReminderCollectionViewCell: UICollectionViewCell {
         self.emojiImageWidthConstraint?.constant = type(of: self).style_emojiImageViewWidth
         self.selectedBackgroundView?.style_setCornerRadius()
         self.justPerformedView?.style_setCornerRadius()
-        
+
         self.reset()
     }
-    
+
     func configure(with reminder: Reminder?) {
         guard let reminder = reminder else { self.reset(); return; }
 
         // configure date
         self.lastPerformedDate = reminder.lastPerformDate
-        
+
         // vessel name style
         let vesselName = reminder.vessel?.displayName
         let vesselNameStyle = vesselName != nil ?
@@ -109,7 +109,7 @@ class ReminderCollectionViewCell: UICollectionViewCell {
             }
         })
     }
-    
+
     private func reset() {
         self.justPerformedView?.alpha = 0
         self.lastPerformedDate = nil
@@ -123,7 +123,7 @@ class ReminderCollectionViewCell: UICollectionViewCell {
         super.tintColorDidChange()
         self.justPerformedView?.backgroundColor = self.tintColor
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.reset()

@@ -25,10 +25,10 @@ import Datum
 import UIKit
 
 class ReminderVesselCollectionViewCell: UICollectionViewCell {
-    
+
     static let reuseID = "ReminderVesselCollectionViewCell"
     class var nib: UINib { return UINib(nibName: self.reuseID, bundle: Bundle(for: self.self)) }
-    
+
     @IBOutlet private weak var nameLabel: UILabel?
     @IBOutlet private weak var emojiImageView: EmojiImageView?
     @IBOutlet private weak var emojiImageViewMaximumWidthConstraint: NSLayoutConstraint?
@@ -37,7 +37,7 @@ class ReminderVesselCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.prepareForReuse()
     }
-    
+
     func configure(with vessel: ReminderVessel) {
         let vesselName = vessel.displayName
         let vesselNameStyle = vesselName != nil ?
@@ -47,7 +47,7 @@ class ReminderVesselCollectionViewCell: UICollectionViewCell {
                                                             font: vesselNameStyle)
         self.emojiImageView?.setIcon(vessel.icon)
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.nameLabel?.attributedText = nil

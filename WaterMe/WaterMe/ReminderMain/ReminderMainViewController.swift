@@ -27,7 +27,7 @@ import UIKit
 // swiftlint:disable file_length
 
 class ReminderMainViewController: StandardViewController, HasProController, HasBasicController {
-    
+
     class func newVC(basic: Result<BasicController, DatumError>,
                      pro: ProController? = nil) -> UINavigationController
     {
@@ -76,7 +76,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         // configure toolbar buttons
         self.navigationItem.rightBarButtonItem = self.plantsBBI
         self.navigationItem.leftBarButtonItem = self.settingsBBI
-        
+
         // Configure the bottom bar for iCloud sync
         // Whether the bar shows is related to the user's preference,
         // not the actual capabilities of the device.
@@ -107,7 +107,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
 
         guard self.isReady.contains([.viewDidAppearOnce]) == false else { return }
         self.isReady.insert(.viewDidAppearOnce)
-        
+
         self.secretLongPressGestureRecognizer =
             UIBarButtonItemLongPressGestureRecognizer(barButtonItem: self.plantsBBI,
                                                       target: self,
@@ -126,7 +126,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
         }
     }
-    
+
     private func didUpdate(_ progressView: CloudSyncProgressView, _ completion: ((Bool) -> Void)?) {
         switch progressView.lifecycle {
         case .hide:
@@ -170,7 +170,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             self.continueUserActivityResultIfNeeded()
             return
         }
-        
+
         if let collectionLoadError = self.collectionVC?.reminders?.error {
             self.collectionVC?.reminders = nil
             UIAlertController.presentAlertVC(for: collectionLoadError, over: self) { _ in

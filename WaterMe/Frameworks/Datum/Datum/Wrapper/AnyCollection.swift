@@ -40,18 +40,18 @@ public struct AnyCollection<Element, Index>: BaseCollection {
     private let _subscript: (Index) -> Element?
     private let _index1: (Element) -> Index?
     private let _index2: (Identifier) -> Index?
-    
+
     internal init<T: BaseCollection>(_ collection: T) where T.Element == Element, T.Index == Index {
         _subscript = { collection[$0] }
         _count  = collection.count
         _index1 = collection.index
         _index2 = collection.indexOfItem
     }
-    
+
     public subscript(index: Index) -> Element? {
         return _subscript(index)
     }
-    
+
     /// Intended to give count of grouping above item at `index`.
     /// Pass `nil` to get the number of sections
     /// Convenience `count: Int` property provided as conditional conformance `where Index == Int`
@@ -59,11 +59,11 @@ public struct AnyCollection<Element, Index>: BaseCollection {
     public func count(at index: Index?) -> Int? {
         return _count(index)
     }
-    
+
     public func index(of item: Element) -> Index? {
         return _index1(item)
     }
-    
+
     public func indexOfItem(with identifier: Identifier) -> Index? {
         return _index2(identifier)
     }
@@ -73,11 +73,11 @@ extension BaseCollection where Index == Int {
     public var count: Int {
         return self.count(at: 0) ?? 0
     }
-    
+
     public func compactMap<NewElement>(_ transform: (Element?) throws -> NewElement?) rethrows -> [NewElement] {
         return try (0..<self.count).compactMap { try transform(self[$0]) }
     }
-    
+
     public func map<T>(_ transform: (Element?) throws -> T) rethrows -> [T]  {
         return try (0..<self.count).map { try transform(self[$0]) }
     }

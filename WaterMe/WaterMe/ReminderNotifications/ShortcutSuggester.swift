@@ -80,7 +80,7 @@ class ShortcutSuggester: ShortcutSuggesterProtocol {
     }
 
     private static var delegates = [ReminderAndVesselValue : UserActivityConfiguratorProtocol]()
-    
+
     private class func raw_perform(with values: [ReminderAndVesselValue]) {
 
         self.delegates = Dictionary(minimumCapacity: values.count)

@@ -82,7 +82,7 @@ extension UNUserNotificationCenter {
         let settings = self.settings
         return settings?.authorizationStatus ?? .authorized
     }
-    
+
     var canScheduleNotifications: Bool {
         switch self.notificationAuthorizationStatus {
         case .denied, .notDetermined:

@@ -30,14 +30,14 @@ internal class CD_Reminder: CD_Base {
     class var request: NSFetchRequest<CD_Reminder> {
         NSFetchRequest<CD_Reminder>(entityName: self.entityName)
     }
-    
+
     override func awakeFromInsert() {
         super.awakeFromInsert()
         self.raw_kindString = ReminderKind.kCaseWaterValue
         self.raw_interval = Int32(ReminderConstants.defaultInterval)
         self.raw_isEnabled = true
     }
-    
+
     /// Update `nextPerformDate` & `lastPerformDate` based on new date
     /// If `nil` is passed for `newDate` then current `lastPerformDate` is used for update calculation.
     internal func updateDates(withAppendedPerformDate newDate: Date? = nil) {
@@ -52,7 +52,7 @@ internal class CD_Reminder: CD_Base {
             self.raw_nextPerformDate = nil
         }
     }
-    
+
     override func willSave() {
         super.willSave()
         if let descriptionString = self.raw_descriptionString,
@@ -73,7 +73,7 @@ internal class CD_ReminderPerform: CD_Base {
     class var request: NSFetchRequest<CD_ReminderPerform> {
         NSFetchRequest<CD_ReminderPerform>(entityName: self.entityName)
     }
-    
+
     override func awakeFromInsert() {
         super.awakeFromInsert()
         self.raw_date = Date()

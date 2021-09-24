@@ -26,9 +26,9 @@ import UIKit
 import Calculate
 
 class ReminderVesselEditViewController: StandardViewController, HasBasicController {
-    
+
     typealias CompletionHandler = (UIViewController) -> Void
-    
+
     class func newVC(basicController: BasicController?,
                      editVessel vessel: ReminderVessel? = nil,
                      userActivityCompletion: NSUserActivityContinuedHandler? = nil,
@@ -54,12 +54,12 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
         navVC.presentationController?.delegate = vc
         return navVC
     }
-    
+
     /*@IBOutlet*/ private weak var tableViewController: ReminderVesselEditTableViewController?
 
     private lazy var deleteBBI: UIBarButtonItem = UIBarButtonItem(localizedDeleteButtonWithTarget: self, action: #selector(self.deleteButtonTapped(_:)))
     private lazy var doneBBI: UIBarButtonItem = UIBarButtonItem(localizedDoneButtonWithTarget: self, action: #selector(self.doneButtonTapped(_:)))
-    
+
     var basicRC: BasicController?
     private(set) var vesselResult: Result<ReminderVessel, DatumError>?
     private(set) var completionHandler: CompletionHandler!
@@ -136,7 +136,7 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
         self.notificationToken = nil
         self.completionHandler?(self)
     }
-    
+
     @IBAction private func deleteButtonTapped(_ sender: Any) {
         self.view.endEditing(false)
         guard
@@ -170,13 +170,13 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
         }
         self.present(vc, animated: true, completion: nil)
     }
-    
+
     @IBAction private func doneButtonTapped(_ sender: Any) {
         self.view.endEditing(false)
         guard let vessel = self.vesselResult?.value else { assertionFailure("Missing ReminderVessel"); return; }
 
         Analytics.log(event: Analytics.CRUD_Op_RV.update)
-        
+
         guard let sender = sender as? UIBarButtonItem else {
             assertionFailure("Expected UIBarButtonItem to call this method")
             return
@@ -215,14 +215,14 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
     func userDirtiedUserActivity() {
         self.userActivity?.needsSave = true
     }
-    
+
     func startNotifications() {
         self.notificationToken =
             self.vesselResult?.value?.observe({ [weak self] in self?.vesselChanged($0) })
     }
-    
+
     var notificationToken: ObservationToken?
-    
+
     deinit {
         self.notificationToken?.invalidate()
     }

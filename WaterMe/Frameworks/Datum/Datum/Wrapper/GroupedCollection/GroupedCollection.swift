@@ -34,32 +34,32 @@ internal class GroupedCollection<
     where Query.Index == Int,
           Section.RawValue == Int
 {
-    
+
     internal typealias InputChange = CollectionChange<AnyCollection<Query.Element, Query.Index>, Query.Index>
     internal typealias OutputChange = CollectionChange<AnyCollection<Query.Element, IndexPath>, IndexPath>
-    
+
     // MARK: IVAR Storage
-    
+
     private var data: [Section : AnyCollection<Query.Element, Query.Index>] = [:]
     private let queries: [Section : Query]
     private let updateBatcher = Batcher()
-    
+
     // TODO: Consider removing the closure from here. Its not used
     private var currentObserver: (closure: ((OutputChange) -> Void)?, tokens: [ObservationToken])?
 
     private var allSectionsFinishedLoading: Bool {
         return self.data.count == self.queries.count
     }
-    
+
     // MARK: INIT
 
     init(queries: [Section : Query]) {
         self.queries = queries
         super.init()
     }
-    
+
     // MARK: CollectionQuery
-    
+
     func observe(_ block: @escaping (OutputChange) -> Void) -> ObservationToken {
         guard self.currentObserver == nil else {
             assertionFailure("")
@@ -88,7 +88,7 @@ internal class GroupedCollection<
         self.currentObserver = (block, tokens)
         return self
     }
-    
+
     // MARK: BaseCollection
 
     func count(at index: IndexPath?) -> Int? {
@@ -96,12 +96,12 @@ internal class GroupedCollection<
         guard self.allSectionsFinishedLoading == true else {
             return 0
         }
-        
+
         // if NIL, return `numberOfSections`
         guard let index = index else {
             return self.data.count
         }
-        
+
         guard
             let section = Section(rawValue: index.section),
             let collection = self.data[section]
@@ -118,7 +118,7 @@ internal class GroupedCollection<
         guard self.allSectionsFinishedLoading == true else {
             return nil
         }
-        
+
         guard
             let section = Section(rawValue: index.section),
             let collection = self.data[section]
@@ -128,7 +128,7 @@ internal class GroupedCollection<
             error.log()
             return nil
         }
-        
+
         // swiftlint:disable:next todo
         // FIXME: Crasher Workaround - http://crashes.to/s/ba8c0f6c9ad
         // Sometimes this method is called when an index out of bounds.
@@ -143,26 +143,26 @@ internal class GroupedCollection<
 
         return collection[row]
     }
-    
+
     func index(of item: Query.Element) -> IndexPath? {
         // if we haven't finished loading data, always return 0
         guard self.allSectionsFinishedLoading == true else {
             return nil
         }
-        
+
         for (section, collection) in self.data {
             guard let row = collection.index(of: item) else { continue }
             return IndexPath(row: row, section: section.rawValue)
         }
         return nil
     }
-    
+
     func indexOfItem(with identifier: Identifier) -> IndexPath? {
         // if we haven't finished loading data, always return 0
         guard self.allSectionsFinishedLoading == true else {
             return nil
         }
-        
+
         for (section, collection) in self.data {
             guard let row = collection.indexOfItem(with: identifier) else { continue }
             return IndexPath(row: row, section: section.rawValue)
@@ -171,7 +171,7 @@ internal class GroupedCollection<
     }
 
     // MARK: ObservationToken
-    
+
     internal func invalidate() {
         let tokens = self.currentObserver?.tokens
         self.currentObserver = nil
@@ -181,7 +181,7 @@ internal class GroupedCollection<
     deinit {
         self.invalidate()
     }
-    
+
     // MARK: Group the Updates
 
     private class Batcher {

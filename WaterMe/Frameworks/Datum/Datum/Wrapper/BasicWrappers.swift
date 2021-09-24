@@ -157,12 +157,12 @@ internal class UpdatingFetchedResultsControllerDelegate: NSObject, NSFetchedResu
 }
 
 extension UserDefaults {
-    
+
     enum Constants {
         // Make sure this stays in sync with UserDefaults File
         static let kDidRunWithoutCloudSync = "DID_RUN_WITHOUT_CLOUD_SYNC"
     }
-    
+
     var didRunWithoutCloudSync: Bool {
         get {
             guard #available(iOS 14, *) else { return true }
@@ -175,5 +175,5 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue), forKey: Constants.kDidRunWithoutCloudSync)
         }
     }
-    
+
 }

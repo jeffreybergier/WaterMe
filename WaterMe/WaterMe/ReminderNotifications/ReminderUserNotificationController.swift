@@ -32,32 +32,32 @@ class ReminderUserNotificationController {
 
     // swiftlint:disable:next function_body_length
     func perform(with values: [ReminderAndVesselValue]) {
-        
+
         // get reusable objects
         let application = UIApplication.shared
         let calendar = Calendar.current
         let center = UNUserNotificationCenter.current()
         let now = Date()
-        
+
         // make sure we have permission to schedule
         guard center.canScheduleNotifications else {
             Analytics.log(event: Analytics.NotificationPermission.permissionDenied)
             return
         }
-        
+
         // make sure there isn't already a background task in progress
         guard self.backgroundTaskID == nil else {
             Analytics.log(event: Analytics.NotificationPermission.scheduleAlreadyInProgress)
             return
         }
-        
+
         // tell the OS I'm running a background task
         self.backgroundTaskID = application.beginBackgroundTask(withName: self.taskName,
                                                                 expirationHandler: nil)
 
         // clear already scheduled notifications as we're going to schedule new ones
         center.removeAllPendingNotificationRequests()
-        
+
         // hop on a background queue to do the processing
         self.queue.async {
             // completion block for when things are finished
@@ -69,7 +69,7 @@ class ReminderUserNotificationController {
                     application.endBackgroundTask(id)
                 }
             }
-            
+
             // only called if a guard statement below fails
             let bail = {
                 "Abandoned Scheduling notifications".log(as: .debug)
@@ -98,7 +98,7 @@ class ReminderUserNotificationController {
                                                                   now: now)
             // filter out requests that are not for the future
             let requests = allRequests.filter { $0.trigger != nil }
-            
+
             // check if we actually filtered anything out
             // so we know how to clear out already delivered notifications
             if allRequests.count == requests.count {
@@ -113,7 +113,7 @@ class ReminderUserNotificationController {
                 center.removeDeliveredNotifications(withIdentifiers: toDelete)
                 "Removed Notifications: \(toDelete.count)".log(as: .debug)
             }
-            
+
             guard requests.isEmpty == false else {
                 "No notifications to schedule".log(as: .debug)
                 completion()

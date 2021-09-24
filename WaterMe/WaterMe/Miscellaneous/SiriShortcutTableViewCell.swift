@@ -55,5 +55,5 @@ class SiriShortcutTableViewCell: SimpleLabelTableViewCell {
         self.label.text = nil
         self.plusButton.setImage(nil, for: .normal)
     }
-    
+
 }

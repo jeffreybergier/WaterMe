@@ -39,7 +39,7 @@ protocol ReminderCollectionViewControllerDelegate: AnyObject {
 }
 
 class ReminderCollectionViewController: StandardCollectionViewController, HasBasicController, HasProController {
-    
+
     var proRC: ProController?
     var basicRC: BasicController?
     var allDataReady: ((Bool) -> Void)?
@@ -94,9 +94,9 @@ class ReminderCollectionViewController: StandardCollectionViewController, HasBas
         // support dark mode
         self.collectionView.backgroundColor = Color.systemBackgroundColor
     }
-    
+
     private var token: ObservationToken?
-    
+
     private func hardReloadData() {
         self.token?.invalidate()
         self.token = nil
@@ -141,11 +141,11 @@ class ReminderCollectionViewController: StandardCollectionViewController, HasBas
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.reminders?.value?.numberOfSections ?? 0
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.reminders?.value?.count(at: IndexPath(row: 0, section: section)) ?? 0
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReminderCollectionViewCell.reuseID, for: indexPath)
         let reminder = self.reminders?.value?[indexPath]
@@ -215,7 +215,7 @@ class ReminderCollectionViewController: StandardCollectionViewController, HasBas
             return (2, 320)
         }
     }
-    
+
     deinit {
         self.token?.invalidate()
     }
@@ -326,7 +326,7 @@ extension ReminderCollectionViewController {
         let failureReason = ItemAndSectionSanityCheckFailureReason.check(old: cv,
                                                                          new: reminders,
                                                                          delta: (ins, dels))
-        
+
         guard failureReason == nil else {
             let error = NSError(errorFromSanityCheckFailureReason: failureReason!)
             Analytics.log(error: error)

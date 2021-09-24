@@ -31,16 +31,16 @@ public enum ReminderKind: Hashable {
 }
 
 extension ReminderKind {
-    
+
     internal static let kCaseWaterValue = "kReminderKindCaseWaterValue"
     fileprivate static let kCaseTrimValue = "kReminderKindCaseTrimValue"
     fileprivate static let kCaseMistValue = "kReminderKindCaseMistValue"
     fileprivate static let kCaseFertilizeValue = "kReminderKindCaseFertilizeValue"
     fileprivate static let kCaseMoveValue = "kReminderKindCaseMoveValue"
     fileprivate static let kCaseOtherValue = "kReminderKindCaseOtherValue"
-    
+
     internal typealias RawValue = (primary: String, secondary: String?)
-    
+
     internal var rawValue: RawValue {
         let me = type(of: self)
         switch self {
@@ -58,7 +58,7 @@ extension ReminderKind {
             return (me.kCaseOtherValue, description)
         }
     }
-    
+
     init(rawValue: RawValue) {
         switch rawValue.primary {
         case type(of: self).kCaseWaterValue:

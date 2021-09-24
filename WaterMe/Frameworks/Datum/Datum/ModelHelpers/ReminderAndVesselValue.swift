@@ -54,7 +54,7 @@ public struct ReminderValue: Hashable {
         self.nextPerformDate = reminder.nextPerformDate
         self.kind = reminder.kind
     }
-    
+
     internal init(reminder: RLM_Reminder) {
         self.uuid = Identifier(rawValue: reminder.uuid)
         self.nextPerformDate = reminder.nextPerformDate
@@ -74,7 +74,7 @@ public struct ReminderVesselValue: Hashable {
     public var uuid: Identifier
     public var name: String?
     public var imageData: Data?
-    
+
     public init?(reminderVessel: ReminderVessel?) {
         guard let reminderVessel = reminderVessel else { return nil }
         self.uuid = Identifier(rawValue: reminderVessel.uuid)
@@ -82,7 +82,7 @@ public struct ReminderVesselValue: Hashable {
         // swiftlint:disable:next force_cast
         self.imageData = (reminderVessel as! HasIconImageData).iconImageData
     }
-    
+
     internal init(reminderVessel: RLM_ReminderVessel) {
         self.uuid = Identifier(rawValue: reminderVessel.uuid)
         self.name = reminderVessel.shortLabelSafeDisplayName

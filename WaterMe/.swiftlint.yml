@@ -1,7 +1,6 @@
 disabled_rules:
     - opening_brace
     - colon
-    - trailing_whitespace
     - identifier_name
     - type_name
     - line_length

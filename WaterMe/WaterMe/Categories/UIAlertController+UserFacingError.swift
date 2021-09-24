@@ -26,9 +26,9 @@ import Datum
 import UIKit
 
 extension UIAlertController {
-    
+
     typealias UserSelection = (RecoveryAction) -> Void
-    
+
     class func presentAlertVC(for error: UserFacingError,
                               over presentingVC: UIViewController,
                               from barButtonItem: UIBarButtonItem? = nil,
@@ -65,12 +65,12 @@ extension UIAlertController {
     enum ReminderDeleteConfirmationResult {
         case delete, pause, cancel
     }
-    
+
     struct ReminderDeleteConfirmationOptions: OptionSet {
         let rawValue: Int
         static let pause = ReminderDeleteConfirmationOptions(rawValue: 1 << 0)
     }
-    
+
     convenience init(error: UserFacingError,
                      sender: PopoverSender?,
                      selectionHandler: ((RecoveryAction?) -> Void)? = nil)

@@ -29,11 +29,11 @@ import Calculate
 
 // swiftlint:disable:next type_body_length
 internal class CD_BasicController: BasicController {
-    
+
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         guard
             let url = Bundle(for: CD_BasicController.self)
                             .url(forResource: "WaterMe", withExtension: "momd"),
@@ -42,7 +42,7 @@ internal class CD_BasicController: BasicController {
             "Unable to load MOM from application bundle".log(as: .emergency)
             return nil
         }
-        
+
         switch kind {
         case .sync:
             if #available(iOS 14.0, *) {
@@ -74,17 +74,17 @@ internal class CD_BasicController: BasicController {
     init(kind: ControllerKind) throws {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         guard let container = CD_BasicController.container(kind: kind)
             else { throw DatumError.loadError }
-        
+
         switch kind {
         case .local, .sync:
             type(of: self).copySampleDBIfNeeded()
         case .__testing_inMemory, .__testing_withClass:
             break // don't copy sameple DB when testing
         }
-        
+
         let lock = DispatchSemaphore(value: 0)
         var error: Error?
         container.loadPersistentStores { _, _error in
@@ -92,10 +92,10 @@ internal class CD_BasicController: BasicController {
             lock.signal()
         }
         lock.wait()
-        
+
         guard error == nil else { throw error! }
         container.viewContext.automaticallyMergesChangesFromParent = true
-        
+
         switch kind {
         case .local, .sync:
             guard #available(iOS 14.0, *), container is NSPersistentCloudKitContainer
@@ -104,17 +104,17 @@ internal class CD_BasicController: BasicController {
         case .__testing_inMemory, .__testing_withClass:
             self._syncProgress = nil
         }
-        
+
         // Set properties
         self.kind = kind
         self.container = container
-        
+
         // Configure maintenance monitor
         self.maintenance_changeToken = self.maintenance_changeMonitor()
         if case .local = self.kind {
             UserDefaults.standard.didRunWithoutCloudSync = true
         }
-        
+
         // Observe sync changes to perform maintenance
         if #available(iOS 14.0, *) {
             self.maintenance_syncToken = self.syncProgress?.objectWillChange
@@ -134,7 +134,7 @@ internal class CD_BasicController: BasicController {
                         .error?.log()
                 }
         }
-        
+
         //
         // DEBUG ONLY
         // initialize the CloudKit schema
@@ -155,7 +155,7 @@ internal class CD_BasicController: BasicController {
     }
 
     // MARK: Properties
-    
+
     internal var remindersDeleted: ((Set<ReminderValue>) -> Void)?
     internal var reminderVesselsDeleted: ((Set<ReminderVesselValue>) -> Void)?
     internal var userDidPerformReminder: ((Set<ReminderValue>) -> Void)?
@@ -172,16 +172,16 @@ internal class CD_BasicController: BasicController {
     }
 
     // MARK: Create
-    
+
     func newReminder(for vessel: ReminderVessel) -> Result<Reminder, DatumError> {
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! CD_ReminderVesselWrapper).wrappedObject
         let context = self.container.viewContext
-        
+
         // debug only sanity checks
         assert(Thread.isMainThread)
         assert(context === vessel.managedObjectContext!)
-        
+
         let newReminder = CD_Reminder(context: context)
         context.insert(newReminder)
         // core data hooks up the inverse relationship
@@ -190,14 +190,14 @@ internal class CD_BasicController: BasicController {
             CD_ReminderWrapper(newReminder, context: { self.container.viewContext })
         }
     }
-    
+
     func newReminderVessel(displayName: String?,
                            icon: ReminderVesselIcon?)
                            -> Result<ReminderVessel, DatumError>
     {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         // get vesselshare or bail
         let vesselShareResult = self.maintenance_oneTrueVesselShare()
         let vesselShare: CD_VesselShare
@@ -207,16 +207,16 @@ internal class CD_BasicController: BasicController {
         case .failure(let error):
             return .failure(error)
         }
-        
+
         // create new vessel
         let context = self.container.viewContext
         let vessel = CD_ReminderVessel(context: context)
-        
+
         // enforce at least 1 reminder
         let newReminder = CD_Reminder(context: context)
         context.insert(newReminder)
         context.insert(vessel)
-        
+
         // core data hooks up the inverse relationship
         newReminder.raw_vessel = vessel
         if let displayName = displayName {
@@ -226,7 +226,7 @@ internal class CD_BasicController: BasicController {
             vessel.icon = icon
         }
         vessel.raw_share = vesselShare
-        
+
         // save
         return context.waterme_save().map {
             CD_ReminderVesselWrapper(vessel, context: { self.container.viewContext })
@@ -234,14 +234,14 @@ internal class CD_BasicController: BasicController {
     }
 
     // MARK: Read
-    
+
     internal func allVessels(sorted: ReminderVesselSortOrder,
                              ascending: Bool)
                              -> Result<AnyCollectionQuery<ReminderVessel, Int>, DatumError>
     {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         let context = self.container.viewContext
         let fr = CD_ReminderVessel.request
         fr.sortDescriptors = [CD_ReminderVessel.sortDescriptor(for: sorted, ascending: ascending)]
@@ -252,14 +252,14 @@ internal class CD_BasicController: BasicController {
         let query = CD_ReminderVesselQuery(frc, context: { self.container.viewContext })
         return .success(AnyCollectionQuery(query))
     }
-    
+
     func enabledReminders(sorted: ReminderSortOrder,
                           ascending: Bool)
                           -> Result<AnyCollectionQuery<Reminder, Int>, DatumError>
     {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         let context = self.container.viewContext
         let fr = CD_Reminder.request
         fr.sortDescriptors = [CD_Reminder.sortDescriptor(for: sorted, ascending: ascending)]
@@ -271,11 +271,11 @@ internal class CD_BasicController: BasicController {
         let query = CD_ReminderQuery(frc, context: { self.container.viewContext })
         return .success(AnyCollectionQuery(query))
     }
-    
+
     internal func groupedReminders() -> Result<AnyCollectionQuery<Reminder, IndexPath>, DatumError> {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         var failure: DatumError?
         let _queries = ReminderSection.allCases.compactMap
         { section -> (ReminderSection, AnyCollectionQuery<Reminder, Int>)? in
@@ -301,7 +301,7 @@ internal class CD_BasicController: BasicController {
     {
         // debug only sanity checks
         assert(Thread.isMainThread)
-        
+
         let enabledPredicate = NSPredicate(format: "%K == YES", #keyPath(CD_Reminder.raw_isEnabled))
         let disabledPredicate = NSPredicate(format: "%K == NO", #keyPath(CD_Reminder.raw_isEnabled))
         let normalPredicate: (DateInterval) -> NSPredicate = { range in
@@ -311,7 +311,7 @@ internal class CD_BasicController: BasicController {
                 NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate))
             ])
         }
-        
+
         let predicate: NSPredicate
         switch section {
         case .disabled:
@@ -328,7 +328,7 @@ internal class CD_BasicController: BasicController {
                 neverPredicate
             ])
         }
-        
+
         let fetchRequest = CD_Reminder.request
         fetchRequest.sortDescriptors = [CD_Reminder.sortDescriptor(for: sorted, ascending: ascending)]
         fetchRequest.predicate = predicate
@@ -414,7 +414,7 @@ internal class CD_BasicController: BasicController {
     }
 
     // MARK: Update
-    
+
     func update(displayName: String?,
                 icon: ReminderVesselIcon?,
                 in vessel: ReminderVessel) -> Result<Void, DatumError>
@@ -422,11 +422,11 @@ internal class CD_BasicController: BasicController {
         let context = self.container.viewContext
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! CD_ReminderVesselWrapper).wrappedObject
-        
+
         // debug only sanity checks
         assert(Thread.isMainThread)
         assert(context === vessel.managedObjectContext)
-        
+
         var somethingChanged = false
         if let displayName = displayName, vessel.raw_displayName != displayName {
             somethingChanged = true
@@ -441,7 +441,7 @@ internal class CD_BasicController: BasicController {
         vessel.raw_reminders?.forEach { ($0 as! CD_Base).raw_bloop.toggle() }
         return context.waterme_save()
     }
-    
+
     func update(kind: ReminderKind?,
                 interval: Int?,
                 isEnabled: Bool?,
@@ -451,11 +451,11 @@ internal class CD_BasicController: BasicController {
         let context = self.container.viewContext
         // swiftlint:disable:next force_cast
         let reminder = (reminder as! CD_ReminderWrapper).wrappedObject
-        
+
         // debug only sanity checks
         assert(Thread.isMainThread)
         assert(context === reminder.managedObjectContext)
-        
+
         var somethingChanged = false
         if let kind = kind, kind != reminder.kind {
             somethingChanged = true
@@ -481,7 +481,7 @@ internal class CD_BasicController: BasicController {
         reminder.raw_vessel?.raw_bloop.toggle()
         return context.waterme_save()
     }
-    
+
     func appendNewPerformToReminders(with ids: [Identifier]) -> Result<Void, DatumError> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -499,7 +499,7 @@ internal class CD_BasicController: BasicController {
             perform.raw_reminder = reminder
             reminder.updateDates(withAppendedPerformDate: perform.raw_date)
         }
-        
+
         return context.waterme_save()
             .reduce(self.maintenance_fixDates)
             .reduce(self.maintenance_deleteOrphanedReminders)
@@ -508,20 +508,20 @@ internal class CD_BasicController: BasicController {
     }
 
     // MARK: Delete
-    
+
     func delete(vessel: ReminderVessel) -> Result<Void, DatumError> {
         let context = self.container.viewContext
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! CD_ReminderVesselWrapper).wrappedObject
-        
+
         // debug only sanity checks
         assert(Thread.isMainThread)
         assert(context === vessel.managedObjectContext)
-        
+
         context.delete(vessel)
         return context.waterme_save()
     }
-    
+
     func delete(reminder: Reminder) -> Result<Void, DatumError> {
         let context = self.container.viewContext
         // swiftlint:disable:next force_cast
@@ -530,12 +530,12 @@ internal class CD_BasicController: BasicController {
         // debug only sanity checks
         assert(Thread.isMainThread)
         assert(context === reminder.managedObjectContext)
-        
+
         guard let vessel = reminder.raw_vessel else {
             context.delete(reminder)
             return context.waterme_save()
         }
-                
+
         let reminderCount = vessel.raw_reminders?.count ?? 0
         guard reminderCount >= 2 else {
             return .failure(.unableToDeleteLastReminder)
@@ -544,7 +544,7 @@ internal class CD_BasicController: BasicController {
         context.delete(reminder)
         return context.waterme_save()
     }
-    
+
     deinit {
         guard let maintainanceToken = self.maintenance_changeToken else { return }
         NotificationCenter.default.removeObserver(maintainanceToken)
@@ -589,7 +589,7 @@ extension CD_BasicController {
             }
         }
     }
-    
+
     fileprivate func maintenance_massageAllEntries() -> Result<Void, DatumError> {
         guard UserDefaults.standard.didRunWithoutCloudSync else {
             return .success(())
@@ -607,12 +607,12 @@ extension CD_BasicController {
             return .failure(.maintenanceError)
         }
     }
-    
+
     // have to make 2 functions because of type issues in maintenance token code in INIT
     fileprivate func maintenance_oneTrueVesselShare() -> Result<CD_VesselShare, DatumError> {
         return self.maintenance_oneTrueVesselShare(context: nil)
     }
-    
+
     /* internal for migration only */
     internal func maintenance_oneTrueVesselShare(context: NSManagedObjectContext?) -> Result<CD_VesselShare, DatumError> {
         let context = context ?? self.container.viewContext
@@ -659,16 +659,16 @@ extension CD_BasicController {
             return .failure(.maintenanceError)
         }
     }
-    
+
     fileprivate func maintenance_fixDates() -> Result<Void, DatumError> {
-        
+
         let context = self.container.viewContext
         let fetchRequest = CD_Base.requestBase
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateModified)),
             NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated))
         ])
-        
+
         do {
             let fetchResult = try context.fetch(fetchRequest)
             let count = fetchResult.count
@@ -697,7 +697,7 @@ extension CD_BasicController {
             return .failure(.maintenanceError)
         }
     }
-    
+
     fileprivate func maintenance_deleteOrphanedReminders() -> Result<Void, DatumError> {
         let context = self.container.viewContext
         let fetchRequest = CD_Reminder.request
@@ -716,7 +716,7 @@ extension CD_BasicController {
             return .failure(.maintenanceError)
         }
     }
-    
+
     fileprivate func maintenance_fixOrphanedVessels(share: CD_VesselShare) -> Result<Void, DatumError> {
         let context = self.container.viewContext
         let fetchRequest = CD_ReminderVessel.request

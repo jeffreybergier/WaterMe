@@ -30,14 +30,14 @@ internal struct CD_ReminderVesselWrapper: ReminderVessel {
         self.wrappedObject = wrappedObject
         self.context = context
     }
-    
+
     public var uuid: String { self.wrappedObject.objectID.uriRepresentation().absoluteString }
     public var displayName: String? { self.wrappedObject.raw_displayName }
     public var icon: ReminderVesselIcon? { self.wrappedObject.icon }
     public var kind: ReminderVesselKind { self.wrappedObject.kind }
     public var isModelComplete: ModelCompleteError? { self.wrappedObject.isModelComplete }
     public var shortLabelSafeDisplayName: String? { self.wrappedObject.shortLabelSafeDisplayName }
-    
+
     func observe(_ block: @escaping (ReminderVesselChange) -> Void) -> ObservationToken {
         let queue = DispatchQueue.main
         let vessel = self.wrappedObject
@@ -53,7 +53,7 @@ internal struct CD_ReminderVesselWrapper: ReminderVessel {
         let token4 = vessel.observe(\.raw_kindString) { _, _ in
             queue.async { block(.change(.init(changedPointlessBloop: true))) }
         }
-        
+
         let token5 = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange,
                                                             object: nil,
                                                             queue: nil)
@@ -67,10 +67,10 @@ internal struct CD_ReminderVesselWrapper: ReminderVessel {
                 return
             }
         }
-        
+
         return Token.wrap { [token1, token2, token3, token4, Token.wrap { token5 }] }
     }
-    
+
     func observeReminders(_ block: @escaping (ReminderCollectionChange) -> Void) -> ObservationToken {
         let request = CD_Reminder.request
         request.predicate = NSPredicate(format: "\(#keyPath(CD_Reminder.raw_vessel)) == %@", self.wrappedObject)
