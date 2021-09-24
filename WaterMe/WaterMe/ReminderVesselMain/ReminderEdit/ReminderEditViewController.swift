@@ -176,7 +176,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
                                                             existingValue: existingValue,
                                                             popoverSourceView: popoverSourceView)
         { vc, newValue in
-            vc.dismissNoForReal() {
+            vc.dismissNoForReal {
                 deselectHandler()
                 guard let newValue = newValue else { return }
                 self.update(interval: newValue)
@@ -363,7 +363,7 @@ extension ReminderEditViewController: ReminderEditTableViewControllerDelegate {
         let vc = ClosureDelegatingAddVoiceShortcutViewController(shortcut: shortcut)
         vc.completionHandler = { [unowned self] vc, result in
             self.userActivity?.becomeCurrent()
-            vc.dismissNoForReal() {
+            vc.dismissNoForReal {
                 deselectRowAnimated?(true)
                 guard case .failure(let error) = result else { return }
                 UIAlertController.presentAlertVC(for: error, over: self)

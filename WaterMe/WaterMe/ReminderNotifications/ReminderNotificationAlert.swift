@@ -69,7 +69,7 @@ extension UIAlertController {
         let ud = UserDefaults.standard
         let yes = UIAlertAction(title: LocalizedString.newPermissionButtonTitleSendNotifications, style: .default) { _ in
             ud.askForNotifications = true
-            UNUserNotificationCenter.current().requestAuthorizationIfNeeded() { permitted in
+            UNUserNotificationCenter.current().requestAuthorizationIfNeeded { permitted in
                 switch permitted {
                 case true:
                     Analytics.log(event: Analytics.NotificationPermission.permissionGranted)
@@ -106,7 +106,7 @@ extension UIAlertController {
                                      style: .default)
         { _ in
             ud.askForNotifications = true
-            UIApplication.shared.openAppSettings() { _ in
+            UIApplication.shared.openAppSettings { _ in
                 selection?(.cancel)
             }
         }

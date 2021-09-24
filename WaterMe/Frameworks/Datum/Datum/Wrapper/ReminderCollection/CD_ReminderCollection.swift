@@ -86,7 +86,7 @@ internal class CD_ReminderQuery: CollectionQuery {
     }
     
     func observe(_ closure: @escaping (ReminderCollectionChange) -> Void) -> ObservationToken {
-        self.delegate = .init() { [weak self] in
+        self.delegate = .init { [weak self] in
             guard self?.delegate != nil else { return }
             closure(.update($0.transformed()))
         }

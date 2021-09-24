@@ -173,7 +173,7 @@ class ReminderFinishDropTargetViewController: StandardViewController, HasBasicCo
             return
         }
 
-        UIView.style_animateNormal() {
+        UIView.style_animateNormal {
             changes()
             self.view.layoutIfNeeded()
         }

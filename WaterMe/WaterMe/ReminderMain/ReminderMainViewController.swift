@@ -157,7 +157,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             case .cancel:
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             case .update:
-                UIApplication.shared.openAppStorePage() { _ in
+                UIApplication.shared.openAppStorePage { _ in
                     self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
                 }
             }
@@ -179,9 +179,9 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         } else if let vc = UIAlertController.newLocalizedDarkModeImproperlyConfigured() {
             self.present(vc, animated: true, completion: nil)
         } else if UserDefaults.standard.hasCloudSyncInfoShown == false {
-            let vc = CloudSyncInfoViewController.newVC() { vc in
+            let vc = CloudSyncInfoViewController.newVC { vc in
                 UserDefaults.standard.hasCloudSyncInfoShown = true
-                vc.dismissNoForReal() {
+                vc.dismissNoForReal {
                     self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
                 }
             }
@@ -194,7 +194,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         } else if let migrator = AppDelegate.shared.coreDataMigrator, let basicRC = self.basicRC {
             let vc = CoreDataMigratorViewController.newVC(migrator: migrator, basicRC: basicRC) { vc, _ in
                 AppDelegate.shared.coreDataMigrator = nil
-                vc.dismissNoForReal() {
+                vc.dismissNoForReal {
                     self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
                 }
             }
@@ -217,7 +217,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         guard let transaction = pc?.nextTransactionForPresentingToUser() else { return }
         let _vc = PurchaseThanksViewController.newVC(for: transaction) { vc in
             guard let vc = vc else { self.checkForPurchasesInFlight(); return; }
-            vc.dismissNoForReal() {
+            vc.dismissNoForReal {
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             }
         }
@@ -236,7 +236,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         let editVC = ReminderVesselEditViewController.newVC(basicController: basicRC,
                                                             editVessel: nil)
         { vc in
-            vc.dismissNoForReal() {
+            vc.dismissNoForReal {
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             }
         }
@@ -256,8 +256,8 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
     }
 
     @IBAction private func settingsButtonTapped(_ sender: Any) {
-        let vc = SettingsMainViewController.newVC() { vc in
-            vc.dismissNoForReal() {
+        let vc = SettingsMainViewController.newVC { vc in
+            vc.dismissNoForReal {
                 // re-register to receive purchase updates
                 self.registerForPurchaseNotifications()
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()

@@ -104,7 +104,7 @@ class ReminderCollectionViewCell: UICollectionViewCell {
         UIView.style_animateLong({
             self.justPerformedView?.alpha = 0.5
         }, completion: { _ in
-            UIView.style_animateLong() {
+            UIView.style_animateLong {
                 self.justPerformedView?.alpha = 0
             }
         })

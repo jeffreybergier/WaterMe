@@ -127,7 +127,7 @@ class ReminderSummaryViewController: StandardViewController {
 
         self.tableViewMaximumWidthConstraint.isActive = !tc.preferredContentSizeCategory.isAccessibilityCategory
         self.darkBackgroundView?.alpha = darkBackgroundViewAlpha
-        self.tableViewControllerLeadingTrailingConstraints?.forEach() { c in
+        self.tableViewControllerLeadingTrailingConstraints?.forEach { c in
             c.constant = tableViewControllerInsets
         }
     }

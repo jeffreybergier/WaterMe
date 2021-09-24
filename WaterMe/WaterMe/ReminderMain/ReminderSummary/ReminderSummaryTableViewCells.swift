@@ -44,7 +44,7 @@ class RoundedBackgroundViewTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.prepareForReuse()
-        self.stackViews?.forEach() { stackView in
+        self.stackViews?.forEach { stackView in
             stackView.spacing = ReminderSummaryViewController.style_primaryLabelSublabelSpacing
         }
     }

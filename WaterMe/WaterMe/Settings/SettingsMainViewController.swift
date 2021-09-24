@@ -50,7 +50,7 @@ class SettingsMainViewController: StandardViewController {
             switch chosen {
             case .emailDeveloper:
                 Analytics.log(viewOperation: .emailDeveloper)
-                let vc = EmailDeveloperViewController.newVC() { vc in
+                let vc = EmailDeveloperViewController.newVC { vc in
                     guard let vc = vc else { deselectRowAnimated?(true); return; }
                     vc.dismissNoForReal(completion: { deselectRowAnimated?(true) })
                 }

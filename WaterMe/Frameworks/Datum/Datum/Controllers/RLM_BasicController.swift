@@ -101,7 +101,7 @@ internal class RLM_BasicController: BasicController {
                              ascending: Bool)
                              -> Result<AnyCollectionQuery<ReminderVessel, Int>, DatumError>
     {
-        return self.realm.map() { realm in
+        return self.realm.map { realm in
             let collection = realm.objects(RLM_ReminderVessel.self)
                                   .sorted(byKeyPath: RLM_ReminderVessel.keyPath(for: sorted),
                                           ascending: ascending)
@@ -153,7 +153,7 @@ internal class RLM_BasicController: BasicController {
                            ascending: Bool = true)
                            -> Result<AnyCollectionQuery<Reminder, Int>, DatumError>
     {
-        return self.realm.map() { realm in
+        return self.realm.map { realm in
             let range = section.dateInterval
             let sortKeyPath = RLM_Reminder.keyPath(for: sorted)
             let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
@@ -193,7 +193,7 @@ internal class RLM_BasicController: BasicController {
     }
 
     internal func reminderVessel(matching identifier: Identifier) -> Result<ReminderVessel, DatumError> {
-        return self.realm.flatMap() { realm -> Result<ReminderVessel, DatumError> in
+        return self.realm.flatMap { realm -> Result<ReminderVessel, DatumError> in
             guard let reminder = realm.object(ofType: RLM_ReminderVessel.self, forPrimaryKey: identifier.uuid)
             else { return .failure(.objectDeleted) }
             return .success(RLM_ReminderVesselWrapper(reminder))
@@ -201,7 +201,7 @@ internal class RLM_BasicController: BasicController {
     }
 
     internal func reminder(matching identifier: Identifier) -> Result<Reminder, DatumError> {
-        return self.realm.flatMap() { realm -> Result<Reminder, DatumError> in
+        return self.realm.flatMap { realm -> Result<Reminder, DatumError> in
             guard let reminder = realm.object(ofType: RLM_Reminder.self, forPrimaryKey: identifier.uuid)
             else { return .failure(.objectDeleted) }
             return .success(RLM_ReminderWrapper(reminder))
@@ -209,13 +209,13 @@ internal class RLM_BasicController: BasicController {
     }
 
     internal func reminders(matching identifiers: [Identifier]) -> Result<[RLM_Reminder], DatumError> {
-        return self.realm.map() { realm in
+        return self.realm.map { realm in
             return identifiers.compactMap({ realm.object(ofType: RLM_Reminder.self, forPrimaryKey: $0.uuid) })
         }
     }
 
     internal func appendNewPerform(to reminders: [RLM_Reminder]) -> Result<Void, DatumError> {
-        return self.realm.flatMap() { realm in
+        return self.realm.flatMap { realm in
             realm.beginWrite()
             for reminder in reminders {
                 // append the perform
@@ -232,7 +232,7 @@ internal class RLM_BasicController: BasicController {
     internal func newReminder(for vessel: ReminderVessel) -> Result<Reminder, DatumError> {
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! RLM_ReminderVesselWrapper).wrappedObject
-        return self.realm.flatMap() { realm in
+        return self.realm.flatMap { realm in
             let reminder = RLM_Reminder()
             realm.beginWrite()
             realm.add(reminder)
@@ -245,7 +245,7 @@ internal class RLM_BasicController: BasicController {
                                     icon: ReminderVesselIcon? = nil)
                                     -> Result<ReminderVessel, DatumError>
     {
-        return self.realm.flatMap() { realm in
+        return self.realm.flatMap { realm in
             let v = RLM_ReminderVessel()
             if let displayName = displayName?.nonEmptyString { // make sure the string is not empty
                 v.displayName = displayName
@@ -270,7 +270,7 @@ internal class RLM_BasicController: BasicController {
         // swiftlint:disable:next force_cast
         let vessel = (vessel as! RLM_ReminderVesselWrapper).wrappedObject
         guard vessel.isInvalidated == false else { return .failure(.objectDeleted) }
-        return self.realm.flatMap() { realm in
+        return self.realm.flatMap { realm in
             realm.beginWrite()
             if let displayName = displayName {
                 // make sure the string is not empty. If it is empty, set it to NIL
@@ -304,7 +304,7 @@ internal class RLM_BasicController: BasicController {
         // swiftlint:disable:next force_cast
         let reminder = (reminder as! RLM_ReminderWrapper).wrappedObject
         guard reminder.isInvalidated == false else { return .failure(.objectDeleted) }
-        return self.realm.flatMap() { realm in
+        return self.realm.flatMap { realm in
             realm.beginWrite()
             if let kind = kind {
                 reminder.kind = kind
@@ -335,7 +335,7 @@ internal class RLM_BasicController: BasicController {
         let vessel = (vessel as! RLM_ReminderVesselWrapper).wrappedObject
         let reminderValues = Set(vessel.reminders.map({ ReminderValue(reminder: $0) }))
         let vesselValue = ReminderVesselValue(reminderVessel: vessel)
-        let result: Result<Void, DatumError> = self.realm.flatMap() { realm in
+        let result: Result<Void, DatumError> = self.realm.flatMap { realm in
             realm.beginWrite()
             self.delete(vessel: vessel, inOpenRealm: realm)
             return realm.waterMe_commitWrite()
@@ -361,7 +361,7 @@ internal class RLM_BasicController: BasicController {
             return .failure(.unableToDeleteLastReminder) 
         }
         let reminderValue = ReminderValue(reminder: reminder)
-        let result: Result<Void, DatumError> = self.realm.flatMap() { realm in
+        let result: Result<Void, DatumError> = self.realm.flatMap { realm in
             realm.beginWrite()
             self.delete(reminder: reminder, inOpenRealm: realm)
             return realm.waterMe_commitWrite()

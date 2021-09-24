@@ -174,7 +174,7 @@ class ReminderUserNotificationController {
         let startOfToday = calendar.startOfDay(for: now)
 
         // find the last reminder time and how many days away it is
-        let numberOfDaysToLastReminder = values.last?.reminder.nextPerformDate.map() { endDate -> Int in
+        let numberOfDaysToLastReminder = values.last?.reminder.nextPerformDate.map { endDate -> Int in
             return calendar.numberOfDaysBetween(startDate: now,
                                                 endDate: endDate,
                                                 stopCountingAfterMaxDays: notificationLimit - reminderDays)
@@ -183,10 +183,10 @@ class ReminderUserNotificationController {
         let totalReminderDays = (numberOfDaysToLastReminder ?? 0) + reminderDays
 
         // batch all the reminders into days
-        let matches = (0 ..< totalReminderDays).compactMap() { i -> (Date, [ReminderAndVesselValue])? in
+        let matches = (0 ..< totalReminderDays).compactMap { i -> (Date, [ReminderAndVesselValue])? in
             let testDate = calendar.date(byAdding: .day, value: i, to: now)!
             let endOfDayInTestDate = calendar.endOfDay(for: testDate)
-            let matches = values.filter() { value -> Bool in
+            let matches = values.filter { value -> Bool in
                 let endOfDayInNextPerformDate = calendar.endOfDay(for: value.reminder.nextPerformDate ?? now)
                 return endOfDayInNextPerformDate <= endOfDayInTestDate
             }
@@ -197,7 +197,7 @@ class ReminderUserNotificationController {
         }
 
         // convert the matches into one notification each
-        let reminders = matches.compactMap() { reminderTime, matches -> UNNotificationRequest? in
+        let reminders = matches.compactMap { reminderTime, matches -> UNNotificationRequest? in
             // construct the notification
             let _content = UNMutableNotificationContent()
             let dateComponents = calendar.userNotificationCompatibleDateComponents(with: reminderTime)

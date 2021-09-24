@@ -39,7 +39,7 @@ class ShortcutSuggester: ShortcutSuggesterProtocol {
     private static var backgroundTaskID: UIBackgroundTaskIdentifier?
 
     class func deleteActivities(for reminders: Set<ReminderValue>) {
-        let ids = reminders.flatMap() { reminder in
+        let ids = reminders.flatMap { reminder in
             return [
                 NSUserActivity.uniqueString(for: .editReminder,
                                             and: [reminder.uuid]),
@@ -84,7 +84,7 @@ class ShortcutSuggester: ShortcutSuggesterProtocol {
     private class func raw_perform(with values: [ReminderAndVesselValue]) {
 
         self.delegates = Dictionary(minimumCapacity: values.count)
-        values.forEach() { value in
+        values.forEach { value in
             let delegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
             delegate.requiresMainThreadExecution = false
             delegate.currentReminderAndVessel = {
@@ -96,23 +96,23 @@ class ShortcutSuggester: ShortcutSuggesterProtocol {
             self.delegates[value] = delegate
         }
 
-        let viewReminderShortcuts = values.compactMap() {
+        let viewReminderShortcuts = values.compactMap {
             return INShortcut(kind: .viewReminder,
                               value: $0,
                               delegate: self.delegates[$0])
 
         }
-        let editReminderShortcuts = values.compactMap() {
+        let editReminderShortcuts = values.compactMap {
             return INShortcut(kind: .editReminder,
                               value: $0,
                               delegate: self.delegates[$0])
         }
-        let editReminderVesselShortcuts = values.compactMap() {
+        let editReminderVesselShortcuts = values.compactMap {
             return INShortcut(kind: .editReminderVessel,
                               value: $0,
                               delegate: self.delegates[$0])
         }
-        let performReminderShortcuts = values.compactMap() {
+        let performReminderShortcuts = values.compactMap {
             return INShortcut(kind: .performReminder,
                               value: $0,
                               delegate: self.delegates[$0])

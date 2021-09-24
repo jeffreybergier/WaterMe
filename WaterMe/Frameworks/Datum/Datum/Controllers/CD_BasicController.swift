@@ -87,7 +87,7 @@ internal class CD_BasicController: BasicController {
         
         let lock = DispatchSemaphore(value: 0)
         var error: Error?
-        container.loadPersistentStores() { _, _error in
+        container.loadPersistentStores { _, _error in
             error = _error
             lock.signal()
         }

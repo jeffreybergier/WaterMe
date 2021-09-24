@@ -59,7 +59,7 @@ class DragTargetInstructionalView: UIView {
         case .notStarted:
             self.animateFromBeginning(completion: completion)
         case .finished:
-            self.animateToBeginning() {
+            self.animateToBeginning {
                 self.animateFromBeginning(completion: completion)
             }
         }
@@ -104,7 +104,7 @@ class DragTargetInstructionalView: UIView {
         let plusStroke: CGFloat = 3
         let plusRadius: CGFloat = 14
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        let image = renderer.image() { _ in
+        let image = renderer.image { _ in
             UIColor.black.setStroke()
             let circleDiam = (bounds.height - (circleStroke * 2)) * (9 / 10)
             let circleRect = CGRect(x: (bounds.width / 2) - (circleDiam / 2),

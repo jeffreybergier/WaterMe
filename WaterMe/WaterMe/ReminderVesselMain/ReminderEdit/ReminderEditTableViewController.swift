@@ -231,7 +231,7 @@ class ReminderEditTableViewController: StandardTableViewController {
         case .fertilize, .water, .trim, .mist:
             indexPath = .init(row: 0, section: 2)
         }
-        UIView.style_animateNormal() {
+        UIView.style_animateNormal {
             self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }

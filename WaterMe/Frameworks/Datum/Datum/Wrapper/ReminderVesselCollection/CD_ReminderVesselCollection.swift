@@ -83,7 +83,7 @@ internal class CD_ReminderVesselQuery: CollectionQuery {
     }
     
     func observe(_ block: @escaping (CollectionChange<AnyCollection<ReminderVessel, Int>, Int>) -> Void) -> ObservationToken {
-        self.delegate = .init() { block(.update($0.transformed())) }
+        self.delegate = .init { block(.update($0.transformed())) }
         self.controller.delegate = self.delegate
         DispatchQueue.main.async {
             do {

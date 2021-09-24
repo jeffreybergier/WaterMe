@@ -49,7 +49,7 @@ extension UIAlertController {
         }
 
         // Step 3: Get the App Store Version of the App
-        AppVersion.fetchFromAppStore() { tuple in
+        AppVersion.fetchFromAppStore { tuple in
             guard let tuple = tuple else {
                 completion(nil)
                 return

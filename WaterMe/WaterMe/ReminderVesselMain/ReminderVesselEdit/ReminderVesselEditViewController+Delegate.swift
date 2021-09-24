@@ -37,21 +37,21 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
         { choice in
             switch choice {
             case .camera:
-                let vc = ImagePickerCropperViewController.newCameraVC() { image, vc in
+                let vc = ImagePickerCropperViewController.newCameraVC { image, vc in
                     vc.dismissNoForReal()
                     guard let image = image else { return }
                     self.updateIcon(ReminderVesselIcon(rawImage: image))
                 }
                 self.present(vc, animated: true, completion: nil)
             case .photos:
-                let vc = ImagePickerCropperViewController.newPhotosVC() { image, vc in
+                let vc = ImagePickerCropperViewController.newPhotosVC { image, vc in
                     vc.dismissNoForReal()
                     guard let image = image else { return }
                     self.updateIcon(ReminderVesselIcon(rawImage: image))
                 }
                 self.present(vc, animated: true, completion: nil)
             case .emoji:
-                let vc = EmojiPickerViewController.newVC() { emoji, vc in
+                let vc = EmojiPickerViewController.newVC { emoji, vc in
                     vc.dismissNoForReal()
                     guard let emoji = emoji else { return }
                     self.updateIcon(.emoji(emoji))
@@ -143,7 +143,7 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
         let shortcut = INShortcut(userActivity: activity)
         let vc = ClosureDelegatingAddVoiceShortcutViewController(shortcut: shortcut)
         vc.completionHandler = { vc, result in
-            vc.dismissNoForReal() {
+            vc.dismissNoForReal {
                 deselectRowAnimated?(true)
                 guard case .failure(let error) = result else { return }
                 UIAlertController.presentAlertVC(for: error, over: self)

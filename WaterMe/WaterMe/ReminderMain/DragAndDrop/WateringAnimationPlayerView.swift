@@ -61,7 +61,7 @@ class WateringAnimationPlayerView: UIView {
         super.awakeFromNib()
 
         self.videoManager.videoHiddenChanged = { [unowned self] hidden in
-            UIView.style_animateNormal() {
+            UIView.style_animateNormal {
                 self.alpha = hidden ? 0 : 1
             }
             guard hidden == true else { return }

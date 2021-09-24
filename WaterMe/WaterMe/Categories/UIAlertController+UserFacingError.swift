@@ -34,7 +34,7 @@ extension UIAlertController {
                               from barButtonItem: UIBarButtonItem? = nil,
                               completionHandler completion: UserSelection? = nil)
     {
-        let recoveryActions = error.recoveryActions.map()
+        let recoveryActions = error.recoveryActions.map
         { recoveryOption -> UIAlertAction in
             let action = UIAlertAction(title: recoveryOption.title,
                                        style: recoveryOption.actionStyle)

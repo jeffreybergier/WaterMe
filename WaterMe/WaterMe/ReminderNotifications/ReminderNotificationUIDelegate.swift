@@ -65,7 +65,7 @@ extension UNUserNotificationCenter {
     private var settings: UNNotificationSettings? {
         let semaphore = DispatchSemaphore(value: 0)
         var _settings: UNNotificationSettings?
-        UNUserNotificationCenter.current().getNotificationSettings() { s in
+        UNUserNotificationCenter.current().getNotificationSettings { s in
             _settings = s
             semaphore.signal()
         }
@@ -102,7 +102,7 @@ extension UNUserNotificationCenter {
 
 extension UNUserNotificationCenter {
     func requestAuthorizationIfNeeded(completion: ((Bool) -> Void)?) {
-        self.getNotificationSettings() { preSettings in
+        self.getNotificationSettings { preSettings in
             switch preSettings.authorizationStatus {
             case .notDetermined, .provisional, .ephemeral:
                 self.requestAuthorization(options: [.alert, .badge, .sound]) { _, error in
@@ -110,7 +110,7 @@ extension UNUserNotificationCenter {
                         error.log()
                         Analytics.log(error: error)
                     }
-                    self.getNotificationSettings() { postSettings in
+                    self.getNotificationSettings { postSettings in
                         DispatchQueue.main.async {
                             completion?(postSettings.authorizationStatus.boolValue)
                         }

@@ -117,7 +117,7 @@ extension UIApplication {
         // For some reason these have to be separate in order for it to be effective.
         let types: [UIAppearanceContainer.Type] = [ReminderSummaryViewController.self,
                                                    ReminderSummaryPopoverBackgroundView.self]
-        types.forEach() {
+        types.forEach {
             UIVisualEffectView
                 .appearance(whenContainedInInstancesOf: [$0])
                 .backgroundColor = Color.visuelEffectViewBackground
@@ -137,7 +137,7 @@ extension UIApplication {
             // For some reason these have to be separate in order for it to be effective.
             let types: [UIAppearanceContainer.Type] = [ReminderSummaryViewController.self,
                                                        ReminderFinishDropTargetViewController.self]
-            types.forEach() {
+            types.forEach {
                 UIVisualEffectView
                     .appearance(whenContainedInInstancesOf: [$0])
                     .effect = UIBlurEffect(style: .extraLight)

@@ -89,7 +89,7 @@ extension ReminderMainViewController: ReminderCollectionViewControllerDelegate {
                                                         sourceView: view,
                                                         userActivityContinuation: userActivityContinuation)
         { action, identifier, vc in
-            vc.dismissNoForReal() {
+            vc.dismissNoForReal {
                 switch action {
                 case .cancel:
                     viewDidAppearActions(true)

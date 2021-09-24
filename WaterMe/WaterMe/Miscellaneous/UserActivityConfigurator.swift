@@ -77,7 +77,7 @@ extension UserActivityConfigurator: NSUserActivityDelegate {
             return
         }
         // now hop on the main thread and execute
-        DispatchQueue.main.sync() {
+        DispatchQueue.main.sync {
             workItem()
             return
         }

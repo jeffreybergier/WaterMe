@@ -82,7 +82,7 @@ extension CSSearchableIndex {
     fileprivate func sync_deleteAllSearchableItems() -> Error? {
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
-        self.deleteAllSearchableItems() { _error in
+        self.deleteAllSearchableItems { _error in
             error = _error
             semaphore.signal()
         }
@@ -106,7 +106,7 @@ extension CSSearchableIndex {
 extension CSSearchableItem {
 
     fileprivate class func items(from values: [ReminderAndVesselValue]) -> [CSSearchableItem] {
-        return values.map() { value -> CSSearchableItem in
+        return values.map { value -> CSSearchableItem in
             let attributes = CSSearchableItemAttributeSet(itemContentType: kUTTypeContent as String)
             attributes.title = UserActivityConfigurator.LocalizedString.viewReminderTitle(for: value.reminder.kind,
                                                                                           andVesselName: value.reminderVessel.name)
