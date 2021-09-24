@@ -71,7 +71,7 @@ class ReminderUserNotificationController {
             
             // only called if a guard statement below fails
             let bail = {
-                "Abandoned Scheduling notifications".log()
+                "Abandoned Scheduling notifications".log(as: .debug)
                 center.removeAllDeliveredNotifications()
             }
 
@@ -102,7 +102,7 @@ class ReminderUserNotificationController {
             // so we know how to clear out already delivered notifications
             if allRequests.count == requests.count {
                 // all requests are in the future, its safe to clear all notifications
-                "Removed Notifications: All".log()
+                "Removed Notifications: All".log(as: .debug)
                 center.removeAllDeliveredNotifications()
             } else {
                 // there is a notification for today, so clear all notifications except today's
@@ -110,7 +110,7 @@ class ReminderUserNotificationController {
                                      .filter { !calendar.isDate($0.date, inSameDayAs: now) }
                                      .map { $0.request.identifier }
                 center.removeDeliveredNotifications(withIdentifiers: toDelete)
-                "Removed Notifications: \(toDelete.count)".log()
+                "Removed Notifications: \(toDelete.count)".log(as: .debug)
             }
             
             guard requests.isEmpty == false else {
