@@ -40,8 +40,8 @@ internal class GroupedCollection<
 
     // MARK: IVAR Storage
 
-    private var data: [Section : AnyCollection<Query.Element, Query.Index>] = [:]
-    private let queries: [Section : Query]
+    private var data: [Section: AnyCollection<Query.Element, Query.Index>] = [:]
+    private let queries: [Section: Query]
     private let updateBatcher = Batcher()
 
     // TODO: Consider removing the closure from here. Its not used
@@ -53,7 +53,7 @@ internal class GroupedCollection<
 
     // MARK: INIT
 
-    init(queries: [Section : Query]) {
+    init(queries: [Section: Query]) {
         self.queries = queries
         super.init()
     }

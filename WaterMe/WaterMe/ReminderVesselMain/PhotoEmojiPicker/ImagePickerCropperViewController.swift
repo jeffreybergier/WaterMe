@@ -90,7 +90,7 @@ class ImagePickerCropperViewController: UIImagePickerController, UIImagePickerCo
         }
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let original = info[.originalImage] as? UIImage
         guard let image = original else { self.completionHandler?(nil, picker); return; }
         let crop = CropViewController(croppingStyle: .default, image: image)

@@ -106,7 +106,7 @@ extension Sequence where Iterator.Element == IndexPath {
     // Counts the number of times items appear in a single section
     // Key: Section
     // Value: Number of times an items appeared from the key section
-    public var sectionCount: [Int : Int] {
-        return self.reduce(into: [Int : Int](), { $0[$1.section, default: 0] += 1 })
+    public var sectionCount: [Int: Int] {
+        return self.reduce(into: [Int: Int](), { $0[$1.section, default: 0] += 1 })
     }
 }

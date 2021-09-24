@@ -1,9 +1,8 @@
 disabled_rules:
-    - opening_brace
-    - colon
-    - identifier_name
-    - type_name
-    - line_length
+  - opening_brace
+  - identifier_name
+  - type_name
+  - line_length
 
 opt_in_rules:
   - vertical_whitespace
@@ -16,13 +15,9 @@ force_cast: warning
 force_try: warning
 
 large_tuple:
-    warning: 4
-    error: 10
-trailing_comma:
-    mandatory_comma: false
+  warning: 4
+  error: 10
 excluded:
-  - Pods
-  - GitSubmodules
   - Frameworks/Datum/DatumTests
   - Frameworks/Store/StoreTests
   - Frameworks/Calculate/CalculateTests

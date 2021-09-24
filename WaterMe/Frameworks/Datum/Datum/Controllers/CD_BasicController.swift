@@ -369,7 +369,7 @@ internal class CD_BasicController: BasicController {
                 let _object = try context.existingObject(with: id)
                 // if the object is the wrong type, log as an error
                 guard let object = _object as? T else {
-                    let e = "found: \(type(of:_object)) != expected: \(T.self))"
+                    let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
                     e.log()
                     return .failure(.objectDeleted)
@@ -394,7 +394,7 @@ internal class CD_BasicController: BasicController {
                 // if the object is the wrong type, log this as an error
                 let _object = results[0]
                 guard let object = _object as? T else {
-                    let e = "found: \(type(of:_object)) != expected: \(T.self))"
+                    let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
                     e.log()
                     return .failure(.objectDeleted)

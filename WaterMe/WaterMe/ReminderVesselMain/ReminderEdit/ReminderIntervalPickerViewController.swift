@@ -58,7 +58,7 @@ class ReminderIntervalPickerViewController: StandardViewController {
 
     private let data: [Int] = (ReminderConstants.minimumInterval...ReminderConstants.maximumInterval).map({ $0 })
     private let formatter = DateComponentsFormatter.newReminderIntervalFormatter
-    private var rowCache: [Int : NSAttributedString] = [:]
+    private var rowCache: [Int: NSAttributedString] = [:]
     private var heightCache: CGFloat?
 
     override func viewDidLoad() {

@@ -159,6 +159,7 @@ extension UserDefaults {
     }
 
     func configure() {
+        // swiftlint:disable colon
         self.register(defaults: [
             Constants.kFirstRun                : true,
             Constants.kCloudSync               : true,
@@ -170,6 +171,7 @@ extension UserDefaults {
             Constants.kCheckForUpdatesOnLaunch : true,
             Constants.kDidRunWithoutCloudSync  : true
         ])
+        // swiftlint:enable colon
 
         let build = self.lastBuildNumber
 

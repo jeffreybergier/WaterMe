@@ -315,7 +315,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.common_application(application, performFetchWithCompletionHandler: completionHandler)
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         self.common_application(application, performFetchWithCompletionHandler: completionHandler)
     }
 

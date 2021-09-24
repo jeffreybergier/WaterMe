@@ -168,7 +168,7 @@ internal class RLM_BasicController: BasicController {
                 ])
             if case .late = section {
                 let nilCheck = NSComparisonPredicate(
-                    leftExpression: NSExpression(forKeyPath:#keyPath(RLM_Reminder.nextPerformDate)),
+                    leftExpression: NSExpression(forKeyPath: #keyPath(RLM_Reminder.nextPerformDate)),
                     rightExpression: NSExpression(forConstantValue: nil),
                     modifier: .direct,
                     type: .equalTo
