@@ -319,9 +319,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private var backgroundUpdateSink: Any?
     
-    func common_application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func common_application(_ application: UIApplication, performFetchWithCompletionHandler iOS_completion: @escaping (UIBackgroundFetchResult) -> Void) {
         guard #available(iOS 14.0, *), let progress = self.basicControllerResult.value?.syncProgress else {
-            completionHandler(.noData)
+            iOS_completion(.noData)
             return
         }
         
@@ -342,45 +342,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let finishWaitLimitTime: TimeInterval = 23
         let scheduleWaitLimitTime: TimeInterval = 2
         
-        let preFinishClosure: () -> Void = { [weak self] in
+        let completion: (Timer) -> Void = { timer in
+            String(format: "Background Sync Completed: syncTimer: %.02fs", Date().timeIntervalSince(startTime)).log(as: .debug)
+            timer.invalidate()
+            application.endBackgroundTask(task)
+            iOS_completion(.newData)
+        }
+        
+        let preCompletion: (Timer) -> Void = { [weak self] timer in
             (self?.backgroundUpdateSink as? AnyCancellable)?.cancel()
             self?.backgroundUpdateSink = nil
+            timer.invalidate()
             syncTimer?.invalidate()
             startWaitLimitTimer?.invalidate()
             finishWaitLimitTimer?.invalidate()
             self?.reminderObserver?.dataChanged(of: .all)
-        }
-        
-        let finishClosure: (Timer) -> Void = { timer in
-            timer.invalidate()
-            application.endBackgroundTask(task)
-            completionHandler(.newData)
-        }
-        
-        startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false) { _ in
-            String(format: "Background Sync Failed: startWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
-            preFinishClosure()
             Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
                                  repeats: false,
-                                 block: finishClosure)
+                                 block: completion)
         }
-        finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false) { _ in
-            String(format: "Background Sync Failed: finishWaitLimitTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
-            preFinishClosure()
-            Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
-                                 repeats: false,
-                                 block: finishClosure)
-        }
+        
+        startWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: startWaitLimitTime, repeats: false, block: preCompletion)
+        finishWaitLimitTimer = Timer.scheduledTimer(withTimeInterval: finishWaitLimitTime, repeats: false, block: preCompletion)
         self.backgroundUpdateSink = progress.objectWillChange.sink {
             startWaitLimitTimer?.invalidate()
             syncTimer?.invalidate()
-            syncTimer = Timer.scheduledTimer(withTimeInterval: syncTime, repeats: false) { _ in
+            syncTimer = Timer.scheduledTimer(withTimeInterval: syncTime, repeats: false) { timer in
                 guard progress.progress.fractionCompleted == 1 || progress.progress.fractionCompleted == 0 else { return }
-                String(format: "Background Sync Completed: syncTimer: %.02fs", Date().timeIntervalSince(startTime)).log() // TODO: Change to debug level
-                preFinishClosure()
-                Timer.scheduledTimer(withTimeInterval: scheduleWaitLimitTime,
-                                     repeats: false,
-                                     block: finishClosure)
+                preCompletion(timer)
             }
         }
     }
