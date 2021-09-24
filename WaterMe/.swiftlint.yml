@@ -3,7 +3,7 @@ disabled_rules:
     - colon
     - trailing_whitespace
     - empty_parentheses_with_trailing_closure
-    - variable_name
+    - identifier_name
     - type_name
     - line_length
     - class_delegate_protocol
@@ -18,7 +18,6 @@ disabled_rules:
 opt_in_rules:
   - vertical_whitespace
   - operator_usage_whitespace
-  - outlet_setter
 
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
