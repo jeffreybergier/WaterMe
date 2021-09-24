@@ -31,7 +31,7 @@ extension NSError {
         let code = 1001
         let message = "Unhandled case for ReminderVessel property changes."
         let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message,
+            NSLocalizedFailureReasonErrorKey : message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }

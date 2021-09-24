@@ -39,7 +39,7 @@ public class ZStackView: UIView {
             view.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             view.topAnchor.constraint(equalTo: self.topAnchor),
-            view.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         self.bringSubviewToFront(view)
         self.arrangedSubviews = [view] + self.arrangedSubviews
@@ -60,7 +60,7 @@ public class ZStackView: UIView {
         guard let index = self.arrangedSubviews.firstIndex(of: view) else { return .failure(.givenViewNotManaged) }
         self.arrangedSubviews.remove(at: index)
         self.arrangedSubviews = [view] + self.arrangedSubviews
-        self.arrangedSubviews.enumerated().reversed().forEach { index, view in
+        self.arrangedSubviews.enumerated().reversed().forEach { _, view in
             self.bringSubviewToFront(view)
         }
         self.animationDelegate?.didReorderArrangedSubviews(self)

@@ -31,7 +31,7 @@ extension UIAlertController {
         case update, cancel
     }
 
-    //swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length
     class func newAppVersionCheckAlert(_ completion: @escaping (UIViewController?) -> Void,
                                        _ actionHandler: @escaping (UpdateAction) -> Void)
     {

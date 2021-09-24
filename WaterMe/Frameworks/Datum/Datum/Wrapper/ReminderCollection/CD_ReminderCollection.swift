@@ -46,6 +46,7 @@ internal class CD_ReminderCollection: BaseCollection {
     }
     
     func index(of reminder: Reminder) -> Int? {
+        // swiftlint:disable:next force_cast
         let constant = (reminder as! CD_ReminderWrapper).wrappedObject
         for (idx, loop) in (self.controller.fetchedObjects ?? []).enumerated()  {
             guard constant.objectID == loop.objectID else { continue }
@@ -76,6 +77,7 @@ internal class CD_ReminderQuery: CollectionQuery {
     typealias Controller = NSFetchedResultsController<CD_Reminder>
     private let controller: Controller
     private let context: LazyContext
+    // swiftlint:disable:next weak_delegate
     private var delegate: UpdatingFetchedResultsControllerDelegate?
     
     init(_ controller: Controller, context: @escaping LazyContext) {

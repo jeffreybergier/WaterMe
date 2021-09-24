@@ -64,7 +64,7 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
     private(set) var vesselResult: Result<ReminderVessel, DatumError>?
     private(set) var completionHandler: CompletionHandler!
     private var userActivityCompletion: NSUserActivityContinuedHandler?
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
 
     override func viewDidLoad() {

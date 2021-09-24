@@ -40,6 +40,7 @@ internal class RLM_ReminderVesselCollection: BaseCollection {
     }
     
     func index(of item: ReminderVessel) -> Int? {
+        // swiftlint:disable:next force_cast
         let vessel = (item as! RLM_ReminderVesselWrapper).wrappedObject
         return self.collection.index(of: vessel)
     }

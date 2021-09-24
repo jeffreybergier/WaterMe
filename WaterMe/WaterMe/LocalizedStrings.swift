@@ -24,6 +24,8 @@
 import Calculate
 import Datum
 
+// swiftlint:disable file_length
+
 extension UIApplication {
     enum LocalizedString {
         static let appTitle =

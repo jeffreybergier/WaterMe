@@ -45,6 +45,7 @@ internal class CD_ReminderVesselCollection: BaseCollection {
     }
 
     func index(of lhs: ReminderVessel) -> Int? {
+        // swiftlint:disable:next force_cast
         let lhs = (lhs as! CD_ReminderVesselWrapper).wrappedObject
         for (idx, rhs) in (self.controller.fetchedObjects ?? []).enumerated()  {
             guard lhs.objectID == rhs.objectID else { continue }
@@ -73,6 +74,7 @@ internal class CD_ReminderVesselQuery: CollectionQuery {
     
     private let controller: Controller
     private let context: LazyContext
+    // swiftlint:disable:next weak_delegate
     private var delegate: UpdatingFetchedResultsControllerDelegate?
     
     init(_ controller: Controller, context: @escaping LazyContext) {

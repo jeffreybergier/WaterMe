@@ -129,6 +129,7 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
     case rateLimit
     case storageLimit
     case unknown
+    // swiftlint:disable:next cyclomatic_complexity
     public init(_ _error: Error) {
         let error = _error as NSError
         guard error.domain == CKErrorDomain

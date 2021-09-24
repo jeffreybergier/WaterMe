@@ -73,7 +73,7 @@ class ReminderSummaryViewController: StandardViewController {
     private var reminderID: Identifier!
     private weak var tableViewController: ReminderSummaryTableViewController!
     private weak var haptic: UIFeedbackGenerator?
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
 
     override func viewDidLoad() {

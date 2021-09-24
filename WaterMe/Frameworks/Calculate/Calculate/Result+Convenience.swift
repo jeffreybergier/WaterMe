@@ -51,8 +51,7 @@ extension Result {
         case let .failure(error): return .failure(failure(error))
         }
     }
-    
-    
+
     /// Lazily chains multiple result closures.
     /// On error, stops and returns error.
     /// On success, continues and returns last success.

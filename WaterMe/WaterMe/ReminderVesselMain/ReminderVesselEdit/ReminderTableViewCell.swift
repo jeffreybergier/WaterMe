@@ -119,6 +119,7 @@ class ReminderTableViewCell: UITableViewCell {
             let image = UIImage(systemName: "speaker.zzz")
         else { return fallback }
         let imageRatio = image.size.width / image.size.height
+        // swiftlint:disable:next force_cast
         let rawFont = font.attributes[.font] as! UIFont
         let desiredSize = rawFont.pointSize
         let attachment = NSTextAttachment(image: image)

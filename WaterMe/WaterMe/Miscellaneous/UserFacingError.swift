@@ -30,7 +30,7 @@ extension DatumError: UserFacingError {
         switch self {
         case .loadError, .createError, .writeError, .readError, .objectDeleted, .imageCouldntBeCompressedEnough, .maintenanceError:
             return true
-        case .unableToDeleteLastReminder ,.realmIsEnabledFalseUnsupported:
+        case .unableToDeleteLastReminder, .realmIsEnabledFalseUnsupported:
             return false
         }
     }

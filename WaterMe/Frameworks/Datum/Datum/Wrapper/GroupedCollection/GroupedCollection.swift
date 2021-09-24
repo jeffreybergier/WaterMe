@@ -21,12 +21,11 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Calculate
+
 /**
  Groups changes from a bunch of different queries so they appear like one big query
  */
-
-import Calculate
-
 internal class GroupedCollection<
     Section: Hashable & RawRepresentable,
     Query: CollectionQuery
@@ -186,7 +185,9 @@ internal class GroupedCollection<
     // MARK: Group the Updates
 
     private class Batcher {
+        // swiftlint:disable:next nesting
         typealias OutputUpdate = CollectionChangeUpdate<IndexPath>
+        // swiftlint:disable:next nesting
         typealias InputUpdate = CollectionChangeUpdate<Query.Index>
         private var timer: Timer?
         private var updates = [OutputUpdate]()

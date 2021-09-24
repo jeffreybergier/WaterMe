@@ -79,6 +79,7 @@ public struct ReminderVesselValue: Hashable {
         guard let reminderVessel = reminderVessel else { return nil }
         self.uuid = Identifier(rawValue: reminderVessel.uuid)
         self.name = reminderVessel.shortLabelSafeDisplayName
+        // swiftlint:disable:next force_cast
         self.imageData = (reminderVessel as! HasIconImageData).iconImageData
     }
     

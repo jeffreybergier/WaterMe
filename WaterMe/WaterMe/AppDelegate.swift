@@ -32,6 +32,7 @@ import CloudKit
 import Combine
 
 @UIApplicationMain
+// swiftlint:disable:next type_body_length
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // swiftlint:disable:next force_cast
@@ -55,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return vc
     }
 
+    // swiftlint:disable:next function_body_length
     override init() {
         super.init()
 

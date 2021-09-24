@@ -124,4 +124,3 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
         Loggable.default?.verbose()
     }
 }
-

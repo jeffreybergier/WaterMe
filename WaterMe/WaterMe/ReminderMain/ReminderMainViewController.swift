@@ -24,6 +24,8 @@
 import Datum
 import UIKit
 
+// swiftlint:disable file_length
+
 class ReminderMainViewController: StandardViewController, HasProController, HasBasicController {
     
     class func newVC(basic: Result<BasicController, DatumError>,
@@ -62,7 +64,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
 
     let dueDateFormatter = Formatter.newDueDateFormatter
     let haptic = UINotificationFeedbackGenerator()
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
 
     override func viewDidLoad() {
@@ -84,7 +86,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             self.toolbarItems = [
                 UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                 UIBarButtonItem(customView: progressView),
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
             ]
         }
 

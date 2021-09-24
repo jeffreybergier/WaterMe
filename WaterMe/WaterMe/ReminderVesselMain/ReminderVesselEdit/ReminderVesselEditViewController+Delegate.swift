@@ -27,6 +27,7 @@ import UIKit
 
 extension ReminderVesselEditViewController: ReminderVesselEditTableViewControllerDelegate {
 
+    // swiftlint:disable:next cyclomatic_complexity
     func userChosePhotoChange(controller: ReminderVesselEditTableViewController?,
                               sender: PopoverSender)
     {
@@ -176,8 +177,10 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
             assertionFailure("Missing Realm Controller.")
             return false
         }
-        // TODO does this warrant having a specialized function to toggle the enabled flag?
-        let toggleResult = basicRC.update(kind: nil, interval: nil, isEnabled: !reminder.isEnabled, note: nil, in: reminder)
+        let toggleResult = basicRC.update(kind: nil,
+                                          interval: nil,
+                                          isEnabled: !reminder.isEnabled,
+                                          note: nil, in: reminder)
         switch toggleResult {
         case .success:
             return true

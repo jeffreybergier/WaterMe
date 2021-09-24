@@ -60,6 +60,7 @@ internal class RealmToCoreDataMigrator: Migratable {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     @discardableResult func start(destination: BasicController,
                                   completion: @escaping (MigratableResult) -> Void) -> Progress
     {

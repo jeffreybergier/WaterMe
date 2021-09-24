@@ -30,6 +30,7 @@ class ReminderUserNotificationController {
     private lazy var queue = DispatchQueue(label: taskName, qos: .utility)
     private var backgroundTaskID: UIBackgroundTaskIdentifier?
 
+    // swiftlint:disable:next function_body_length
     func perform(with values: [ReminderAndVesselValue]) {
         
         // get reusable objects

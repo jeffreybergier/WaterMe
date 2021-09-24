@@ -71,7 +71,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
     private(set) var reminderResult: Result<Reminder, DatumError>?
     private var completionHandler: CompletionHandler?
     private var userActivityCompletion: NSUserActivityContinuedHandler?
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
     
     override func viewDidLoad() {

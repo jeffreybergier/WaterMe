@@ -25,6 +25,9 @@ import CoreData
 import UIKit
 import Calculate
 
+// swiftlint:disable file_length
+
+// swiftlint:disable:next type_body_length
 internal class CD_BasicController: BasicController {
     
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
@@ -67,6 +70,7 @@ internal class CD_BasicController: BasicController {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     init(kind: ControllerKind) throws {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -143,6 +147,7 @@ internal class CD_BasicController: BasicController {
         else { return }
         let configureCKSchema = false
         if configureCKSchema {
+            // swiftlint:disable:next force_try
             try! container.initializeCloudKitSchema(options: [.printSchema])
             fatalError("Cannot continue while using: initializeCloudKitSchema")
         }
@@ -169,6 +174,7 @@ internal class CD_BasicController: BasicController {
     // MARK: Create
     
     func newReminder(for vessel: ReminderVessel) -> Result<Reminder, DatumError> {
+        // swiftlint:disable:next force_cast
         let vessel = (vessel as! CD_ReminderVesselWrapper).wrappedObject
         let context = self.container.viewContext
         
@@ -302,7 +308,7 @@ internal class CD_BasicController: BasicController {
             return NSCompoundPredicate(andPredicateWithSubpredicates: [
                 enabledPredicate,
                 NSPredicate(format: "%K >= %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.start as NSDate)),
-                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate)),
+                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate))
             ])
         }
         
@@ -347,6 +353,7 @@ internal class CD_BasicController: BasicController {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     private func __genericSearch<T: CD_Base>(matching id: Identifier) -> Result<T, DatumError> {
         let coordinator = self.container.persistentStoreCoordinator
         let context = self.container.viewContext
@@ -413,6 +420,7 @@ internal class CD_BasicController: BasicController {
                 in vessel: ReminderVessel) -> Result<Void, DatumError>
     {
         let context = self.container.viewContext
+        // swiftlint:disable:next force_cast
         let vessel = (vessel as! CD_ReminderVesselWrapper).wrappedObject
         
         // debug only sanity checks
@@ -429,6 +437,7 @@ internal class CD_BasicController: BasicController {
             vessel.icon = icon
         }
         guard somethingChanged else { return .success(()) }
+        // swiftlint:disable:next force_cast
         vessel.raw_reminders?.forEach { ($0 as! CD_Base).raw_bloop.toggle() }
         return context.waterme_save()
     }
@@ -440,6 +449,7 @@ internal class CD_BasicController: BasicController {
                 in reminder: Reminder) -> Result<Void, DatumError>
     {
         let context = self.container.viewContext
+        // swiftlint:disable:next force_cast
         let reminder = (reminder as! CD_ReminderWrapper).wrappedObject
         
         // debug only sanity checks
@@ -501,6 +511,7 @@ internal class CD_BasicController: BasicController {
     
     func delete(vessel: ReminderVessel) -> Result<Void, DatumError> {
         let context = self.container.viewContext
+        // swiftlint:disable:next force_cast
         let vessel = (vessel as! CD_ReminderVesselWrapper).wrappedObject
         
         // debug only sanity checks
@@ -513,6 +524,7 @@ internal class CD_BasicController: BasicController {
     
     func delete(reminder: Reminder) -> Result<Void, DatumError> {
         let context = self.container.viewContext
+        // swiftlint:disable:next force_cast
         let reminder = (reminder as! CD_ReminderWrapper).wrappedObject
 
         // debug only sanity checks

@@ -43,6 +43,7 @@ protocol ReminderVesselEditTableViewControllerDelegate: AnyObject {
                      controller: ReminderVesselEditTableViewController?) -> Bool
 }
 
+// swiftlint:disable:next type_body_length
 class ReminderVesselEditTableViewController: StandardTableViewController {
     
     weak var delegate: ReminderVesselEditTableViewControllerDelegate?

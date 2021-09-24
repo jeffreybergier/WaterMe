@@ -44,6 +44,7 @@ internal class RLM_ReminderCollection: BaseCollection {
     }
     
     func index(of item: Reminder) -> Int? {
+        // swiftlint:disable:next force_cast
         let reminder = (item as! RLM_ReminderWrapper).wrappedObject
         return self.collection.index(of: reminder)
     }

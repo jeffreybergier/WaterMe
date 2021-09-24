@@ -29,8 +29,8 @@ class WateringAnimationPlayerView: UIView {
     @IBOutlet private weak var hairlineView: UIView?
 
     var hoverState: DragAndDropPlayerManager.HoverState {
-        set { self.videoManager.hoverState = newValue }
         get { return self.videoManager.hoverState }
+        set { self.videoManager.hoverState = newValue }
     }
 
     var finishedPlayingVideo: (() -> Void)?

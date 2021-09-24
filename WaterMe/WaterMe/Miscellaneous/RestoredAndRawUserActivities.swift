@@ -33,17 +33,17 @@ public enum RestoredUserActivity {
 
 public enum RawUserActivity: RawRepresentable {
 
-    case editReminder       //= "com.saturdayapps.waterme.activity.edit.reminder"
-    case editReminderVessel //= "com.saturdayapps.waterme.activity.edit.remindervessel"
-    case viewReminder       //= "com.saturdayapps.waterme.activity.view.reminder"
-    case performReminder    //= "com.saturdayapps.waterme.activity.perform.reminder"
-    case indexedItem        // = CSSearchableItemActionType
+    case editReminder
+    case editReminderVessel
+    case viewReminder
+    case performReminder
+    case indexedItem
 
-    private static let kEditReminder = "com.saturdayapps.waterme.activity.edit.reminder"
+    private static let kEditReminder       = "com.saturdayapps.waterme.activity.edit.reminder"
     private static let kEditReminderVessel = "com.saturdayapps.waterme.activity.edit.remindervessel"
-    private static let kViewReminder = "com.saturdayapps.waterme.activity.view.reminder"
-    private static let kPerformReminder = "com.saturdayapps.waterme.activity.perform.reminder"
-    private static let kIndexedItem = CSSearchableItemActionType
+    private static let kViewReminder       = "com.saturdayapps.waterme.activity.view.reminder"
+    private static let kPerformReminder    = "com.saturdayapps.waterme.activity.perform.reminder"
+    private static let kIndexedItem        = CSSearchableItemActionType
 
     public typealias RawValue = String
 
