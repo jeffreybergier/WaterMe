@@ -185,7 +185,7 @@ extension UserDefaults {
             // info screen as not seen.
             // For new users, use the default of TRUE (already seen)
             // as new users don't need to be concerned.
-            if build < 280052 {
+            if build < 280053 {
                 self.hasCloudSyncInfoShown = false
                 // if they are running an old version of iOS also disable Cloud Sync
                 if #available(iOS 14, *) { /* Do Nothing */ } else {
