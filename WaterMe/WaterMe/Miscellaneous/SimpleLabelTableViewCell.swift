@@ -26,19 +26,19 @@ import UIKit
 class SimpleLabelTableViewCell: UITableViewCell {
 
     class var reuseID: String { return "SimpleLabelTableViewCell" }
-    
+
     let label = UILabel()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setup()
     }
-    
+
     func setup() {
         self.label.numberOfLines = 0
         self.label.translatesAutoresizingMaskIntoConstraints = false

@@ -93,7 +93,7 @@ extension Color {
     static private var _late: UIColor {
         let light = UIColor(red: 221 / 255.0, green: 158 / 255.0, blue: 95 / 255.0, alpha: 1.0)
         guard #available(iOS 13.0, *) else { return light }
-        return UIColor() { trait -> UIColor in
+        return UIColor { trait -> UIColor in
             return trait.userInterfaceStyleIsNormal
                 ? light
                 : UIColor(red: 255 / 255.0, green: 163 / 255.0, blue: 72 / 255.0, alpha: 1.0)
@@ -107,7 +107,7 @@ extension Color {
     static private var _tomorrow: UIColor {
         let light = UIColor(red: 26 / 255.0, green: 188 / 255.0, blue: 156 / 255.0, alpha: 1.0)
         guard #available(iOS 13.0, *) else { return light }
-        return UIColor() { trait -> UIColor in
+        return UIColor { trait -> UIColor in
             return trait.userInterfaceStyleIsNormal
                 ? light
                 : UIColor(red: 8 / 255.0, green: 228 / 255.0, blue: 185 / 255.0, alpha: 1.0)
@@ -129,7 +129,7 @@ extension Color {
     static private var _tint: UIColor {
         let light = UIColor(red: 200 / 255.0, green: 129 / 255.0, blue: 242 / 255.0, alpha: 1.0)
         guard #available(iOS 13.0, *) else { return light }
-        return UIColor() { trait -> UIColor in
+        return UIColor { trait -> UIColor in
             return trait.userInterfaceStyleIsNormal
             ? light
             : UIColor(red: 192 / 255.0, green: 85 / 255.0, blue: 255 / 255.0, alpha: 1.0)
@@ -139,7 +139,7 @@ extension Color {
     static private var _increasedContrastTint: UIColor {
         let light = UIColor(red: 97 / 255.0, green: 46 / 255.0, blue: 128 / 255.0, alpha: 1.0)
         guard #available(iOS 13.0, *) else { return light }
-        return UIColor() { trait -> UIColor in
+        return UIColor { trait -> UIColor in
             return trait.userInterfaceStyleIsNormal
                 ? light
                 : UIColor(red: 240 / 255.0, green: 216 / 255.0, blue: 255 / 255.0, alpha: 1.0)

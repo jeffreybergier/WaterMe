@@ -25,7 +25,7 @@ import SafariServices
 import UIKit
 
 class EmojiPickerViewController: StandardCollectionViewController {
-    
+
     class func newVC(completionHandler: @escaping (String?, UIViewController) -> Void) -> UIViewController {
         let layout = UICollectionViewFlowLayout()
         let vc = EmojiPickerViewController(collectionViewLayout: layout)
@@ -35,10 +35,10 @@ class EmojiPickerViewController: StandardCollectionViewController {
         navVC.presentationController?.delegate = vc
         return navVC
     }
-    
+
     var completionHandler: ((String?, UIViewController) -> Void)?
     private let data = ["💐", "🌷", "🌹", "🥀", "🌻", "🌼", "🌸", "🌺", "🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", "🍒", "🍑", "🍍", "🥝", "🥑", "🍅", "🍆", "🥒", "🥕", "🌽", "🌶", "🥔", "🍠", "🌰", "🥜", "🌵", "🎄", "🌲", "🌳", "🌴", "🌱", "🌿", "☘️", "🍀", "🎍", "🎋", "🍃", "🍂", "🍁", "🍄", "🌾", "🥚", "🍳", "🐔", "🐧", "🐤", "🐣", "🐥", "🐓", "🦆", "🦃", "🐇", "🦀", "🦑", "🐙", "🦐", "🍤", "🐠", "🐟", "🐢", "🐍", "🦎", "🐝", "🍯", "🥐", "🍞", "🥖", "🧀", "🥗", "🍣", "🍱", "🍛", "🍚", "☕️", "🍵", "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🥛", "🐷", "🐽", "🐸", "🐒", "🦅", "🦉", "🦇", "🐺", "🐗", "🐴", "🦄", "🐛", "🦋", "🐌", "🐚", "🐞", "🐜", "🕷", "🦂", "🐡", "🐬", "🦈", "🐳", "🐋", "🐊", "🐆", "🐅", "🐃", "🐂", "🐄", "🦌", "🐪", "🐫", "🐘", "🦏", "🦍", "🐎", "🐖", "🐐", "🐏", "🐑", "🐕", "🐩", "🐈", "🕊", "🐁", "🐀", "🐿", "🐉", "🐲"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = LocalizedString.title
@@ -49,20 +49,20 @@ class EmojiPickerViewController: StandardCollectionViewController {
         self.flow?.minimumInteritemSpacing = 0
         self.collectionView.backgroundColor = Color.systemBackgroundColor
     }
-    
+
     @objc private func cancelButtonTapped(_ sender: NSObject?) {
         self.completionHandler?(nil, self)
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.data[indexPath.row]
         self.completionHandler?(item, self)
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.data.count
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let id = EmojiPickerCollectionViewCell.reuseID
         let _cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath)

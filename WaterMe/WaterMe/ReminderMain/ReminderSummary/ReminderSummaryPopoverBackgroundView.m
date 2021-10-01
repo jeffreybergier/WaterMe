@@ -98,8 +98,8 @@
     NSLayoutConstraint* leftRightSlide = [[view centerYAnchor] constraintEqualToAnchor:[self centerYAnchor] constant:0];
     NSLayoutConstraint* upAttach = [[view topAnchor] constraintEqualToAnchor:[self topAnchor] constant:0];
     NSLayoutConstraint* downAttach = [[view bottomAnchor] constraintEqualToAnchor:[self bottomAnchor] constant:0];
-    NSLayoutConstraint* leadAttach = [[view leadingAnchor] constraintEqualToAnchor:[self leadingAnchor] constant:0];
-    NSLayoutConstraint* trailAttach = [[view trailingAnchor] constraintEqualToAnchor:[self trailingAnchor] constant:0];
+    NSLayoutConstraint* leadAttach = [[view leftAnchor] constraintEqualToAnchor:[self leftAnchor] constant:0];
+    NSLayoutConstraint* trailAttach = [[view rightAnchor] constraintEqualToAnchor:[self rightAnchor] constant:0];
 
     // Store them in the appropriate properties
     // These need to change dynamically

@@ -63,7 +63,7 @@ extension UserActivityError: UserFacingError {
             return LocalizedString.siriShortcutReminderVesselNotFoundErrorAlertMessage
         }
     }
-    
+
     public var recoveryActions: [RecoveryAction] {
         switch self {
         case .siriShortcutCreate:

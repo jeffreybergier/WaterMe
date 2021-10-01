@@ -24,22 +24,22 @@
 import UIKit
 
 class LastPerformedTableViewCell: SimpleLabelTableViewCell {
-    
+
     override class var reuseID: String { return "LastPerformedTableViewCell" }
-    
+
     private let formatter = Formatter.newTimeAgoFormatter
-    
+
     override func setup() {
         super.setup()
         self.selectionStyle = .none
         self.prepareForReuse()
     }
-    
+
     func configureWith(lastPerformedDate: Date?) {
         let dateString = self.formatter.timeAgoString(for: lastPerformedDate)
         self.label.attributedText = NSAttributedString(string: dateString, font: .readOnlyTableViewCell)
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.label.attributedText = nil

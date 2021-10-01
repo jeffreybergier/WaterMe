@@ -44,7 +44,7 @@ extension ButtonTableViewCell {
                                    font: .reminderSummaryActionButton)
         }
     }
-    
+
     func configureAsCancelButton() {
         self.label?.attributedText =
             NSAttributedString(string: UIAlertController.LocalizedString.buttonTitleCancel,
@@ -63,7 +63,7 @@ extension InfoTableViewCell {
             NSAttributedString(string: ReminderEditViewController.LocalizedString.sectionTitleNotes,
                                font: .reminderSummarySublabel)
     }
-    
+
     func configureUnimportant(with reminder: Reminder?) {
         _ = {
             let vesselName = reminder?.vessel?.displayName

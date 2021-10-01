@@ -30,8 +30,8 @@ extension NSError {
     public convenience init(reminderVesselPropertyChangeUnknownCaseError: Bool?) {
         let code = 1001
         let message = "Unhandled case for ReminderVessel property changes."
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message,
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -39,8 +39,8 @@ extension NSError {
     public convenience init(reminderChangeFiredAfterListOrParentVesselWereSetToNil: Bool?) {
         let code = 1002
         let message = "Reminder change fired after list or parent vessel were set to NIL"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -48,9 +48,14 @@ extension NSError {
     public convenience init(collectionViewBatchUpdateException exception: NSException) {
         let code = 1003
         let message = exception.reason ?? "CollectionView Threw Exception During Batch Update"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        var userInfo: [String: Any] = [
+            NSLocalizedFailureErrorKey: exception.name,
+            NSLocalizedFailureReasonErrorKey: message
         ]
+        for (_key, value) in exception.userInfo ?? [:] {
+            let key = _key as? String ?? _key.description
+            userInfo[key] = value
+        }
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
 
@@ -68,8 +73,8 @@ extension NSError {
     private convenience init(collectionViewSanityCheckFailedForModifiedSection section: Int, cvCount: Int, dataCount: Int, ins: Int, dels: Int) {
         let code = 1004
         let message = "CollectionView SanityCheck failed for Modifications in Section: \(section), cvCount: \(cvCount), dataCount: \(dataCount), insertions: \(ins), deletions: \(dels)"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -77,8 +82,8 @@ extension NSError {
     private convenience init(collectionViewSanityCheckFailedForUnmodifiedSection section: Int, cvCount: Int, dataCount: Int) {
         let code = 1005
         let message = "CollectionView SanityCheck failed for Unmodified Section: \(section), cvCount: \(cvCount), dataCount: \(dataCount)"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -86,8 +91,8 @@ extension NSError {
     private convenience init(collectionViewSanityCheckFailedForMismatchedSectionCount cvSectionCount: Int, dataSectionCount: Int) {
         let code = 1006
         let message = "SanityCheck failed for Mismatched CollectionView Section Count: \(cvSectionCount), Data Section Count: \(dataSectionCount)"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -95,8 +100,8 @@ extension NSError {
     internal convenience init(dataForSectionWasNilInNumberOfItemsInSection section: Int) {
         let code = 1007
         let message = "No Data was Present when getting numberOfItemsInSection for Section: \(section)"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -104,8 +109,8 @@ extension NSError {
     internal convenience init(dataForSectionWasNilInReminderAtIndexPath indexPath: IndexPath) {
         let code = 1008
         let message = "No Data was Present when getting reminderAtIndexPath for IndexPath: \(String(describing: indexPath))"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -113,8 +118,8 @@ extension NSError {
     public convenience init(unableToLoadEmojiFont _: Bool?) {
         let code = 1009
         let message = "Unable to load EmojiFont"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -122,8 +127,8 @@ extension NSError {
     internal convenience init(numberOfSectionsMistmatch _: Bool?) {
         let code = 1010
         let message = "Total number of Sections did not match number of sections of loaded data."
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -131,8 +136,8 @@ extension NSError {
     public convenience init(underlyingObjectInvalidated _: Bool?) {
         let code = 1011
         let message = "The underlying REALM object was invalidated and was tried to be used again. This should not happen."
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -140,8 +145,8 @@ extension NSError {
     internal convenience init(outOfBoundsRowAtIndexPath indexPath: IndexPath) {
         let code = 1012
         let message = "Data requested out of bounds for IndexPath: \(String(describing: indexPath))"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -149,8 +154,8 @@ extension NSError {
     public convenience init(basicControllerNotFound _: Bool) {
         let code = 1013
         let message = "Basic Controller property was set to NIL"
-        let userInfo: [String : Any] = [
-            NSLocalizedFailureReasonErrorKey : message
+        let userInfo: [String: Any] = [
+            NSLocalizedFailureReasonErrorKey: message
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }

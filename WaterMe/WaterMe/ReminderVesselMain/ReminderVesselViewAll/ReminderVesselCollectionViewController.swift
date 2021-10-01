@@ -26,18 +26,18 @@ import UIKit
 import Calculate
 
 class ReminderVesselCollectionViewController: StandardCollectionViewController, HasBasicController {
-    
+
     var vesselChosen: ((ReminderVessel) -> Void)?
-        
+
     var basicRC: BasicController? {
         didSet {
             guard self.isViewLoaded else { return }
             self.hardReloadData()
         }
     }
-    
+
     internal var data: Result<ReminderVesselCollection, DatumError>?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // support dark mode
@@ -51,12 +51,12 @@ class ReminderVesselCollectionViewController: StandardCollectionViewController, 
         // load data
         self.hardReloadData()
     }
-    
+
     private func hardReloadData() {
       self.notificationToken?.invalidate()
         self.notificationToken = nil
         self.data = nil
-        
+
         guard let result = self.basicRC?.allVessels(sorted: .displayName, ascending: true) else { return }
         switch result {
         case .failure(let error):
@@ -65,7 +65,7 @@ class ReminderVesselCollectionViewController: StandardCollectionViewController, 
           self.notificationToken = collection.observe({ [weak self] changes in self?.dataChanged(changes) })
         }
     }
-    
+
     private func dataChanged(_ changes: ReminderVesselCollectionChange) {
         switch changes {
         case .initial(let data):
@@ -84,11 +84,11 @@ class ReminderVesselCollectionViewController: StandardCollectionViewController, 
             error.log()
         }
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.data?.value?.count ?? 0
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReminderVesselCollectionViewCell.reuseID, for: indexPath)
         if let vessel = self.data?.value?[indexPath.row], let cell = cell as? ReminderVesselCollectionViewCell {
@@ -96,7 +96,7 @@ class ReminderVesselCollectionViewController: StandardCollectionViewController, 
         }
         return cell
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let vessel = self.data?.value?[indexPath.row] else { return }
         self.vesselChosen?(vessel)
@@ -119,11 +119,11 @@ class ReminderVesselCollectionViewController: StandardCollectionViewController, 
             return math(width, 2)
         }
     }
-    
+
     private var notificationToken: ObservationToken?
-    
+
     deinit {
       self.notificationToken?.invalidate()
     }
-    
+
 }

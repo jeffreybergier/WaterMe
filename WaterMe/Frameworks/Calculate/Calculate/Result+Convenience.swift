@@ -24,7 +24,7 @@
 import Foundation
 
 extension Result {
-    var error: Failure? {
+    public var error: Failure? {
         switch self {
         case .success:
             return nil
@@ -33,7 +33,7 @@ extension Result {
         }
     }
 
-    var value: Success? {
+    public var value: Success? {
         switch self {
         case .success(let value):
             return value
@@ -45,10 +45,22 @@ extension Result {
     /// Returns a new Result by mapping `Success`es’ values using `success`, and by mapping `Failure`'s values using `failure`.
     /// Slightly Modified from Antitypical Code:
     /// https://github.com/antitypical/Result/blob/c0838342cedfefc25f6dd4f95344d376bed582c7/Result/ResultProtocol.swift#L64
-    func bimap<Success2, Failure2>(success: (Success) -> Success2, failure: (Failure) -> Failure2) -> Result<Success2, Failure2> {
+    public func bimap<Success2, Failure2>(success: (Success) -> Success2, failure: (Failure) -> Failure2) -> Result<Success2, Failure2> {
         switch self {
         case let .success(value): return .success(success(value))
         case let .failure(error): return .failure(failure(error))
+        }
+    }
+
+    /// Lazily chains multiple result closures.
+    /// On error, stops and returns error.
+    /// On success, continues and returns last success.
+    /// - Parameter next: Closure to execute on success, passing in result of last operation.
+    /// - Returns: Last success or first failure.
+    public func reduce<NewSuccess>(_ next: (Success) -> Result<NewSuccess, Failure>) -> Result<NewSuccess, Failure> {
+        switch self {
+        case .success(let value): return next(value)
+        case .failure(let error): return .failure(error)
         }
     }
 }

@@ -26,15 +26,15 @@ import Datum
 import UIKit
 
 extension UIAlertController {
-    
+
     typealias UserSelection = (RecoveryAction) -> Void
-    
+
     class func presentAlertVC(for error: UserFacingError,
                               over presentingVC: UIViewController,
                               from barButtonItem: UIBarButtonItem? = nil,
                               completionHandler completion: UserSelection? = nil)
     {
-        let recoveryActions = error.recoveryActions.map()
+        let recoveryActions = error.recoveryActions.map
         { recoveryOption -> UIAlertAction in
             let action = UIAlertAction(title: recoveryOption.title,
                                        style: recoveryOption.actionStyle)
@@ -65,10 +65,39 @@ extension UIAlertController {
     enum ReminderDeleteConfirmationResult {
         case delete, pause, cancel
     }
-    
+
     struct ReminderDeleteConfirmationOptions: OptionSet {
         let rawValue: Int
         static let pause = ReminderDeleteConfirmationOptions(rawValue: 1 << 0)
+    }
+
+    convenience init(error: UserFacingError,
+                     sender: PopoverSender?,
+                     selectionHandler: ((RecoveryAction?) -> Void)? = nil)
+    {
+        self.init(title: error.title, message: error.message, preferredStyle: sender == nil ? .alert : .actionSheet)
+        error.recoveryActions.forEach { option in
+            let action = UIAlertAction(title: option.title,
+                                       style: option.actionStyle)
+            { _ in
+                option.automaticExecution?()
+                selectionHandler?(option)
+            }
+            self.addAction(action)
+        }
+        let dismiss = UIAlertAction(title: LocalizedString.buttonTitleDismiss,
+                                    style: .cancel,
+                                    handler: { _ in selectionHandler?(nil) })
+        self.addAction(dismiss)
+        guard let sender = sender else { return }
+        switch sender {
+        case .right(let bbi):
+            self.popoverPresentationController?.barButtonItem = bbi
+        case .left(let (view, location)):
+            self.popoverPresentationController?.sourceView = view
+            self.popoverPresentationController?.sourceRect = view.bounds.rect(with: location)
+            self.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        }
     }
 
     convenience init(localizedDeleteConfirmationWithOptions options: ReminderDeleteConfirmationOptions,
@@ -95,9 +124,9 @@ extension UIAlertController {
         switch sender {
         case .right(let bbi):
             self.popoverPresentationController?.barButtonItem = bbi
-        case .left(let view):
+        case .left(let (view, location)):
             self.popoverPresentationController?.sourceView = view
-            self.popoverPresentationController?.sourceRect = view.bounds.centerRect
+            self.popoverPresentationController?.sourceRect = view.bounds.rect(with: location)
             self.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         }
     }

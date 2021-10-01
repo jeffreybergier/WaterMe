@@ -43,16 +43,17 @@ protocol ReminderVesselEditTableViewControllerDelegate: AnyObject {
                      controller: ReminderVesselEditTableViewController?) -> Bool
 }
 
+// swiftlint:disable:next type_body_length
 class ReminderVesselEditTableViewController: StandardTableViewController {
-    
+
     weak var delegate: ReminderVesselEditTableViewControllerDelegate?
-    
+
     func reloadPhotoAndName() {
         self.tableView.reloadSections(IndexSet([Section.photo.rawValue,
                                                 Section.name.rawValue]),
                                       with: .automatic)
     }
-    
+
     func reloadAll() {
         self.invalidateTokens()
         self.tableView.reloadData()
@@ -61,7 +62,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
                 self?.remindersChanged($0)
             }
     }
-    
+
     func reloadReminders() {
         self.invalidateTokens()
         self.tableView.reloadSections(IndexSet([Section.reminders.rawValue]), with: .automatic)
@@ -70,7 +71,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
                 self?.remindersChanged($0)
             }
     }
-    
+
     func nameTextFieldBecomeFirstResponder() {
         let indexPath = IndexPath(row: 0, section: Section.name.rawValue)
         UIView.style_animateNormal({
@@ -80,7 +81,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             cell?.textFieldBecomeFirstResponder()
         })
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,9 +98,9 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
         self.tableView.estimatedRowHeight = 40
         self.reloadAll()
     }
-    
+
     private var remindersData: ReminderCollection?
-    
+
     private func remindersChanged(_ changes: ReminderCollectionChange) {
         switch changes {
         case .initial(let data):
@@ -126,11 +127,11 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             self.reloadReminders()
         }
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.allCases.count
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int
     {
@@ -149,7 +150,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             // this was sometimes causing a crash because the underlying object was deleted
             // But in reality the underlying object should always be set to NIL if it gets deleted
             let data = self.remindersData
-            
+
             // TODO: Removing this because Core Data doesn't have this concept
             /*
             let invalidated = data?.isInvalidated ?? false
@@ -161,13 +162,13 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
                 return 0
             }
             */
-            
+
             return data?.count ?? 0
         case .siriShortcuts:
             return SiriShortcut.allCases.count
         }
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -192,7 +193,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             let cell = _cell as? ReminderVesselIconTableViewCell
             cell?.configure(with: self.delegate?.vesselResult?.value?.icon)
             cell?.iconButtonTapped = { [unowned self] sender in
-                self.delegate?.userChosePhotoChange(controller: self, sender: .left(sender))
+                self.delegate?.userChosePhotoChange(controller: self, sender: .left((sender, .center)))
             }
             return _cell
         case .reminders:
@@ -215,7 +216,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             return cell
         }
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath)
     {
@@ -238,7 +239,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
             }, controller: self)
         }
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
@@ -255,17 +256,13 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
         case .name, .photo:
             return UISwipeActionsConfiguration(actions: [])
         case .reminders:
-            // TODO: Add comfirm box for deleting
             let deleteAction = UIContextualAction(style: .destructive,
                                                   title: UIAlertController.LocalizedString.buttonTitleDelete)
             { [unowned self] _, _, successfullyDeleted in
-                // TODO: Improve this
-                // This causes bug when swiping to delete where popover
-                // on iPAd is pointed way over outside the table/
-                // let cell = tableView.cellForRow(at: indexPath)
-                // let sender = cell.map { PopoverSender.left($0) }
+                let cell = tableView.cellForRow(at: indexPath)
+                let sender = cell.map { PopoverSender.left(($0, .topTrailing)) }
                 let confirmation = UIAlertController(localizedDeleteConfirmationWithOptions: [],
-                                                     sender: nil)
+                                                     sender: sender)
                 { confirmed in
                     switch confirmed {
                     case .cancel, .pause:
@@ -294,13 +291,13 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
                 let toggled = self.delegate?.userToggled(reminder: reminder, controller: self) ?? false
                 successfullyToggled(toggled)
             }
-            
+
             return UISwipeActionsConfiguration(actions: [deleteAction, pauseAction])
         case .siriShortcuts:
             return UISwipeActionsConfiguration(actions: [])
         }
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView?
     {
@@ -323,11 +320,11 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
         }
         return view
     }
-    
+
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(false)
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             titleForHeaderInSection section: Int) -> String?
     {
@@ -337,22 +334,22 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
         }
         return section.localizedTitle
     }
-    
+
     override func tableView(_ tableView: UITableView,
                             heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return UITableView.automaticDimension
     }
-    
+
     func invalidateTokens() {
         self.notificationToken?.invalidate()
         self.notificationToken = nil
         self.remindersData = nil
         self.tableView.reloadData()
     }
-    
+
     private var notificationToken: ObservationToken?
-    
+
     deinit {
         self.notificationToken?.invalidate()
     }

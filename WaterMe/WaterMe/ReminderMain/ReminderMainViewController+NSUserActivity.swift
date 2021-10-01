@@ -24,7 +24,7 @@
 import Datum
 
 extension ReminderMainViewController {
-    
+
     func continueUserActivityResultIfNeeded() {
         guard let result = self.userActivityResultToContinue.first else { return }
         self.isReady.insert(.userActivityInProgress)
@@ -86,7 +86,7 @@ extension ReminderMainViewController {
             dropVC.updateDropTargetHeightAndPlayAnimationForDragging(animated: true, completion: nil)
             dropVC.isDragInProgress = false
             // dismiss all other screens so the user can see
-            self.dismissAnimatedIfNeeded() { completion(nil) }
+            self.dismissAnimatedIfNeeded { completion(nil) }
             return nil
         case .failure(let error):
             if case .objectDeleted = error {
@@ -112,7 +112,7 @@ extension ReminderMainViewController {
             assertionFailure(e)
             e.log()
         }
-        self.dismissAnimatedIfNeeded() {
+        self.dismissAnimatedIfNeeded {
             self.userChoseEditReminder(with: identifier,
                                        basicRC: basicRC,
                                        userActivityCompletion: completion,
@@ -132,12 +132,12 @@ extension ReminderMainViewController {
         }
         guard let vessel = basicRC.reminderVessel(matching: identifier).value
             else { return .reminderVesselNotFound }
-        self.dismissAnimatedIfNeeded() {
+        self.dismissAnimatedIfNeeded {
             let vc = ReminderVesselEditViewController.newVC(basicController: basicRC,
                                                             editVessel: vessel,
                                                             userActivityCompletion: completion)
             { vc in
-                vc.dismiss(animated: true, completion: nil)
+                vc.dismissNoForReal()
             }
             self.present(vc, animated: true, completion: nil)
         }
@@ -165,7 +165,7 @@ extension ReminderMainViewController {
         {
             cellView = specificView
         }
-        self.dismissAnimatedIfNeeded() {
+        self.dismissAnimatedIfNeeded {
             self.userDidSelect(reminderID: identifier,
                                from: cellView,
                                userActivityContinuation: completion,
@@ -178,7 +178,7 @@ extension ReminderMainViewController {
     private func continueActivityError(_ error: UserActivityError,
                                        completion: NSUserActivityContinuedHandler?)
     {
-        self.dismissAnimatedIfNeeded() {
+        self.dismissAnimatedIfNeeded {
             UIAlertController.presentAlertVC(for: error, over: self) { _ in
                 completion?(nil)
             }

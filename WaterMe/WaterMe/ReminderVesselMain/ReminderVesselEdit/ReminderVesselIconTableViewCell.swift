@@ -25,31 +25,31 @@ import Datum
 import UIKit
 
 class ReminderVesselIconTableViewCell: UITableViewCell {
-    
+
     static let reuseID = "ReminderVesselIconTableViewCell"
-    
+
     @IBOutlet private weak var emojiImageView: EmojiImageView?
     @IBOutlet private weak var emojiImageViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet private weak var cameraButton: UIButton?
-    
+
     var iconButtonTapped: ((UIView) -> Void)?
-    
+
     func configure(with icon: ReminderVesselIcon?) {
         self.cameraButton?.setTitle(nil, for: .normal)
         self.cameraButton?.setImage(#imageLiteral(resourceName: "Camera"), for: .normal)
         self.cameraButton?.accessibilityLabel = UIAlertController.LocalizedString.buttonTitleChoosePhoto
         self.emojiImageView?.setIcon(icon)
     }
-    
+
     @IBAction private func iconButtonTapped(_ sender: UIView) {
         self.iconButtonTapped?(sender)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.prepareForReuse()
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.cameraButton?.setAttributedTitle(nil, for: .normal)

@@ -47,7 +47,7 @@ extension UserActivityConfigurator: NSUserActivityDelegate {
 
             let reminderVessel = self.currentReminderVessel?()
             let reminder = self.currentReminderAndVessel?()
-            
+
             switch kind {
             case .editReminderVessel:
                 self.updateEditReminderVessel(activity: activity,
@@ -77,7 +77,7 @@ extension UserActivityConfigurator: NSUserActivityDelegate {
             return
         }
         // now hop on the main thread and execute
-        DispatchQueue.main.sync() {
+        DispatchQueue.main.sync {
             workItem()
             return
         }

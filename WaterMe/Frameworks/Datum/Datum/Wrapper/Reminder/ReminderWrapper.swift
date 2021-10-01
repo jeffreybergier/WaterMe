@@ -25,7 +25,7 @@ import RealmSwift
 
 public enum ReminderConstants {
     public static let minimumInterval: Int = 1
-    public static let maximumInterval: Int = 180
+    public static let maximumInterval: Int = 365
     public static let defaultInterval: Int = 7
 }
 

@@ -87,5 +87,5 @@ class SettingsTipJarTableViewCell: UITableViewCell {
         self.leadingLabel.attributedText = leadingString
         self.trailingLabel.attributedText = trailingString
     }
-    
+
 }

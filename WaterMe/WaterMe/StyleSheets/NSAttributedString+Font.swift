@@ -47,24 +47,6 @@ extension NSAttributedString {
         self.init(string: string, attributes: font.attributes)
     }
 
-    convenience init(stylingPrimaryString primaryString: String,
-                     withPrimaryStyle primaryStyle: Font,
-                     andSubString searchString: String,
-                     withSubstringStyle searchStringStyle: Font)
-    {
-        // make a mutable attributed string to play with
-        let primaryAttributedString = NSMutableAttributedString(string: primaryString, font: primaryStyle)
-
-        // since we're using NSAttributedString, its easier to do this the old ObjC way
-        let primaryString = primaryString as NSString
-        let ranges = primaryString.ranges(of: searchString)
-        ranges.forEach({ primaryAttributedString.addAttributes(searchStringStyle.attributes, range: $0) })
-
-        // swiftlint:disable:next force_cast
-        let _primaryAttributedString = primaryAttributedString.copy() as! NSAttributedString
-        self.init(attributedString: _primaryAttributedString)
-    }
-
     func appending(_ rhs: NSAttributedString) -> NSAttributedString {
         let lhs = NSMutableAttributedString(attributedString: self)
         lhs.append(rhs)

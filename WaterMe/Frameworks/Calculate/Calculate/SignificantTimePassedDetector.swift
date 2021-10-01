@@ -35,7 +35,7 @@ public class SignificantTimePassedDetector {
     }
 
     public weak var delegate: SignificantTimePassedDetectorDelegate?
-    
+
     public init() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.significantTimeChanged(_:)),

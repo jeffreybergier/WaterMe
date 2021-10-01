@@ -28,9 +28,9 @@ extension DatumError: UserFacingError {
 
     public var isCritical: Bool {
         switch self {
-        case .loadError, .createError, .writeError, .readError, .objectDeleted, .imageCouldntBeCompressedEnough:
+        case .loadError, .createError, .writeError, .readError, .objectDeleted, .imageCouldntBeCompressedEnough, .maintenanceError:
             return true
-        case .unableToDeleteLastReminder ,.realmIsEnabledFalseUnsupported:
+        case .unableToDeleteLastReminder, .realmIsEnabledFalseUnsupported:
             return false
         }
     }
@@ -62,12 +62,18 @@ extension DatumError: UserFacingError {
             return LocalizedString.deleteMessage
         case .realmIsEnabledFalseUnsupported:
             return LocalizedString.realmIsEnabledFalseUnsupportedMessage
+        case .maintenanceError:
+            return LocalizedString.maintenanceMessage
         }
     }
 
     public var recoveryActions: [RecoveryAction] {
         switch self {
-        case .objectDeleted, .unableToDeleteLastReminder, .imageCouldntBeCompressedEnough, .realmIsEnabledFalseUnsupported:
+        case .objectDeleted,
+             .unableToDeleteLastReminder,
+             .imageCouldntBeCompressedEnough,
+             .realmIsEnabledFalseUnsupported,
+             .maintenanceError:
             return [.dismiss]
         case .createError, .loadError, .readError, .writeError:
             return [.dismiss, .openWaterMeSettings]
@@ -76,7 +82,7 @@ extension DatumError: UserFacingError {
 }
 
 extension RecoveryAction: RecoveryActionSelectable {
-    
+
     public var title: String {
         switch self {
         case .cancel:
@@ -128,7 +134,7 @@ extension ModelCompleteError: UserFacingError {
     public var isCritical: Bool {
         return false
     }
-    
+
     public var title: String? {
         return UIAlertController.LocalizedString.titleUnsolvedIssues
     }

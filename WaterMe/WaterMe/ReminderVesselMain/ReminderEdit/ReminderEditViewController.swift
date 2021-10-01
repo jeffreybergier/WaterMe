@@ -27,12 +27,12 @@ import UIKit
 import Calculate
 
 class ReminderEditViewController: StandardViewController, HasBasicController {
-    
+
     enum Purpose {
         case new(ReminderVessel), existing(Reminder)
     }
     typealias CompletionHandler = (UIViewController) -> Void
-    
+
     class func newVC(basicController: BasicController?,
                      purpose: Purpose,
                      userActivityCompletion: NSUserActivityContinuedHandler? = nil,
@@ -59,7 +59,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
         navVC.presentationController?.delegate = vc
         return navVC
     }
-    
+
     /*@IBOutlet*/ private weak var tableViewController: ReminderEditTableViewController?
 
     private lazy var deleteBBI: UIBarButtonItem = UIBarButtonItem(localizedDeleteButtonWithTarget: self,
@@ -71,9 +71,9 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
     private(set) var reminderResult: Result<Reminder, DatumError>?
     private var completionHandler: CompletionHandler?
     private var userActivityCompletion: NSUserActivityContinuedHandler?
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,7 +89,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
             return ReminderAndVesselValue(reminder: self?.reminderResult?.value)
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Analytics.log(viewOperation: .editReminder)
@@ -103,7 +103,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
             }
         }
     }
-    
+
     private func reminderChanged(_ change: ReminderChange) {
         switch change {
         case .change:
@@ -120,7 +120,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
         // dirty the user activity because the item changed
         self.userDirtiedUserActivity()
     }
-    
+
     private func update(kind: ReminderKind? = nil,
                         interval: Int? = nil,
                         isEnabled: Bool? = nil,
@@ -155,14 +155,14 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
                                           isEnabled: isEnabled,
                                           note: note,
                                           in: reminder)
-        
+
         // show the user errors that may have ocurred
         guard case .failure(let error) = updateResult else { return }
         UIAlertController.presentAlertVC(for: error, over: self) { _ in
             self.tableViewController?.tableView.reloadData()
         }
     }
-    
+
     private func intervalChosen(popoverSourceView: UIView?,
                                 deselectHandler: @escaping () -> Void)
     {
@@ -176,7 +176,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
                                                             existingValue: existingValue,
                                                             popoverSourceView: popoverSourceView)
         { vc, newValue in
-            vc.dismiss(animated: true) {
+            vc.dismissNoForReal {
                 deselectHandler()
                 guard let newValue = newValue else { return }
                 self.update(interval: newValue)
@@ -184,7 +184,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
         }
         self.present(vc, animated: true, completion: nil)
     }
-    
+
     @IBAction private func deleteButtonTapped(_ sender: Any) {
         self.view.endEditing(false)
         guard
@@ -229,7 +229,7 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
         }
         self.present(confirmation, animated: true, completion: nil)
     }
-    
+
     @IBAction private func doneButtonTapped(_ _sender: Any) {
         Analytics.log(event: Analytics.CRUD_Op_R.update)
         self.view.endEditing(false)
@@ -281,19 +281,19 @@ class ReminderEditViewController: StandardViewController, HasBasicController {
     private func userDirtiedUserActivity() {
         self.userActivity?.needsSave = true
     }
-    
+
     private func startNotifications() {
         let token1 = self.reminderResult?.value?.observe { [weak self] in self?.reminderChanged($0) }
         self.tokens = [token1].compactMap { $0 }
     }
-    
+
     private func stopNotifications() {
         self.tokens.invalidateTokens()
         self.tokens = []
     }
-    
+
     private var tokens: [ObservationToken] = []
-    
+
     deinit {
         self.stopNotifications()
     }
@@ -363,7 +363,7 @@ extension ReminderEditViewController: ReminderEditTableViewControllerDelegate {
         let vc = ClosureDelegatingAddVoiceShortcutViewController(shortcut: shortcut)
         vc.completionHandler = { [unowned self] vc, result in
             self.userActivity?.becomeCurrent()
-            vc.dismiss(animated: true) {
+            vc.dismissNoForReal {
                 deselectRowAnimated?(true)
                 guard case .failure(let error) = result else { return }
                 UIAlertController.presentAlertVC(for: error, over: self)

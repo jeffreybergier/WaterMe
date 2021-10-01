@@ -104,7 +104,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
                                font: .migratorSecondaryButton),
                                for: .normal
         )
-        
+
         self.progressView?.isHidden = false
         self.bodyLabel?.isHidden = false
         self.migrateButton?.alpha = 0 // setting alpha to 0 improves animations
@@ -183,7 +183,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
             let message = "RealmController missing on a VC where this should not be possible."
             message.log()
             assertionFailure(message)
-            UIView.style_animateNormal() {
+            UIView.style_animateNormal {
                 self.state = .error(.startError)
                 self.view.layoutIfNeeded()
             }
@@ -202,7 +202,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
             { [weak self] result in
                 UIApplication.shared.isIdleTimerDisabled = false
                 guard let welf = self else { return }
-                UIView.style_animateNormal() {
+                UIView.style_animateNormal {
                     switch result {
                     case .success:
                         welf.state = .success
@@ -233,7 +233,7 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
             case .success:
                 self.completionHandler(self, false)
             case .failure(let error):
-                UIView.style_animateNormal() {
+                UIView.style_animateNormal {
                     self.state = .error(error)
                     self.view.layoutIfNeeded()
                 }
@@ -247,12 +247,12 @@ class CoreDataMigratorViewController: StandardViewController, HasBasicController
         vc.popoverPresentationController?.sourceView = (sender as? UIView) ?? self.view
         self.present(vc, animated: true, completion: nil)
     }
-    
+
     @IBAction private func contactDeveloperButtonTapped(_ sender: Any) {
         Analytics.log(viewOperation: .emailDeveloper)
-        let vc = EmailDeveloperViewController.newVC() { vc in
+        let vc = EmailDeveloperViewController.newVC { vc in
             guard let vc = vc else { return }
-            vc.dismiss(animated: true, completion: nil)
+            vc.dismissNoForReal()
         }
         self.present(vc, animated: true, completion: nil)
     }

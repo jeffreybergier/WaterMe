@@ -62,7 +62,7 @@ extension CD_Reminder: ModelCompleteCheckable {
 
 // MARK: Realm
 
-extension RLM_Reminder {    
+extension RLM_Reminder {
     internal var vessel: RLM_ReminderVessel? { return self.vessels.first }
     internal var kind: ReminderKind {
         get {
@@ -74,7 +74,7 @@ extension RLM_Reminder {
             raw.secondary.map { self.descriptionString = $0 }
         }
     }
-    
+
     internal func recalculateNextPerformDate(comparisonPerform: RLM_ReminderPerform? = nil) {
         if let lastPerform = comparisonPerform ?? self.performed.last {
             self.nextPerformDate = lastPerform.date + TimeInterval(self.interval * 24 * 60 * 60)

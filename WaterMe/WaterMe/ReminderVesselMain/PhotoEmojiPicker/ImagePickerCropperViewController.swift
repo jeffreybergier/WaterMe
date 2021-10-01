@@ -27,11 +27,11 @@ import Photos
 import UIKit
 
 class ImagePickerCropperViewController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     class var cameraPermission: AVAuthorizationStatus {
         return AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     }
-    
+
     private class func newVC(completionHandler: @escaping (UIImage?, UIViewController) -> Void) -> ImagePickerCropperViewController {
         let vc = ImagePickerCropperViewController()
         vc.completionHandler = completionHandler
@@ -42,22 +42,22 @@ class ImagePickerCropperViewController: UIImagePickerController, UIImagePickerCo
         vc.mediaTypes = [kUTTypeImage as String]
         return vc
     }
-    
+
     class func newPhotosVC(completionHandler: @escaping (UIImage?, UIViewController) -> Void) -> UIViewController {
         let vc = self.newVC(completionHandler: completionHandler)
         vc.sourceType = .photoLibrary
         return vc
     }
-    
+
     class func newCameraVC(completionHandler: @escaping (UIImage?, UIViewController) -> Void) -> UIViewController {
         let vc = self.newVC(completionHandler: completionHandler)
         vc.sourceType = .camera
         return vc
     }
-    
+
     var completionHandler: ((UIImage?, UIViewController) -> Void)?
     private var permissionCheckTimer: Timer?
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard self.permissionCheckTimer == nil else { return }
@@ -89,8 +89,8 @@ class ImagePickerCropperViewController: UIImagePickerController, UIImagePickerCo
             }
         }
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let original = info[.originalImage] as? UIImage
         guard let image = original else { self.completionHandler?(nil, picker); return; }
         let crop = CropViewController(croppingStyle: .default, image: image)
@@ -98,11 +98,11 @@ class ImagePickerCropperViewController: UIImagePickerController, UIImagePickerCo
         crop.style_waterMe()
         self.present(crop, animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.completionHandler?(nil, self)
     }
-    
+
     deinit {
         self.permissionCheckTimer?.invalidate()
     }
@@ -131,13 +131,13 @@ extension CropViewController {
 
 extension ImagePickerCropperViewController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        cropViewController.dismiss(animated: true) {
+        cropViewController.dismissNoForReal {
             self.completionHandler?(image, self)
         }
     }
 
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
-        cropViewController.dismiss(animated: true) {
+        cropViewController.dismissNoForReal {
             self.completionHandler?(nil, self)
         }
     }

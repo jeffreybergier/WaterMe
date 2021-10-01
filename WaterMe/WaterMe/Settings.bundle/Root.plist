@@ -108,6 +108,16 @@
 				<integer>21</integer>
 			</array>
 		</dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>Sync via iCloud</string>
+            <key>Key</key>
+            <string>CLOUD_SYNC</string>
+            <key>DefaultValue</key>
+            <true/>
+        </dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>

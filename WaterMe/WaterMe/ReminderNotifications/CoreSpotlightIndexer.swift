@@ -33,15 +33,20 @@ class CoreSpotlightIndexer {
     private static var backgroundTaskID: UIBackgroundTaskIdentifier?
 
     class func perform(with values: [ReminderAndVesselValue]) {
+        // make sure we can index
+        guard CSSearchableIndex.isIndexingAvailable() else {
+            "Indexing not available on this device".log(as: .info)
+            return
+        }
         // make sure there isn't already a background task in progress
         guard self.backgroundTaskID == nil else {
             Analytics.log(event: Analytics.NotificationPermission.scheduleAlreadyInProgress)
             "Background task already in progress. Bailing.".log(as: .info)
             return
         }
+        self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: self.taskName,
+                                                                         expirationHandler: nil)
         self.queue.async {
-            self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: self.taskName,
-                                                                             expirationHandler: nil)
             self.raw_perform(with: values)
             DispatchQueue.main.async {
                 guard let id = self.backgroundTaskID else { return }
@@ -77,7 +82,7 @@ extension CSSearchableIndex {
     fileprivate func sync_deleteAllSearchableItems() -> Error? {
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
-        self.deleteAllSearchableItems() { _error in
+        self.deleteAllSearchableItems { _error in
             error = _error
             semaphore.signal()
         }
@@ -101,7 +106,7 @@ extension CSSearchableIndex {
 extension CSSearchableItem {
 
     fileprivate class func items(from values: [ReminderAndVesselValue]) -> [CSSearchableItem] {
-        return values.map() { value -> CSSearchableItem in
+        return values.map { value -> CSSearchableItem in
             let attributes = CSSearchableItemAttributeSet(itemContentType: kUTTypeContent as String)
             attributes.title = UserActivityConfigurator.LocalizedString.viewReminderTitle(for: value.reminder.kind,
                                                                                           andVesselName: value.reminderVessel.name)

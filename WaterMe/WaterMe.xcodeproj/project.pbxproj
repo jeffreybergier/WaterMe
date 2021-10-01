@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -173,7 +173,6 @@
 		50B511A51EFE0C9F00ED1DF4 /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B511A41EFE0C9F00ED1DF4 /* TextFieldTableViewCell.xib */; };
 		50B511A71EFE144700ED1DF4 /* ReminderKindTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B511A61EFE144700ED1DF4 /* ReminderKindTableViewCell.swift */; };
 		50B6EB9F24D8134D00F5159C /* FakeDataMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6EB9E24D8134D00F5159C /* FakeDataMigrator.swift */; };
-		50B6F6132365355800C49832 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6F6122365355800C49832 /* Result+Convenience.swift */; };
 		50B779CD2154700A00AC6240 /* UIAlertController+UserFacingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B779CC2154700A00AC6240 /* UIAlertController+UserFacingError.swift */; };
 		50B779CF215470B300AC6240 /* UIBarButtonItem+WaterMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B779CE215470B300AC6240 /* UIBarButtonItem+WaterMe.swift */; };
 		50B779D1215470FE00AC6240 /* NSFormatter+WaterMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B779D0215470FE00AC6240 /* NSFormatter+WaterMe.swift */; };
@@ -214,12 +213,23 @@
 		50E8B1E81EE1C20200ACCDAF /* ReminderVesselEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1E71EE1C20200ACCDAF /* ReminderVesselEditTableViewController.swift */; };
 		50E8B1EA1EE1C39400ACCDAF /* ReminderVesselIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1E91EE1C39400ACCDAF /* ReminderVesselIconTableViewCell.swift */; };
 		50E8B1EC1EE1CDC200ACCDAF /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1EB1EE1CDC200ACCDAF /* TextFieldTableViewCell.swift */; };
+		730E74B9269A889C00E63335 /* TypedNSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730E74B7269A84A500E63335 /* TypedNSError.swift */; };
+		7311AEFF263E762C0089B36E /* ContinuousProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311AEFD263E76260089B36E /* ContinuousProgress.swift */; };
+		7311AF01263E765A0089B36E /* CloudKitContainerContinuousProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311AF00263E765A0089B36E /* CloudKitContainerContinuousProgress.swift */; };
+		7311AF04263E76A60089B36E /* CloudSyncInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311AF02263E76A60089B36E /* CloudSyncInfoViewController.swift */; };
+		7311AF05263E76A60089B36E /* CloudSyncInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7311AF03263E76A60089B36E /* CloudSyncInfo.storyboard */; };
 		7311AF06263E76CA0089B36E /* SimpleToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311AEFB263E17780089B36E /* SimpleToggleTableViewCell.swift */; };
+		731B01E826411E8B00165220 /* CloudSyncProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B01E726411E8B00165220 /* CloudSyncProgressView.swift */; };
+		732B1FCB26423AAD00B36C12 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 732B1FCA26423AAD00B36C12 /* Collections */; };
+		7334FE1D26429286004381A0 /* CloudSyncErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334FE1C26429286004381A0 /* CloudSyncErrors.swift */; };
+		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
+		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
 		73D02F66263F683300E90138 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F64263F683200E90138 /* TestDB.sqlite */; };
 		73D02F67263F683300E90138 /* TestDB.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F65263F683300E90138 /* TestDB.sqlite-wal */; };
 		73D02F69263F69ED00E90138 /* SchemaMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */; };
 		73D02F74263F864500E90138 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 7313858D260E15B000CDC138 /* CropViewController */; };
 		73D02F75263F864500E90138 /* SimpleImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 73730857260E2F22000B99DB /* SimpleImageViewer */; };
+		73F2D73726B17D8300A4D353 /* Logger+Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -470,7 +480,6 @@
 		50B511A61EFE144700ED1DF4 /* ReminderKindTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderKindTableViewCell.swift; sourceTree = "<group>"; };
 		50B61EE01F2FB904004654B4 /* EmojiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiImageView.swift; sourceTree = "<group>"; };
 		50B6EB9E24D8134D00F5159C /* FakeDataMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataMigrator.swift; sourceTree = "<group>"; };
-		50B6F6122365355800C49832 /* Result+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
 		50B779CC2154700A00AC6240 /* UIAlertController+UserFacingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+UserFacingError.swift"; sourceTree = "<group>"; };
 		50B779CE215470B300AC6240 /* UIBarButtonItem+WaterMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+WaterMe.swift"; sourceTree = "<group>"; };
 		50B779D0215470FE00AC6240 /* NSFormatter+WaterMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFormatter+WaterMe.swift"; sourceTree = "<group>"; };
@@ -513,11 +522,21 @@
 		50E8B1E71EE1C20200ACCDAF /* ReminderVesselEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVesselEditTableViewController.swift; sourceTree = "<group>"; };
 		50E8B1E91EE1C39400ACCDAF /* ReminderVesselIconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVesselIconTableViewCell.swift; sourceTree = "<group>"; };
 		50E8B1EB1EE1CDC200ACCDAF /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		730E74B7269A84A500E63335 /* TypedNSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedNSError.swift; sourceTree = "<group>"; };
 		7311AEFB263E17780089B36E /* SimpleToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleToggleTableViewCell.swift; sourceTree = "<group>"; };
+		7311AEFD263E76260089B36E /* ContinuousProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousProgress.swift; sourceTree = "<group>"; };
+		7311AF00263E765A0089B36E /* CloudKitContainerContinuousProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitContainerContinuousProgress.swift; sourceTree = "<group>"; };
+		7311AF02263E76A60089B36E /* CloudSyncInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudSyncInfoViewController.swift; sourceTree = "<group>"; };
+		7311AF03263E76A60089B36E /* CloudSyncInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CloudSyncInfo.storyboard; sourceTree = "<group>"; };
+		731B01E726411E8B00165220 /* CloudSyncProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncProgressView.swift; sourceTree = "<group>"; };
+		7334FE1C26429286004381A0 /* CloudSyncErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncErrors.swift; sourceTree = "<group>"; };
+		733BC95226880E9700F821D6 /* Result+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
+		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
 		73D02F64263F683200E90138 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
 		73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMigrationTests.swift; sourceTree = "<group>"; };
+		73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Exceptions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -525,6 +544,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				732B1FCB26423AAD00B36C12 /* Collections in Frameworks */,
 				5031FBFB24F7ACBE00CBBB2E /* ServerlessLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,11 +681,16 @@
 				48A7B0D52467FCB100DC0861 /* Calculate.h */,
 				48A7B0F02467FDF500DC0861 /* PrivateKeys.swift */,
 				48A7B0F32467FDF500DC0861 /* AppVersion.swift */,
+				7311AEFD263E76260089B36E /* ContinuousProgress.swift */,
+				7311AF00263E765A0089B36E /* CloudKitContainerContinuousProgress.swift */,
 				48A7B0F22467FDF500DC0861 /* NSCalendar+WaterMe.swift */,
 				48A7B0F12467FDF500DC0861 /* SignificantTimePassedDetector.swift */,
 				48A7B0F42467FDF600DC0861 /* UserFacingError.swift */,
 				50E831FC250CF567008758E2 /* Loggable.swift */,
 				50E831F2250CB598008758E2 /* Loggable+System.swift */,
+				73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */,
+				733BC95226880E9700F821D6 /* Result+Convenience.swift */,
+				730E74B7269A84A500E63335 /* TypedNSError.swift */,
 				48A7B0D62467FCB100DC0861 /* Info.plist */,
 			);
 			name = Calculate;
@@ -1020,7 +1045,6 @@
 				5085C71C21667A4500030D2A /* DispatchQueue+WaterMe.swift */,
 				50D2B2AE216A726000957E04 /* NSUserActivity+Error.swift */,
 				50D2B2AF216A726000957E04 /* NSUserActivity+WaterMe.swift */,
-				50B6F6122365355800C49832 /* Result+Convenience.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1036,6 +1060,7 @@
 				5034767424552D0700C3DAD3 /* StoreTests */,
 				48A7B0E12467FCB100DC0861 /* CalculateTests */,
 				50BB0F511EBFCDE500850FF4 /* Products */,
+				73755A682610AA4000FCC684 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1068,6 +1093,7 @@
 				5096D1942154773D006E1019 /* StyleSheets */,
 				50B779CB21546FE200AC6240 /* Categories */,
 				50B779CA2154138D00AC6240 /* Miscellaneous */,
+				734048C0260F1B04001FAB8E /* CloudSyncInfo */,
 				50F388DE1FF6D9870031ED45 /* CoreDataMigration */,
 				50BB0F5A1EBFCDE500850FF4 /* Assets.xcassets */,
 				5040B41924C4768800AB747B /* StarterData.sqlite */,
@@ -1114,6 +1140,25 @@
 				50E3F2CC1FF70D3B003245E3 /* CoreDataMigratorViewController.swift */,
 			);
 			path = CoreDataMigration;
+			sourceTree = "<group>";
+		};
+		734048C0260F1B04001FAB8E /* CloudSyncInfo */ = {
+			isa = PBXGroup;
+			children = (
+				7311AF03263E76A60089B36E /* CloudSyncInfo.storyboard */,
+				7311AF02263E76A60089B36E /* CloudSyncInfoViewController.swift */,
+				731B01E726411E8B00165220 /* CloudSyncProgressView.swift */,
+				7334FE1C26429286004381A0 /* CloudSyncErrors.swift */,
+				733BC954268821A800F821D6 /* ZStackView.swift */,
+			);
+			path = CloudSyncInfo;
+			sourceTree = "<group>";
+		};
+		73755A682610AA4000FCC684 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		73D02F63263F680F00E90138 /* SchemaMigration */ = {
@@ -1172,6 +1217,7 @@
 			name = Calculate;
 			packageProductDependencies = (
 				5031FBFA24F7ACBE00CBBB2E /* ServerlessLogger */,
+				732B1FCA26423AAD00B36C12 /* Collections */,
 			);
 			productName = Calculate;
 			productReference = 48A7B0D32467FCB100DC0861 /* Calculate.framework */;
@@ -1371,6 +1417,7 @@
 				5031FBF924F7ACBE00CBBB2E /* XCRemoteSwiftPackageReference "JSBServerlessLogger" */,
 				7313858C260E15B000CDC138 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				73730856260E2F22000B99DB /* XCRemoteSwiftPackageReference "SimpleImageViewer" */,
+				732B1FC926423AAD00B36C12 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 50BB0F511EBFCDE500850FF4 /* Products */;
 			projectDirPath = "";
@@ -1438,6 +1485,7 @@
 			files = (
 				508FFCB01EF64B49001B1ADC /* OptionalAddButtonTableViewHeaderFooterView.xib in Resources */,
 				50CA47EB21690D360063F51E /* ReminderVesselMain.storyboard in Resources */,
+				7311AF05263E76A60089B36E /* CloudSyncInfo.storyboard in Resources */,
 				506A6218200562AC008EF601 /* Settings.storyboard in Resources */,
 				5065AA25200EC62F00C7F0CC /* Localizable.strings in Resources */,
 				50BB0F691EC0011800850FF4 /* LaunchScreen.storyboard in Resources */,
@@ -1470,6 +1518,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		50BB0F7A1EC214AC00850FF4 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1480,7 +1529,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if test -d /opt/homebrew/bin; then\n    PATH=/opt/homebrew/bin/:$PATH\nfi\n\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1489,13 +1538,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */,
 				48A7B0F62467FDF600DC0861 /* SignificantTimePassedDetector.swift in Sources */,
 				48A7B0F52467FDF600DC0861 /* PrivateKeys.swift in Sources */,
 				48A7B0F82467FDF600DC0861 /* AppVersion.swift in Sources */,
+				730E74B9269A889C00E63335 /* TypedNSError.swift in Sources */,
 				50E831F3250CB598008758E2 /* Loggable+System.swift in Sources */,
+				7311AEFF263E762C0089B36E /* ContinuousProgress.swift in Sources */,
 				48A7B0F72467FDF600DC0861 /* NSCalendar+WaterMe.swift in Sources */,
 				48A7B0F92467FDF600DC0861 /* UserFacingError.swift in Sources */,
 				50E831FD250CF567008758E2 /* Loggable.swift in Sources */,
+				7311AF01263E765A0089B36E /* CloudKitContainerContinuousProgress.swift in Sources */,
+				73F2D73726B17D8300A4D353 /* Logger+Exceptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1609,6 +1663,7 @@
 				5087A9231EE3A6B00046E687 /* ImagePickerCropperViewController.swift in Sources */,
 				5002ADE523E6AC5F00CBC2B9 /* NSObject+Runtime.m in Sources */,
 				502E68331F9122F100B0359C /* ReminderFinishDropTargetViewController.swift in Sources */,
+				733BC955268821A800F821D6 /* ZStackView.swift in Sources */,
 				504A36FB214C7ECC009543C0 /* SimpleImageViewerSubclass.swift in Sources */,
 				5096D1962154775D006E1019 /* Font.swift in Sources */,
 				509A0869215FFF1C00389339 /* ClosureDelegatingAddVoiceShortcutViewController.swift in Sources */,
@@ -1630,6 +1685,7 @@
 				5051F8FA202BA2BE00741FF9 /* GlobalReminderObserver.swift in Sources */,
 				50B779D7215473F100AC6240 /* NSBundle+WaterMe.swift in Sources */,
 				50CB5AFA2001BAA900868F30 /* ReminderNotificationAlert.swift in Sources */,
+				7334FE1D26429286004381A0 /* CloudSyncErrors.swift in Sources */,
 				50C30E541EFF490D006003A1 /* ReminderIntervalPickerViewController.swift in Sources */,
 				50C28D9921811BD900101D0A /* RestoredAndRawUserActivities.swift in Sources */,
 				50BDC03F1F9A3E21002281C3 /* BlurryBackgroundBottomLineCollectionReusableView.swift in Sources */,
@@ -1659,9 +1715,9 @@
 				5010C232213F806500D1832C /* ReminderSummaryTableViewController.swift in Sources */,
 				50163F96215B0CAB002DD849 /* UIViewController+WaterMe.swift in Sources */,
 				508FFCAF1EF64B49001B1ADC /* OptionalAddButtonTableViewHeaderFooterView.swift in Sources */,
+				7311AF04263E76A60089B36E /* CloudSyncInfoViewController.swift in Sources */,
 				5096D19E21547BE5006E1019 /* UIKit+StyleConstants.swift in Sources */,
 				5075B4901FF178EA007B42D8 /* ReminderDragPreviewView.swift in Sources */,
-				50B6F6132365355800C49832 /* Result+Convenience.swift in Sources */,
 				50299E651FED926400363EF3 /* DragAndDropPlayerManager.swift in Sources */,
 				5096D19321547659006E1019 /* UIView+WaterMe.swift in Sources */,
 				500679AF1F4BF3DB00F8100D /* ReminderMainViewController.swift in Sources */,
@@ -1694,6 +1750,7 @@
 				506A621C200562C3008EF601 /* SettingsTableViewController.swift in Sources */,
 				506DFA4D201D52B3007FEAB5 /* ReminderHeaderCollectionReusableView.swift in Sources */,
 				504B1BA7207332E20090CD7F /* TCF.m in Sources */,
+				731B01E826411E8B00165220 /* CloudSyncProgressView.swift in Sources */,
 				5029E0942140A158005285F5 /* ReminderSummaryTableViewCells.swift in Sources */,
 				5049D1A31FACFA1B0076565E /* ReminderUserNotificationController.swift in Sources */,
 			);
@@ -2268,7 +2325,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WaterMe/WaterMe.entitlements;
-				CURRENT_PROJECT_VERSION = 267001;
+				CURRENT_PROJECT_VERSION = 280054;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				INFOPLIST_FILE = WaterMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2276,7 +2333,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.0;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2295,7 +2352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WaterMe/WaterMe.entitlements;
-				CURRENT_PROJECT_VERSION = 267001;
+				CURRENT_PROJECT_VERSION = 280054;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				INFOPLIST_FILE = WaterMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2303,7 +2360,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.0;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"RELEASE\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2424,6 +2481,14 @@
 				minimumVersion = 2.6.0;
 			};
 		};
+		732B1FC926423AAD00B36C12 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
 		73730856260E2F22000B99DB /* XCRemoteSwiftPackageReference "SimpleImageViewer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jeffreybergier/SimpleImageViewer.git";
@@ -2459,6 +2524,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7313858C260E15B000CDC138 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = CropViewController;
+		};
+		732B1FCA26423AAD00B36C12 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 732B1FC926423AAD00B36C12 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
 		};
 		73730857260E2F22000B99DB /* SimpleImageViewer */ = {
 			isa = XCSwiftPackageProductDependency;

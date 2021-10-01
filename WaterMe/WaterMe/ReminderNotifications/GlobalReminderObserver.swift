@@ -27,7 +27,7 @@ import UserNotifications
 
 class GlobalReminderObserver {
 
-    private enum DataKind {
+    enum DataKind {
         case badge, notifications, systemIndexes, all
     }
 
@@ -47,7 +47,8 @@ class GlobalReminderObserver {
     private let taskName = String(describing: GlobalReminderObserver.self) + UUID().uuidString
     private var backgroundTaskID: UIBackgroundTaskIdentifier?
 
-    init(basicController: BasicController) {
+    init?(result: Result<BasicController, DatumError>) {
+        guard let basicController = result.value else { return nil }
         self.basicRC = basicController
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.applicationDidEnterBackground(with:)),
@@ -55,16 +56,15 @@ class GlobalReminderObserver {
                                                object: nil)
         self.significantTimePassedDetector.delegate = self
 
-        self.basicRC.reminderVesselsDeleted = { vessels in
-            self.shortcutSuggester?.deleteActivities(for: vessels)
+        self.basicRC.reminderVesselsDeleted = { [weak self] vessels in
+            self?.shortcutSuggester?.deleteActivities(for: vessels)
         }
-        self.basicRC.remindersDeleted = { reminders in
-            self.shortcutSuggester?.deleteActivities(for: reminders)
+        self.basicRC.remindersDeleted = { [weak self] reminders in
+            self?.shortcutSuggester?.deleteActivities(for: reminders)
         }
-        DispatchQueue.main.async {
-            let collection = basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).value
-            self.token = collection?.observe({ [weak self] in self?.dataChanged($0) })
-        }
+        let collection = basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).value
+        self.token = collection?.observe({ [weak self] in self?.dataChanged($0) })
+        self.resetTimer()
     }
 
     func notificationPermissionsMayHaveChanged() {
@@ -75,7 +75,6 @@ class GlobalReminderObserver {
         switch changes {
         case .initial(let data):
             self.data = data
-            self.dataChanged(of: .all)
         case .update:
             self.resetTimer()
         case .error(let error):
@@ -87,7 +86,7 @@ class GlobalReminderObserver {
         }
     }
 
-    private func dataChanged(of kind: DataKind) {
+    func dataChanged(of kind: DataKind) {
         // make sure there isn't already a background task in progress
         guard self.backgroundTaskID == nil else {
             Analytics.log(event: Analytics.NotificationPermission.scheduleAlreadyInProgress)
@@ -120,7 +119,7 @@ class GlobalReminderObserver {
 
     private func resetTimer() {
         self.timer?.invalidate()
-        self.timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { timer in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
             timer.invalidate()
             self.timer?.invalidate()
             self.timer = nil

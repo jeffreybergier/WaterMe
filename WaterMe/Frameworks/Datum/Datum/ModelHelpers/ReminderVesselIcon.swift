@@ -25,7 +25,7 @@ import UIKit
 
 public enum ReminderVesselIcon: Hashable {
     case emoji(String), image(UIImage)
-    
+
     internal init?(rawImage: UIImage?, emojiString: String?) {
         if let emoji = emojiString {
             // self = .emoji(emoji) // produced an error
@@ -36,13 +36,13 @@ public enum ReminderVesselIcon: Hashable {
             return nil
         }
     }
-    
+
     // Hack: Needed just for the initializer above. Otherwise it produced an error.
     // self used before self.init
     private init(emojiString: String) {
         self = .emoji(emojiString)
     }
-    
+
     public init(rawImage: UIImage) {
         // all of this code assumes we're cropping to square image
         // it also assumes that we're converting it to a new image with a scale of 1
@@ -55,7 +55,7 @@ public enum ReminderVesselIcon: Hashable {
         let resized = cropped.resize(toTargetSize: reducedSize)
         self = .image(resized)
     }
-    
+
     public var image: UIImage? {
         switch self {
         case .image(let image):
@@ -64,7 +64,7 @@ public enum ReminderVesselIcon: Hashable {
             return nil
         }
     }
-    
+
     public var emoji: String? {
         switch self {
         case .image:
@@ -76,7 +76,7 @@ public enum ReminderVesselIcon: Hashable {
 }
 
 extension ReminderVesselIcon {
-    
+
     internal init?(rawImageData: Data?, emojiString: String?) {
         if let data = rawImageData, let image = UIImage(data: data) {
             self = .image(image)
@@ -86,7 +86,7 @@ extension ReminderVesselIcon {
             return nil
         }
     }
-    
+
     internal var dataValue: Data? {
         switch self {
         case .emoji:
@@ -102,7 +102,7 @@ extension ReminderVesselIcon {
             return data
         }
     }
-    
+
     internal var stringValue: String? {
         switch self {
         case .emoji(let string):
@@ -111,5 +111,5 @@ extension ReminderVesselIcon {
             return nil
         }
     }
-    
+
 }

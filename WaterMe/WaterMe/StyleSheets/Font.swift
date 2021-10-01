@@ -76,103 +76,103 @@ extension Font {
 }
 
 extension Font {
-    var attributes: [NSAttributedString.Key : Any] {
+    var attributes: [NSAttributedString.Key: Any] {
         switch self {
         case .reminderSummaryCancelButton:
             return [
-                .font : Font.bodyPlusBold,
-                .foregroundColor : Color.tint,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlusBold,
+                .foregroundColor: Color.tint,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .reminderSummaryActionButton:
             return [
-                .font : Font.bodyPlus,
-                .foregroundColor : Color.tint,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlus,
+                .foregroundColor: Color.tint,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .reminderSummaryPrimaryLabel:
             return [
-                .font : Font.body,
-                .foregroundColor : Color.textPrimary
+                .font: Font.body,
+                .foregroundColor: Color.textPrimary
             ]
         case .reminderSummaryPrimaryLabelValueNIL:
             return [
-                .font : Font.body,
-                .foregroundColor : Color.textSecondary
+                .font: Font.body,
+                .foregroundColor: Color.textSecondary
             ]
         case .reminderSummarySublabel:
             return [
-                .font : Font.bodyMinusBold,
-                .foregroundColor : Color.textSecondary
+                .font: Font.bodyMinusBold,
+                .foregroundColor: Color.textSecondary
             ]
         case .migratorTitle:
             return [
-                .font : Font.bodyPlusPlusPlus,
-                .foregroundColor : Color.textPrimary,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlusPlusPlus,
+                .foregroundColor: Color.textPrimary,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .migratorSubtitle:
             return [
-                .font : Font.bodyPlusBold,
-                .foregroundColor : Color.textPrimary,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlusBold,
+                .foregroundColor: Color.textPrimary,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .migratorBody:
             return [
-                .font : Font.body,
-                .foregroundColor : Color.textPrimary,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.body,
+                .foregroundColor: Color.textPrimary,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .migratorBodySmall:
             return [
-                .font : Font.bodyMinus,
-                .foregroundColor : Color.textPrimary,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyMinus,
+                .foregroundColor: Color.textPrimary,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .migratorPrimaryButton:
             return [
-                .font : Font.bodyPlusPlus
+                .font: Font.bodyPlusPlus
             ]
         case .migratorSecondaryButton:
             return [
-                .font : Font.body
+                .font: Font.body
             ]
         case .tableHeaderActionButton:
             return [
-                .font : Font.bodyBold,
-                .foregroundColor : Color.tint // fixes bug where button is not getting colored automatically
+                .font: Font.bodyBold,
+                .foregroundColor: Color.tint // fixes bug where button is not getting colored automatically
             ]
         case .dragInstructionalText(let color):
             return [
-                .font : Font.bodyPlusPlus,
-                .foregroundColor : color,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlusPlus,
+                .foregroundColor: color,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .reminderVesselCollectionViewCellPrimary(let color):
             return [
-                .font : Font.bodyPlus,
-                .foregroundColor : color ?? Color.textPrimary,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlus,
+                .foregroundColor: color ?? Color.textPrimary,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .reminderVesselCollectionViewCellPrimaryDisabled:
             return [
-                .font : Font.bodyPlus,
-                .foregroundColor : Color.textSecondary,
-                .paragraphStyle : type(of: self).centerStyle
+                .font: Font.bodyPlus,
+                .foregroundColor: Color.textSecondary,
+                .paragraphStyle: type(of: self).centerStyle
             ]
         case .reminderVesselDragPreviewViewPrimary:
             return [
-                .font : Font.bodyIgnoringDynamicType,
-                .foregroundColor : Color.textPrimary
+                .font: Font.bodyIgnoringDynamicType,
+                .foregroundColor: Color.textPrimary
             ]
         case .reminderVesselDragPreviewViewPrimaryDisabled:
             return [
-                .font : Font.bodyIgnoringDynamicType,
-                .foregroundColor : Color.textSecondary
+                .font: Font.bodyIgnoringDynamicType,
+                .foregroundColor: Color.textSecondary
             ]
         case .emojiSuperSmall:
             return [
-                .font : Font.emojiFont(ofSize: 24)
+                .font: Font.emojiFont(ofSize: 24)
             ]
         case .emojiSmall(let accessibilityFontSizeEnabled):
             let baselineOffset: NSNumber = {
@@ -180,8 +180,8 @@ extension Font {
                 return accessibilityFontSizeEnabled ? -8 : -4
             }()
             return [
-                .font : Font.emojiFont(ofSize: accessibilityFontSizeEnabled ? 50 : 36),
-                .baselineOffset : baselineOffset
+                .font: Font.emojiFont(ofSize: accessibilityFontSizeEnabled ? 50 : 36),
+                .baselineOffset: baselineOffset
             ]
         case .emojiLarge(let accessibilityFontSizeEnabled):
             let baselineOffset: NSNumber = {
@@ -189,33 +189,33 @@ extension Font {
                 return accessibilityFontSizeEnabled ? -10 : -5
             }()
             return [
-                .font : Font.emojiFont(ofSize: accessibilityFontSizeEnabled ? 120 : 60),
-                .baselineOffset : baselineOffset
+                .font: Font.emojiFont(ofSize: accessibilityFontSizeEnabled ? 120 : 60),
+                .baselineOffset: baselineOffset
             ]
         case .textInputTableViewCell:
             return [
-                .font : Font.body,
-                .foregroundColor : Color.textPrimary
+                .font: Font.body,
+                .foregroundColor: Color.textPrimary
             ]
         case .readOnlyTableViewCell:
             return [
-                .font : Font.bodyMinus,
-                .foregroundColor : Color.textSecondary
+                .font: Font.bodyMinus,
+                .foregroundColor: Color.textSecondary
             ]
         case .selectableTableViewCell:
             return [
-                .font : Font.bodyMinus,
-                .foregroundColor : Color.textPrimary
+                .font: Font.bodyMinus,
+                .foregroundColor: Color.textPrimary
             ]
         case .selectableTableViewCellDisabled:
             return [
-                .font : Font.bodyMinus,
-                .foregroundColor : Color.textSecondary
+                .font: Font.bodyMinus,
+                .foregroundColor: Color.textSecondary
             ]
         case .selectableTableViewCellHelper:
             return [
-                .font : Font.bodyMinusBold,
-                .foregroundColor : Color.textSecondary
+                .font: Font.bodyMinusBold,
+                .foregroundColor: Color.textSecondary
             ]
         case .reminderVesselCollectionViewCellSecondary:
             var x = type(of: self).selectableTableViewCell.attributes
@@ -223,8 +223,8 @@ extension Font {
             return x
         case .reminderVesselDragPreviewViewSecondary:
             return [
-                .font : Font.bodyMinusIgnoringDynamicType,
-                .foregroundColor : Color.textPrimary
+                .font: Font.bodyMinusIgnoringDynamicType,
+                .foregroundColor: Color.textPrimary
             ]
         case .sectionHeaderBold(let input):
             let color: UIColor = {
@@ -236,15 +236,15 @@ extension Font {
                 }
             }()
             return [
-                .font : Font.bodyBold,
-                .foregroundColor : color,
-                .paragraphStyle : type(of: self).truncateMiddleStyle
+                .font: Font.bodyBold,
+                .foregroundColor: color,
+                .paragraphStyle: type(of: self).truncateMiddleStyle
             ]
         case .sectionHeaderRegular(let section):
             return [
-                .font : Font.body,
-                .foregroundColor : Color.color(for: section),
-                .paragraphStyle : type(of: self).truncateMiddleStyle
+                .font: Font.body,
+                .foregroundColor: Color.color(for: section),
+                .paragraphStyle: type(of: self).truncateMiddleStyle
             ]
         }
     }

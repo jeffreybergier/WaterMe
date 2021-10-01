@@ -67,7 +67,7 @@ extension UIImage {
         let format = UIGraphicsImageRendererFormat()
         format.scale = newScale
         format.opaque = true
-        let newImage = UIGraphicsImageRenderer(bounds: rect, format: format).image() { _ in
+        let newImage = UIGraphicsImageRenderer(bounds: rect, format: format).image { _ in
             self.draw(in: rect)
         }
 

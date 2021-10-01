@@ -46,6 +46,9 @@ public protocol BasicController: AnyObject {
 
     var kind: ControllerKind { get }
 
+    @available(iOS 14.0, *)
+    var syncProgress: AnyContinousProgress<GenericInitializationError, CloudKitSyncError>? { get }
+
     // MARK: Create
     func newReminder(for vessel: ReminderVessel) -> Result<Reminder, DatumError>
     func newReminderVessel(displayName: String?, icon: ReminderVesselIcon?) -> Result<ReminderVessel, DatumError>
@@ -79,12 +82,12 @@ extension HasBasicController {
 }
 
 public enum ControllerKind: RawRepresentable {
-    
+
     case local
     case sync
     case __testing_inMemory
     case __testing_withClass(NSPersistentContainer.Type)
-    
+
     public var rawValue: Bool {
         switch self {
         case .local:
@@ -95,7 +98,7 @@ public enum ControllerKind: RawRepresentable {
             fatalError("RawValue unsupported while testing")
         }
     }
-    
+
     public init(rawValue: Bool) {
         self = rawValue ? .sync : .local
     }

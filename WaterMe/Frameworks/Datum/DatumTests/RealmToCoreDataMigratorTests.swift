@@ -56,30 +56,6 @@ class RealmToCoreDataMigratorErrorTests: RealmToCoreDataMigratorBaseTests {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-
-    func test_missingTopLevelVesselShareObject() {
-        do {
-            let ctx = self.destination.container.viewContext
-            let objs = try ctx.fetch(CD_VesselShare.request)
-            XCTAssertEqual(objs.count, 1)
-            ctx.delete(objs.first!)
-            try ctx.save()
-
-            let wait = XCTestExpectation()
-            wait.expectedFulfillmentCount = 1
-            let migrator = RealmToCoreDataMigrator(testingSource: self.source)
-            migrator?.start(destination: self.destination) { result in
-                guard case .failure(let error) = result, case .startError = error else {
-                    XCTFail()
-                    return
-                }
-                wait.fulfill()
-            }
-            self.wait(for: [wait], timeout: 0.3)
-        } catch {
-            XCTFail("\(error)")
-        }
-    }
 }
 
 class RealmToCoreDataMigratorAccuracyTests: RealmToCoreDataMigratorBaseTests {

@@ -47,9 +47,9 @@ enum Analytics {
         case performLegacy = "CRUD.R.performLegacy"
         case performDrag = "CRUD.R.performDrag"
 
-        static func extras(count: Int) -> [String : Any] {
+        static func extras(count: Int) -> [String: Any] {
             return [
-                "count" : NSNumber(value: count)
+                "count": NSNumber(value: count)
             ]
         }
     }
@@ -71,8 +71,8 @@ enum Analytics {
         case permissionIgnored = "Notify.PermissionIgnored"
         case scheduleAlreadyInProgress = "Notify.SchedulingAlreadyInProgress"
 
-        static func extras(forCount count: Int) -> [String : Any] {
-            return ["NotifyCount" : NSNumber(value: count)]
+        static func extras(forCount count: Int) -> [String: Any] {
+            return ["NotifyCount": NSNumber(value: count)]
         }
     }
 
@@ -84,10 +84,10 @@ enum Analytics {
         case migrationSkipped = "CDMigration.Skipped"
         case migrationDeleted = "CDMigration.Deleted"
 
-        static func extras(migrated: Int, total: Int) -> [String : Any] {
+        static func extras(migrated: Int, total: Int) -> [String: Any] {
             return [
-                "migrated" : NSNumber(value: migrated),
-                "total" : NSNumber(value: total)
+                "migrated": NSNumber(value: migrated),
+                "total": NSNumber(value: total)
             ]
         }
     }
@@ -113,6 +113,7 @@ enum Analytics {
     // MARK: View Controller Views
 
     enum VCViewOperation: String {
+        case cloudSyncInfo = "VCView.CloudSyncInfo"
         case purchaseThanks = "VCView.PurchaseThanks"
         case coreDataMigration = "VCView.CoreDataMigration"
         case reminderList = "VCView.ReminderList"
@@ -137,6 +138,6 @@ enum Analytics {
 
     static func log(viewOperation op: VCViewOperation) { }
 
-    static func log<E: RawRepresentable>(event op: E, extras: [String : Any]? = nil) where E.RawValue == String { }
+    static func log<E: RawRepresentable>(event op: E, extras: [String: Any]? = nil) where E.RawValue == String { }
 
 }

@@ -53,9 +53,9 @@ extension UIAlertController {
         switch sender {
         case .right(let bbi):
             self.popoverPresentationController?.barButtonItem = bbi
-        case .left(let view):
+        case .left(let (view, location)):
             self.popoverPresentationController?.sourceView = view
-            self.popoverPresentationController?.sourceRect = view.bounds.centerRect
+            self.popoverPresentationController?.sourceRect = view.bounds.rect(with: location)
             self.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         }
     }
@@ -69,7 +69,7 @@ extension UIAlertController {
         let ud = UserDefaults.standard
         let yes = UIAlertAction(title: LocalizedString.newPermissionButtonTitleSendNotifications, style: .default) { _ in
             ud.askForNotifications = true
-            UNUserNotificationCenter.current().requestAuthorizationIfNeeded() { permitted in
+            UNUserNotificationCenter.current().requestAuthorizationIfNeeded { permitted in
                 switch permitted {
                 case true:
                     Analytics.log(event: Analytics.NotificationPermission.permissionGranted)
@@ -106,7 +106,7 @@ extension UIAlertController {
                                      style: .default)
         { _ in
             ud.askForNotifications = true
-            UIApplication.shared.openAppSettings() { _ in
+            UIApplication.shared.openAppSettings { _ in
                 selection?(.cancel)
             }
         }

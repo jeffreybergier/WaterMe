@@ -29,15 +29,15 @@ class DismissHandlingImageViewerController: ImageViewerController {
         if let config = self.configuration as? DismissHandlingImageViewerConfiguration {
             config.completion(self)
         } else {
-            self.dismiss(animated: true, completion: nil)
+            self.dismissNoForReal()
         }
     }
 }
 
 class DismissHandlingImageViewerConfiguration: ImageViewerConfiguration {
-    
+
     let completion: ((UIViewController) -> Void)
-    
+
     init(image: UIImage? = nil,
          imageView: UIImageView? = nil,
          imageBlock: ImageBlock? = nil,

@@ -48,7 +48,7 @@ class ReminderSummaryViewController: StandardViewController {
         vc.popoverPresentationController?.delegate = vc
         vc.popoverPresentationController?.popoverBackgroundViewClass = ReminderSummaryPopoverBackgroundView.self
         vc.popoverPresentationController?.sourceView = sourceView
-        vc.popoverPresentationController?.sourceRect = sourceView.bounds.centerRect
+        vc.popoverPresentationController?.sourceRect = sourceView.bounds.rect(with: .center)
         vc.presentationController?.delegate = vc
         // configure needed properties
         vc.completion = completion
@@ -64,7 +64,7 @@ class ReminderSummaryViewController: StandardViewController {
     @IBOutlet private weak var darkBackgroundView: UIView?
     @IBOutlet var tableViewControllerLeadingTrailingConstraints: [NSLayoutConstraint]?
     @IBOutlet var tableViewMaximumWidthConstraint: NSLayoutConstraint!
-    
+
     private(set) var isPresentedAsPopover = false
 
     var reminderResult: Result<Reminder, DatumError>!
@@ -73,7 +73,7 @@ class ReminderSummaryViewController: StandardViewController {
     private var reminderID: Identifier!
     private weak var tableViewController: ReminderSummaryTableViewController!
     private weak var haptic: UIFeedbackGenerator?
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
 
     override func viewDidLoad() {
@@ -101,7 +101,7 @@ class ReminderSummaryViewController: StandardViewController {
             self.updateViewForPresentation()
         }, completion: nil)
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.updateViewForPresentation()
@@ -127,7 +127,7 @@ class ReminderSummaryViewController: StandardViewController {
 
         self.tableViewMaximumWidthConstraint.isActive = !tc.preferredContentSizeCategory.isAccessibilityCategory
         self.darkBackgroundView?.alpha = darkBackgroundViewAlpha
-        self.tableViewControllerLeadingTrailingConstraints?.forEach() { c in
+        self.tableViewControllerLeadingTrailingConstraints?.forEach { c in
             c.constant = tableViewControllerInsets
         }
     }
@@ -162,8 +162,8 @@ extension ReminderSummaryViewController: ReminderSummaryTableViewControllerDeleg
                             rowDeselectionHandler: @escaping () -> Void,
                             within: ReminderSummaryTableViewController)
     {
-        let config = DismissHandlingImageViewerConfiguration(image: image, completion:  { vc in
-            vc.dismiss(animated: true) { rowDeselectionHandler() }
+        let config = DismissHandlingImageViewerConfiguration(image: image, completion: { vc in
+            vc.dismissNoForReal(completion: { rowDeselectionHandler() })
         })
         let vc = DismissHandlingImageViewerController(configuration: config)
         self.present(vc, animated: true, completion: nil)
@@ -219,7 +219,7 @@ extension ReminderSummaryViewController /*: UIAdaptivePresentationControllerDele
         // have our view controller update based on our new presentation
         self.updateViewForPresentation()
     }
-    
+
     override func adaptivePresentationStyle(for controller: UIPresentationController,
                                             traitCollection tc: UITraitCollection) -> UIModalPresentationStyle
     {

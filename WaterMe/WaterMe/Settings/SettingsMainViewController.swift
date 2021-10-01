@@ -45,14 +45,14 @@ class SettingsMainViewController: StandardViewController {
         super.viewDidLoad()
 
         self.title = LocalizedString.title
-        
+
         self.tableViewController?.settingsRowChosen = { [unowned self] chosen, deselectRowAnimated in
             switch chosen {
             case .emailDeveloper:
                 Analytics.log(viewOperation: .emailDeveloper)
-                let vc = EmailDeveloperViewController.newVC() { vc in
+                let vc = EmailDeveloperViewController.newVC { vc in
                     guard let vc = vc else { deselectRowAnimated?(true); return; }
-                    vc.dismiss(animated: true, completion: { deselectRowAnimated?(true) })
+                    vc.dismissNoForReal(completion: { deselectRowAnimated?(true) })
                 }
                 self.present(vc, animated: true, completion: nil)
             case .openSettings:

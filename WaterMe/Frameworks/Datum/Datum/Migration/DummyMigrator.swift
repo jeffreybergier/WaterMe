@@ -49,7 +49,7 @@ internal class DummyMigrator: Migratable {
 }
 
 internal class DummyErrorMigrator: Migratable {
-    
+
     private var completion: MigratableResult?
 
     @discardableResult func start(destination: BasicController,
@@ -58,7 +58,7 @@ internal class DummyErrorMigrator: Migratable {
         let progress = Progress(totalUnitCount: 10)
         progress.completedUnitCount = 0
         var current: Int64 = 0
-        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
+        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
             current += 1
             guard current >= 0 else {
                 progress.completedUnitCount = current

@@ -57,7 +57,7 @@ extension Font {
     static var bodyMinusIgnoringDynamicType: UIFont {
         return UIFont.systemFont(ofSize: 14)
     }
-    fileprivate static var cachedEmojiFontWithSize: [CGFloat : UIFont] = [:]
+    fileprivate static var cachedEmojiFontWithSize: [CGFloat: UIFont] = [:]
     static var customEmojiLoaded: Bool = false
     static func emojiFont(ofSize size: CGFloat) -> UIFont {
         // custom emojis only work on iOS 12 and higher for some reason

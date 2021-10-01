@@ -26,9 +26,9 @@ import UIKit
 import Calculate
 
 class ReminderVesselEditViewController: StandardViewController, HasBasicController {
-    
+
     typealias CompletionHandler = (UIViewController) -> Void
-    
+
     class func newVC(basicController: BasicController?,
                      editVessel vessel: ReminderVessel? = nil,
                      userActivityCompletion: NSUserActivityContinuedHandler? = nil,
@@ -54,17 +54,17 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
         navVC.presentationController?.delegate = vc
         return navVC
     }
-    
+
     /*@IBOutlet*/ private weak var tableViewController: ReminderVesselEditTableViewController?
 
     private lazy var deleteBBI: UIBarButtonItem = UIBarButtonItem(localizedDeleteButtonWithTarget: self, action: #selector(self.deleteButtonTapped(_:)))
     private lazy var doneBBI: UIBarButtonItem = UIBarButtonItem(localizedDoneButtonWithTarget: self, action: #selector(self.doneButtonTapped(_:)))
-    
+
     var basicRC: BasicController?
     private(set) var vesselResult: Result<ReminderVessel, DatumError>?
     private(set) var completionHandler: CompletionHandler!
     private var userActivityCompletion: NSUserActivityContinuedHandler?
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
 
     override func viewDidLoad() {
@@ -106,40 +106,17 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
 
     private func vesselChanged(_ changes: ReminderVesselChange) {
         switch changes {
-        case .change(let deets):
-            /*
-             BUGFIX: http://crashes.to/s/5a4715f46b9
-             I think this fixes this bug crash. Its caused because this change notification was telling the icon and name section to reload
-             But at the same time, the reminders section was getting its normal updates.
-             This could cause both to happen simultaneously and the sanity check of the section reload would fail because
-             the reminders section also changed at the same time
-
-             This fixes the problem by checking which properties changed and only reloads the icon/name section if the reminder section did not change
-            */
-            switch (deets.changedDisplayName, deets.changedIconEmoji, deets.changedReminders, deets.changedPointlessBloop) {
-            case (true, _, false, _),
-                 (_, true, false, _):
-                // changed icon or name but NOT reminders
-                self.tableViewController?.reloadPhotoAndName()
-            case (false, false, true, _),
-                // changed reminders but NOT displayName or Icon
-                // do nothing if reminders change because they handle themselves
-                (false, false, false, true):
-                // pointless bloop changed. This is a hack I use to make sure subobjects / parent objects are changed when their
-                // parents/children are changed. That way things refresh when needed
-                // so that collections are appropriately refreshed
-                // do nothing because only a parent or child changed and we don't show any of them
-                // except children reminders and they update their own display
-                break
-            default:
-                // error notification when unhandled changes happen. I want to know about these in analytics
-                // so I can troubleshoot this further if needed.
-                // if nothing happens here, I can remove this and the pointless bloop test.
-                let error = NSError(reminderVesselPropertyChangeUnknownCaseError: nil)
-                assertionFailure(String(describing: error))
-                Analytics.log(error: error)
-                error.log(as: .warning)
-                self.tableViewController?.tableView?.reloadData()
+        case .change:
+            // I gave up trying to get the tableview to reload properly.
+            // Now if there is a change in NOT the reminders area
+            // the whole tableview reloads.
+            // We have to unsubscribe and resubscribe to notifications
+            // so that old update commands aren't set after the tableview
+            // is reloaded and already up to date.
+            self.notificationToken?.invalidate()
+            self.tableViewController?.reloadAll()
+            DispatchQueue.main.async {
+                self.startNotifications()
             }
         case .error(let error):
             Analytics.log(error: error)
@@ -159,7 +136,7 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
         self.notificationToken = nil
         self.completionHandler?(self)
     }
-    
+
     @IBAction private func deleteButtonTapped(_ sender: Any) {
         self.view.endEditing(false)
         guard
@@ -193,13 +170,13 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
         }
         self.present(vc, animated: true, completion: nil)
     }
-    
+
     @IBAction private func doneButtonTapped(_ sender: Any) {
         self.view.endEditing(false)
         guard let vessel = self.vesselResult?.value else { assertionFailure("Missing ReminderVessel"); return; }
 
         Analytics.log(event: Analytics.CRUD_Op_RV.update)
-        
+
         guard let sender = sender as? UIBarButtonItem else {
             assertionFailure("Expected UIBarButtonItem to call this method")
             return
@@ -238,14 +215,14 @@ class ReminderVesselEditViewController: StandardViewController, HasBasicControll
     func userDirtiedUserActivity() {
         self.userActivity?.needsSave = true
     }
-    
+
     func startNotifications() {
         self.notificationToken =
             self.vesselResult?.value?.observe({ [weak self] in self?.vesselChanged($0) })
     }
-    
+
     var notificationToken: ObservationToken?
-    
+
     deinit {
         self.notificationToken?.invalidate()
     }

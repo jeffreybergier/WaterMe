@@ -29,8 +29,8 @@ class WateringAnimationPlayerView: UIView {
     @IBOutlet private weak var hairlineView: UIView?
 
     var hoverState: DragAndDropPlayerManager.HoverState {
-        set { self.videoManager.hoverState = newValue }
         get { return self.videoManager.hoverState }
+        set { self.videoManager.hoverState = newValue }
     }
 
     var finishedPlayingVideo: (() -> Void)?
@@ -61,7 +61,7 @@ class WateringAnimationPlayerView: UIView {
         super.awakeFromNib()
 
         self.videoManager.videoHiddenChanged = { [unowned self] hidden in
-            UIView.style_animateNormal() {
+            UIView.style_animateNormal {
                 self.alpha = hidden ? 0 : 1
             }
             guard hidden == true else { return }

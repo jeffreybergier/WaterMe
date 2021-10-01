@@ -35,26 +35,27 @@ class CD_VesselShareTests: DatumTestsBase {
         return (self.basicController as! CD_BasicController).container.viewContext
     }
 
-    func test_oneSharePresent_init() {
+    func test_zeroSharePresent_init() {
         let request = CD_VesselShare.request
         let context = self.context
         let results = try! context.fetch(request)
-        XCTAssertEqual(results.count, 1)
-        XCTAssertEqual(results.first!.raw_vessels!.count, 0)
+        XCTAssertEqual(results.count, 0)
     }
 
     func test_oneSharePresent_createTwoVessels() {
         var sharedReference: CD_VesselShare!
+
+        _ = try! self.basicController.newReminderVessel(displayName: "One", icon: nil).get()
+        
         _ = {
             let request = CD_VesselShare.request
             let context = self.context
             let results = try! context.fetch(request)
             XCTAssertEqual(results.count, 1)
             sharedReference = results.first!
-            XCTAssertEqual(sharedReference.raw_vessels!.count, 0)
+            XCTAssertEqual(sharedReference.raw_vessels!.count, 1)
         }()
-
-        _ = try! self.basicController.newReminderVessel(displayName: "One", icon: nil).get()
+        
         _ = try! self.basicController.newReminderVessel(displayName: "Two", icon: nil).get()
 
         _ = {

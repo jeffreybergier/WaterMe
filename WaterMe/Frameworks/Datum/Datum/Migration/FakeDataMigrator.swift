@@ -58,6 +58,7 @@ class FakeDataMigrator: Migratable {
                         let rs: [RLM_Reminder] = try (1...reminderCount).map { rIDX in
                             let r = try self.source.newReminder(for: v).get()
                             try self.source.update(kind: nil, interval: nil, note: "v_\(vIDX)_r_\(rIDX)", in: r).get()
+                            // swiftlint:disable:next force_cast
                             return (r as! RLM_ReminderWrapper).wrappedObject
                         }
                         for _ in 1...performCount {

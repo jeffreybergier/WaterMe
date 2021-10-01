@@ -24,23 +24,23 @@
 import UIKit
 
 class TextFieldTableViewCell: UITableViewCell {
-    
+
     static let reuseID = "TextFieldTableViewCell"
     class var nib: UINib { return UINib(nibName: self.reuseID, bundle: Bundle(for: self.self)) }
-    
+
     @IBOutlet private weak var textField: UITextField?
     @IBOutlet private weak var label: UILabel?
     @IBOutlet private weak var topConstraint: NSLayoutConstraint?
     @IBOutlet private weak var bottomConstraint: NSLayoutConstraint?
     @IBOutlet private weak var leadingConstraint: NSLayoutConstraint?
     @IBOutlet private weak var trailingConstraint: NSLayoutConstraint?
-    
+
     var textChanged: ((String) -> Void)?
-    
+
     func setTextField(text: String?) {
         self.textField?.attributedText = NSAttributedString(string: text ?? "", font: .textInputTableViewCell)
     }
-    
+
     func setLabelText(_ labelText: String?, andTextFieldPlaceHolderText placeHolderText: String) {
         self.textField?.attributedPlaceholder = NSAttributedString(string: placeHolderText, font: .readOnlyTableViewCell)
         if let labelText = labelText {
@@ -51,16 +51,16 @@ class TextFieldTableViewCell: UITableViewCell {
             self.label?.attributedText = NSAttributedString(string: "", font: .readOnlyTableViewCell)
         }
     }
-    
+
     func textFieldBecomeFirstResponder() {
         self.textField?.becomeFirstResponder()
     }
-    
+
     @IBAction private func textChanged(_ sender: Any) {
         let newValue = self.textField?.text ?? ""
         self.textChanged?(newValue)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textField?.delegate = self
@@ -70,7 +70,7 @@ class TextFieldTableViewCell: UITableViewCell {
         self.trailingConstraint?.constant = UITableViewCell.style_textFieldCellTrailingPadding
         self.prepareForReuse()
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.textField?.attributedText = nil

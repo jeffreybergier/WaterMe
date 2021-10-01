@@ -40,7 +40,8 @@ fileprivate class NonSyncContainer: NSPersistentContainer {
     }
 }
 
-fileprivate class SyncContainer: NSPersistentContainer {
+@available(iOS 14.0, *)
+fileprivate class SyncContainer: NSPersistentCloudKitContainer {
     override class func defaultDirectoryURL() -> URL {
         return StoreParentURL
     }
@@ -69,6 +70,7 @@ class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
         try self.verifyMigratedData(c)
     }
     
+    @available(iOS 14.0, *)
     func test_sync_initialize_simpleMigration() throws {
         let c = try CD_BasicController(kind: .__testing_withClass(SyncContainer.self))
         try self.verifyMigratedData(c)
@@ -81,8 +83,8 @@ class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
             switch $0 {
             case .initial(let data):
                 XCTAssertEqual(data.numberOfSections, 6)
-                XCTAssertEqual(data.numberOfItems(inSection: 0), 8)
-                XCTAssertEqual(data.numberOfItems(inSection: 1), 1)
+                XCTAssertEqual(data.numberOfItems(inSection: 0), 9)
+                XCTAssertEqual(data.numberOfItems(inSection: 1), 0)
                 XCTAssertEqual(data.numberOfItems(inSection: 2), 0)
                 XCTAssertEqual(data.numberOfItems(inSection: 3), 0)
                 XCTAssertEqual(data.numberOfItems(inSection: 4), 0)
@@ -111,7 +113,7 @@ class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
                 XCTAssertNotNil(_0_3.lastPerformDate)
                 XCTAssertNil(_0_3.note)
                 XCTAssertEqual(_0_3.vessel!.displayName, "Plant 1")
-                let _1_0 = data[IndexPath(row: 0, section: 1)]!
+                let _1_0 = data[IndexPath(row: 8, section: 0)]!
                 XCTAssertEqual(_1_0.interval, 7)
                 XCTAssertEqual(_1_0.kind, .water)
                 XCTAssertNotNil(_1_0.lastPerformDate)

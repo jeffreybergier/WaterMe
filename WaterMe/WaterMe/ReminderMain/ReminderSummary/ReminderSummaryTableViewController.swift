@@ -87,7 +87,7 @@ class ReminderSummaryTableViewController: StandardTableViewController {
         case .note, .unimportantInfo, .importantInfo:
             assertionFailure()
         case .imageEmoji:
-            __super_hack_dispatchClosureToSolveTableViewSelectionBug() {
+            __super_hack_dispatchClosureToSolveTableViewSelectionBug {
                 let deselect = {
                     tableView.deselectRow(at: indexPath, animated: true)
                 }
@@ -98,7 +98,7 @@ class ReminderSummaryTableViewController: StandardTableViewController {
                 self.delegate?.userChose(toViewImage: image, rowDeselectionHandler: deselect, within: self)
             }
         case .actions(let row):
-            __super_hack_dispatchClosureToSolveTableViewSelectionBug() {
+            __super_hack_dispatchClosureToSolveTableViewSelectionBug {
                 switch row {
                 case .editReminder:
                     self.delegate?.userChose(action: .editReminder, within: self)
@@ -109,7 +109,7 @@ class ReminderSummaryTableViewController: StandardTableViewController {
                 }
             }
         case .cancel:
-            __super_hack_dispatchClosureToSolveTableViewSelectionBug() {
+            __super_hack_dispatchClosureToSolveTableViewSelectionBug {
                 self.delegate?.userChose(action: .cancel, within: self)
             }
         }

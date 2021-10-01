@@ -24,26 +24,26 @@
 import UIKit
 
 class ReminderIntervalTableViewCell: SimpleLabelTableViewCell {
-    
+
     override class var reuseID: String { return "ReminderIntervalTableViewCell" }
-    
+
     fileprivate let formatter = DateComponentsFormatter.newReminderIntervalFormatter
-    
+
     override func setup() {
         super.setup()
         self.accessoryType = .disclosureIndicator
         self.prepareForReuse()
     }
-    
+
     func configure(with interval: Int) {
         let intervalString = self.formatter.string(forDayInterval: interval)
         self.label.attributedText = NSAttributedString(string: intervalString,
                                                        font: .selectableTableViewCell)
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.label.attributedText = nil
     }
-    
+
 }

@@ -27,6 +27,7 @@ import UIKit
 
 extension ReminderVesselEditViewController: ReminderVesselEditTableViewControllerDelegate {
 
+    // swiftlint:disable:next cyclomatic_complexity
     func userChosePhotoChange(controller: ReminderVesselEditTableViewController?,
                               sender: PopoverSender)
     {
@@ -36,22 +37,22 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
         { choice in
             switch choice {
             case .camera:
-                let vc = ImagePickerCropperViewController.newCameraVC() { image, vc in
-                    vc.dismiss(animated: true, completion: nil)
+                let vc = ImagePickerCropperViewController.newCameraVC { image, vc in
+                    vc.dismissNoForReal()
                     guard let image = image else { return }
                     self.updateIcon(ReminderVesselIcon(rawImage: image))
                 }
                 self.present(vc, animated: true, completion: nil)
             case .photos:
-                let vc = ImagePickerCropperViewController.newPhotosVC() { image, vc in
-                    vc.dismiss(animated: true, completion: nil)
+                let vc = ImagePickerCropperViewController.newPhotosVC { image, vc in
+                    vc.dismissNoForReal()
                     guard let image = image else { return }
                     self.updateIcon(ReminderVesselIcon(rawImage: image))
                 }
                 self.present(vc, animated: true, completion: nil)
             case .emoji:
-                let vc = EmojiPickerViewController.newVC() { emoji, vc in
-                    vc.dismiss(animated: true, completion: nil)
+                let vc = EmojiPickerViewController.newVC { emoji, vc in
+                    vc.dismissNoForReal()
                     guard let emoji = emoji else { return }
                     self.updateIcon(.emoji(emoji))
                 }
@@ -59,7 +60,7 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
             case .viewCurrentPhoto:
                 guard let image = self.vesselResult?.value?.icon?.image else { return }
                 let config = DismissHandlingImageViewerConfiguration(image: image, completion: { vc in
-                    vc.dismiss(animated: true, completion: nil)
+                    vc.dismissNoForReal()
                 })
                 let vc = DismissHandlingImageViewerController(configuration: config)
                 self.present(vc, animated: true, completion: nil)
@@ -68,9 +69,9 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
             }
         }
         switch sender {
-        case .left(let sender):
+        case .left(let (sender, location)):
             vc.popoverPresentationController?.sourceView = sender
-            vc.popoverPresentationController?.sourceRect = sender.bounds.centerRect
+            vc.popoverPresentationController?.sourceRect = sender.bounds.rect(with: location)
         case .right(let sender):
             vc.popoverPresentationController?.barButtonItem = sender
         }
@@ -103,7 +104,7 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
             return
         }
         let addReminderVC = ReminderEditViewController.newVC(basicController: basicRC, purpose: .new(vessel)) { vc in
-            vc.dismiss(animated: true, completion: nil)
+            vc.dismissNoForReal()
         }
         self.present(addReminderVC, animated: true, completion: nil)
     }
@@ -116,7 +117,7 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
         let editReminderVC = ReminderEditViewController.newVC(basicController: basicRC,
                                                               purpose: .existing(reminder))
         { vc in
-            vc.dismiss(animated: true, completion: { deselectRowAnimated?(true) })
+            vc.dismissNoForReal(completion: { deselectRowAnimated?(true) })
         }
         self.present(editReminderVC, animated: true, completion: nil)
     }
@@ -142,7 +143,7 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
         let shortcut = INShortcut(userActivity: activity)
         let vc = ClosureDelegatingAddVoiceShortcutViewController(shortcut: shortcut)
         vc.completionHandler = { vc, result in
-            vc.dismiss(animated: true) {
+            vc.dismissNoForReal {
                 deselectRowAnimated?(true)
                 guard case .failure(let error) = result else { return }
                 UIAlertController.presentAlertVC(for: error, over: self)
@@ -176,8 +177,10 @@ extension ReminderVesselEditViewController: ReminderVesselEditTableViewControlle
             assertionFailure("Missing Realm Controller.")
             return false
         }
-        // TODO does this warrant having a specialized function to toggle the enabled flag?
-        let toggleResult = basicRC.update(kind: nil, interval: nil, isEnabled: !reminder.isEnabled, note: nil, in: reminder)
+        let toggleResult = basicRC.update(kind: nil,
+                                          interval: nil,
+                                          isEnabled: !reminder.isEnabled,
+                                          note: nil, in: reminder)
         switch toggleResult {
         case .success:
             return true

@@ -24,26 +24,27 @@
 import RealmSwift
 
 internal class RLM_ReminderVesselCollection: BaseCollection {
-    
+
     private let collection: AnyRealmCollection<RLM_ReminderVessel>
     private let transform: (RLM_ReminderVessel) -> ReminderVessel = { RLM_ReminderVesselWrapper($0) }
-    
+
     internal init(_ collection: AnyRealmCollection<RLM_ReminderVessel>) {
         self.collection = collection
     }
-    
+
     public subscript(index: Int) -> ReminderVessel? { self.transform(self.collection[index]) }
-    
+
     func count(at index: Int?) -> Int? {
         guard index != nil else { return 1 }
         return self.collection.count
     }
-    
+
     func index(of item: ReminderVessel) -> Int? {
+        // swiftlint:disable:next force_cast
         let vessel = (item as! RLM_ReminderVesselWrapper).wrappedObject
         return self.collection.index(of: vessel)
     }
-    
+
     func indexOfItem(with identifier: Identifier) -> Int? {
         return self.collection.index(matching: "\(#keyPath(RLM_ReminderVessel.uuid)) == %@", identifier.uuid)
     }

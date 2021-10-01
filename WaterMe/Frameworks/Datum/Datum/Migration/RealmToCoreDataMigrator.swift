@@ -60,6 +60,7 @@ internal class RealmToCoreDataMigrator: Migratable {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     @discardableResult func start(destination: BasicController,
                                   completion: @escaping (MigratableResult) -> Void) -> Progress
     {
@@ -75,27 +76,26 @@ internal class RealmToCoreDataMigrator: Migratable {
 
         // Get off main thread
         self.queue.async {
-            
             // Get needed contexts and realms
             let context = destination.container.newBackgroundContext()
             context.performAndWait {
                 guard
                     let realm = try? source.realm.get(),
-                    let rhsShare = (try? context.fetch(CD_VesselShare.request))?.first
+                    let rhsShare = try? destination.maintenance_oneTrueVesselShare(context: context).get()
                 else {
                     let e = MigratableError.startError
                     DispatchQueue.main.async { completion(.failure(e)) }
                     e.log()
                     return
                 }
-                
+
                 // Get our Data to work with
                 var srcVessels = Array(realm.objects(RLM_ReminderVessel.self))
                 "Vessels to Migrate: \(srcVessels.count)".log(as: .debug)
                 let totalUnitCount = Int64(srcVessels.count)
                 progress.totalUnitCount = totalUnitCount
                 var srcVessel: RLM_ReminderVessel! = srcVessels.popLast()
-                
+
                 // Loop over every vessel
                 var completedUnitCount: Int64 = 0
                 while srcVessel != nil {
@@ -120,12 +120,12 @@ internal class RealmToCoreDataMigrator: Migratable {
                             srcVessel = srcVessels.popLast()
                             "Vessels to Migrate: \(srcVessels.count)".log(as: .debug)
                         }
-                        
+
                         // Vessel: Configure
                         let destVessel = CD_ReminderVessel(context: context)
                         destVessel.raw_migrated = CD_Migrated(context: context)
                         context.insert(destVessel)
-                        
+
                         _ = {
                             // Vessel: Copy Data
                             destVessel.raw_share = rhsShare
@@ -135,14 +135,14 @@ internal class RealmToCoreDataMigrator: Migratable {
                             destVessel.raw_kindString = srcVessel.kindString
                             destVessel.raw_migrated!.raw_realmIdentifier = srcVessel.uuid
                         }()
-                        
+
                         for srcReminder in srcVessel.reminders {
                             // Reminder: Configure
                             let destReminder = CD_Reminder(context: context)
                             destReminder.raw_vessel = destVessel
                             destReminder.raw_migrated = CD_Migrated(context: context)
                             context.insert(destReminder)
-                            
+
                             _ = {
                                 // Reminder: Copy Data
                                 destReminder.raw_interval = Int32(srcReminder.interval)
@@ -153,13 +153,13 @@ internal class RealmToCoreDataMigrator: Migratable {
                                 destReminder.raw_descriptionString = srcReminder.descriptionString
                                 destReminder.raw_migrated!.raw_realmIdentifier = srcReminder.uuid
                             }()
-                            
+
                             for srcPerform in srcReminder.performed {
                                 // Perform: Configure
                                 let destPerform = CD_ReminderPerform(context: context)
                                 destPerform.raw_reminder = destReminder
                                 context.insert(destPerform)
-                                
+
                                 _ = {
                                     // Perform: Copy Data
                                     destPerform.raw_date = srcPerform.date
@@ -168,10 +168,10 @@ internal class RealmToCoreDataMigrator: Migratable {
                         }
                     }
                 }
-                
+
                 // check if we completed by comparing completion count
                 var completed = completedUnitCount == totalUnitCount
-                
+
                 // do cleanup tasks only if we are not using unit tests
                 if !TESTING {
                     if completed {
@@ -200,7 +200,7 @@ internal class RealmToCoreDataMigrator: Migratable {
                         }
                     }
                 }
-                
+
                 if completed {
                     DispatchQueue.main.async { completion(.success(())) }
                 } else {

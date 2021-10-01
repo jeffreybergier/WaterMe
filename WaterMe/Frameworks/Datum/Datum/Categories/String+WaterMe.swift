@@ -27,7 +27,7 @@ extension String {
         guard stripped.isEmpty == false else { return nil }
         return stripped
     }
-    
+
     internal func truncated(to length: Int) -> String? {
         guard self.count > length else { return self }
         let endIndex = self.index(self.startIndex, offsetBy: length)

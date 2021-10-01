@@ -58,7 +58,7 @@ class SettingsMainPurchaseDimmingViewController: SettingsMainViewController {
                 pc?.buy(product: product)
             }
         }
-        pc?.fetchTipJarProducts() { [weak self] products in
+        pc?.fetchTipJarProducts { [weak self] products in
             guard let products = products else { Analytics.log(event: Analytics.IAPOperation.loadError); return; }
             self?.tableViewController?.products = products
         }
@@ -81,7 +81,7 @@ class SettingsMainPurchaseDimmingViewController: SettingsMainViewController {
         self.purchaseInProgress = nil
         let _vc = PurchaseThanksViewController.newVC(for: transaction) { vc in
             guard let vc = vc else { self.checkForPurchasesInFlight(); return; }
-            vc.dismiss(animated: true) { self.checkForPurchasesInFlight() }
+            vc.dismissNoForReal(completion: { self.checkForPurchasesInFlight() })
         }
         guard let vc = _vc else { return }
         self.present(vc, animated: true, completion: nil)

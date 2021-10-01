@@ -24,27 +24,27 @@
 import UIKit
 
 class TextViewTableViewCell: UITableViewCell {
-    
+
     static let reuseID = "TextViewTableViewCell"
     class var nib: UINib { return UINib(nibName: self.reuseID, bundle: Bundle(for: self.self)) }
-    
+
     @IBOutlet private weak var textView: UITextView?
     @IBOutlet private weak var heightConstraint: NSLayoutConstraint?
-    
+
     var textChanged: ((String) -> Void)?
-    
+
     func configure(with text: String?) {
         // the " " is needed or else the textfield ignores the text attributes when there is an empty string present
         self.textView?.attributedText = NSAttributedString(string: text ?? " ", font: .textInputTableViewCell)
         self.textView?.scrollRectToVisible(.zero, animated: false)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         self.prepareForReuse()
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         self.textView?.attributedText = nil
@@ -61,7 +61,7 @@ class TextViewTableViewCell: UITableViewCell {
         super.didMoveToWindow()
         self.updateLayout()
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.updateLayout()

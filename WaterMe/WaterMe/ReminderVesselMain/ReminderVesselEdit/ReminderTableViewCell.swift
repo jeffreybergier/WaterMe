@@ -25,10 +25,10 @@ import Datum
 import UIKit
 
 class ReminderTableViewCell: UITableViewCell {
-    
+
     class var nib: UINib { return UINib(nibName: self.reuseID, bundle: Bundle(for: self.self)) }
     static let reuseID = "ReminderTableViewCell"
-    
+
     @IBOutlet private weak var topLabel: UILabel?
     @IBOutlet private weak var middleLabel: UILabel?
     @IBOutlet private weak var bottomLabel: UILabel?
@@ -41,10 +41,10 @@ class ReminderTableViewCell: UITableViewCell {
     @IBOutlet private weak var bottomConstraint: NSLayoutConstraint?
 
     fileprivate let formatter = DateComponentsFormatter.newReminderIntervalFormatter
-    
+
     func configure(with reminder: Reminder?) {
         guard let reminder = reminder else { self.reset(); return; }
-        
+
         // do stuff that is the same for all cases
         self.topLabel?.attributedText = NSAttributedString(string: reminder.kind.localizedShortString,
                                                            font: .selectableTableViewCell)
@@ -59,7 +59,7 @@ class ReminderTableViewCell: UITableViewCell {
         self.contentView.alpha = reminder.isEnabled ? 1.0 : 0.3
         self.muteIndicator?.isHidden = reminder.isEnabled
         self.muteIndicator?.attributedText = type(of: self).muteIndicatorString
-        
+
         // do stuff that is case specific
         switch reminder.kind {
         case .water, .fertilize, .trim, .mist:
@@ -91,7 +91,7 @@ class ReminderTableViewCell: UITableViewCell {
         self.bottomConstraint?.constant = UITableViewCell.style_labelCellBottomPadding
         self.reset()
     }
-    
+
     private func reset() {
         self.topLabel?.text = nil
         self.middleLabel?.text = nil
@@ -103,11 +103,11 @@ class ReminderTableViewCell: UITableViewCell {
         self.muteIndicator?.isHidden = true
         self.contentView.alpha = 1
     }
-    
+
     override func prepareForReuse() {
         self.reset()
     }
-    
+
     private class var muteIndicatorString: NSAttributedString {
         let font = Font.emojiSuperSmall
         let fallback = NSAttributedString(
@@ -119,6 +119,7 @@ class ReminderTableViewCell: UITableViewCell {
             let image = UIImage(systemName: "speaker.zzz")
         else { return fallback }
         let imageRatio = image.size.width / image.size.height
+        // swiftlint:disable:next force_cast
         let rawFont = font.attributes[.font] as! UIFont
         let desiredSize = rawFont.pointSize
         let attachment = NSTextAttachment(image: image)

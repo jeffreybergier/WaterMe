@@ -117,7 +117,7 @@ extension UIApplication {
         // For some reason these have to be separate in order for it to be effective.
         let types: [UIAppearanceContainer.Type] = [ReminderSummaryViewController.self,
                                                    ReminderSummaryPopoverBackgroundView.self]
-        types.forEach() {
+        types.forEach {
             UIVisualEffectView
                 .appearance(whenContainedInInstancesOf: [$0])
                 .backgroundColor = Color.visuelEffectViewBackground
@@ -137,7 +137,7 @@ extension UIApplication {
             // For some reason these have to be separate in order for it to be effective.
             let types: [UIAppearanceContainer.Type] = [ReminderSummaryViewController.self,
                                                        ReminderFinishDropTargetViewController.self]
-            types.forEach() {
+            types.forEach {
                 UIVisualEffectView
                     .appearance(whenContainedInInstancesOf: [$0])
                     .effect = UIBlurEffect(style: .extraLight)
@@ -177,6 +177,28 @@ extension UIView {
 extension UIView {
     func style_setCornerRadius() {
         self.layer.cornerRadius = self.maxCornerRadius(withDesiredRadius: UIApplication.style_cornerRadius)
+    }
+}
+
+extension UIWindow {
+    func style_configureTemporaryReset() {
+        let ud = UserDefaults.standard
+        if #available(iOS 13.0, *) {
+            switch ud.darkMode {
+            case .system:
+                self.backgroundColor = .systemBackground
+            case .forceLight:
+                self.backgroundColor = .white
+            case .forceDark:
+                self.backgroundColor = .black
+            }
+        } else {
+            self.backgroundColor = .white
+        }
+    }
+
+    func style_unconfigureTemporaryReset() {
+        self.backgroundColor = nil
     }
 }
 
@@ -261,5 +283,11 @@ extension AVPlayerItem {
             request.finish(with: pass2, context: nil)
         }
         return item
+    }
+}
+
+extension CloudSyncProgressView {
+    enum Style {
+        static let statusIconTextGap: CGFloat = -8
     }
 }

@@ -52,7 +52,7 @@ public class PurchaseController {
 
     public func fetchTipJarProducts(completion: @escaping (TipJarProducts?) -> Void) {
         let requester = TipJarProductRequester()
-        requester.fetchTipJarProducts() { result in
+        requester.fetchTipJarProducts { result in
             _ = requester // capture the requester here so its not released and deallocated mid-flight
             completion(result)
         }
@@ -62,7 +62,7 @@ public class PurchaseController {
 internal class Purchaser: NSObject, SKPaymentTransactionObserver {
 
     internal var transactionsUpdated: (([InFlightTransaction]) -> Void)?
-    
+
     override init() {
         super.init()
         SKPaymentQueue.default().add(self)

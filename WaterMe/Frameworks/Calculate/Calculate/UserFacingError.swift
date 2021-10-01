@@ -36,7 +36,7 @@ public enum RecoveryAction {
     case saveAnyway
 }
 
-public protocol UserFacingError: Swift.Error {
+public protocol UserFacingError: CustomNSError {
     var isCritical: Bool { get }
     var title: String? { get }
     var message: String? { get }

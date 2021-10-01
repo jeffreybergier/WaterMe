@@ -24,16 +24,16 @@
 import CoreData
 
 internal struct CD_ReminderWrapper: Reminder {
-    
+
     internal let wrappedObject: CD_Reminder
     private let context: LazyContext
-    
+
     internal init(_ wrappedObject: CD_Reminder, context: @escaping LazyContext) {
         self.context = context
         self.vessel = wrappedObject.raw_vessel.map { CD_ReminderVesselWrapper($0, context: context) }
         self.wrappedObject = wrappedObject
     }
-    
+
     var kind: ReminderKind { self.wrappedObject.kind }
     var uuid: String { self.wrappedObject.objectID.uriRepresentation().absoluteString }
     var interval: Int { Int(self.wrappedObject.raw_interval) }
@@ -46,28 +46,31 @@ internal struct CD_ReminderWrapper: Reminder {
 
     func observe(_ block: @escaping (ReminderChange) -> Void) -> ObservationToken {
         Token.wrap { [weak wrappedObject] in
-            return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave,
+            return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange,
                                                           object: nil,
                                                           queue: nil)
             { [weak wrappedObject] notification in
                 guard let wrappedObject = wrappedObject else { return }
                 let queue = DispatchQueue.main
                 let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? NSSet
-                if updatedObjects?.contains(wrappedObject) == true {
+                for object in updatedObjects ?? [] {
+                    let object = object as? NSManagedObject
+                    guard object?.objectID == wrappedObject.objectID else { continue }
                     queue.async { block(.change(())) }
                     return
                 }
                 let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? NSSet
-                if deletedObjects?.contains(wrappedObject) == true {
+                for object in deletedObjects ?? [] {
+                    let object = object as? NSManagedObject
+                    guard object?.objectID == wrappedObject.objectID else { continue }
                     queue.async { block(.deleted) }
                     return
                 }
             }
         }
     }
-    
+
     func observePerforms(_ block: @escaping (ReminderPerformCollectionChange) -> Void) -> ObservationToken {
         fatalError("Not implemented")
     }
 }
-

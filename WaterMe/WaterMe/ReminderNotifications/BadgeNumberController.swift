@@ -45,10 +45,10 @@ enum BadgeNumberController {
             "User has disabled badge allowance".log(as: .info)
             return
         }
+        self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: self.taskName,
+                                                                         expirationHandler: nil)
         self.queue.async {
-            self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: self.taskName,
-                                                                             expirationHandler: nil)
-            let remindersThatNeedToBeDoneBeforeTomorrow = values.filter() { value -> Bool in
+            let remindersThatNeedToBeDoneBeforeTomorrow = values.filter { value -> Bool in
                 let cal = Calendar.current
                 let now = Date()
                 let endOfToday = cal.endOfDay(for: now)

@@ -49,7 +49,7 @@ class SettingsTableViewController: StandardTableViewController {
         self.tableView.register(SimpleLabelTableViewCell.self, forCellReuseIdentifier: SimpleLabelTableViewCell.reuseID)
         self.tableView.register(SettingsTipJarTableViewCell.self, forCellReuseIdentifier: SettingsTipJarTableViewCell.reuseID)
         self.tableView.register(SettingsInfoTableViewCell.nib, forCellReuseIdentifier: SettingsInfoTableViewCell.reuseID)
-        URLSession.shared.downloadAvatar() { [weak self] icon in
+        URLSession.shared.downloadAvatar { [weak self] icon in
             self?.avatarIcon = icon
         }
     }

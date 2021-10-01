@@ -24,8 +24,10 @@
 import Datum
 import UIKit
 
+// swiftlint:disable file_length
+
 class ReminderMainViewController: StandardViewController, HasProController, HasBasicController {
-    
+
     class func newVC(basic: Result<BasicController, DatumError>,
                      pro: ProController? = nil) -> UINavigationController
     {
@@ -62,7 +64,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
 
     let dueDateFormatter = Formatter.newDueDateFormatter
     let haptic = UINotificationFeedbackGenerator()
-    //swiftlint:disable:next weak_delegate
+    // swiftlint:disable:next weak_delegate
     private let userActivityDelegate: UserActivityConfiguratorProtocol = UserActivityConfigurator()
 
     override func viewDidLoad() {
@@ -74,6 +76,19 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         // configure toolbar buttons
         self.navigationItem.rightBarButtonItem = self.plantsBBI
         self.navigationItem.leftBarButtonItem = self.settingsBBI
+
+        // Configure the bottom bar for iCloud sync
+        // Whether the bar shows is related to the user's preference,
+        // not the actual capabilities of the device.
+        if case .sync = UserDefaults.standard.controllerKind {
+            let progressView = CloudSyncProgressView(controller: self.basicRC)
+            progressView.lifecycleDelegate = { [weak self] in self?.didUpdate($0, $1) }
+            self.toolbarItems = [
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(customView: progressView),
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            ]
+        }
 
         // configure my childVC so it can tell me what the user does in the CollectionView
         self.collectionVC?.delegate = self
@@ -92,7 +107,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
 
         guard self.isReady.contains([.viewDidAppearOnce]) == false else { return }
         self.isReady.insert(.viewDidAppearOnce)
-        
+
         self.secretLongPressGestureRecognizer =
             UIBarButtonItemLongPressGestureRecognizer(barButtonItem: self.plantsBBI,
                                                       target: self,
@@ -112,6 +127,20 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         }
     }
 
+    private func didUpdate(_ progressView: CloudSyncProgressView, _ completion: ((Bool) -> Void)?) {
+        switch progressView.lifecycle {
+        case .hide:
+            self.navigationController?.setToolbarHidden(true, animated: true)
+        case .show:
+            self.navigationController?.setToolbarHidden(false, animated: true)
+        case .present(let error, let sender):
+            let errorVC = UIAlertController(error: error, sender: .left((sender, .topCenter))) { _ in
+                completion?(true)
+            }
+            self.present(errorVC, animated: true, completion: nil)
+        }
+    }
+
     private func registerForPurchaseNotifications() {
         AppDelegate.shared.purchaseController?.transactionsInFlightUpdated = { [weak self] in
             self?.checkForPurchasesInFlight()
@@ -128,7 +157,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             case .cancel:
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             case .update:
-                UIApplication.shared.openAppStorePage() { _ in
+                UIApplication.shared.openAppStorePage { _ in
                     self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
                 }
             }
@@ -141,13 +170,21 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             self.continueUserActivityResultIfNeeded()
             return
         }
-        
+
         if let collectionLoadError = self.collectionVC?.reminders?.error {
             self.collectionVC?.reminders = nil
             UIAlertController.presentAlertVC(for: collectionLoadError, over: self) { _ in
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             }
         } else if let vc = UIAlertController.newLocalizedDarkModeImproperlyConfigured() {
+            self.present(vc, animated: true, completion: nil)
+        } else if UserDefaults.standard.hasCloudSyncInfoShown == false {
+            let vc = CloudSyncInfoViewController.newVC { vc in
+                UserDefaults.standard.hasCloudSyncInfoShown = true
+                vc.dismissNoForReal {
+                    self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
+                }
+            }
             self.present(vc, animated: true, completion: nil)
         } else if let error = self.applicationDidFinishLaunchingError {
             self.applicationDidFinishLaunchingError = nil
@@ -157,7 +194,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         } else if let migrator = AppDelegate.shared.coreDataMigrator, let basicRC = self.basicRC {
             let vc = CoreDataMigratorViewController.newVC(migrator: migrator, basicRC: basicRC) { vc, _ in
                 AppDelegate.shared.coreDataMigrator = nil
-                vc.dismiss(animated: true) {
+                vc.dismissNoForReal {
                     self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
                 }
             }
@@ -180,7 +217,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         guard let transaction = pc?.nextTransactionForPresentingToUser() else { return }
         let _vc = PurchaseThanksViewController.newVC(for: transaction) { vc in
             guard let vc = vc else { self.checkForPurchasesInFlight(); return; }
-            vc.dismiss(animated: true) {
+            vc.dismissNoForReal {
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             }
         }
@@ -199,7 +236,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         let editVC = ReminderVesselEditViewController.newVC(basicController: basicRC,
                                                             editVessel: nil)
         { vc in
-            vc.dismiss(animated: true) {
+            vc.dismissNoForReal {
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()
             }
         }
@@ -213,14 +250,14 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         else { return }
         let vc = ReminderVesselMainViewController.newVC(basicController: self.basicRC)
         { vc in
-            vc.dismiss(animated: true, completion: nil)
+            vc.dismissNoForReal()
         }
         self.present(vc, animated: true, completion: nil)
     }
 
     @IBAction private func settingsButtonTapped(_ sender: Any) {
-        let vc = SettingsMainViewController.newVC() { vc in
-            vc.dismiss(animated: true) {
+        let vc = SettingsMainViewController.newVC { vc in
+            vc.dismissNoForReal {
                 // re-register to receive purchase updates
                 self.registerForPurchaseNotifications()
                 self.checkForErrorsAndOtherUnexpectedViewControllersToPresent()

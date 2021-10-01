@@ -31,7 +31,7 @@ extension UIAlertController {
         case update, cancel
     }
 
-    //swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length
     class func newAppVersionCheckAlert(_ completion: @escaping (UIViewController?) -> Void,
                                        _ actionHandler: @escaping (UpdateAction) -> Void)
     {
@@ -49,7 +49,7 @@ extension UIAlertController {
         }
 
         // Step 3: Get the App Store Version of the App
-        AppVersion.fetchFromAppStore() { tuple in
+        AppVersion.fetchFromAppStore { tuple in
             guard let tuple = tuple else {
                 completion(nil)
                 return
