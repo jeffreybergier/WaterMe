@@ -27,6 +27,7 @@
 import Combine
 import CoreData
 import Collections
+import CloudKit
 
 // TODO: Replace this file with original from Umbrella library
 public typealias ErrorQueue = Deque<UserFacingError>
