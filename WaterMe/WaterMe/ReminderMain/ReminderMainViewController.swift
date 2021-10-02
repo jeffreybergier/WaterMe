@@ -132,6 +132,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         case .hide:
             self.navigationController?.setToolbarHidden(true, animated: true)
         case .show:
+            // TODO: Fix appearance in iOS 15 so its not transparent
             self.navigationController?.setToolbarHidden(false, animated: true)
         case .present(let error, let sender):
             let errorVC = UIAlertController(error: error, sender: .left((sender, .topCenter))) { _ in
