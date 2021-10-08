@@ -131,11 +131,20 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
     case storageLimit
     case partialSync
     case unknown
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
     public init(_ _error: Error) {
         let error = _error as NSError
-        guard error.domain == CKErrorDomain
-            else { self = .unknown; return; }
+        guard error.domain == CKErrorDomain else {
+            switch (error.domain, error.code) {
+            case (NSURLErrorDomain, -1009), // NSURLErrorNotConnectedToInternet
+                 (NSURLErrorDomain, -1200): // NSURLErrorSecureConnectionFailed
+                self = .network
+            default:
+                self = .unknown
+            }
+            return
+        }
         switch error.code {
         /*! CloudKit.framework encountered an error.  This is a non-recoverable error. */
         case 1: self = .unknown
@@ -210,17 +219,17 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
         default: self = .unknown
         }
     }
+    // swiftlint:enable function_body_length
+    // swiftlint:enable cyclomatic_complexity
 }
-
 
 // Log reports for errors
 // 2021/10/08
-// 288: CKErrorDomain:              2 // partial sync complete
-// 013: NSURLErrorDomain:       -1009 // NSURLErrorNotConnectedToInternet
-// 001: NSURLErrorDomain:       -1200 // secure connection failed
-// 074: CKInternalErrorDomain:   1002 // probably the same as CKErrorDomain: 2
-// 057: NSCocoaErrorDomain:    134419 // completely unknown
-// 016: NSCocoaErrorDomain:      4097 // XPC Connection Error ↰
-// 008: NSCocoaErrorDomain:      4096 // XPC Connection Error ↰
-// 003: NSCocoaErrorDomain:     -1003 // NSUnderlyingError   ⤴
-
+// ✔️ 288: CKErrorDomain:              2 // partial sync complete
+// ✔️ 013: NSURLErrorDomain:       -1009 // NSURLErrorNotConnectedToInternet
+// ✔️ 001: NSURLErrorDomain:       -1200 // secure connection failed
+//    074: CKInternalErrorDomain:   1002 // probably the same as CKErrorDomain: 2
+//    057: NSCocoaErrorDomain:    134419 // completely unknown
+//    016: NSCocoaErrorDomain:      4097 // XPC Connection Error ↰
+//    008: NSCocoaErrorDomain:      4096 // XPC Connection Error ↰
+//    003: NSCocoaErrorDomain:     -1003 // NSUnderlyingError   ⤴
