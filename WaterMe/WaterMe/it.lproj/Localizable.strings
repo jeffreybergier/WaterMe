@@ -502,6 +502,9 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* Alert Message: Indicates there was a network error. Syncing will automatically resume when connected again. */
 "Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume." = "Sincronizzazione non riuscita a causa di un problema di rete. La prossima volta che sarà disponibile una connessione di rete, la sincronizzazione riprenderà automaticamente.";
 
+/* Alert Message: Indicates some data was able to sync but not all. Syncing will resume again later. */
+"Partial sync complete. Syncing will automatically resume later." = "TODO: Localize This"; // TODO: Localize This
+
 /* Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help. */
 "Unable to detect your iCloud account status. Turning your device off and on may resolve this issue." = "Lo stato del tuo account iCloud non può essere rilevato. Spegnere e riaccendere il dispositivo potrebbe risolvere questo problema.";
 

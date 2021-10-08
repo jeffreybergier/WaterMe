@@ -129,6 +129,7 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
     case network
     case rateLimit
     case storageLimit
+    case partialSync
     case unknown
     // swiftlint:disable:next cyclomatic_complexity
     public init(_ _error: Error) {
@@ -139,7 +140,7 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
         /*! CloudKit.framework encountered an error.  This is a non-recoverable error. */
         case 1: self = .unknown
         /*! Some items failed, but the operation succeeded overall. Check CKPartialErrorsByItemIDKey in the userInfo dictionary for more details. */
-        case 2: self = .unknown
+        case 2: self = .partialSync
         /*! Network not available */
         case 3: self = .network
         /*! Network error (available but CFNetwork gave us an error) */
