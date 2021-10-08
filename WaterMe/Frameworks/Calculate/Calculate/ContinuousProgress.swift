@@ -143,8 +143,16 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
                 self = .network
             case ("CKInternalErrorDomain", 1002): // Probably the same CKErrorDomain: 2
                 self = .partialSync
+            case (NSCocoaErrorDomain, 134419),
+                 (NSCocoaErrorDomain, 4097),
+                 (NSCocoaErrorDomain, 4096):
+                self = .knownUnknown
             default:
-                self = .unknownUnknown
+                guard let underlyingError = error.userInfo[NSUnderlyingErrorKey] as? Error else {
+                    self = .unknownUnknown
+                    return
+                }
+                self = CloudKitSyncErrorKind(underlyingError)
             }
             return
         }
@@ -232,7 +240,7 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
 // ✔️ 013: NSURLErrorDomain:       -1009 // NSURLErrorNotConnectedToInternet
 // ✔️ 001: NSURLErrorDomain:       -1200 // secure connection failed
 // ✔️ 074: CKInternalErrorDomain:   1002 // probably the same as CKErrorDomain: 2
-//    057: NSCocoaErrorDomain:    134419 // completely unknown
-//    016: NSCocoaErrorDomain:      4097 // XPC Connection Error ↰
-//    008: NSCocoaErrorDomain:      4096 // XPC Connection Error ↰
-//    003: NSCocoaErrorDomain:     -1003 // NSUnderlyingError   ⤴
+// ✔️ 057: NSCocoaErrorDomain:    134419 // completely unknown
+// ✔️ 016: NSCocoaErrorDomain:      4097 // XPC Connection Error ↰
+// ✔️ 008: NSCocoaErrorDomain:      4096 // XPC Connection Error ↰
+// ✔️ 003: NSCocoaErrorDomain:     -1003 // NSUnderlyingError   ⤴
