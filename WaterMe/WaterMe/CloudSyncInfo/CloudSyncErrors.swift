@@ -27,20 +27,22 @@ extension CloudKitSyncError: UserFacingError {
     public var isCritical: Bool { false }
     public var title: String? { CloudSyncProgressView.LocalizedString.errorAlertTitle }
     public var message: String? {
+        let localizedMessage: String
         switch self.typed {
         case .storageLimit:
-            return CloudSyncProgressView.LocalizedString.errorStorageLimitAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorStorageLimitAlertMessage
         case .rateLimit:
-            return CloudSyncProgressView.LocalizedString.errorRateLimitAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorRateLimitAlertMessage
         case .password:
-            return CloudSyncProgressView.LocalizedString.errorPasswordAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorPasswordAlertMessage
         case .network:
-            return CloudSyncProgressView.LocalizedString.errorNetworkAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorNetworkAlertMessage
         case .partialSync:
-            return CloudSyncProgressView.LocalizedString.errorPartialSyncAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorPartialSyncAlertMessage
         case .unknownUnknown, .knownUnknown:
-            return self.untyped.localizedDescription
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorUnknownAlertMessage
         }
+        return localizedMessage + "(\(self.untyped.domain): \(self.untyped.code))"
     }
     public var recoveryActions: [RecoveryAction] {
         switch self.typed {

@@ -505,6 +505,9 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* Alert Message: Indicates some data was able to sync but not all. Syncing will resume again later. */
 "Partial sync complete. Syncing will automatically resume later." = "Partial sync complete. Syncing will automatically resume later.";
 
+/* Alert Message: Indicates something went wrong, but its not known why. Syncing will resume again later. */
+"An unknown error ocurred. Syncing will automatically resume later." = "An unknown error ocurred. Syncing will automatically resume later.";
+
 /* Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help. */
 "Unable to detect your iCloud account status. Turning your device off and on may resolve this issue." = "Unable to detect your iCloud account status. Turning your device off and on may resolve this issue.";
 

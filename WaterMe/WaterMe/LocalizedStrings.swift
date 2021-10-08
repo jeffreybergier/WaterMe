@@ -734,6 +734,9 @@ extension CloudSyncProgressView {
         static let errorPartialSyncAlertMessage: String
             = NSLocalizedString("Partial sync complete. Syncing will automatically resume later.",
                                 comment: "Alert Message: Indicates some data was able to sync but not all. Syncing will resume again later.")
+        static let errorUnknownAlertMessage: String
+            = NSLocalizedString("An unknown error ocurred. Syncing will automatically resume later.",
+                                comment: "Alert Message: Indicates something went wrong, but its not known why. Syncing will resume again later.")
         static let notDeterminedErrorAlertMessage: String
             = NSLocalizedString("Unable to detect your iCloud account status. Turning your device off and on may resolve this issue.",
                                 comment: "Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help.")
