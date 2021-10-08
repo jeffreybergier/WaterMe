@@ -743,6 +743,9 @@ extension CloudSyncProgressView {
         static let iCloudLoggedOutErrorAlertMessage: String
             = NSLocalizedString("To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings.",
                                 comment: "Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe.")
+        static let iCloudNoPasswordErrorAlertMessage: String
+            = NSLocalizedString("There is an issue with your iCloud password. Please fix it in Settings.",
+                                comment: "Alert Message: The user has a password issue with their iCloud account. They can fix it in Settings.")
         static let unsupportedDeviceErrorAlertMessage: String
             = NSLocalizedString("iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings.",
                                 comment: "Alert Message: The device is running an old version of iOS and cannot use iCloud Sync.")

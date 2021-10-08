@@ -514,6 +514,9 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe. */
 "To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings." = "Per utilizzare Sincronizzazione iCloud con WaterMe, accedi al tuo account iCloud y abilitare 'iCloud Drive.' Se non vuoi visualizzare questo errore, disattiva la 'Sincronizzazione di iCloud' in Impostazioni.";
 
+/* "Alert Message: The user has a password issue with their iCloud account. They can fix it in Settings. */
+"There is an issue with your iCloud password. Please fix it in Settings." = "TODO: Localize This"; // TODO: Localize This
+
 /* Alert Message: The device is running an old version of iOS and cannot use iCloud Sync. */
 "iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings." = "Sincronizzazione iCloud è disponibile solo con dispositivi con iOS 14 o versioni successive. Se non vuoi visualizzare questo errore, disattiva la sincronizzazione di iCloud in Impostazioni.";
 

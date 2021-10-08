@@ -90,6 +90,7 @@ public enum GenericInitializationError: Swift.Error, RawRepresentable {
 
     case couldNotDetermine
     case restricted
+    case noPassword
     case noAccount
 
     public init?(rawValue: CKAccountStatus) {
@@ -100,6 +101,8 @@ public enum GenericInitializationError: Swift.Error, RawRepresentable {
             self = .restricted
         case .noAccount:
             self = .noAccount
+        case .temporarilyUnavailable:
+            self = .noPassword
         case .couldNotDetermine:
             fallthrough
         @unknown default:
@@ -115,6 +118,12 @@ public enum GenericInitializationError: Swift.Error, RawRepresentable {
             return .restricted
         case .noAccount:
             return .noAccount
+        case .noPassword:
+            if #available(iOS 15.0, *) {
+                return .temporarilyUnavailable
+            } else {
+                return .noAccount
+            }
         }
     }
 }
