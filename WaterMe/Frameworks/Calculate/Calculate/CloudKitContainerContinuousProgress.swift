@@ -98,7 +98,7 @@ public class CloudKitContainerContinuousProgress: ContinousProgress {
                 let convertedError = CloudKitSyncError(error)
                 // only report the original error to the server
                 // if its an unknown error
-                if case .unknown = convertedError.typed {
+                if case .unknownUnknown = convertedError.typed {
                     error.log()
                 } else {
                     error.log(as: .info)

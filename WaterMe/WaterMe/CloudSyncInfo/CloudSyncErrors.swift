@@ -38,7 +38,7 @@ extension CloudKitSyncError: UserFacingError {
             return CloudSyncProgressView.LocalizedString.errorNetworkAlertMessage
         case .partialSync:
             return CloudSyncProgressView.LocalizedString.errorPartialSyncAlertMessage
-        case .unknown:
+        case .unknownUnknown, .knownUnknown:
             return self.untyped.localizedDescription
         }
     }
@@ -46,7 +46,7 @@ extension CloudKitSyncError: UserFacingError {
         switch self.typed {
         case .password, .storageLimit:
             return [.openWaterMeSettings]
-        case .unknown, .network, .rateLimit, .partialSync:
+        case .unknownUnknown, .knownUnknown, .network, .rateLimit, .partialSync:
             return []
         }
     }
