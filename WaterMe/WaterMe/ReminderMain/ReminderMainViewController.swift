@@ -36,7 +36,10 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         let navVC = sb.instantiateInitialViewController() as! UINavigationController
         // swiftlint:disable:next force_cast
         var vc = navVC.viewControllers.first as! ReminderMainViewController
-        navVC.navigationBar.style_forceDefaultAppearance()
+        // TODO: Determine if this should go back
+        // Perhaps it needs to apply to the bottom bar as well?
+        // Or be only taken out in iOS 15
+        // navVC.navigationBar.style_forceDefaultAppearance()
         vc.title = UIApplication.LocalizedString.appTitle // set here because it works better in UITabBarController
         vc.applicationDidFinishLaunchingError = basic.error
         vc.configure(with: basic.value)
@@ -132,7 +135,6 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
         case .hide:
             self.navigationController?.setToolbarHidden(true, animated: true)
         case .show:
-            // TODO: Fix appearance in iOS 15 so its not transparent
             self.navigationController?.setToolbarHidden(false, animated: true)
         case .present(let error, let sender):
             let errorVC = UIAlertController(error: error, sender: .left((sender, .topCenter))) { _ in
