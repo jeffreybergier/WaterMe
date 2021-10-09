@@ -41,6 +41,9 @@ class ReminderSummaryTableViewController: StandardTableViewController {
                                 forHeaderFooterViewReuseIdentifier: TransparentTableViewHeaderFooterView.reuseID)
         self.tableView.contentInsetAdjustmentBehavior = .always
         self.tableView.tableFooterView = UIView()
+        if #available(iOS 15.0, *) {
+            self.tableView.sectionHeaderTopPadding = 0
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
