@@ -32,8 +32,8 @@ internal class ExceptionDestination<T: ServerlessLoggerEventProtocol>: Logger.De
         // If the error is of a certain kind, drop it on the floor
         if let error = logDetails.userInfo[Event.kErrorKey] as? NSError {
             switch (error.domain, error.code) {
-            // Couldn’t communicate with a helper application.
-            case (CSIndexErrorDomain, -1003):
+            case (CSIndexErrorDomain, -1000), // The indexer was unavailable
+                 (CSIndexErrorDomain, -1003): // Couldn’t communicate with a helper application.
                 return
             // Couldn't initialize without iCloud Account
             case (NSCocoaErrorDomain, 134400):
