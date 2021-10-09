@@ -1,4 +1,4 @@
-![Xcode: 13.0](https://img.shields.io/badge/Xcode-13.0-lightgrey.svg) ![Swift: 5.3](https://img.shields.io/badge/Swift-5.3-lightgrey.svg) ![iOS: 11 | 12 | 13 | 14| 15](https://img.shields.io/badge/iOS-11%20|%2012%20|%2013%20|%2014|%2015-lightgrey.svg) ![devices: iPhone | iPad](https://img.shields.io/badge/devices-iPad%20|%20iPhone-lightgrey.svg)
+![Xcode: 13.0](https://img.shields.io/badge/Xcode-13.0-lightgrey.svg) ![Swift: 5.5](https://img.shields.io/badge/Swift-5.5-lightgrey.svg) ![iOS: 11 | 12 | 13 | 14| 15](https://img.shields.io/badge/iOS-11%20|%2012%20|%2013%20|%2014|%2015-lightgrey.svg) ![devices: iPhone | iPad](https://img.shields.io/badge/devices-iPad%20|%20iPhone-lightgrey.svg)
 
 ![WaterMe App Icon](/WaterMe/WaterMe/Assets.xcassets/WaterMeIcon.imageset/all-1x.png)
 # WaterMe - Gardening Reminders
