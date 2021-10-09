@@ -65,7 +65,7 @@ extension GenericInitializationError: UserFacingError {
         case .noAccount:
             return CloudSyncProgressView.LocalizedString.iCloudLoggedOutErrorAlertMessage
         case .noPassword:
-            return CloudSyncProgressView.LocalizedString.iCloudNoPasswordErrorAlertMessage
+            return CloudSyncProgressView.LocalizedString.errorPasswordAlertMessage
         }
     }
     public var recoveryActions: [RecoveryAction] { [.openWaterMeSettings] }
