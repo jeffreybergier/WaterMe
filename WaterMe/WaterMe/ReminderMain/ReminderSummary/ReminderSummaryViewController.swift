@@ -25,7 +25,6 @@ import UIKit
 import SimpleImageViewer
 import Datum
 
-// TODO: Fix appearance in iSO 15
 class ReminderSummaryViewController: StandardViewController {
 
     typealias Completion = (Action, Identifier, UIViewController) -> Void
