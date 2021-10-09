@@ -42,7 +42,7 @@ extension CloudKitSyncError: UserFacingError {
         case .unknownUnknown, .knownUnknown:
             localizedMessage = CloudSyncProgressView.LocalizedString.errorUnknownAlertMessage
         }
-        return localizedMessage + "(\(self.untyped.domain): \(self.untyped.code))"
+        return localizedMessage + " (\(self.untyped.domain): \(self.untyped.code))"
     }
     public var recoveryActions: [RecoveryAction] {
         switch self.typed {
