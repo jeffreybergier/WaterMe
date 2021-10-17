@@ -146,17 +146,6 @@ extension UIApplication {
     }
 }
 
-extension UINavigationBar {
-    func style_forceDefaultAppearance() {
-        guard #available(iOS 13.0, *) else { return }
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        self.compactAppearance = appearance
-        self.standardAppearance = appearance
-        self.scrollEdgeAppearance = appearance
-    }
-}
-
 extension UIView {
     func style_configure() {
         // configure dark mode

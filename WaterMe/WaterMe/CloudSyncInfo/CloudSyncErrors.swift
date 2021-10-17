@@ -27,24 +27,28 @@ extension CloudKitSyncError: UserFacingError {
     public var isCritical: Bool { false }
     public var title: String? { CloudSyncProgressView.LocalizedString.errorAlertTitle }
     public var message: String? {
+        let localizedMessage: String
         switch self.typed {
         case .storageLimit:
-            return CloudSyncProgressView.LocalizedString.errorStorageLimitAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorStorageLimitAlertMessage
         case .rateLimit:
-            return CloudSyncProgressView.LocalizedString.errorRateLimitAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorRateLimitAlertMessage
         case .password:
-            return CloudSyncProgressView.LocalizedString.errorPasswordAlertMessage
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorPasswordAlertMessage
         case .network:
-            return CloudSyncProgressView.LocalizedString.errorNetworkAlertMessage
-        case .unknown:
-            return self.untyped.localizedDescription
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorNetworkAlertMessage
+        case .partialSync:
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorPartialSyncAlertMessage
+        case .unknownUnknown, .knownUnknown:
+            localizedMessage = CloudSyncProgressView.LocalizedString.errorUnknownAlertMessage
         }
+        return localizedMessage + " (\(self.untyped.domain): \(self.untyped.code))"
     }
     public var recoveryActions: [RecoveryAction] {
         switch self.typed {
         case .password, .storageLimit:
             return [.openWaterMeSettings]
-        case .unknown, .network, .rateLimit:
+        case .unknownUnknown, .knownUnknown, .network, .rateLimit, .partialSync:
             return []
         }
     }
@@ -60,6 +64,8 @@ extension GenericInitializationError: UserFacingError {
             return CloudSyncProgressView.LocalizedString.restrictedErrorAlertMessage
         case .noAccount:
             return CloudSyncProgressView.LocalizedString.iCloudLoggedOutErrorAlertMessage
+        case .noPassword:
+            return CloudSyncProgressView.LocalizedString.errorPasswordAlertMessage
         }
     }
     public var recoveryActions: [RecoveryAction] { [.openWaterMeSettings] }
@@ -73,6 +79,8 @@ extension GenericInitializationError: UserFacingError {
             return 1002
         case .noAccount:
             return 1003
+        case .noPassword:
+            return 1004
         }
     }
 }

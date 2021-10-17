@@ -502,6 +502,12 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* Alert Message: Indicates there was a network error. Syncing will automatically resume when connected again. */
 "Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume." = "Sincronizzazione non riuscita a causa di un problema di rete. La prossima volta che sarà disponibile una connessione di rete, la sincronizzazione riprenderà automaticamente.";
 
+/* Alert Message: Indicates some data was able to sync but not all. Syncing will resume again later. */
+"Partial sync complete. Syncing will automatically resume later." = "Sincronizzazione parziale completata. La sincronizzazione riprenderà automaticamente in seguito."; // From Google Translate
+
+/* Alert Message: Indicates something went wrong, but its not known why. Syncing will resume again later. */
+"An unknown error ocurred. Syncing will automatically resume later." = "Si è verificato un errore sconosciuto. La sincronizzazione riprenderà automaticamente in seguito."; // From Google Translate
+
 /* Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help. */
 "Unable to detect your iCloud account status. Turning your device off and on may resolve this issue." = "Lo stato del tuo account iCloud non può essere rilevato. Spegnere e riaccendere il dispositivo potrebbe risolvere questo problema.";
 
@@ -541,10 +547,10 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* MigratorScreen: Subtitle: Explains what is happening on the screen. */
 "Data Migration" = "Migrazione dei dati";
 
-/* MigratorScreen: Subtitle: Explains an error ocurred while migrating */ // TODO: This still need more accurate translation
+/* MigratorScreen: Subtitle: Explains an error ocurred while migrating */ // from Google Translate
 "Migration Error" = "Errore di migrazione";
 
-/* MigratorScreen: Body: Body text that explains the one time migration needed to upgrade to the new WaterMe. */ // TODO: This still need more accurate translation
+/* MigratorScreen: Body: Body text that explains the one time migration needed to upgrade to the new WaterMe. */ // from Google Translate
 "Sorry for the interruption. A one-time data migration is needed in order to continue using WaterMe." = "Per l'aggiornamento è necessaria una migrazione dei dati una tantum.";
 
 /* MigratorScreen: Body: Body text that explains that the user should not lock the screen or switch apps until the migration is complete. */
@@ -559,7 +565,7 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* MigratorScreen: Body: Body text that explains that all data should be migrated but there was an error cleaning up at the end. */
 "An error ocurred when cleaning up after migration. Please double-check all of your plants are in WaterMe." = "Oh no. Un problema si è verificato durante la migrazione delle piante. Si prega di verificare che tutte le vostre piante siano in WaterMe.";
 
-/* MigratorScreen: Body: Body text that explains that migration may be incomplete. */ // TODO: This still need more accurate translation
+/* MigratorScreen: Body: Body text that explains that migration may be incomplete. */ // from Google Translate
 "One or more plants could not be migrated. Please double-check all of your plants are in WaterMe." = "Oh no. Un problema si è verificato durante la migrazione delle piante. Si prega di verificare che tutte le vostre piante siano in WaterMe.";
 
 /* MigratorScreen: Start Button Title: When the user clicks this button the migration starts. */
@@ -574,10 +580,10 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* MigratorScreen: Delete Button Title: When the user clicks this button, the screen is dismissed and it will never appear again and they will not have access to their previous plants. This action is destructive. */
 "Don’t Migrate My Plants" = "Non spostate le mie piante";
 
-/* MigratorScreen: Confirmation that the user does not want to migrate their plants. */ // TODO: This still need more accurate translation
+/* MigratorScreen: Confirmation that the user does not want to migrate their plants. */ // from Google Translate
 "This cannot be undone" = "Questo non può essere annullato.";
 
-/* MigratorScreen: Finish Button Title: After the migration is done, this button allows the user to finish the migration and go back to using the app as normal. */ // TODO: This still need more accurate translation
+/* MigratorScreen: Finish Button Title: After the migration is done, this button allows the user to finish the migration and go back to using the app as normal. */ // from Google Translate
 "Finish" = "Finire";
 
 /*
