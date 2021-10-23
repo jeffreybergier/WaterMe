@@ -244,6 +244,12 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
 }
 
 // Log reports for errors
+//
+// 2021/10/23
+// ✔️ 002: NSCocoaErrorDomain:      4099 // core telephony error ⤵
+// https://stackoverflow.com/questions/66191942/error-domain-nscocoaerrordomain-code-4099-in-my-debug-area
+// ✔️ 006: NSCocoaErrorDomain:    134405 // completely unknown
+//
 // 2021/10/08
 // ✔️ 288: CKErrorDomain:              2 // partial sync complete
 // ✔️ 013: NSURLErrorDomain:       -1009 // NSURLErrorNotConnectedToInternet
