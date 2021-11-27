@@ -28,7 +28,11 @@ extension DatumError: UserFacingError {
 
     public var isCritical: Bool {
         switch self {
-        case .load, .write, .read, .objectMissing, .cannotCompressImageEnough, .maintenance:
+        case .load, .write, .read, .objectMissing, .cannotCompressImageEnough:
+            return true
+        case .maintenanceFixDates, .maintenanceContextMismatch,
+             .maintenanceFixOrphanedVessels, .maintenanceMassageAllEntries,
+             .maintenanceDeleteOrphanedReminders, .maintenanceOneTrueVesselShare:
             return true
         case .cannotDeleteLastReminder, .reminderIsEnabledFlagUnavailable:
             return false
@@ -62,7 +66,9 @@ extension DatumError: UserFacingError {
             return LocalizedString.deleteMessage
         case .reminderIsEnabledFlagUnavailable:
             return LocalizedString.realmIsEnabledFalseUnsupportedMessage
-        case .maintenance:
+        case .maintenanceFixDates, .maintenanceContextMismatch,
+             .maintenanceFixOrphanedVessels, .maintenanceMassageAllEntries,
+             .maintenanceDeleteOrphanedReminders, .maintenanceOneTrueVesselShare:
             return LocalizedString.maintenanceMessage
         }
     }
@@ -72,8 +78,11 @@ extension DatumError: UserFacingError {
         case .objectMissing,
              .cannotDeleteLastReminder,
              .cannotCompressImageEnough,
-             .reminderIsEnabledFlagUnavailable,
-             .maintenance:
+             .reminderIsEnabledFlagUnavailable:
+            return [.dismiss]
+        case .maintenanceFixDates, .maintenanceContextMismatch,
+             .maintenanceFixOrphanedVessels, .maintenanceMassageAllEntries,
+             .maintenanceDeleteOrphanedReminders, .maintenanceOneTrueVesselShare:
             return [.dismiss]
         case .load, .read, .write:
             return [.dismiss, .openWaterMeSettings]

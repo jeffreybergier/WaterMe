@@ -604,7 +604,7 @@ extension CD_BasicController {
             return .success(())
         } catch {
             error.log()
-            return .failure(.maintenance)
+            return .failure(.maintenanceMassageAllEntries)
         }
     }
 
@@ -656,7 +656,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenance)
+            return .failure(.maintenanceOneTrueVesselShare)
         }
     }
 
@@ -694,7 +694,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenance)
+            return .failure(.maintenanceFixDates)
         }
     }
 
@@ -713,7 +713,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenance)
+            return .failure(.maintenanceDeleteOrphanedReminders)
         }
     }
 
@@ -725,7 +725,7 @@ extension CD_BasicController {
             let fetchResult = try context.fetch(fetchRequest)
             let count = fetchResult.count
             guard count > 0 else { return .success(()) }
-            guard context === share.managedObjectContext else { return .failure(.maintenance) }
+            guard context === share.managedObjectContext else { return .failure(.maintenanceContextMismatch) }
             fetchResult.forEach { share.addToRaw_vessels($0) }
             try context.save()
             "Orphaned ReminderVessels Found: \(count)".log(as: .error)
@@ -733,7 +733,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenance)
+            return .failure(.maintenanceFixOrphanedVessels)
         }
     }
 }

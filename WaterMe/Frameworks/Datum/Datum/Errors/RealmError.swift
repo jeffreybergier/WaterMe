@@ -31,5 +31,10 @@ public enum DatumError: Error {
     case cannotDeleteLastReminder
     case cannotCompressImageEnough
     case reminderIsEnabledFlagUnavailable
-    case maintenance
+    case maintenanceOneTrueVesselShare
+    case maintenanceMassageAllEntries
+    case maintenanceFixDates
+    case maintenanceDeleteOrphanedReminders
+    case maintenanceFixOrphanedVessels
+    case maintenanceContextMismatch
 }
