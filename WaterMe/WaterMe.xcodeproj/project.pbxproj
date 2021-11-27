@@ -87,7 +87,7 @@
 		5034767B24552D0700C3DAD3 /* Store.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034766624552D0600C3DAD3 /* Store.framework */; };
 		5034767C24552D0700C3DAD3 /* Store.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5034766624552D0600C3DAD3 /* Store.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		503476AF24552EFE00C3DAD3 /* ItemAndSectionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034769724552EFE00C3DAD3 /* ItemAndSectionable.swift */; };
-		503476B124552EFE00C3DAD3 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034769A24552EFE00C3DAD3 /* RealmError.swift */; };
+		503476B124552EFE00C3DAD3 /* DatumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034769A24552EFE00C3DAD3 /* DatumError.swift */; };
 		503476B224552EFE00C3DAD3 /* ModelCompleteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034769B24552EFE00C3DAD3 /* ModelCompleteError.swift */; };
 		503476B424552EFE00C3DAD3 /* NSErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034769D24552EFE00C3DAD3 /* NSErrors.swift */; };
 		503476B524552EFE00C3DAD3 /* ReminderVessel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034769F24552EFE00C3DAD3 /* ReminderVessel.swift */; };
@@ -388,7 +388,7 @@
 		5034767524552D0700C3DAD3 /* StoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTests.swift; sourceTree = "<group>"; };
 		5034767724552D0700C3DAD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5034769724552EFE00C3DAD3 /* ItemAndSectionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAndSectionable.swift; sourceTree = "<group>"; };
-		5034769A24552EFE00C3DAD3 /* RealmError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
+		5034769A24552EFE00C3DAD3 /* DatumError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatumError.swift; sourceTree = "<group>"; };
 		5034769B24552EFE00C3DAD3 /* ModelCompleteError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelCompleteError.swift; sourceTree = "<group>"; };
 		5034769D24552EFE00C3DAD3 /* NSErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSErrors.swift; sourceTree = "<group>"; };
 		5034769F24552EFE00C3DAD3 /* ReminderVessel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVessel.swift; sourceTree = "<group>"; };
@@ -835,7 +835,7 @@
 		5034769924552EFE00C3DAD3 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				5034769A24552EFE00C3DAD3 /* RealmError.swift */,
+				5034769A24552EFE00C3DAD3 /* DatumError.swift */,
 				5034769B24552EFE00C3DAD3 /* ModelCompleteError.swift */,
 				5034769D24552EFE00C3DAD3 /* NSErrors.swift */,
 			);
@@ -1585,7 +1585,7 @@
 				508B2ECB24741F6200A497E4 /* CD_BasicController.swift in Sources */,
 				503476BD24552EFE00C3DAD3 /* RLM_BasicController.swift in Sources */,
 				4832F531246E5CE6001B77F6 /* ReminderVesselWrapper.swift in Sources */,
-				503476B124552EFE00C3DAD3 /* RealmError.swift in Sources */,
+				503476B124552EFE00C3DAD3 /* DatumError.swift in Sources */,
 				503476C024552EFE00C3DAD3 /* String+WaterMe.swift in Sources */,
 				485482E6247A0FD200E3D4F0 /* RLM_ReminderPerformWrapper.swift in Sources */,
 				483C96EA247BE02200D45200 /* AnyQuery.swift in Sources */,

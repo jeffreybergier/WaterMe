@@ -1,5 +1,5 @@
 //
-//  RealmError.swift
+//  DatumError.swift
 //  WaterMeData
 //
 //  Created by Jeffrey Bergier on 8/12/17.
