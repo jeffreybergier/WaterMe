@@ -23,7 +23,19 @@
 
 import Foundation
 
-public enum DatumError: Error {
+public enum DatumError: Int, CustomNSError {
+
+    /// The domain of the error.
+    static public var errorDomain: String { "com.saturdayapps.waterme.datum" }
+    /// The error code within the given domain.
+    public var errorCode: Int { return self.rawValue }
+    /// The user-info dictionary.
+    public var errorUserInfo: [String: Any] {
+        return [
+            NSUnderlyingErrorKey: String(reflecting: self)
+        ]
+    }
+
     case load
     case write
     case read
