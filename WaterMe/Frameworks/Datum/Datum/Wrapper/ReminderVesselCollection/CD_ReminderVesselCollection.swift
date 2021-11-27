@@ -91,7 +91,7 @@ internal class CD_ReminderVesselQuery: CollectionQuery {
                 let collection = CD_ReminderVesselCollection(self.controller, context: self.context)
                 block(.initial(data: AnyCollection(collection)))
             } catch {
-                block(.error(error: .readError))
+                block(.error(error: .read))
             }
         }
         return self

@@ -45,7 +45,7 @@ internal struct RLM_ReminderWrapper: Reminder {
             switch realmChange {
             case .error(let error):
                 error.log()
-                block(.error(.readError))
+                block(.error(.read))
             case .change:
                 block(.change(()))
             case .deleted:

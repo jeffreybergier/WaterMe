@@ -70,7 +70,7 @@ internal class RLM_ReminderQuery: CollectionQuery {
             case .update(_, let deletions, let insertions, let modifications):
                 block(.update(.init(insertions: insertions, deletions: deletions, modifications: modifications)))
             case .error:
-                block(.error(error: .readError))
+                block(.error(error: .read))
             }
         }
     }

@@ -85,7 +85,7 @@ class BasicControllerDeleteTests: DatumTestsBase {
                 case .success:
                     XCTFail()
                 case .failure(let error):
-                    XCTAssertEqual(error, .unableToDeleteLastReminder)
+                    XCTAssertEqual(error, .cannotDeleteLastReminder)
                     XCTAssertEqual(data.count, 1)
                 }
             case .error, .update:

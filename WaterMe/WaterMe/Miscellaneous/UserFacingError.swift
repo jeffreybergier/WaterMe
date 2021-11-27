@@ -28,20 +28,20 @@ extension DatumError: UserFacingError {
 
     public var isCritical: Bool {
         switch self {
-        case .loadError, .createError, .writeError, .readError, .objectDeleted, .imageCouldntBeCompressedEnough, .maintenanceError:
+        case .load, .write, .read, .objectMissing, .cannotCompressImageEnough, .maintenance:
             return true
-        case .unableToDeleteLastReminder, .realmIsEnabledFalseUnsupported:
+        case .cannotDeleteLastReminder, .reminderIsEnabledFlagUnavailable:
             return false
         }
     }
 
     public var title: String? {
         switch self {
-        case .unableToDeleteLastReminder:
+        case .cannotDeleteLastReminder:
             return LocalizedString.deleteTitle
-        case .loadError:
+        case .load:
             return LocalizedString.loadTitle
-        case .imageCouldntBeCompressedEnough:
+        case .cannotCompressImageEnough:
             return LocalizedString.saveImageTitle
         default:
             return LocalizedString.saveTitle
@@ -50,32 +50,32 @@ extension DatumError: UserFacingError {
 
     public var message: String? {
         switch self {
-        case .imageCouldntBeCompressedEnough:
+        case .cannotCompressImageEnough:
             return LocalizedString.saveImageMessage
-        case .objectDeleted:
+        case .objectMissing:
             return LocalizedString.objectDeletedMessage
-        case .loadError, .readError:
+        case .load, .read:
             return LocalizedString.loadMessage
-        case .writeError, .createError:
+        case .write:
             return LocalizedString.saveMessage
-        case .unableToDeleteLastReminder:
+        case .cannotDeleteLastReminder:
             return LocalizedString.deleteMessage
-        case .realmIsEnabledFalseUnsupported:
+        case .reminderIsEnabledFlagUnavailable:
             return LocalizedString.realmIsEnabledFalseUnsupportedMessage
-        case .maintenanceError:
+        case .maintenance:
             return LocalizedString.maintenanceMessage
         }
     }
 
     public var recoveryActions: [RecoveryAction] {
         switch self {
-        case .objectDeleted,
-             .unableToDeleteLastReminder,
-             .imageCouldntBeCompressedEnough,
-             .realmIsEnabledFalseUnsupported,
-             .maintenanceError:
+        case .objectMissing,
+             .cannotDeleteLastReminder,
+             .cannotCompressImageEnough,
+             .reminderIsEnabledFlagUnavailable,
+             .maintenance:
             return [.dismiss]
-        case .createError, .loadError, .readError, .writeError:
+        case .load, .read, .write:
             return [.dismiss, .openWaterMeSettings]
         }
     }

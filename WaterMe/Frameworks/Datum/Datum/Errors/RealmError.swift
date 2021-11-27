@@ -24,13 +24,12 @@
 import Foundation
 
 public enum DatumError: Error {
-    case loadError
-    case createError
-    case writeError
-    case readError
-    case objectDeleted
-    case unableToDeleteLastReminder
-    case imageCouldntBeCompressedEnough
-    case realmIsEnabledFalseUnsupported
-    case maintenanceError
+    case load
+    case write
+    case read
+    case objectMissing
+    case cannotDeleteLastReminder
+    case cannotCompressImageEnough
+    case reminderIsEnabledFlagUnavailable
+    case maintenance
 }

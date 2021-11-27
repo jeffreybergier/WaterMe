@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // Clean things up
                     self?.window?.rootViewController = nil
                     self?.window?.style_configureTemporaryReset()
-                    self?.basicControllerResult = .failure(.loadError)
+                    self?.basicControllerResult = .failure(.load)
                     self?.reminderObserver = nil
                 }
                 // Need to wait for CoreData to be fully deallocated
