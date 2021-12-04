@@ -147,14 +147,19 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
         let error = _error as NSError
         guard error.domain == CKErrorDomain else {
             switch (error.domain, error.code) {
-            case (NSURLErrorDomain, -1009), // NSURLErrorNotConnectedToInternet
-                 (NSURLErrorDomain, -1200): // NSURLErrorSecureConnectionFailed
+            case (NSURLErrorDomain, -1009),        // NSURLErrorNotConnectedToInternet
+                 (NSURLErrorDomain, -1200),        // NSURLErrorSecureConnectionFailed
+                 (NSURLErrorDomain, -1017):        // NSURLErrorCannotParseResponse
                 self = .network
-            case ("CKInternalErrorDomain", 1002): // Probably the same CKErrorDomain: 2
+            case ("CKInternalErrorDomain", 1002):  // Probably the same CKErrorDomain: 2
                 self = .partialSync
-            case (NSCocoaErrorDomain, 134419),
-                 (NSCocoaErrorDomain, 4097),
-                 (NSCocoaErrorDomain, 4096):
+            case (NSCocoaErrorDomain, 134419),     // unknown
+                 (NSCocoaErrorDomain, 4097),       // unknown (XPC Connection Error)
+                 (NSCocoaErrorDomain, 4096),       // unknown (XPC Connection Error)
+                 (NSCocoaErrorDomain, 4099),       // unknown (Core Telephony Error)
+                 (NSCocoaErrorDomain, 133000),     // unknown (Attempt to access an object not found in store.)
+                 (NSCocoaErrorDomain, 134405),     // unknown
+                 ("CKInternalErrorDomain", 2011):  // unknown
                 self = .knownUnknown
             default:
                 guard let underlyingError = error.userInfo[NSUnderlyingErrorKey] as? Error else {
@@ -195,7 +200,7 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
         /*! The record was rejected because the version on the server was different */
         case 14: self = .unknownUnknown
         /*! The server rejected this request. This is a non-recoverable error */
-        case 15: self = .unknownUnknown
+        case 15: self = .knownUnknown
         /*! Asset file was not found */
         case 16: self = .unknownUnknown
         /*! Asset file content was modified while being saved */
@@ -246,7 +251,7 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
 // Log reports for errors
 //
 // 2021/10/23
-// ✔️ 002: NSCocoaErrorDomain:      4099 // core telephony error ⤵
+//    002: NSCocoaErrorDomain:      4099 // core telephony error ⤵
 // https://stackoverflow.com/questions/66191942/error-domain-nscocoaerrordomain-code-4099-in-my-debug-area
 // ✔️ 006: NSCocoaErrorDomain:    134405 // completely unknown
 //
@@ -260,3 +265,12 @@ public enum CloudKitSyncErrorKind: ErrorInitable {
 // ✔️ 016: NSCocoaErrorDomain:      4097 // XPC Connection Error ↰
 // ✔️ 008: NSCocoaErrorDomain:      4096 // XPC Connection Error ↰
 // ✔️ 003: NSCocoaErrorDomain:     -1003 // NSUnderlyingError   ⤴
+
+// 2021/12/04
+// ✔️ 005: NSCocoaErrorDomain:    133000 // Attempt to access an object not found in store.
+// ✔️ 018: NSCocoaErrorDomain:    134405 // Unknown
+// ✔️ 001: NSCocoaErrorDomain:      4099 // Unknown
+// ✔️ 002: CKInternalErrorDomain:   2011 // Unknown
+//    003: CKInternalErrorDomain:   1002 // Unknown
+// ✔️ 005: CKErrorDomain:             15 // /*! The server rejected this request. This is a non-recoverable error */
+// ✔️ 002: NSURLErrorDomain:       -1017 // NSURLErrorCannotParseResponse
