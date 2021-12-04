@@ -626,7 +626,7 @@ extension CD_BasicController {
                 let share = CD_VesselShare(context: context)
                 context.insert(share)
                 try context.save()
-                "0 VesselShares present, but was able to create".log(as: .warning)
+                "0 VesselShares present, but was able to create".log(as: .notice)
                 return .success(share)
             case 1:
                 let originalVesselShare = fetchResult[0]
@@ -650,7 +650,7 @@ extension CD_BasicController {
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
                 UserDefaults.standard.didRunWithoutCloudSync = true
-                "2+ VesselShares present, but was able to clean.".log(as: .warning)
+                "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
         } catch {
