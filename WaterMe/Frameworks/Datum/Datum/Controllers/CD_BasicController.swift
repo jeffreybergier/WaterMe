@@ -76,7 +76,7 @@ internal class CD_BasicController: BasicController {
         assert(Thread.isMainThread)
 
         guard let container = CD_BasicController.container(kind: kind)
-            else { throw DatumError.loadError }
+            else { throw DatumError.load }
 
         switch kind {
         case .local, .sync:
@@ -365,14 +365,14 @@ internal class CD_BasicController: BasicController {
             if id.uuid.starts(with: "x-coredata://"), let url = URL(string: id.uuid) {
                 // Core Data reference
                 guard let id = coordinator.managedObjectID(forURIRepresentation: url)
-                    else { return .failure(.objectDeleted) }
+                    else { return .failure(.objectMissing) }
                 let _object = try context.existingObject(with: id)
                 // if the object is the wrong type, log as an error
                 guard let object = _object as? T else {
                     let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
                     e.log()
-                    return .failure(.objectDeleted)
+                    return .failure(.objectMissing)
                 }
                 return .success(object)
             } else if UUID(uuidString: id.uuid) != nil {
@@ -383,7 +383,7 @@ internal class CD_BasicController: BasicController {
                 let results = try context.fetch(req)
                 let count = results.count
                 // if we had no results, return object deleted
-                guard count > 0 else { return .failure(.objectDeleted) }
+                guard count > 0 else { return .failure(.objectMissing) }
                 // if we had more than 1 result, just log this as an error
                 if count > 1 {
                     let e = ("\(T.self), id: \(id.uuid), count: \(count): "
@@ -397,19 +397,19 @@ internal class CD_BasicController: BasicController {
                     let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
                     e.log()
-                    return .failure(.objectDeleted)
+                    return .failure(.objectMissing)
                 }
                 return .success(object)
             } else {
                 let e = "\(id.uuid): does not appear to be Core Data or Realm identifier"
                 assertionFailure(e)
                 e.log()
-                return .failure(.objectDeleted)
+                return .failure(.objectMissing)
             }
         } catch {
             assertionFailure("\(error)")
             error.log()
-            return .failure(.loadError)
+            return .failure(.load)
         }
     }
 
@@ -488,7 +488,7 @@ internal class CD_BasicController: BasicController {
 
         let results: [Result<CD_Reminder, DatumError>] = ids.map(__genericSearch(matching:))
         let reminders = results.compactMap { try? $0.get() }
-        guard reminders.count == ids.count else { return .failure(.objectDeleted) }
+        guard reminders.count == ids.count else { return .failure(.objectMissing) }
 
         let context = self.container.viewContext
 
@@ -538,7 +538,7 @@ internal class CD_BasicController: BasicController {
 
         let reminderCount = vessel.raw_reminders?.count ?? 0
         guard reminderCount >= 2 else {
-            return .failure(.unableToDeleteLastReminder)
+            return .failure(.cannotDeleteLastReminder)
         }
 
         context.delete(reminder)
@@ -604,7 +604,7 @@ extension CD_BasicController {
             return .success(())
         } catch {
             error.log()
-            return .failure(.maintenanceError)
+            return .failure(.maintenanceMassageAllEntries)
         }
     }
 
@@ -626,7 +626,7 @@ extension CD_BasicController {
                 let share = CD_VesselShare(context: context)
                 context.insert(share)
                 try context.save()
-                "0 VesselShares present, but was able to create".log(as: .warning)
+                "0 VesselShares present, but was able to create".log(as: .notice)
                 return .success(share)
             case 1:
                 let originalVesselShare = fetchResult[0]
@@ -650,13 +650,13 @@ extension CD_BasicController {
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
                 UserDefaults.standard.didRunWithoutCloudSync = true
-                "2+ VesselShares present, but was able to clean.".log(as: .warning)
+                "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenanceError)
+            return .failure(.maintenanceOneTrueVesselShare)
         }
     }
 
@@ -694,7 +694,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenanceError)
+            return .failure(.maintenanceFixDates)
         }
     }
 
@@ -713,7 +713,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenanceError)
+            return .failure(.maintenanceDeleteOrphanedReminders)
         }
     }
 
@@ -725,7 +725,7 @@ extension CD_BasicController {
             let fetchResult = try context.fetch(fetchRequest)
             let count = fetchResult.count
             guard count > 0 else { return .success(()) }
-            guard context === share.managedObjectContext else { return .failure(.maintenanceError) }
+            guard context === share.managedObjectContext else { return .failure(.maintenanceContextMismatch) }
             fetchResult.forEach { share.addToRaw_vessels($0) }
             try context.save()
             "Orphaned ReminderVessels Found: \(count)".log(as: .error)
@@ -733,7 +733,7 @@ extension CD_BasicController {
         } catch {
             assertionFailure(String(describing: error))
             error.log(as: .error)
-            return .failure(.maintenanceError)
+            return .failure(.maintenanceFixOrphanedVessels)
         }
     }
 }
@@ -841,7 +841,7 @@ extension NSManagedObjectContext {
                 self.rollback()
             }
             error.log()
-            return .failure(.writeError)
+            return .failure(.write)
         }
     }
 }

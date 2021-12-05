@@ -163,7 +163,7 @@ extension RLM_ReminderTests {
             let result = self.basicController.update(kind: nil, interval: nil, isEnabled: false, note: nil, in: item)
             switch result {
             case .failure(let error):
-                XCTAssertEqual(error, .realmIsEnabledFalseUnsupported)
+                XCTAssertEqual(error, .reminderIsEnabledFlagUnavailable)
             case .success:
                 XCTFail()
             }

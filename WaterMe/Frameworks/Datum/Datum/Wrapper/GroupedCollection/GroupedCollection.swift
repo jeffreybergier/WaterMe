@@ -80,7 +80,7 @@ internal class GroupedCollection<
                     self.updateBatcher.append(change: change, for: section)
                 case .error:
                     self.invalidate()
-                    block(.error(error: .readError))
+                    block(.error(error: .read))
                 }
             }
             tokens.append(t)

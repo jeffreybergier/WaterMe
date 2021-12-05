@@ -31,7 +31,7 @@ public func NewBasicController(of kind: ControllerKind) -> Result<BasicControlle
         return .success(bc)
     } catch {
         error.log(as: .emergency)
-        return .failure(.loadError)
+        return .failure(.load)
     }
 }
 
@@ -109,7 +109,7 @@ internal func testing_NewRLMBasicController() -> Result<BasicController, DatumEr
         let bc = try RLM_BasicController(kind: .__testing_inMemory)
         return .success(bc)
     } catch {
-        return .failure(.loadError)
+        return .failure(.load)
     }
 }
 
@@ -118,6 +118,6 @@ internal func testing_NewCDBasicController() -> Result<BasicController, DatumErr
         let bc = try CD_BasicController(kind: .__testing_inMemory)
         return .success(bc)
     } catch {
-        return .failure(.loadError)
+        return .failure(.load)
     }
 }

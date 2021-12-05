@@ -96,7 +96,7 @@ internal class CD_ReminderQuery: CollectionQuery {
                 try self.controller.performFetch()
                 closure(.initial(data: AnyCollection(CD_ReminderCollection(self.controller, context: self.context))))
             } catch {
-                closure(.error(error: .readError))
+                closure(.error(error: .read))
             }
         }
         return self

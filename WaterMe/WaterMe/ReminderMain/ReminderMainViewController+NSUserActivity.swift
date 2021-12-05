@@ -89,7 +89,7 @@ extension ReminderMainViewController {
             self.dismissAnimatedIfNeeded { completion(nil) }
             return nil
         case .failure(let error):
-            if case .objectDeleted = error {
+            if case .objectMissing = error {
                 return .reminderNotFound
             } else {
                 return .perform

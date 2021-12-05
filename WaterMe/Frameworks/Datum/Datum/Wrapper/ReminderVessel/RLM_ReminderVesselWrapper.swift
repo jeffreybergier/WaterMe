@@ -42,7 +42,7 @@ extension RLM_ReminderVesselWrapper {
         return self.wrappedObject.observe { realmChange in
             switch realmChange {
             case .error:
-                block(.error(.readError))
+                block(.error(.read))
             case .change(let properties):
                 let changedDisplayName = RLM_ReminderVessel.propertyChangesContainDisplayName(properties)
                 let changedIconEmoji = RLM_ReminderVessel.propertyChangesContainIconEmoji(properties)
@@ -66,7 +66,7 @@ extension RLM_ReminderVesselWrapper {
             case .update(_, let deletions, let insertions, let modifications):
                 block(.update(.init(insertions: insertions, deletions: deletions, modifications: modifications)))
             case .error:
-                block(.error(error: .readError))
+                block(.error(error: .read))
             }
         }
     }
