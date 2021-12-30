@@ -16,8 +16,8 @@
 		7339DE5D277DD539008B20DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE5C277DD539008B20DD /* Assets.xcassets */; };
 		7339DE60277DD539008B20DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE5F277DD539008B20DD /* Preview Assets.xcassets */; };
 		7339DE74277DD85C008B20DD /* Datum in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE73277DD85C008B20DD /* Datum */; };
-		7339DE76277DD85C008B20DD /* Nav in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE75277DD85C008B20DD /* Nav */; };
-		7339DE78277DD85C008B20DD /* Style in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE77277DD85C008B20DD /* Style */; };
+		7354DAAA277DD9E7007AC8FB /* Nav in Frameworks */ = {isa = PBXBuildFile; productRef = 7354DAA9277DD9E7007AC8FB /* Nav */; };
+		7354DAAC277DD9EA007AC8FB /* Style in Frameworks */ = {isa = PBXBuildFile; productRef = 7354DAAB277DD9EA007AC8FB /* Style */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,8 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7339DE78277DD85C008B20DD /* Style in Frameworks */,
-				7339DE76277DD85C008B20DD /* Nav in Frameworks */,
+				7354DAAC277DD9EA007AC8FB /* Style in Frameworks */,
+				7354DAAA277DD9E7007AC8FB /* Nav in Frameworks */,
 				7339DE74277DD85C008B20DD /* Datum in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,8 +203,8 @@
 			name = "WatchMe WatchKit Extension";
 			packageProductDependencies = (
 				7339DE73277DD85C008B20DD /* Datum */,
-				7339DE75277DD85C008B20DD /* Nav */,
-				7339DE77277DD85C008B20DD /* Style */,
+				7354DAA9277DD9E7007AC8FB /* Nav */,
+				7354DAAB277DD9EA007AC8FB /* Style */,
 			);
 			productName = "WatchMe WatchKit Extension";
 			productReference = 7339DE51277DD538008B20DD /* WatchMe WatchKit Extension.appex */;
@@ -605,11 +605,11 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Datum;
 		};
-		7339DE75277DD85C008B20DD /* Nav */ = {
+		7354DAA9277DD9E7007AC8FB /* Nav */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Nav;
 		};
-		7339DE77277DD85C008B20DD /* Style */ = {
+		7354DAAB277DD9EA007AC8FB /* Style */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Style;
 		};
