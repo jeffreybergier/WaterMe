@@ -15,6 +15,9 @@
 		7339DE5B277DD538008B20DD /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7339DE5A277DD538008B20DD /* ComplicationController.swift */; };
 		7339DE5D277DD539008B20DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE5C277DD539008B20DD /* Assets.xcassets */; };
 		7339DE60277DD539008B20DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE5F277DD539008B20DD /* Preview Assets.xcassets */; };
+		7339DE74277DD85C008B20DD /* Datum in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE73277DD85C008B20DD /* Datum */; };
+		7339DE76277DD85C008B20DD /* Nav in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE75277DD85C008B20DD /* Nav */; };
+		7339DE78277DD85C008B20DD /* Style in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE77277DD85C008B20DD /* Style */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,9 @@
 		7339DE5C277DD539008B20DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7339DE5F277DD539008B20DD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7339DE61277DD539008B20DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7339DE6F277DD76A008B20DD /* Datum */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Datum; path = Packages/Datum; sourceTree = "<group>"; };
+		7339DE70277DD7DE008B20DD /* Nav */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Nav; path = Packages/Nav; sourceTree = "<group>"; };
+		7339DE71277DD805008B20DD /* Style */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Style; path = Packages/Style; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7339DE78277DD85C008B20DD /* Style in Frameworks */,
+				7339DE76277DD85C008B20DD /* Nav in Frameworks */,
+				7339DE74277DD85C008B20DD /* Datum in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +97,11 @@
 			children = (
 				7339DE4A277DD537008B20DD /* WatchMe WatchKit App */,
 				7339DE55277DD538008B20DD /* WatchMe WatchKit Extension */,
+				7339DE6F277DD76A008B20DD /* Datum */,
+				7339DE70277DD7DE008B20DD /* Nav */,
+				7339DE71277DD805008B20DD /* Style */,
 				7339DE43277DD537008B20DD /* Products */,
+				7339DE72277DD85C008B20DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +142,13 @@
 				7339DE5F277DD539008B20DD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7339DE72277DD85C008B20DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +201,11 @@
 			dependencies = (
 			);
 			name = "WatchMe WatchKit Extension";
+			packageProductDependencies = (
+				7339DE73277DD85C008B20DD /* Datum */,
+				7339DE75277DD85C008B20DD /* Nav */,
+				7339DE77277DD85C008B20DD /* Style */,
+			);
 			productName = "WatchMe WatchKit Extension";
 			productReference = 7339DE51277DD538008B20DD /* WatchMe WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -574,6 +599,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7339DE73277DD85C008B20DD /* Datum */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Datum;
+		};
+		7339DE75277DD85C008B20DD /* Nav */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Nav;
+		};
+		7339DE77277DD85C008B20DD /* Style */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Style;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7339DE3C277DD537008B20DD /* Project object */;
 }
