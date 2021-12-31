@@ -25,6 +25,7 @@ extension ReminderList {
     internal struct Menu: ViewModifier {
         
         @Binding var nav: Nav
+        @Binding var reminder: Reminder
         
         func body(content: Content) -> some View {
             content
@@ -32,13 +33,13 @@ extension ReminderList {
                                     isPresented: Binding { true } set: { _ in self.nav = .list(.none) },
                                     titleVisibility: .hidden)
             {
-                Button   { self.nav = .list(.reminder) }
+                Button   { self.nav = .list(.reminder(_reminder)) }
                   label: { Text("Edit Reminder") }
-                Button   { self.nav = .list(.plant) }
+                Button   { self.nav = .list(.plant(_reminder.vessel)) }
                   label: { Text("Edit Plant") }
-                Button   { self.nav = .list(.summary) }
+                Button   { self.nav = .list(.summary(_reminder)) }
                   label: { Text("View Summary") }
-                Button { self.nav = .list(.watering) }
+                Button { self.nav = .list(.watering(_reminder)) }
                   label: { Text("Mark as Done") }
                 Button { self.nav = .list(.none) }
                   label: { Text("Dismiss") }

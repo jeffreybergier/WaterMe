@@ -28,7 +28,7 @@ internal struct ReminderList: View {
     
     internal var body: some View {
         List(self.data) { item in
-            Button(action: { self.nav = .list(.menu) }) {
+            Button(action: { self.nav = .list(.menu(item)) }) {
                 Cell(reminder: item)
             }
         }

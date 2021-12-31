@@ -18,15 +18,18 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import SwiftUI
+import Datum
+
 public enum Nav {
     case list(ReminderList)
     public enum ReminderList {
         case none
-        case menu
-        case watering
-        case summary
-        case reminder
-        case plant
+        case menu(Binding<Reminder>)
+        case watering(Binding<Reminder>)
+        case summary(Binding<Reminder>)
+        case reminder(Binding<Reminder>)
+        case plant(Binding<ReminderVessel?>)
         case settings
         case error
     }
