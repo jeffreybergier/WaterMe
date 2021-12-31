@@ -25,10 +25,16 @@ extension ReminderList {
     internal struct Cell: View {
         
         @Binding var reminder: Reminder
+        @ReminderVesselQuery var vessel: ReminderVessel
+        
+        internal init(reminder: Binding<Reminder>, controller: CD_Controller) {
+            _reminder = reminder
+            _vessel = ReminderVesselQuery(reminder.wrappedValue, controller: controller)
+        }
         
         internal var body: some View {
             VStack {
-                Text(self.reminder.vessel?.displayName ?? "-1")
+                Text(self.vessel.displayName ?? "-1")
             }
         }
     }

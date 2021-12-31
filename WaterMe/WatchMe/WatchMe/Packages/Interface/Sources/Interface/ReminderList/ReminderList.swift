@@ -25,11 +25,12 @@ internal struct ReminderList: View {
     
     @Binding var nav: Nav
     @ReminderQuery_tmp private var data
+    @EnvironmentObject private var controller: CD_Controller
     
     internal var body: some View {
         List(self.data) { item in
             Button(action: { self.nav = .list(.menu(item)) }) {
-                Cell(reminder: item)
+                Cell(reminder: item, controller: self.controller)
             }
         }
     }

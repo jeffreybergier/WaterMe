@@ -40,4 +40,8 @@ extension ReminderVessel {
         guard let cd = cd else { return nil }
         self.init(cd: cd)
     }
+    internal init() {
+        self.id = "FALSE"
+        self.kind = .plant
+    }
 }
