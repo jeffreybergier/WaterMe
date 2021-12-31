@@ -21,9 +21,9 @@
 import SwiftUI
 import Datum
 
-public enum Nav {
+internal enum Nav {
     case list(ReminderList)
-    public enum ReminderList {
+    internal enum ReminderList {
         case none
         case menu(Binding<Reminder>)
         case watering(Binding<Reminder>)
