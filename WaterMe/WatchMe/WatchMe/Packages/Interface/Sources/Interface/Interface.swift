@@ -20,10 +20,12 @@
 
 import SwiftUI
 import Nav
+import Datum
 
 public struct Interface: View {
 
     @State private var nav = Nav.reminderList(.none)
+    @StateObject private var controller = try! CD_Controller(kind: .local)
     
     public init() {}
 
@@ -31,6 +33,8 @@ public struct Interface: View {
         NavigationView {
             self.render()
         }
+        .environmentObject(self.controller)
+        .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
     }
 
     @ViewBuilder private func render() -> some View {

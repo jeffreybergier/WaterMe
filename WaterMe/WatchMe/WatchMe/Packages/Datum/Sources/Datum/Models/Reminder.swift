@@ -20,9 +20,9 @@
 
 import Foundation
 
-public struct Reminder {
+public struct Reminder: Identifiable, Hashable {
+    public var id: String
     public var kind: ReminderKind
-    public var uuid: String
     public var interval: Int
     public var isEnabled: Bool
     public var note: String?
@@ -34,7 +34,7 @@ public struct Reminder {
 extension Reminder {
     internal init(cd: CD_Reminder) {
         self.kind = cd.kind
-        self.uuid = cd.objectID.uriRepresentation().absoluteString
+        self.id = cd.objectID.uriRepresentation().absoluteString
         self.interval = Int(cd.raw_interval)
         self.isEnabled = cd.raw_isEnabled
         self.note = cd.raw_note

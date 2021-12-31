@@ -26,6 +26,8 @@ internal struct ReminderList: View {
     @ReminderQuery_tmp private var data
     
     internal var body: some View {
-        Text("ReminderList")
+        List(self.data) {
+            Text($0.note.wrappedValue ?? "-1")
+        }
     }
 }

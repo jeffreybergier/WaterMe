@@ -40,7 +40,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Datum",
-            dependencies: []),
+            dependencies: [],
+            resources: [
+                .copy("Resources/SampleDB.sqlite"),
+                .copy("Resources/SampleDB.sqlite-wal")
+            ]),
         .testTarget(
             name: "DatumTests",
             dependencies: ["Datum"]),
