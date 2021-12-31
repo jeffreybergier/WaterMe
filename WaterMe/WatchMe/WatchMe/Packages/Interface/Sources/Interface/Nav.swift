@@ -29,7 +29,7 @@ internal enum Nav {
         case watering(Binding<Reminder>)
         case summary(Binding<Reminder>)
         case reminder(Binding<Reminder>)
-        case plant
+        case plant(String)
         case settings
         case error
     }

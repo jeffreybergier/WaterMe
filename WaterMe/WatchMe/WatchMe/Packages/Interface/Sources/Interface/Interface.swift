@@ -49,8 +49,9 @@ public struct Interface: View {
                 Text("// TODO: Watering")
             case .summary: // show reminder summary screen
                 Text("// TODO: Summary")
-            case .plant: // show plant edit screen
-                Text("// TODO: Plant Edit")
+            case .plant(let id): // show plant edit screen
+                ReminderList(nav: self.$nav)
+                    .modifier(VesselEdit.Pres(vesselID: id, nav: self.$nav))
             case .reminder: // show reminder edit screen
                 Text("// TODO: Reminder Edit")
             case .settings: // show settings screen
