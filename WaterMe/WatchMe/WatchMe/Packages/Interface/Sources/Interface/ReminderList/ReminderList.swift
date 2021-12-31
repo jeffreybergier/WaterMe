@@ -25,7 +25,7 @@ internal struct ReminderList: View {
     
     @Binding var nav: Nav
     @ReminderQuery_tmp private var data
-    @EnvironmentObject private var controller: CD_Controller
+    @EnvironmentObject private var controller: AnyController
     
     internal var body: some View {
         List(self.data) { item in

@@ -20,30 +20,7 @@
 
 import CoreData
 
-public enum ControllerKind: RawRepresentable {
-
-    case local
-    case sync
-    case __testing_inMemory
-    case __testing_withClass(NSPersistentContainer.Type)
-
-    public var rawValue: Bool {
-        switch self {
-        case .local:
-            return false
-        case .sync:
-            return true
-        case .__testing_inMemory, .__testing_withClass:
-            fatalError("RawValue unsupported while testing")
-        }
-    }
-
-    public init(rawValue: Bool) {
-        self = rawValue ? .sync : .local
-    }
-}
-
-public class CD_Controller: ObservableObject {
+internal class CD_Controller: Controller {
  
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
@@ -171,8 +148,8 @@ public class CD_Controller: ObservableObject {
     }
     
     internal let container: NSPersistentContainer
-    public let kind: ControllerKind
-    public var __ENVONLY__managedObjectContext: NSManagedObjectContext {
+    internal let kind: ControllerKind
+    internal var __ENVONLY__managedObjectContext: NSManagedObjectContext {
         return self.container.viewContext
     }
 }

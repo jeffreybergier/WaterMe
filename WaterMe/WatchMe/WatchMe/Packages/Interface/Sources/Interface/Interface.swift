@@ -24,7 +24,7 @@ import Datum
 public struct Interface: View {
 
     @State private var nav = Nav.list(.none)
-    @StateObject private var controller = try! CD_Controller(kind: .local)
+    @StateObject private var controller = NewController(of: .local)!
     
     public init() {}
 

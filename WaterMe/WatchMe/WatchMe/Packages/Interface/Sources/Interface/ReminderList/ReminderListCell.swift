@@ -27,7 +27,7 @@ extension ReminderList {
         @Binding var reminder: Reminder
         @ReminderVesselQuery var vessel: ReminderVessel
         
-        internal init(reminder: Binding<Reminder>, controller: CD_Controller) {
+        internal init(reminder: Binding<Reminder>, controller: AnyController) {
             _reminder = reminder
             _vessel = ReminderVesselQuery(reminder.wrappedValue, controller: controller)
         }
