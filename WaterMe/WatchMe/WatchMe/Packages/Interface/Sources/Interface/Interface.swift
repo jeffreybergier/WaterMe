@@ -38,17 +38,17 @@ public struct Interface: View {
         case .reminderList(let presentation):
             switch presentation {
             case .none: // Show main screen
-                Text("Hello World")
+                ReminderList()
             case .summary: // show reminder summary screen
-                Text("Hello World")
+                Text("// TODO: Summary")
             case .plant: // show plant edit screen
-                Text("Hello World")
+                Text("// TODO: Plant Edit")
             case .reminder: // show reminder edit screen
-                Text("Hello World")
+                Text("// TODO: Reminder Edit")
             case .settings: // show settings screen
-                Text("Hello World")
+                Text("// TODO: Settings")
             case .error: // show an error
-                Text("Hello World")
+                Text("// TODO: Error")
             }
         }
     }
