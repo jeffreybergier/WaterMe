@@ -19,38 +19,13 @@
 //
 
 import SwiftUI
-import Nav
+import Interface
 
 @main
 struct WatchMeApp: App {
-    
-    @State private var nav = Nav.reminderList(.none)
-    
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                self.render()
-            }
-        }
-    }
-    
-    @ViewBuilder private func render() -> some View {
-        switch self.nav {
-        case .reminderList(let presentation):
-            switch presentation {
-            case .none: // Show main screen
-                ContentView()
-            case .summary: // show reminder summary screen
-                ContentView()
-            case .plant: // show plant edit screen
-                ContentView()
-            case .reminder: // show reminder edit screen
-                ContentView()
-            case .settings: // show settings screen
-                ContentView()
-            case .error: // show an error
-                ContentView()
-            }
+            Interface()
         }
     }
 }

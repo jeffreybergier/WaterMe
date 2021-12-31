@@ -18,9 +18,38 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct Interface {
-    public private(set) var text = "Hello, World!"
+import SwiftUI
+import Nav
 
-    public init() {
+public struct Interface: View {
+
+    @State private var nav = Nav.reminderList(.none)
+    
+    public init() {}
+
+    public var body: some View {
+        NavigationView {
+            self.render()
+        }
+    }
+
+    @ViewBuilder private func render() -> some View {
+        switch self.nav {
+        case .reminderList(let presentation):
+            switch presentation {
+            case .none: // Show main screen
+                Text("Hello World")
+            case .summary: // show reminder summary screen
+                Text("Hello World")
+            case .plant: // show plant edit screen
+                Text("Hello World")
+            case .reminder: // show reminder edit screen
+                Text("Hello World")
+            case .settings: // show settings screen
+                Text("Hello World")
+            case .error: // show an error
+                Text("Hello World")
+            }
+        }
     }
 }

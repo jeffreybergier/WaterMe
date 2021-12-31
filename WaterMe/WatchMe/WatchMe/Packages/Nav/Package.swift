@@ -39,7 +39,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Nav",
-            dependencies: []),
+            dependencies: [], path: "Sources/Nav"),
         .testTarget(
             name: "NavTests",
             dependencies: ["Nav"]),

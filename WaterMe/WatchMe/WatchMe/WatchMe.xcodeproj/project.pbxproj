@@ -10,14 +10,11 @@
 		7339DE47277DD537008B20DD /* WatchMe WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 7339DE46277DD537008B20DD /* WatchMe WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7339DE4C277DD538008B20DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE4B277DD538008B20DD /* Assets.xcassets */; };
 		7339DE52277DD538008B20DD /* WatchMe WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7339DE51277DD538008B20DD /* WatchMe WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7339DE57277DD538008B20DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7339DE56277DD538008B20DD /* ContentView.swift */; };
 		7339DE59277DD538008B20DD /* WatchMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7339DE58277DD538008B20DD /* WatchMeApp.swift */; };
 		7339DE5B277DD538008B20DD /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7339DE5A277DD538008B20DD /* ComplicationController.swift */; };
 		7339DE5D277DD539008B20DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE5C277DD539008B20DD /* Assets.xcassets */; };
 		7339DE60277DD539008B20DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7339DE5F277DD539008B20DD /* Preview Assets.xcassets */; };
-		7339DE74277DD85C008B20DD /* Datum in Frameworks */ = {isa = PBXBuildFile; productRef = 7339DE73277DD85C008B20DD /* Datum */; };
-		7354DAAA277DD9E7007AC8FB /* Nav in Frameworks */ = {isa = PBXBuildFile; productRef = 7354DAA9277DD9E7007AC8FB /* Nav */; };
-		7354DAAC277DD9EA007AC8FB /* Style in Frameworks */ = {isa = PBXBuildFile; productRef = 7354DAAB277DD9EA007AC8FB /* Style */; };
+		73D9F673277E9C3A001E1C52 /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73D9F672277E9C3A001E1C52 /* Interface */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +64,6 @@
 		7339DE46277DD537008B20DD /* WatchMe WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchMe WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7339DE4B277DD538008B20DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7339DE51277DD538008B20DD /* WatchMe WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WatchMe WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7339DE56277DD538008B20DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7339DE58277DD538008B20DD /* WatchMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMeApp.swift; sourceTree = "<group>"; };
 		7339DE5A277DD538008B20DD /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		7339DE5C277DD539008B20DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,9 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7354DAAC277DD9EA007AC8FB /* Style in Frameworks */,
-				7354DAAA277DD9E7007AC8FB /* Nav in Frameworks */,
-				7339DE74277DD85C008B20DD /* Datum in Frameworks */,
+				73D9F673277E9C3A001E1C52 /* Interface in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +122,6 @@
 		7339DE55277DD538008B20DD /* WatchMe WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				7339DE56277DD538008B20DD /* ContentView.swift */,
 				7339DE58277DD538008B20DD /* WatchMeApp.swift */,
 				7339DE5A277DD538008B20DD /* ComplicationController.swift */,
 				7339DE5C277DD539008B20DD /* Assets.xcassets */,
@@ -204,9 +197,7 @@
 			);
 			name = "WatchMe WatchKit Extension";
 			packageProductDependencies = (
-				7339DE73277DD85C008B20DD /* Datum */,
-				7354DAA9277DD9E7007AC8FB /* Nav */,
-				7354DAAB277DD9EA007AC8FB /* Style */,
+				73D9F672277E9C3A001E1C52 /* Interface */,
 			);
 			productName = "WatchMe WatchKit Extension";
 			productReference = 7339DE51277DD538008B20DD /* WatchMe WatchKit Extension.appex */;
@@ -285,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7339DE57277DD538008B20DD /* ContentView.swift in Sources */,
 				7339DE59277DD538008B20DD /* WatchMeApp.swift in Sources */,
 				7339DE5B277DD538008B20DD /* ComplicationController.swift in Sources */,
 			);
@@ -603,17 +593,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7339DE73277DD85C008B20DD /* Datum */ = {
+		73D9F672277E9C3A001E1C52 /* Interface */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Datum;
-		};
-		7354DAA9277DD9E7007AC8FB /* Nav */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Nav;
-		};
-		7354DAAB277DD9EA007AC8FB /* Style */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Style;
+			productName = Interface;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
