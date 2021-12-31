@@ -23,15 +23,39 @@ import Datum
 
 internal struct VesselEdit: View {
     
+    @Binding var nav: Nav
     @ReminderVesselQuery var vessel: ReminderVessel
     
-    internal init(uuid: String, controller: AnyController) {
+    internal init(uuid: String, nav: Binding<Nav>, controller: AnyController) {
+        _nav = nav
         _vessel = ReminderVesselQuery(uuid: uuid, controller: controller)
     }
     
     internal var body: some View {
-        VStack {
-            Text(self.vessel.displayName ?? "-1")
+        Form {
+            Section(header: Text("Photo")) {
+                switch self.vessel.icon {
+                case .none:
+                    Text("Nothing")
+                case .emoji(let emoji):
+                    Text(emoji)
+                case .image(let image):
+                    Image(uiImage: image)
+                }
+            }
+            Section(header: Text("Name")) {
+                TextField("Plant Name", text: self.$vessel.displayName ?? "-1")
+            }
+            Section(header: Text("Reminders")) {
+                Text("// TODO: Coming Soon")
+            }
+            Section(header: Text("Siri Shortcut")) {
+                Text("// TODO: Coming Soon")
+            }
+        }
+        .navigationTitle("Edit Plant")
+        .toolbar {
+            Button("Done") { self.nav = .list(.none) }
         }
     }
 }
@@ -44,7 +68,7 @@ extension VesselEdit {
         func body(content: Content) -> some View {
             content
                 .sheet(isPresented: Binding(get: { true }, set: { _ in self.nav = .list(.none) }), onDismiss: nil) {
-                    VesselEdit(uuid: self.uuid, controller: self.controller)
+                    VesselEdit(uuid: self.uuid, nav: self.$nav, controller: self.controller)
                 }
         }
     }

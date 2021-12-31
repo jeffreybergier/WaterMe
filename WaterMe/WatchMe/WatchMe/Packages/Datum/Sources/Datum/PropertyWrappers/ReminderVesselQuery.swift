@@ -45,7 +45,12 @@ public struct ReminderVesselQuery: DynamicProperty {
     public var projectedValue: Binding<ReminderVessel> {
         Binding(
             get: { self.wrappedValue },
-            set: { _ in } // TODO: Do something
+            set: { newValue in // TODO: Do something
+                self.cd_reminderVessel.raw_displayName = newValue.displayName
+                self.cd_reminderVessel.raw_kindString = newValue.kind.rawValue
+                // TODO: Finish values
+                try! self.context.save()
+            }
         )
     }
 }
