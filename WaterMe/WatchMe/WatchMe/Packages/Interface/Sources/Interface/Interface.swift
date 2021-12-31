@@ -49,11 +49,12 @@ public struct Interface: View {
                 Text("// TODO: Watering")
             case .summary: // show reminder summary screen
                 Text("// TODO: Summary")
-            case .plant(let id): // show plant edit screen
+            case .plant(let uuid): // show plant edit screen
                 ReminderList(nav: self.$nav)
-                    .modifier(VesselEdit.Pres(vesselID: id, nav: self.$nav))
-            case .reminder: // show reminder edit screen
-                Text("// TODO: Reminder Edit")
+                    .modifier(VesselEdit.Pres(uuid: uuid, nav: self.$nav))
+            case .reminder(let uuid): // show reminder edit screen
+                ReminderList(nav: self.$nav)
+                    .modifier(ReminderEdit.Pres(uuid: uuid, nav: self.$nav))
             case .settings: // show settings screen
                 Text("// TODO: Settings")
             case .error: // show an error

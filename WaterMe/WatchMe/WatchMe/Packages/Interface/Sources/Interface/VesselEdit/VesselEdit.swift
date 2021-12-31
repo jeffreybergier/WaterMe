@@ -25,8 +25,8 @@ internal struct VesselEdit: View {
     
     @ReminderVesselQuery var vessel: ReminderVessel
     
-    internal init(vesselID: String, controller: AnyController) {
-        _vessel = ReminderVesselQuery(uuid: vesselID, controller: controller)
+    internal init(uuid: String, controller: AnyController) {
+        _vessel = ReminderVesselQuery(uuid: uuid, controller: controller)
     }
     
     internal var body: some View {
@@ -38,13 +38,13 @@ internal struct VesselEdit: View {
 
 extension VesselEdit {
     internal struct Pres: ViewModifier {
-        let vesselID: String
+        let uuid: String
         @Binding var nav: Nav
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
                 .sheet(isPresented: Binding(get: { true }, set: { _ in self.nav = .list(.none) }), onDismiss: nil) {
-                    VesselEdit(vesselID: self.vesselID, controller: self.controller)
+                    VesselEdit(uuid: self.uuid, controller: self.controller)
                 }
         }
     }

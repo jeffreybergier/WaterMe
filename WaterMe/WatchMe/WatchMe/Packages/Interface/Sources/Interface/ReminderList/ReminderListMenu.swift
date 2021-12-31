@@ -33,7 +33,7 @@ extension ReminderList {
                                     isPresented: Binding { true } set: { _ in self.nav = .list(.none) },
                                     titleVisibility: .hidden)
             {
-                Button   { self.nav = .list(.reminder(_reminder)) }
+                Button   { self.nav = .list(.reminder(self.reminder.id)) }
                   label: { Text("Edit Reminder") }
                 Button   { self.nav = .list(.plant(reminder.vesselID!)) }
                   label: { Text("Edit Plant") }
