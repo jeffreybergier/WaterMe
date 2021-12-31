@@ -33,7 +33,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(path: "../Nav"),
         .package(path: "../Datum")
     ],
     targets: [
@@ -42,7 +41,6 @@ let package = Package(
         .target(
             name: "Interface",
             dependencies: [
-                .byNameItem(name: "Nav", condition: nil),
                 .byNameItem(name: "Datum", condition: nil)
             ]),
         .testTarget(

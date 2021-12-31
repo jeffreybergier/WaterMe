@@ -19,9 +19,11 @@
 //
 
 public enum Nav {
-    case reminderList(ReminderList)
+    case list(ReminderList)
     public enum ReminderList {
         case none
+        case menu
+        case watering
         case summary
         case reminder
         case plant

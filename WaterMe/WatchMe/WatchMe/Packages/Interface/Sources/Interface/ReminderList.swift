@@ -23,11 +23,14 @@ import Datum
 
 internal struct ReminderList: View {
     
+    @Binding var nav: Nav
     @ReminderQuery_tmp private var data
     
     internal var body: some View {
-        List(self.data) {
-            Cell(reminder: $0)
+        List(self.data) { item in
+            Button(action: { self.nav = .list(.menu) }) {
+                Cell(reminder: item)
+            }
         }
     }
 }

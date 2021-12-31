@@ -19,12 +19,11 @@
 //
 
 import SwiftUI
-import Nav
 import Datum
 
 public struct Interface: View {
 
-    @State private var nav = Nav.reminderList(.none)
+    @State private var nav = Nav.list(.none)
     @StateObject private var controller = try! CD_Controller(kind: .local)
     
     public init() {}
@@ -39,10 +38,15 @@ public struct Interface: View {
 
     @ViewBuilder private func render() -> some View {
         switch self.nav {
-        case .reminderList(let presentation):
+        case .list(let presentation):
             switch presentation {
             case .none: // Show main screen
-                ReminderList()
+                ReminderList(nav: self.$nav)
+            case .menu: // Show the menu
+                ReminderList(nav: self.$nav)
+                    .modifier(ReminderList.Menu(nav: self.$nav))
+            case .watering:
+                Text("// TODO: Watering")
             case .summary: // show reminder summary screen
                 Text("// TODO: Summary")
             case .plant: // show plant edit screen
