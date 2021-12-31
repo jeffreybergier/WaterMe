@@ -27,7 +27,7 @@ internal struct ReminderList: View {
     
     internal var body: some View {
         List(self.data) {
-            Text($0.note.wrappedValue ?? "-1")
+            Cell(reminder: $0)
         }
     }
 }
