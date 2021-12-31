@@ -27,7 +27,9 @@ extension ReminderList {
         @Binding var reminder: Reminder
         
         internal var body: some View {
-            Text(self.reminder.note ?? "-1")
+            VStack {
+                Text(self.reminder.vessel?.displayName ?? "-1")
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ public struct Reminder: Identifiable, Hashable {
     public var note: String?
     public var nextPerformDate: Date?
     public var lastPerformDate: Date?
-//    public var vessel: ReminderVessel? { get }
+    public var vessel: ReminderVessel?
 }
 
 extension Reminder {
@@ -40,5 +40,6 @@ extension Reminder {
         self.note = cd.raw_note
         self.nextPerformDate = cd.raw_nextPerformDate
         self.lastPerformDate = cd.raw_lastPerformDate
+        self.vessel = ReminderVessel(cd: cd.raw_vessel)
     }
 }
