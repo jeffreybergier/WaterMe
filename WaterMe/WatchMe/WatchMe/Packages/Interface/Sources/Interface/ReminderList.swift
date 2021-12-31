@@ -19,8 +19,12 @@
 //
 
 import SwiftUI
+import Datum
 
 internal struct ReminderList: View {
+    
+    @ReminderQuery_tmp private var data
+    
     internal var body: some View {
         Text("ReminderList")
     }

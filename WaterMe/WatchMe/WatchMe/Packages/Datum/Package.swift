@@ -24,7 +24,7 @@ import PackageDescription
 
 let package = Package(
     name: "Datum",
-    platforms: [.iOS(.v10), .macOS(.v10_12), .watchOS(.v3)],
+    platforms: [.iOS(.v13), .macOS(.v10_15), .watchOS(.v6)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(

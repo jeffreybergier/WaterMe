@@ -102,3 +102,17 @@ extension CD_Reminder {
         }
     }
 }
+
+extension CD_Reminder {
+    internal var kind: ReminderKind {
+        get {
+            return .init(rawValue: (self.raw_kindString ?? ReminderKind.kCaseWaterValue,
+                                    self.raw_descriptionString))
+        }
+        set {
+            let raw = newValue.rawValue
+            self.raw_kindString = raw.primary
+            self.raw_descriptionString = raw.secondary
+        }
+    }
+}
