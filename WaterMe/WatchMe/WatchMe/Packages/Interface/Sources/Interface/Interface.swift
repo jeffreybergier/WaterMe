@@ -23,7 +23,7 @@ import Datum
 
 public struct Interface: View {
 
-    @State private var nav = Nav.list(.none)
+    @State private var nav = Navigation.list(.none)
     @StateObject private var controller = NewController(of: .local)!
     
     public init() {}

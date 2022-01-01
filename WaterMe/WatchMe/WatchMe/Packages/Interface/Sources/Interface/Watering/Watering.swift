@@ -23,7 +23,7 @@ import Datum
 
 internal struct Watering: View {
     
-    @Binding var nav: Nav
+    @Binding var nav: Navigation
     
     internal var body: some View {
         Text("// TODO: Video")
@@ -36,7 +36,7 @@ internal struct Watering: View {
 
 extension Watering {
     internal struct Pres: ViewModifier {
-        @Binding var nav: Nav
+        @Binding var nav: Navigation
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content

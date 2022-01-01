@@ -23,11 +23,11 @@ import Datum
 
 internal struct VesselEdit: View {
     
-    @Binding var nav: Nav
+    @Binding var nav: Navigation
     @VesselEditQuery var vessel: Vessel
     @VesselEditReminderQuery var reminders: AnyRandomAccessCollection<Binding<Reminder>>
     
-    internal init(uuid: String, nav: Binding<Nav>, controller: AnyController) {
+    internal init(uuid: String, nav: Binding<Navigation>, controller: AnyController) {
         _nav = nav
         _vessel = VesselEditQuery(uuid: uuid, controller: controller)
         _reminders = VesselEditReminderQuery(uuid: uuid, controller: controller)
@@ -68,7 +68,7 @@ internal struct VesselEdit: View {
 extension VesselEdit {
     internal struct Pres: ViewModifier {
         let uuid: String
-        @Binding var nav: Nav
+        @Binding var nav: Navigation
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content

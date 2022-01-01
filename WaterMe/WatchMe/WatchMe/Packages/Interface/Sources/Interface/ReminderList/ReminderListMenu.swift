@@ -25,7 +25,7 @@ extension ReminderList {
     internal struct Menu: ViewModifier {
         
         let uuid: String
-        @Binding var nav: Nav
+        @Binding var nav: Navigation
         
         func body(content: Content) -> some View {
             content
