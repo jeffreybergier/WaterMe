@@ -24,24 +24,23 @@ import Datum
 extension ReminderList {
     internal struct Menu: ViewModifier {
         
-        let uuid: String
         @Nav private var nav
 
         func body(content: Content) -> some View {
             content
-                .confirmationDialog("Hello",
-                                    isPresented: Binding { true } set: { _ in self.nav = .list(.none) },
-                                    titleVisibility: .hidden)
-            {
-                Button   { self.nav = .list(.reminder(self.uuid)) }
+                .confirmationDialog("// TODO: FixMe",
+                                    isPresented: self.$nav.isMenu,
+                                    presenting: self.nav.isMenuData)
+            { uuid in
+                Button   { self.nav = .init(.list(.reminder(uuid))) }
                   label: { Text("Edit Reminder") }
-                Button   { self.nav = .list(.plant("FIX ME!")) }
+                Button   { self.nav = .init(.list(.plant("FIX ME!"))) }
                   label: { Text("Edit Plant") }
-                Button   { self.nav = .list(.summary(self.uuid)) }
+                Button   { self.nav = .init(.list(.summary(uuid))) }
                   label: { Text("View Summary") }
-                Button { self.nav = .list(.watering) }
+                Button { self.nav = .init(.list(.watering)) }
                   label: { Text("Mark as Done") }
-                Button { self.nav = .list(.none) }
+                Button { self.nav = .init(.list(.none)) }
                   label: { Text("Dismiss") }
             }
         }

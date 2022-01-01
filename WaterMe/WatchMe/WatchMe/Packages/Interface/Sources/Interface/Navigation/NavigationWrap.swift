@@ -20,7 +20,9 @@
 
 extension Navigation {
     internal struct Wrap {
-        internal var isMenu: String?
+        internal var value: Navigation
+        internal var isMenu: Bool = false
+        internal var isMenuData: String? // TODO: Hack for confirmationDialog
         internal var isWatering: Bool = false
         internal var isSummary: String?
         internal var isReminder: String?
@@ -29,13 +31,15 @@ extension Navigation {
         internal var isError: Bool = false
         
         internal init(_ nav: Navigation) {
+            self.value = nav
             switch nav {
             case .list(let next):
                 switch next {
                 case .none:
                     break
                 case .menu(let v):
-                    self.isMenu = v
+                    self.isMenu = true
+                    self.isMenuData = v
                 case .watering:
                     self.isWatering = true
                 case .summary(let v):

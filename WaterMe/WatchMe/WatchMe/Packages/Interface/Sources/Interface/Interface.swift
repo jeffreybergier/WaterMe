@@ -37,30 +37,11 @@ public struct Interface: View {
     }
 
     @ViewBuilder private func render() -> some View {
-        switch self.nav {
-        case .list(let presentation):
-            switch presentation {
-            case .none: // Show main screen
-                ReminderList()
-            case .menu(let uuid): // Show the menu
-                ReminderList()
-                    .modifier(ReminderList.Menu(uuid: uuid))
-            case .watering:
-                ReminderList()
-                    .modifier(Watering.Pres())
-            case .summary: // show reminder summary screen
-                Text("// TODO: Summary")
-            case .plant(let uuid): // show plant edit screen
-                ReminderList()
-                    .modifier(VesselEdit.Pres(uuid: uuid))
-            case .reminder(let uuid): // show reminder edit screen
-                ReminderList()
-                    .modifier(ReminderEdit.Pres(uuid: uuid))
-            case .settings: // show settings screen
-                Text("// TODO: Settings")
-            case .error: // show an error
-                Text("// TODO: Error")
-            }
-        }
+        // TODO: Summary, Settings, Error
+        ReminderList()
+            .modifier(ReminderList.Menu())
+            .modifier(Watering.Pres())
+            .modifier(VesselEdit.Pres())
+            .modifier(ReminderEdit.Pres())
     }
 }

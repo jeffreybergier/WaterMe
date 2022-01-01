@@ -28,17 +28,28 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     )
 }
 
+// TODO: Move this
+extension String: Identifiable {
+    public var id: String {
+        return self
+    }
+}
+
 @propertyWrapper
 internal struct Nav: DynamicProperty {
 
     @SceneStorage("Navigation") private var nav: Navigation = .list(.none)
 
-    internal var wrappedValue: Navigation {
-        get { self.nav }
-        nonmutating set { self.nav = newValue }
+    internal var wrappedValue: Navigation.Wrap {
+        get { .init(self.nav) }
+        nonmutating set { self.nav = newValue.value }
     }
     
-    internal var projectedValue: Binding<Navigation> {
-        self.$nav
+    internal var projectedValue: Binding<Navigation.Wrap> {
+        Binding {
+            self.wrappedValue
+        } set: { newValue in
+            self.nav = newValue.value
+        }
     }
 }

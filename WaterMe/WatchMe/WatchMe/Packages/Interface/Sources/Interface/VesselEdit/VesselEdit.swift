@@ -49,7 +49,7 @@ internal struct VesselEdit: View {
             }
             Section(header: Text("Reminders")) {
                 List(self.reminders) { item in
-                    Button   { self.nav = .list(.reminder(item.id)) }
+                    Button   { self.nav = .init(.list(.reminder(item.id))) }
                       label: { Text(item.wrappedValue.note ?? "-1") }
                 }
             }
@@ -59,7 +59,7 @@ internal struct VesselEdit: View {
         }
         .navigationTitle("Edit Plant")
         .toolbar {
-            Button("Done") { self.nav = .list(.none) }
+            Button("Done") { self.nav = .init(.list(.none)) }
         }
     }
 }
@@ -67,12 +67,11 @@ internal struct VesselEdit: View {
 extension VesselEdit {
     internal struct Pres: ViewModifier {
         @Nav private var nav
-        let uuid: String
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(isPresented: Binding(get: { true }, set: { _ in self.nav = .list(.none) }), onDismiss: nil) {
-                    VesselEdit(uuid: self.uuid, controller: self.controller)
+                .sheet(item: self.$nav.isPlant, onDismiss: { self.nav = .init(.list(.none)) }) { uuid in
+                    VesselEdit(uuid: uuid, controller: self.controller)
                 }
         }
     }
