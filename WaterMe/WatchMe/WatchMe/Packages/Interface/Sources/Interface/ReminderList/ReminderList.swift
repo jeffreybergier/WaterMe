@@ -28,9 +28,14 @@ internal struct ReminderList: View {
     @EnvironmentObject private var controller: AnyController
     
     internal var body: some View {
-        List(self.data) { item in
-            Button(action: { self.nav = .list(.menu(item)) }) {
-                Cell(reminder: item, controller: self.controller)
+        VStack {
+            List(self.data) { item in
+                Button(action: { self.nav = .list(.menu(item)) }) {
+                    Cell(reminder: item, controller: self.controller)
+                }
+            }
+            Button(action: { self.nav = .list(.watering) }) {
+                Text("Add")
             }
         }
     }

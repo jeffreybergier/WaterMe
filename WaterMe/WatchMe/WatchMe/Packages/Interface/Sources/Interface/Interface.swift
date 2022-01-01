@@ -46,7 +46,8 @@ public struct Interface: View {
                 ReminderList(nav: self.$nav)
                     .modifier(ReminderList.Menu(nav: self.$nav, reminder: reminder))
             case .watering:
-                Text("// TODO: Watering")
+                ReminderList(nav: self.$nav)
+                    .modifier(Watering.Pres(nav: self.$nav))
             case .summary: // show reminder summary screen
                 Text("// TODO: Summary")
             case .plant(let uuid): // show plant edit screen

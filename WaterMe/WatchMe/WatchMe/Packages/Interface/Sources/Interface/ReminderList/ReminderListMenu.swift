@@ -39,7 +39,7 @@ extension ReminderList {
                   label: { Text("Edit Plant") }
                 Button   { self.nav = .list(.summary(_reminder)) }
                   label: { Text("View Summary") }
-                Button { self.nav = .list(.watering(_reminder)) }
+                Button { self.nav = .list(.watering) }
                   label: { Text("Mark as Done") }
                 Button { self.nav = .list(.none) }
                   label: { Text("Dismiss") }

@@ -34,7 +34,7 @@ internal enum Nav {
     internal enum ReminderList {
         case none
         case menu(Binding<Reminder>)
-        case watering(Binding<Reminder>)
+        case watering
         case summary(Binding<Reminder>)
         case reminder(String)
         case plant(String)
