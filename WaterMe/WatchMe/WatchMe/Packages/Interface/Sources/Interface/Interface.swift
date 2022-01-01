@@ -40,8 +40,44 @@ public struct Interface: View {
         // TODO: Summary, Settings, Error
         ReminderList()
             .modifier(ReminderList.Menu())
-            .modifier(Watering.Pres())
-            .modifier(VesselEdit.Pres())
-            .modifier(ReminderEdit.Pres())
+            .modifier(ListToReminderEdit())
+            .modifier(ListToVesselEdit())
+            .modifier(ListToWatering())
     }
 }
+
+extension Interface {
+    private struct ListToReminderEdit: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isReminder) { uuid in
+                    ReminderEdit(id: uuid, controller: self.controller)
+                }
+        }
+    }
+
+    private struct ListToVesselEdit: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isVessel) { input in
+                    VesselEdit(id: input.id, controller: self.controller)
+                }
+        }
+    }
+
+    private struct ListToWatering: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(isPresented: self.$nav.isWatering) {
+                    Watering()
+                }
+        }
+    }
+}
+

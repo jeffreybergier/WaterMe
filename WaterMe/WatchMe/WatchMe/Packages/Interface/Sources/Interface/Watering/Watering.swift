@@ -33,16 +33,3 @@ internal struct Watering: View {
         }
     }
 }
-
-extension Watering {
-    internal struct Pres: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(isPresented: self.$nav.isWatering) {
-                    Watering()
-                }
-        }
-    }
-}

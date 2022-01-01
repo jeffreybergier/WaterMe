@@ -64,16 +64,3 @@ internal struct VesselEdit: View {
         // TODO: Add sheet here for reminder presentation
     }
 }
-
-extension VesselEdit {
-    internal struct Pres: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isVessel) { input in
-                    VesselEdit(id: input.id, controller: self.controller)
-                }
-        }
-    }
-}

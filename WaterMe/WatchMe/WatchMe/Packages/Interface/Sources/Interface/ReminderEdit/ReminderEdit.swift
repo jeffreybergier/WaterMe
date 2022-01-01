@@ -77,16 +77,3 @@ internal struct ReminderEdit: View {
         }
     }
 }
-
-extension ReminderEdit {
-    internal struct Pres: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isReminder) { uuid in
-                    ReminderEdit(id: uuid, controller: self.controller)
-                }
-        }
-    }
-}
