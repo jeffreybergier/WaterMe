@@ -29,9 +29,25 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     )
 }
 
-internal enum Nav: Hashable {
+internal enum Nav: RawRepresentable, Codable {
     case list(ReminderList)
-    internal enum ReminderList: Hashable {
+    // MARK: RawRepresentable
+    init(rawValue: String) {
+        guard
+            let data = rawValue.data(using: .utf8),
+            let result = try? PropertyListDecoder().decode(Nav.self, from: data)
+        else { self = .list(.none); return; }
+        self = result
+    }
+    var rawValue: String {
+        guard
+            let data = try? PropertyListEncoder().encode(self),
+            let result = String(data: data, encoding: .utf8)
+        else { return "" }
+        return result
+    }
+    
+    internal enum ReminderList: RawRepresentable, Codable {
         case none
         case menu(String)
         case watering
@@ -40,5 +56,36 @@ internal enum Nav: Hashable {
         case plant(String)
         case settings
         case error
+        
+        // MARK: RawRepresentable
+        init(rawValue: String) {
+            guard
+                let data = rawValue.data(using: .utf8),
+                let result = try? PropertyListDecoder().decode(ReminderList.self, from: data)
+            else { self = .none; return; }
+            self = result
+        }
+        var rawValue: String {
+            guard
+                let data = try? PropertyListEncoder().encode(self),
+                let result = String(data: data, encoding: .utf8)
+            else { return "" }
+            return result
+        }
+    }
+}
+
+@propertyWrapper
+internal struct Navigation: DynamicProperty {
+
+    @SceneStorage("Navigation") private var nav: Nav = .list(.none)
+
+    internal var wrappedValue: Nav {
+        get { self.nav }
+        nonmutating set { self.nav = newValue }
+    }
+    
+    internal var projectedValue: Binding<Nav> {
+        self.$nav
     }
 }
