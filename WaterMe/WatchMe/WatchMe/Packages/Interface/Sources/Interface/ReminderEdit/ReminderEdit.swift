@@ -25,8 +25,8 @@ internal struct ReminderEdit: View {
     
     @ReminderEditQuery var reminder: Reminder
     
-    internal init(uuid: String, controller: AnyController) {
-        _reminder = ReminderEditQuery(uuid: uuid, controller: controller)
+    internal init(id: Reminder.アイディ, controller: AnyController) {
+        _reminder = ReminderEditQuery(id: id, controller: controller)
     }
     
     internal var body: some View {
@@ -43,7 +43,7 @@ extension ReminderEdit {
         func body(content: Content) -> some View {
             content
                 .sheet(item: self.$nav.isReminder, onDismiss: { self.nav = .init(.list(.none)) }) { uuid in
-                    ReminderEdit(uuid: uuid, controller: self.controller)
+                    ReminderEdit(id: uuid, controller: self.controller)
                 }
         }
     }

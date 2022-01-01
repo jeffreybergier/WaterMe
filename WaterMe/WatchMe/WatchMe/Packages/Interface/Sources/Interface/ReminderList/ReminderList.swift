@@ -30,7 +30,7 @@ internal struct ReminderList: View {
     internal var body: some View {
         VStack {
             List(self.data) { item in
-                Button(action: { self.nav = .init(.list(.menu(.init(item.wrappedValue.id, item.wrappedValue.vesselID!)))) }) {
+                Button(action: { self.nav = .init(.list(.menu(.init(item)))) }) {
                     Cell(reminder: item, controller: self.controller)
                 }
             }

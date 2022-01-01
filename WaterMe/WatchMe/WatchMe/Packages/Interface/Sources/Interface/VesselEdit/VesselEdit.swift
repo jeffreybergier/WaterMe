@@ -27,9 +27,9 @@ internal struct VesselEdit: View {
     @VesselEditQuery var vessel: Vessel
     @VesselEditReminderQuery var reminders: AnyRandomAccessCollection<Binding<Reminder>>
     
-    internal init(uuid: String, controller: AnyController) {
-        _vessel = VesselEditQuery(uuid: uuid, controller: controller)
-        _reminders = VesselEditReminderQuery(uuid: uuid, controller: controller)
+    internal init(id: Vessel.アイディ, controller: AnyController) {
+        _vessel = VesselEditQuery(id: id, controller: controller)
+        _reminders = VesselEditReminderQuery(id: id, controller: controller)
     }
     
     internal var body: some View {
@@ -70,8 +70,8 @@ extension VesselEdit {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isPlant, onDismiss: { self.nav = .init(.list(.none)) }) { uuid in
-                    VesselEdit(uuid: uuid, controller: self.controller)
+                .sheet(item: self.$nav.isPlant, onDismiss: { self.nav = .init(.list(.none)) }) { id in
+                    VesselEdit(id: id, controller: self.controller)
                 }
         }
     }

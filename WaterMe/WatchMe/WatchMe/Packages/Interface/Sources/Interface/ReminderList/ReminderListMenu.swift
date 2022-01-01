@@ -31,18 +31,34 @@ extension ReminderList {
                 .confirmationDialog("// TODO: FixMe",
                                     isPresented: self.$nav.isMenu,
                                     presenting: self.nav.isMenuData)
-            { box in
-                Button   { self.nav = .init(.list(.reminder(box.a))) }
+            { input in
+                Button   { self.nav = .init(.list(.reminder(input.reminder))) }
                   label: { Text("Edit Reminder") }
-                Button   { self.nav = .init(.list(.plant(box.b))) }
+                Button   { self.nav = .init(.list(.plant(input.vessel))) }
                   label: { Text("Edit Plant") }
-                Button   { self.nav = .init(.list(.summary(box.a))) }
+                Button   { self.nav = .init(.list(.summary(input.reminder))) }
                   label: { Text("View Summary") }
                 Button { self.nav = .init(.list(.watering)) }
                   label: { Text("Mark as Done") }
                 Button { self.nav = .init(.list(.none)) }
                   label: { Text("Dismiss") }
             }
+        }
+    }
+}
+
+extension ReminderList.Menu {
+    
+    internal struct Input: Codable {
+        internal var reminder: Reminder.アイディ
+        internal var vessel: Vessel.アイディ
+        init(_ input: Binding<Reminder>) {
+            self.reminder = input.wrappedValue.id
+            self.vessel = input.wrappedValue.vesselID!
+        }
+        init(_ input: Reminder) {
+            self.reminder = input.id
+            self.vessel = input.vesselID!
         }
     }
 }

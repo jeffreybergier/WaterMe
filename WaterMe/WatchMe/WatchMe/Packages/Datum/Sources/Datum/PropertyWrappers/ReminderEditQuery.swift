@@ -27,15 +27,15 @@ public struct ReminderEditQuery: DynamicProperty {
     @ObservedObject private var cd_reminder: CD_Reminder
     
     // TODO: Move controller into the environment
-    public init(uuid: String, controller: AnyController) {
+    public init(id: Reminder.アイディ, controller: AnyController) {
         let controller = controller.wrapped as! CD_Controller
-        let id = controller.container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: uuid)!)!
+        let id = controller.container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: id.id)!)!
         let cd_reminder = controller.container.viewContext.object(with: id) as! CD_Reminder
         _cd_reminder = .init(initialValue: cd_reminder)
     }
     
     public init(_ reminder: Reminder, controller: AnyController) {
-        self.init(uuid: reminder.vesselID!, controller: controller)
+        self.init(id: reminder.id, controller: controller)
     }
     
     public var wrappedValue: Reminder {

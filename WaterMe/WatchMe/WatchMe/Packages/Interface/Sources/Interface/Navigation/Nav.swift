@@ -28,13 +28,6 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     )
 }
 
-// TODO: Move this
-extension String: Identifiable {
-    public var id: String {
-        return self
-    }
-}
-
 @propertyWrapper
 internal struct Nav: DynamicProperty {
 

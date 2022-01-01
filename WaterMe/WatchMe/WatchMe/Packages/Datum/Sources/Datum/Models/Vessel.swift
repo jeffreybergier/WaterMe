@@ -19,7 +19,7 @@
 //
 
 public struct Vessel: Hashable, Identifiable {
-    public var id: String
+    public var id: アイディ
     public var displayName: String?
     public var icon: VesselIcon?
     public var kind: VesselKind
@@ -31,7 +31,7 @@ public struct Vessel: Hashable, Identifiable {
 
 extension Vessel {
     internal init(cd: CD_ReminderVessel) {
-        self.id = cd.objectID.uriRepresentation().absoluteString
+        self.id = .init(cd.objectID.uriRepresentation().absoluteString)
         self.displayName = cd.raw_displayName
         self.icon = .init(rawImageData: cd.raw_iconImageData, emojiString: cd.raw_iconEmojiString)
         self.kind = .init(rawValue: cd.raw_kindString ?? "-1") ?? .plant
@@ -41,7 +41,16 @@ extension Vessel {
         self.init(cd: cd)
     }
     internal init() {
-        self.id = "FALSE"
+        self.id = .init("FALSE")
         self.kind = .plant
+    }
+}
+
+extension Vessel {
+    public struct アイディ: Codable, Identifiable, Hashable {
+        public var id: String
+        public init(_ id: String) {
+            self.id = id
+        }
     }
 }

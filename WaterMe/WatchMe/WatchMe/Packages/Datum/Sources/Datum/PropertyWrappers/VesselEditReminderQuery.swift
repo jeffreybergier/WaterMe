@@ -26,9 +26,9 @@ public struct VesselEditReminderQuery: DynamicProperty {
     @FetchRequest private var data: FetchedResults<CD_Reminder>
     @Environment(\.managedObjectContext) private var context
     
-    public init(uuid: String, controller: AnyController) {
+    public init(id: Vessel.アイディ, controller: AnyController) {
         let controller = controller.wrapped as! CD_Controller
-        let id = controller.container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: uuid)!)!
+        let id = controller.container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: id.id)!)!
         let sort = NSSortDescriptor(keyPath: \CD_Reminder.raw_dateCreated, ascending: true)
         let pred = NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel), id)
         let fr = FetchRequest<CD_Reminder>(sortDescriptors: [sort],

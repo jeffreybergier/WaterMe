@@ -18,15 +18,17 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Datum
+
 extension Navigation {
     internal struct Wrap {
         internal var value: Navigation
         internal var isMenu: Bool = false
-        internal var isMenuData: Box<String, String>? // TODO: Hack for confirmationDialog
+        internal var isMenuData: ReminderList.Menu.Input? // TODO: Hack for confirmationDialog
         internal var isWatering: Bool = false
-        internal var isSummary: String?
-        internal var isReminder: String?
-        internal var isPlant: String?
+        internal var isSummary: Reminder.アイディ?
+        internal var isReminder: Reminder.アイディ?
+        internal var isPlant: Vessel.アイディ?
         internal var isSettings: Bool = false
         internal var isError: Bool = false
         

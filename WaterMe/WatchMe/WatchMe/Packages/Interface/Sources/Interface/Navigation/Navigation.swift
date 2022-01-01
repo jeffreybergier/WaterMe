@@ -18,31 +18,21 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Datum
 
 internal enum Navigation: Codable {
-    case list(ReminderList)
+    case list(List)
 }
 
 extension Navigation {
-    internal enum ReminderList: Codable {
+    internal enum List: Codable {
         case none
-        case menu(Box<String, String>)
+        case menu(ReminderList.Menu.Input)
         case watering
-        case summary(String)
-        case reminder(String)
-        case plant(String)
+        case summary(Reminder.アイディ)
+        case reminder(Reminder.アイディ)
+        case plant(Vessel.アイディ)
         case settings
         case error
     }
 }
-
-internal struct Box<A, B> {
-    internal var a: A
-    internal var b: B
-    internal init(_ a: A, _ b: B) {
-        self.a = a
-        self.b = b
-    }
- }
-
-extension Box: Codable where A: Codable, B: Codable {}

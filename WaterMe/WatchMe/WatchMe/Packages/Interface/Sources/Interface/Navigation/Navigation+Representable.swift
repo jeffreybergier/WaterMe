@@ -37,11 +37,11 @@ extension Navigation: RawRepresentable {
     }
 }
 
-extension Navigation.ReminderList {
+extension Navigation.List {
     init(rawValue: String) {
         guard
             let data = rawValue.data(using: .utf8),
-            let result = try? PropertyListDecoder().decode(Navigation.ReminderList.self, from: data)
+            let result = try? PropertyListDecoder().decode(Navigation.List.self, from: data)
         else { self = .none; return; }
         self = result
     }
