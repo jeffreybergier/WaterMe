@@ -46,19 +46,3 @@ extension ReminderList {
         }
     }
 }
-
-extension ReminderList.Menu {
-    
-    internal struct Input: Codable {
-        internal var reminder: Reminder.アイディ
-        internal var vessel: Vessel.アイディ
-        init(_ input: Binding<Reminder>) {
-            self.reminder = input.wrappedValue.id
-            self.vessel = input.wrappedValue.vesselID!
-        }
-        init(_ input: Reminder) {
-            self.reminder = input.id
-            self.vessel = input.vesselID!
-        }
-    }
-}

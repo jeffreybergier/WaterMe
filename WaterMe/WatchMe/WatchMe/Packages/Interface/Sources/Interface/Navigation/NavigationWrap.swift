@@ -24,11 +24,11 @@ extension Navigation {
     internal struct Wrap {
         internal var value: Navigation
         internal var isMenu: Bool = false
-        internal var isMenuData: ReminderList.Menu.Input? // TODO: Hack for confirmationDialog
+        internal var isMenuData: List.MenuInput?
         internal var isWatering: Bool = false
         internal var isSummary: Reminder.アイディ?
         internal var isReminder: Reminder.アイディ?
-        internal var isVessel: VesselEdit.Input?
+        internal var isVessel: List.VesselEditInput?
         internal var isSettings: Bool = false
         internal var isError: Bool = false
         

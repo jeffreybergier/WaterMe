@@ -18,6 +18,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import SwiftUI
 import Datum
 
 internal enum Navigation: Codable {
@@ -27,12 +28,44 @@ internal enum Navigation: Codable {
 extension Navigation {
     internal enum List: Codable {
         case none
-        case menu(ReminderList.Menu.Input)
+        case menu(MenuInput)
         case watering
         case summary(Reminder.アイディ)
         case reminder(Reminder.アイディ)
-        case vessel(VesselEdit.Input)
+        case vessel(VesselEditInput)
         case settings
         case error
+    }
+}
+
+extension Navigation.List {
+    internal struct MenuInput: Codable {
+        internal var reminder: Reminder.アイディ
+        internal var vessel: Vessel.アイディ
+        init(_ input: Binding<Reminder>) {
+            self.reminder = input.wrappedValue.id
+            self.vessel = input.wrappedValue.vesselID!
+        }
+        init(_ input: Reminder) {
+            self.reminder = input.id
+            self.vessel = input.vesselID!
+        }
+    }
+}
+
+extension Navigation.List {
+    internal struct VesselEditInput: Codable, Identifiable {
+        internal var id: Vessel.アイディ
+        internal var presentation: Presentation
+        internal init(_ id: Vessel.アイディ, _ presentation: Presentation = .none) {
+            self.id = id
+            self.presentation = presentation
+        }
+        
+        internal enum Presentation: Codable {
+            case none
+            case reminder(Reminder.アイディ)
+            case error
+        }
     }
 }

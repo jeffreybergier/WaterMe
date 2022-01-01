@@ -77,22 +77,3 @@ extension VesselEdit {
         }
     }
 }
-
-extension VesselEdit {
-    internal struct Input: Identifiable {
-        internal var id: Vessel.アイディ
-        internal var presentation: Presentation
-        internal init(_ id: Vessel.アイディ, _ presentation: Presentation = .none) {
-            self.id = id
-            self.presentation = presentation
-        }
-    }
-}
-
-extension VesselEdit.Input {
-    internal enum Presentation {        
-        case none
-        case reminder(Reminder.アイディ)
-        case error
-    }
-}
