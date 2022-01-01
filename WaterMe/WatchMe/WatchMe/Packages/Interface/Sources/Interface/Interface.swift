@@ -42,9 +42,9 @@ public struct Interface: View {
             switch presentation {
             case .none: // Show main screen
                 ReminderList(nav: self.$nav)
-            case .menu(let reminder): // Show the menu
+            case .menu(let uuid): // Show the menu
                 ReminderList(nav: self.$nav)
-                    .modifier(ReminderList.Menu(nav: self.$nav, reminder: reminder))
+                    .modifier(ReminderList.Menu(uuid: uuid, nav: self.$nav))
             case .watering:
                 ReminderList(nav: self.$nav)
                     .modifier(Watering.Pres(nav: self.$nav))

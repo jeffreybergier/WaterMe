@@ -29,13 +29,13 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     )
 }
 
-internal enum Nav {
+internal enum Nav: Hashable {
     case list(ReminderList)
-    internal enum ReminderList {
+    internal enum ReminderList: Hashable {
         case none
-        case menu(Binding<Reminder>)
+        case menu(String)
         case watering
-        case summary(Binding<Reminder>)
+        case summary(String)
         case reminder(String)
         case plant(String)
         case settings
