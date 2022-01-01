@@ -22,7 +22,7 @@ extension Navigation {
     internal struct Wrap {
         internal var value: Navigation
         internal var isMenu: Bool = false
-        internal var isMenuData: String? // TODO: Hack for confirmationDialog
+        internal var isMenuData: Box<String, String>? // TODO: Hack for confirmationDialog
         internal var isWatering: Bool = false
         internal var isSummary: String?
         internal var isReminder: String?

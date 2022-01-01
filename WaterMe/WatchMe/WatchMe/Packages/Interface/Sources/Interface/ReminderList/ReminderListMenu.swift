@@ -31,12 +31,12 @@ extension ReminderList {
                 .confirmationDialog("// TODO: FixMe",
                                     isPresented: self.$nav.isMenu,
                                     presenting: self.nav.isMenuData)
-            { uuid in
-                Button   { self.nav = .init(.list(.reminder(uuid))) }
+            { box in
+                Button   { self.nav = .init(.list(.reminder(box.a))) }
                   label: { Text("Edit Reminder") }
-                Button   { self.nav = .init(.list(.plant("FIX ME!"))) }
+                Button   { self.nav = .init(.list(.plant(box.b))) }
                   label: { Text("Edit Plant") }
-                Button   { self.nav = .init(.list(.summary(uuid))) }
+                Button   { self.nav = .init(.list(.summary(box.a))) }
                   label: { Text("View Summary") }
                 Button { self.nav = .init(.list(.watering)) }
                   label: { Text("Mark as Done") }

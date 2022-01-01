@@ -26,7 +26,7 @@ internal enum Navigation: Codable {
 extension Navigation {
     internal enum ReminderList: Codable {
         case none
-        case menu(String)
+        case menu(Box<String, String>)
         case watering
         case summary(String)
         case reminder(String)
@@ -35,3 +35,14 @@ extension Navigation {
         case error
     }
 }
+
+internal struct Box<A, B> {
+    internal var a: A
+    internal var b: B
+    internal init(_ a: A, _ b: B) {
+        self.a = a
+        self.b = b
+    }
+ }
+
+extension Box: Codable where A: Codable, B: Codable {}
