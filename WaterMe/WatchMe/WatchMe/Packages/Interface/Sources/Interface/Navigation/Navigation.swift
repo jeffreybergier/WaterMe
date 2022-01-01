@@ -21,6 +21,8 @@
 import SwiftUI
 import Datum
 
+// TODO: Rethink as tree structure
+// this is getting too complex already
 internal enum Navigation: Codable {
     case list(List)
 }
