@@ -18,18 +18,18 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct ReminderVessel: Hashable, Identifiable {
+public struct Vessel: Hashable, Identifiable {
     public var id: String
     public var displayName: String?
-    public var icon: ReminderVesselIcon?
-    public var kind: ReminderVesselKind
+    public var icon: VesselIcon?
+    public var kind: VesselKind
 //  public var isModelComplete: ModelCompleteError?
     public var shortLabelSafeDisplayName: String? {
         self.displayName?.truncated(to: 20)
     }
 }
 
-extension ReminderVessel {
+extension Vessel {
     internal init(cd: CD_ReminderVessel) {
         self.id = cd.objectID.uriRepresentation().absoluteString
         self.displayName = cd.raw_displayName

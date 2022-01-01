@@ -24,7 +24,7 @@ import Datum
 internal struct VesselEdit: View {
     
     @Binding var nav: Nav
-    @VesselEditQuery var vessel: ReminderVessel
+    @VesselEditQuery var vessel: Vessel
     
     internal init(uuid: String, nav: Binding<Nav>, controller: AnyController) {
         _nav = nav

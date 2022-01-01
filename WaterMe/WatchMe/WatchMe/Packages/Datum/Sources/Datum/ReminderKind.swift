@@ -25,7 +25,7 @@ public enum ReminderSortOrder {
     case nextPerformDate, interval, kind, note
 }
 
-public enum ReminderVesselKind: String {
+public enum VesselKind: String {
     case plant
 }
 

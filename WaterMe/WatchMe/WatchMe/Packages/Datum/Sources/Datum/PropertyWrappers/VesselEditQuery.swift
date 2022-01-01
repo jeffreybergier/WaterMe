@@ -39,10 +39,10 @@ public struct VesselEditQuery: DynamicProperty {
         self.init(uuid: reminder.vesselID!, controller: controller)
     }
     
-    public var wrappedValue: ReminderVessel {
-        ReminderVessel(cd: self.cd_reminderVessel)
+    public var wrappedValue: Vessel {
+        Vessel(cd: self.cd_reminderVessel)
     }
-    public var projectedValue: Binding<ReminderVessel> {
+    public var projectedValue: Binding<Vessel> {
         Binding(
             get: { self.wrappedValue },
             set: { newValue in // TODO: Do something

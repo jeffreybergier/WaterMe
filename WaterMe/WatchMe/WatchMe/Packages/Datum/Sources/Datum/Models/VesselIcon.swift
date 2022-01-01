@@ -1,7 +1,4 @@
 //
-//  ReminderVesselIcon.swift
-//  Pods
-//
 //  Created by Jeffrey Bergier on 6/4/17.
 //  Copyright © 2017 Saturday Apps.
 //
@@ -23,7 +20,7 @@
 
 import UIKit
 
-public enum ReminderVesselIcon: Hashable {
+public enum VesselIcon: Hashable {
     case emoji(String), image(UIImage)
 
     internal init?(rawImage: UIImage?, emojiString: String?) {
@@ -75,7 +72,7 @@ public enum ReminderVesselIcon: Hashable {
     }
 }
 
-extension ReminderVesselIcon {
+extension VesselIcon {
 
     internal init?(rawImageData: Data?, emojiString: String?) {
         if let data = rawImageData, let image = UIImage(data: data) {

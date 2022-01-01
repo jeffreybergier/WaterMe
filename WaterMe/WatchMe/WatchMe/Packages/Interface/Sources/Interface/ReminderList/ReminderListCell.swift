@@ -25,7 +25,7 @@ extension ReminderList {
     internal struct Cell: View {
         
         @Binding var reminder: Reminder
-        @VesselEditQuery var vessel: ReminderVessel
+        @VesselEditQuery var vessel: Vessel
         
         internal init(reminder: Binding<Reminder>, controller: AnyController) {
             _reminder = reminder
