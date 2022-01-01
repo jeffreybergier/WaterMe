@@ -25,6 +25,7 @@ import CoreData
 public struct ReminderEditQuery: DynamicProperty {
     
     @ObservedObject private var cd_reminder: CD_Reminder
+    @Environment(\.managedObjectContext) private var context
     
     // TODO: Move controller into the environment
     public init(id: Reminder.アイディ, controller: AnyController) {
@@ -44,7 +45,14 @@ public struct ReminderEditQuery: DynamicProperty {
     public var projectedValue: Binding<Reminder> {
         Binding(
             get: { self.wrappedValue },
-            set: { _ in } // TODO: Do something
+            set: { newValue in
+                self.cd_reminder.raw_kindString = newValue.kind.rawValue
+                self.cd_reminder.raw_descriptionString = newValue.kindDescription
+                self.cd_reminder.raw_interval = Int32(newValue.interval)
+                self.cd_reminder.raw_isEnabled = newValue.isEnabled
+                self.cd_reminder.raw_note = newValue.note
+                try! self.context.save() // TODO: Make this safe
+            }
         )
     }
 }

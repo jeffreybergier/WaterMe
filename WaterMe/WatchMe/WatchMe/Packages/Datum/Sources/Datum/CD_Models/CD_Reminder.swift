@@ -39,7 +39,7 @@ internal class CD_Reminder: CD_Base {
 
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        self.raw_kindString = ReminderKind.kCaseWaterValue
+        self.raw_kindString = ReminderKind.water.rawValue
         self.raw_interval = Int32(ReminderConstants.defaultInterval)
         self.raw_isEnabled = true
     }
@@ -99,20 +99,6 @@ extension CD_Reminder {
             return .init(key: #keyPath(CD_Reminder.raw_nextPerformDate), ascending: ascending)
         case .note:
             return .init(key: #keyPath(CD_Reminder.raw_note), ascending: ascending)
-        }
-    }
-}
-
-extension CD_Reminder {
-    internal var kind: ReminderKind {
-        get {
-            return .init(rawValue: (self.raw_kindString ?? ReminderKind.kCaseWaterValue,
-                                    self.raw_descriptionString))
-        }
-        set {
-            let raw = newValue.rawValue
-            self.raw_kindString = raw.primary
-            self.raw_descriptionString = raw.secondary
         }
     }
 }
