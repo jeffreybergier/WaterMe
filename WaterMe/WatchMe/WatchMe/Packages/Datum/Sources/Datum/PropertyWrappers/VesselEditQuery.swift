@@ -22,7 +22,7 @@ import SwiftUI
 import CoreData
 
 @propertyWrapper
-public struct ReminderVesselQuery: DynamicProperty {
+public struct VesselEditQuery: DynamicProperty {
     
     @Environment(\.managedObjectContext) private var context
     @ObservedObject private var cd_reminderVessel: CD_ReminderVessel

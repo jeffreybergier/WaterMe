@@ -22,7 +22,7 @@ import SwiftUI
 import CoreData
 
 @propertyWrapper
-public struct ReminderQuery: DynamicProperty {
+public struct ReminderEditQuery: DynamicProperty {
     
     @ObservedObject private var cd_reminder: CD_Reminder
     

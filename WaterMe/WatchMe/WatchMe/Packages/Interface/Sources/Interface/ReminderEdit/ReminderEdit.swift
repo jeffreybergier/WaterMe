@@ -23,10 +23,10 @@ import Datum
 
 internal struct ReminderEdit: View {
     
-    @ReminderQuery var reminder: Reminder
+    @ReminderEditQuery var reminder: Reminder
     
     internal init(uuid: String, controller: AnyController) {
-        _reminder = ReminderQuery(uuid: uuid, controller: controller)
+        _reminder = ReminderEditQuery(uuid: uuid, controller: controller)
     }
     
     internal var body: some View {

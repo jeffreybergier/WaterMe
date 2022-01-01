@@ -21,7 +21,7 @@
 import SwiftUI
 
 @propertyWrapper
-public struct ReminderQuery_tmp: DynamicProperty {
+public struct ReminderListQuery: DynamicProperty {
     
     @FetchRequest(sortDescriptors: [
         NSSortDescriptor(keyPath: \CD_Reminder.raw_nextPerformDate,

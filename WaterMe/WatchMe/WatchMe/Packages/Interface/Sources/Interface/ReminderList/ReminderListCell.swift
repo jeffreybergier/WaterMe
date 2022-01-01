@@ -25,11 +25,11 @@ extension ReminderList {
     internal struct Cell: View {
         
         @Binding var reminder: Reminder
-        @ReminderVesselQuery var vessel: ReminderVessel
+        @VesselEditQuery var vessel: ReminderVessel
         
         internal init(reminder: Binding<Reminder>, controller: AnyController) {
             _reminder = reminder
-            _vessel = ReminderVesselQuery(reminder.wrappedValue, controller: controller)
+            _vessel = VesselEditQuery(reminder.wrappedValue, controller: controller)
         }
         
         internal var body: some View {

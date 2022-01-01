@@ -24,7 +24,7 @@ import Datum
 internal struct ReminderList: View {
     
     @Binding var nav: Nav
-    @ReminderQuery_tmp private var data
+    @ReminderListQuery private var data
     @EnvironmentObject private var controller: AnyController
     
     internal var body: some View {
