@@ -29,6 +29,8 @@ extension Navigation {
         internal var isSummary: Reminder.アイディ?
         internal var isReminder: Reminder.アイディ?
         internal var isVessel: List.VesselEditInput?
+        internal var isVesselEditReminder: Reminder.アイディ?
+        internal var isVesselEditError: Bool = false
         internal var isSettings: Bool = false
         internal var isError: Bool = false
         
@@ -50,6 +52,14 @@ extension Navigation {
                     self.isReminder = v
                 case .vessel(let v):
                     self.isVessel = v
+                    switch v.presentation {
+                    case .none:
+                        break
+                    case .reminder(let v):
+                        self.isVesselEditReminder = v
+                    case .error:
+                        self.isVesselEditError = true
+                    }
                 case .settings:
                     self.isSettings = true
                 case .error:

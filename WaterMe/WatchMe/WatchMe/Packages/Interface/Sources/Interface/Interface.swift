@@ -65,6 +65,7 @@ extension Interface {
             content
                 .sheet(item: self.$nav.isVessel) { input in
                     VesselEdit(id: input.id, controller: self.controller)
+                        .modifier(VesselEditToReminderEdit())
                 }
         }
     }
@@ -76,6 +77,17 @@ extension Interface {
             content
                 .sheet(isPresented: self.$nav.isWatering) {
                     Watering()
+                }
+        }
+    }
+    
+    private struct VesselEditToReminderEdit: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isVesselEditReminder) { id in
+                    ReminderEdit(id: id, controller: self.controller)
                 }
         }
     }
