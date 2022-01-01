@@ -25,10 +25,12 @@ internal struct VesselEdit: View {
     
     @Binding var nav: Nav
     @VesselEditQuery var vessel: Vessel
+    @VesselEditReminderQuery var reminders: AnyRandomAccessCollection<Binding<Reminder>>
     
     internal init(uuid: String, nav: Binding<Nav>, controller: AnyController) {
         _nav = nav
         _vessel = VesselEditQuery(uuid: uuid, controller: controller)
+        _reminders = VesselEditReminderQuery(uuid: uuid, controller: controller)
     }
     
     internal var body: some View {
@@ -47,7 +49,10 @@ internal struct VesselEdit: View {
                 TextField("Plant Name", text: self.$vessel.displayName ?? "-1")
             }
             Section(header: Text("Reminders")) {
-                Text("// TODO: Coming Soon")
+                List(self.reminders) { item in
+                    Button   { self.nav = .list(.reminder(item.id)) }
+                      label: { Text(item.wrappedValue.note ?? "-1") }
+                }
             }
             Section(header: Text("Siri Shortcut")) {
                 Text("// TODO: Coming Soon")
