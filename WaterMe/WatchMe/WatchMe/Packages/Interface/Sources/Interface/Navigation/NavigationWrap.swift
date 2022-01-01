@@ -28,7 +28,7 @@ extension Navigation {
         internal var isWatering: Bool = false
         internal var isSummary: Reminder.アイディ?
         internal var isReminder: Reminder.アイディ?
-        internal var isPlant: Vessel.アイディ?
+        internal var isVessel: VesselEdit.Input?
         internal var isSettings: Bool = false
         internal var isError: Bool = false
         
@@ -48,8 +48,8 @@ extension Navigation {
                     self.isSummary = v
                 case .reminder(let v):
                     self.isReminder = v
-                case .plant(let v):
-                    self.isPlant = v
+                case .vessel(let v):
+                    self.isVessel = v
                 case .settings:
                     self.isSettings = true
                 case .error:

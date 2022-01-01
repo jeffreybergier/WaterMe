@@ -53,3 +53,38 @@ extension Navigation.List {
         return result
     }
 }
+
+
+extension VesselEdit.Input: RawRepresentable, Codable {
+    init?(rawValue: String) {
+        guard
+            let data = rawValue.data(using: .utf8),
+            let result = try? PropertyListDecoder().decode(VesselEdit.Input.self, from: data)
+        else { return nil }
+        self = result
+    }
+    var rawValue: String {
+        guard
+            let data = try? PropertyListEncoder().encode(self),
+            let result = String(data: data, encoding: .utf8)
+        else { return "" }
+        return result
+    }
+}
+
+extension VesselEdit.Input.Presentation: RawRepresentable, Codable {
+    init(rawValue: String) {
+        guard
+            let data = rawValue.data(using: .utf8),
+            let result = try? PropertyListDecoder().decode(VesselEdit.Input.Presentation.self, from: data)
+        else { self = .none; return; }
+        self = result
+    }
+    var rawValue: String {
+        guard
+            let data = try? PropertyListEncoder().encode(self),
+            let result = String(data: data, encoding: .utf8)
+        else { return "" }
+        return result
+    }
+}

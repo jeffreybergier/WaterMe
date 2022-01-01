@@ -49,7 +49,7 @@ internal struct VesselEdit: View {
             }
             Section(header: Text("Reminders")) {
                 List(self.reminders) { item in
-                    Button   { self.nav = .init(.list(.reminder(item.id))) }
+                    Button   { self.nav = .init(.list(.vessel(.init(self.vessel.id, .reminder(item.id))))) }
                       label: { Text(item.wrappedValue.note ?? "-1") }
                 }
             }
@@ -61,6 +61,7 @@ internal struct VesselEdit: View {
         .toolbar {
             Button("Done") { self.nav = .init(.list(.none)) }
         }
+        // TODO: Add sheet here for reminder presentation
     }
 }
 
@@ -70,9 +71,28 @@ extension VesselEdit {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isPlant) { id in
-                    VesselEdit(id: id, controller: self.controller)
+                .sheet(item: self.$nav.isVessel) { input in
+                    VesselEdit(id: input.id, controller: self.controller)
                 }
         }
+    }
+}
+
+extension VesselEdit {
+    internal struct Input: Identifiable {
+        internal var id: Vessel.アイディ
+        internal var presentation: Presentation
+        internal init(_ id: Vessel.アイディ, _ presentation: Presentation = .none) {
+            self.id = id
+            self.presentation = presentation
+        }
+    }
+}
+
+extension VesselEdit.Input {
+    internal enum Presentation {        
+        case none
+        case reminder(Reminder.アイディ)
+        case error
     }
 }

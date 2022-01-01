@@ -31,7 +31,7 @@ extension Navigation {
         case watering
         case summary(Reminder.アイディ)
         case reminder(Reminder.アイディ)
-        case plant(Vessel.アイディ)
+        case vessel(VesselEdit.Input)
         case settings
         case error
     }
