@@ -25,8 +25,8 @@ extension ReminderList {
     internal struct Menu: ViewModifier {
         
         let uuid: String
-        @Binding var nav: Navigation
-        
+        @Nav private var nav
+
         func body(content: Content) -> some View {
             content
                 .confirmationDialog("Hello",

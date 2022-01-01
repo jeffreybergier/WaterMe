@@ -38,8 +38,8 @@ internal struct ReminderEdit: View {
 
 extension ReminderEdit {
     internal struct Pres: ViewModifier {
+        @Nav private var nav
         let uuid: String
-        @Binding var nav: Navigation
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content

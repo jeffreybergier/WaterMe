@@ -23,7 +23,7 @@ import Datum
 
 public struct Interface: View {
 
-    @State private var nav = Navigation.list(.none)
+    @Nav private var nav
     @StateObject private var controller = NewController(of: .local)!
     
     public init() {}
@@ -41,21 +41,21 @@ public struct Interface: View {
         case .list(let presentation):
             switch presentation {
             case .none: // Show main screen
-                ReminderList(nav: self.$nav)
+                ReminderList()
             case .menu(let uuid): // Show the menu
-                ReminderList(nav: self.$nav)
-                    .modifier(ReminderList.Menu(uuid: uuid, nav: self.$nav))
+                ReminderList()
+                    .modifier(ReminderList.Menu(uuid: uuid))
             case .watering:
-                ReminderList(nav: self.$nav)
-                    .modifier(Watering.Pres(nav: self.$nav))
+                ReminderList()
+                    .modifier(Watering.Pres())
             case .summary: // show reminder summary screen
                 Text("// TODO: Summary")
             case .plant(let uuid): // show plant edit screen
-                ReminderList(nav: self.$nav)
-                    .modifier(VesselEdit.Pres(uuid: uuid, nav: self.$nav))
+                ReminderList()
+                    .modifier(VesselEdit.Pres(uuid: uuid))
             case .reminder(let uuid): // show reminder edit screen
-                ReminderList(nav: self.$nav)
-                    .modifier(ReminderEdit.Pres(uuid: uuid, nav: self.$nav))
+                ReminderList()
+                    .modifier(ReminderEdit.Pres(uuid: uuid))
             case .settings: // show settings screen
                 Text("// TODO: Settings")
             case .error: // show an error

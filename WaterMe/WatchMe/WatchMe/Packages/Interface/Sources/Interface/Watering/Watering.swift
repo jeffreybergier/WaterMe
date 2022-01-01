@@ -23,8 +23,8 @@ import Datum
 
 internal struct Watering: View {
     
-    @Binding var nav: Navigation
-    
+    @Nav private var nav
+
     internal var body: some View {
         Text("// TODO: Video")
         .navigationTitle("Watering")
@@ -36,12 +36,12 @@ internal struct Watering: View {
 
 extension Watering {
     internal struct Pres: ViewModifier {
-        @Binding var nav: Navigation
+        @Nav private var nav
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
                 .sheet(isPresented: Binding(get: { true }, set: { _ in self.nav = .list(.none) }), onDismiss: nil) {
-                    Watering(nav: self.$nav)
+                    Watering()
                 }
         }
     }
