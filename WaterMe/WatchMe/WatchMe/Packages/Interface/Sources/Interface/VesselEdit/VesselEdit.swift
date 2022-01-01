@@ -70,7 +70,7 @@ extension VesselEdit {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isPlant, onDismiss: { self.nav = .init(.list(.none)) }) { id in
+                .sheet(item: self.$nav.isPlant) { id in
                     VesselEdit(id: id, controller: self.controller)
                 }
         }

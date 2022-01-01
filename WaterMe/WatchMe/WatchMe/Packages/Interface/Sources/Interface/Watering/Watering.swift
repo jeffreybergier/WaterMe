@@ -40,7 +40,7 @@ extension Watering {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(isPresented: self.$nav.isWatering, onDismiss: { self.nav = .init(.list(.none)) }) {
+                .sheet(isPresented: self.$nav.isWatering) {
                     Watering()
                 }
         }

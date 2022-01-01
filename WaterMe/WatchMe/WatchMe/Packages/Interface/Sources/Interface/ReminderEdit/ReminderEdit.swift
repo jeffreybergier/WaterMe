@@ -23,6 +23,7 @@ import Datum
 
 internal struct ReminderEdit: View {
     
+    @Nav private var nav
     @ReminderEditQuery var reminder: Reminder
     
     internal init(id: Reminder.アイディ, controller: AnyController) {
@@ -33,6 +34,10 @@ internal struct ReminderEdit: View {
         VStack {
             Text(self.reminder.note ?? "-1")
         }
+        .navigationTitle("Edit Reminder")
+        .toolbar {
+            Button("Done") { self.nav = .init(.list(.none)) }
+        }
     }
 }
 
@@ -42,7 +47,7 @@ extension ReminderEdit {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isReminder, onDismiss: { self.nav = .init(.list(.none)) }) { uuid in
+                .sheet(item: self.$nav.isReminder) { uuid in
                     ReminderEdit(id: uuid, controller: self.controller)
                 }
         }
