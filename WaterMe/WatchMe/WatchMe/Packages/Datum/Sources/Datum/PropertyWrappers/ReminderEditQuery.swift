@@ -20,6 +20,7 @@
 
 import SwiftUI
 import CoreData
+import Model
 
 @propertyWrapper
 public struct ReminderEditQuery: DynamicProperty {

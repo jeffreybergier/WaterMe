@@ -25,7 +25,6 @@ public enum VesselIcon: Hashable {
 
     internal init?(rawImage: UIImage?, emojiString: String?) {
         if let emoji = emojiString {
-            // self = .emoji(emoji) // produced an error
             self.init(emojiString: emoji)
         } else if let image = rawImage {
             self.init(rawImage: image)
@@ -40,7 +39,7 @@ public enum VesselIcon: Hashable {
         self = .emoji(emojiString)
     }
 
-    public init(rawImage: UIImage) {
+    private init(rawImage: UIImage) {
         // all of this code assumes we're cropping to square image
         // it also assumes that we're converting it to a new image with a scale of 1
         let smallestDimension = rawImage.size.width > rawImage.size.height ? rawImage.size.height : rawImage.size.width
@@ -74,7 +73,7 @@ public enum VesselIcon: Hashable {
 
 extension VesselIcon {
 
-    internal init?(rawImageData: Data?, emojiString: String?) {
+    public init?(rawImageData: Data?, emojiString: String?) {
         if let data = rawImageData, let image = UIImage(data: data) {
             self = .image(image)
         } else if let emojiString = emojiString {

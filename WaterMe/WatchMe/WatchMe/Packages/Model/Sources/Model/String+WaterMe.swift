@@ -22,13 +22,13 @@
 //
 
 extension String {
-    internal var nonEmptyString: String? {
+    public var nonEmptyString: String? {
         let stripped = self.trimmingCharacters(in: .whitespacesAndNewlines)
         guard stripped.isEmpty == false else { return nil }
         return stripped
     }
 
-    internal func truncated(to length: Int) -> String? {
+    public func truncated(to length: Int) -> String? {
         guard self.count > length else { return self }
         let endIndex = self.index(self.startIndex, offsetBy: length)
         let substring = String(self[..<endIndex])

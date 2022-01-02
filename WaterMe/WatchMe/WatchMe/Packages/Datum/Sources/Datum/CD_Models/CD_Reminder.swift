@@ -22,6 +22,7 @@
 //
 
 import CoreData
+import Model
 
 public enum ReminderConstants {
     public static let minimumInterval: Int = 1

@@ -22,6 +22,7 @@
 //
 
 import CoreData
+import Model
 
 public enum ReminderVesselSortOrder {
     case displayName, kind

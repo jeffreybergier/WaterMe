@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2021/12/31.
+//  Created by Jeffrey Bergier on 2022/01/02.
 //  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,39 +18,21 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct Vessel: Hashable, Identifiable {
-    public var id: アイディ
-    public var displayName: String?
-    public var icon: VesselIcon?
-    public var kind: VesselKind
-//  public var isModelComplete: ModelCompleteError?
-    public var shortLabelSafeDisplayName: String? {
-        self.displayName?.truncated(to: 20)
-    }
-}
+import Model
 
 extension Vessel {
     internal init(cd: CD_ReminderVessel) {
-        self.id = .init(cd.objectID.uriRepresentation().absoluteString)
-        self.displayName = cd.raw_displayName
-        self.icon = .init(rawImageData: cd.raw_iconImageData, emojiString: cd.raw_iconEmojiString)
-        self.kind = .init(rawValue: cd.raw_kindString ?? "-1") ?? .plant
+        self.init(id: .init(cd.objectID.uriRepresentation().absoluteString),
+                  displayName: cd.raw_displayName,
+                  icon: .init(rawImageData: cd.raw_iconImageData,
+                              emojiString: cd.raw_iconEmojiString),
+                  kind: .init(rawValue: cd.raw_kindString ?? "-1") ?? .plant)
     }
     internal init?(cd: CD_ReminderVessel?) {
         guard let cd = cd else { return nil }
         self.init(cd: cd)
     }
     internal init() {
-        self.id = .init("FALSE")
-        self.kind = .plant
-    }
-}
-
-extension Vessel {
-    public struct アイディ: Codable, Identifiable, Hashable {
-        public var id: String
-        public init(_ id: String) {
-            self.id = id
-        }
+        self.init(id: .init("FALSE"))
     }
 }

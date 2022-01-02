@@ -18,8 +18,8 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Datum
 import SwiftUI
+import Model
 
 internal struct Navigation {
     internal enum State: Codable {

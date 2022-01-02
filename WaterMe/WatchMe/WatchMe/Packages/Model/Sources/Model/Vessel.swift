@@ -18,35 +18,29 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Foundation
-
-public struct Reminder: Identifiable, Hashable {
+public struct Vessel: Hashable, Identifiable {
     public var id: アイディ
-    public var kind: ReminderKind
-    public var kindDescription: String?
-    public var interval: Int
-    public var isEnabled: Bool
-    public var note: String?
-    public var nextPerformDate: Date?
-    public var lastPerformDate: Date?
-    public var vesselID: Vessel.アイディ?
-}
-
-extension Reminder {
-    internal init(cd: CD_Reminder) {
-        self.kind = .init(rawValue: cd.raw_kindString ?? "-1") ?? .water
-        self.kindDescription = cd.raw_descriptionString
-        self.id = .init(cd.objectID.uriRepresentation().absoluteString)
-        self.interval = Int(cd.raw_interval)
-        self.isEnabled = cd.raw_isEnabled
-        self.note = cd.raw_note
-        self.nextPerformDate = cd.raw_nextPerformDate
-        self.lastPerformDate = cd.raw_lastPerformDate
-        self.vesselID = (cd.raw_vessel?.objectID.uriRepresentation().absoluteString).map { .init($0) }
+    public var displayName: String?
+    public var icon: VesselIcon?
+    public var kind: VesselKind
+//  public var isModelComplete: ModelCompleteError?
+    public var shortLabelSafeDisplayName: String? {
+        self.displayName?.truncated(to: 20)
+    }
+    
+    public init(id: アイディ,
+                displayName: String? = nil,
+                icon: VesselIcon? = nil,
+                kind: VesselKind = .plant)
+    {
+        self.id = id
+        self.displayName = displayName
+        self.icon = icon
+        self.kind = kind
     }
 }
 
-extension Reminder {
+extension Vessel {
     public struct アイディ: Codable, Identifiable, Hashable {
         public var id: String
         public init(_ id: String) {

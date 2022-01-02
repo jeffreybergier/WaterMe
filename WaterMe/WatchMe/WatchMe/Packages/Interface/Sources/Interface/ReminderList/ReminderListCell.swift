@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import Model
 import Datum
 
 extension ReminderList {

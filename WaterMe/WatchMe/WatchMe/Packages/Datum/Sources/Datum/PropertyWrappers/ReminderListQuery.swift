@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import Model
 
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
