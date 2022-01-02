@@ -31,18 +31,18 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
 @propertyWrapper
 internal struct Nav: DynamicProperty {
 
-    @SceneStorage("Navigation") private var nav: Navigation = .list(.none)
+    @SceneStorage("Navigation") private var state: Navigation.State = .rootList
 
-    internal var wrappedValue: Navigation.Wrap {
-        get { .init(self.nav) }
-        nonmutating set { self.nav = newValue.value }
+    internal var wrappedValue: Navigation {
+        get { .init(self.state) }
+        nonmutating set { self.state = newValue.state }
     }
     
-    internal var projectedValue: Binding<Navigation.Wrap> {
+    internal var projectedValue: Binding<Navigation> {
         Binding {
             self.wrappedValue
         } set: { newValue in
-            self.nav = newValue.value
+            self.state = newValue.state
         }
     }
 }

@@ -35,59 +35,70 @@ public struct Interface: View {
         .environmentObject(self.controller)
         .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
     }
-
+    
     @ViewBuilder private func render() -> some View {
         // TODO: Summary, Settings, Error
         ReminderList()
-            .modifier(ReminderList.Menu())
-            .modifier(ListToReminderEdit())
-            .modifier(ListToVesselEdit())
-            .modifier(ListToWatering())
+            .modifier(ListMenu())
+            .modifier(ListWatering())
+            .modifier(ListReminderEdit())
+            .modifier(ListVesselEdit())
     }
 }
 
+
 extension Interface {
-    private struct ListToReminderEdit: ViewModifier {
+    internal struct ListMenu: ViewModifier {
         @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isReminder) { uuid in
-                    ReminderEdit(id: uuid, controller: self.controller)
-                }
-        }
-    }
-
-    private struct ListToVesselEdit: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isVessel) { input in
-                    VesselEdit(id: input.id, controller: self.controller)
-                        .modifier(VesselEditToReminderEdit())
-                }
-        }
-    }
-
-    private struct ListToWatering: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(isPresented: self.$nav.isWatering) {
-                    Watering()
-                }
+                .confirmationDialog("// TODO: FixMe",
+                                    isPresented: self.$nav.isListMenu,
+                                    presenting: self.nav.isListMenuData)
+            { input in
+                Button   { self.nav.state = .listReminderEdit(.init(reminderID: input.reminderID)) }
+            label: { Text("Edit Reminder") }
+                Button   { self.nav.state = .listVesselEdit(.init(vesselID: input.vesselID)) }
+            label: { Text("Edit Plant") }
+                Button   { self.nav.state = .listSummary(.init(reminderID: input.reminderID)) }
+            label: { Text("View Summary") }
+                Button { self.nav.state = .listWatering(.init(reminderIDs: [input.reminderID])) }
+            label: { Text("Mark as Done") }
+                Button { self.nav.reset() }
+            label: { Text("Dismiss") }
+            }
         }
     }
     
-    private struct VesselEditToReminderEdit: ViewModifier {
+    private struct ListReminderEdit: ViewModifier {
         @Nav private var nav
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isVesselEditReminder) { id in
-                    ReminderEdit(id: id, controller: self.controller)
+                .sheet(item: self.$nav.isListReminderEdit) { input in
+                    ReminderEdit(id: input.reminderID, controller: self.controller)
+                }
+        }
+    }
+
+    private struct ListVesselEdit: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isListVesselEdit) { input in
+                    VesselEdit(id: input.id, controller: self.controller)
+                }
+        }
+    }
+
+    private struct ListWatering: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isListWatering) { input in
+                    Watering()
                 }
         }
     }

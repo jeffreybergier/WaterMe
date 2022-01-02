@@ -20,12 +20,15 @@
 
 import Foundation
 
-extension Navigation: RawRepresentable {
+extension Navigation.State: RawRepresentable {
     init(rawValue: String) {
         guard
             let data = rawValue.data(using: .utf8),
-            let result = try? PropertyListDecoder().decode(Navigation.self, from: data)
-        else { self = .list(.none); return; }
+            let result = try? PropertyListDecoder().decode(Navigation.State.self, from: data)
+        else {
+            self = .rootList
+            return
+        }
         self = result
     }
     var rawValue: String {

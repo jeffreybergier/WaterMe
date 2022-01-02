@@ -73,7 +73,7 @@ internal struct ReminderEdit: View {
         }
         .navigationTitle("Edit Reminder")
         .toolbar {
-            Button("Done") { self.nav = .init(.list(.none)) }
+            Button("Done") { self.nav.reset() }
         }
     }
 }

@@ -22,14 +22,12 @@ import SwiftUI
 import Datum
 
 internal struct Watering: View {
-    
     @Nav private var nav
-
     internal var body: some View {
         Text("// TODO: Video")
         .navigationTitle("Watering")
         .toolbar {
-            Button("Done") { self.nav = .init(.list(.none)) }
+            Button("Done") { self.nav.reset() }
         }
     }
 }

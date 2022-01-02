@@ -49,7 +49,7 @@ internal struct VesselEdit: View {
             }
             Section(header: Text("Reminders")) {
                 List(self.reminders) { item in
-                    Button   { self.nav = .init(.list(.vessel(.init(self.vessel.id, .reminder(item.id))))) }
+                    Button   { /* TODO: Fix */ }
                       label: { Text(item.wrappedValue.note ?? "-1") }
                 }
             }
@@ -59,7 +59,7 @@ internal struct VesselEdit: View {
         }
         .navigationTitle("Edit Plant")
         .toolbar {
-            Button("Done") { self.nav = .init(.list(.none)) }
+            Button("Done") { self.nav.reset() }
         }
         // TODO: Add sheet here for reminder presentation
     }
