@@ -69,7 +69,6 @@ extension Interface {
             }
         }
     }
-    
     private struct ListReminderEdit: ViewModifier {
         @Nav private var nav
         @EnvironmentObject private var controller: AnyController
@@ -80,7 +79,6 @@ extension Interface {
                 }
         }
     }
-
     private struct ListVesselEdit: ViewModifier {
         @Nav private var nav
         @EnvironmentObject private var controller: AnyController
@@ -88,10 +86,12 @@ extension Interface {
             content
                 .sheet(item: self.$nav.isListVesselEdit) { input in
                     VesselEdit(id: input.id, controller: self.controller)
+                        .sheet(item: self.$nav.isListVesselEditReminderEdit) { input in
+                            ReminderEdit(id: input.reminderID, controller: self.controller)
+                        }
                 }
         }
     }
-
     private struct ListWatering: ViewModifier {
         @Nav private var nav
         @EnvironmentObject private var controller: AnyController

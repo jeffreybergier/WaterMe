@@ -49,8 +49,11 @@ internal struct VesselEdit: View {
             }
             Section(header: Text("Reminders")) {
                 List(self.reminders) { item in
-                    Button   { /* TODO: Fix */ }
-                      label: { Text(item.wrappedValue.note ?? "-1") }
+                    Button {
+                        self.nav.state = .listVesselEditReminderEdit(.init(reminderID: item.id, vesselID: self.vessel.id))
+                    } label: {
+                        Text(item.wrappedValue.note ?? "-1")
+                    }
                 }
             }
             Section(header: Text("Siri Shortcut")) {

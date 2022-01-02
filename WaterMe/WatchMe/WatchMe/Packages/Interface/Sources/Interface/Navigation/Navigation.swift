@@ -30,6 +30,8 @@ internal struct Navigation {
         case listSummary(ReminderInput)
         case listReminderEdit(ReminderInput)
         case listVesselEdit(VesselInput)
+        case listVesselEditReminderEdit(ReminderAndVesselInput)
+        case listVesselEditEmoji(VesselInput)
         case listSettings
         case listError
     }
@@ -60,6 +62,11 @@ internal struct Navigation {
             self.isListReminderEdit = v
         case .listVesselEdit(let v):
             self.isListVesselEdit = v
+        case .listVesselEditReminderEdit(let v):
+            self.isListVesselEdit = .init(vesselID: v.vesselID)
+            self.isListVesselEditReminderEdit = v
+        case .listVesselEditEmoji(let v):
+            self.isListVesselEditEmoji = v
         case .listSettings:
             self.isListSettings = true
         case .listError:
@@ -75,17 +82,22 @@ internal struct Navigation {
     
     var isRootList = false {
         didSet {
-            guard self.isRootList == true else { return }
+            guard self.isRootList == false else { return }
             self.reset()
         }
     }
     var isRootError = false {
         didSet {
-            guard self.isRootError == true else { return }
+            guard self.isRootError == false else { return }
             self.reset()
         }
     }
-    var isListMenu: Bool = false
+    var isListMenu: Bool = false {
+        didSet {
+            guard self.isListMenu == false else { return }
+            self.reset()
+        }
+    }
     var isListMenuData: ReminderAndVesselInput? {
         didSet {
             guard self.isListMenuData == nil else { return }
@@ -116,15 +128,27 @@ internal struct Navigation {
             self.reset()
         }
     }
+    var isListVesselEditReminderEdit: ReminderAndVesselInput? {
+        didSet {
+            guard self.isListVesselEditReminderEdit == nil else { return }
+            self.state = .listVesselEdit(self.isListVesselEdit!)
+        }
+    }
+    var isListVesselEditEmoji: VesselInput? {
+        didSet {
+            guard self.isListVesselEditEmoji == nil else { return }
+            self.state = .listVesselEdit(self.isListVesselEdit!)
+        }
+    }
     var isListSettings = false {
         didSet {
-            guard self.isListSettings == true else { return }
+            guard self.isListSettings == false else { return }
             self.reset()
         }
     }
     var isListError = false {
         didSet {
-            guard self.isListError == true else { return }
+            guard self.isListError == false else { return }
             self.reset()
         }
     }
