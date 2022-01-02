@@ -46,6 +46,16 @@ internal struct VesselEdit: View {
                     case .image(let image):
                         Image(uiImage: image)
                     }
+                    Button {
+                        self.nav.state = .listVesselEditEmoji(.init(self.vessel.id))
+                    } label: {
+                        Text("Update Emoji")
+                    }
+                    Button {
+                        // TODO: FixMe
+                    } label: {
+                        Text("Update Image")
+                    }
                 }
                 Section(header: Text("Name")) {
                     TextField("Plant Name", text: self.$vessel.displayName ?? "-1")

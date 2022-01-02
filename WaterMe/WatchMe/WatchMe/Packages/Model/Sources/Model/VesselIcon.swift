@@ -83,7 +83,7 @@ extension VesselIcon {
         }
     }
 
-    internal var dataValue: Data? {
+    public var dataValue: Data? {
         switch self {
         case .emoji:
             return nil

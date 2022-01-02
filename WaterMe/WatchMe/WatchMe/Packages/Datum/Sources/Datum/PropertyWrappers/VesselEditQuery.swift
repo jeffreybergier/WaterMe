@@ -41,17 +41,22 @@ public struct VesselEditQuery: DynamicProperty {
     }
     
     public var wrappedValue: Vessel {
-        Vessel(cd: self.cd_reminderVessel)
+        get { Vessel(cd: self.cd_reminderVessel) }
+        nonmutating set { self.update(with: newValue) }
     }
     public var projectedValue: Binding<Vessel> {
         Binding(
             get: { self.wrappedValue },
-            set: { newValue in // TODO: Do something
-                self.cd_reminderVessel.raw_displayName = newValue.displayName
-                self.cd_reminderVessel.raw_kindString = newValue.kind.rawValue
-                // TODO: Finish values
-                try! self.context.save()
-            }
+            set: { self.update(with: $0) }
         )
+    }
+    
+    private func update(with newValue: Vessel) {
+        self.cd_reminderVessel.raw_displayName = newValue.displayName
+        self.cd_reminderVessel.raw_kindString = newValue.kind.rawValue
+        self.cd_reminderVessel.raw_iconEmojiString = newValue.icon?.emoji
+        self.cd_reminderVessel.raw_iconImageData = newValue.icon?.dataValue
+        // TODO: Finish values
+        try! self.context.save()
     }
 }

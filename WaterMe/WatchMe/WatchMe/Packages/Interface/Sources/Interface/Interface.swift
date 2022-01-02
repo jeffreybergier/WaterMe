@@ -88,6 +88,9 @@ extension Interface {
                         .sheet(item: self.$nav.isListVesselEditReminderEdit) { input in
                             ReminderEdit(id: input.reminderID, controller: self.controller)
                         }
+                        .sheet(item: self.$nav.isListVesselEditEmoji) { input in
+                            VesselEmoji(id: input.vesselID, controller: self.controller)
+                        }
                 }
         }
     }

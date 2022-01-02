@@ -66,6 +66,7 @@ public struct Navigation {
             self.isListVesselEdit = .init(v.vesselID)
             self.isListVesselEditReminderEdit = v
         case .listVesselEditEmoji(let v):
+            self.isListVesselEdit = .init(v.vesselID)
             self.isListVesselEditEmoji = v
         case .listSettings:
             self.isListSettings = true
