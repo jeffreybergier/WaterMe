@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import Nav
 import Datum
 
 internal struct ReminderList: View {
@@ -31,7 +32,7 @@ internal struct ReminderList: View {
         VStack {
             List(self.data) { item in
                 Button {
-                    self.nav.state = .listMenu(.init(reminderID: item.id, vesselID: item.wrappedValue.vesselID!))
+                    self.nav.state = .listMenu(.init(item.id, item.wrappedValue.vesselID!))
                 } label: {
                     Cell(reminder: item, controller: self.controller)
                 }

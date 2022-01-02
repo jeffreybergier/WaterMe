@@ -21,7 +21,7 @@
 import Foundation
 
 extension Navigation.State: RawRepresentable {
-    init(rawValue: String) {
+    public init(rawValue: String) {
         guard
             let data = rawValue.data(using: .utf8),
             let result = try? PropertyListDecoder().decode(Navigation.State.self, from: data)
@@ -31,7 +31,7 @@ extension Navigation.State: RawRepresentable {
         }
         self = result
     }
-    var rawValue: String {
+    public var rawValue: String {
         guard
             let data = try? PropertyListEncoder().encode(self),
             let result = String(data: data, encoding: .utf8)

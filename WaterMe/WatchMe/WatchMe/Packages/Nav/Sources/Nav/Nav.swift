@@ -21,7 +21,7 @@
 import SwiftUI
 
 // TODO: Move this
-func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
+public func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     Binding(
         get: { lhs.wrappedValue ?? rhs },
         set: { lhs.wrappedValue = $0 }
@@ -29,16 +29,18 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
 }
 
 @propertyWrapper
-internal struct Nav: DynamicProperty {
+public struct Nav: DynamicProperty {
 
     @SceneStorage("Navigation") private var state: Navigation.State = .rootList
+    
+    public init() {}
 
-    internal var wrappedValue: Navigation {
+    public var wrappedValue: Navigation {
         get { .init(self.state) }
         nonmutating set { self.state = newValue.state }
     }
     
-    internal var projectedValue: Binding<Navigation> {
+    public var projectedValue: Binding<Navigation> {
         Binding {
             self.wrappedValue
         } set: { newValue in

@@ -21,6 +21,7 @@
 import SwiftUI
 import Model
 import Datum
+import Nav
 
 internal struct VesselEdit: View {
     
@@ -51,7 +52,7 @@ internal struct VesselEdit: View {
             Section(header: Text("Reminders")) {
                 List(self.reminders) { item in
                     Button {
-                        self.nav.state = .listVesselEditReminderEdit(.init(reminderID: item.id, vesselID: self.vessel.id))
+                        self.nav.state = .listVesselEditReminderEdit(.init(item.id, self.vessel.id))
                     } label: {
                         Text(item.wrappedValue.note ?? "-1")
                     }

@@ -21,8 +21,8 @@
 import SwiftUI
 import Model
 
-internal struct Navigation {
-    internal enum State: Codable {
+public struct Navigation {
+    public enum State: Codable {
         case rootList
         case rootError
         case listMenu(ReminderAndVesselInput)
@@ -36,15 +36,15 @@ internal struct Navigation {
         case listError
     }
     
-    static func root() -> Navigation {
+    public static func root() -> Navigation {
         return Navigation(.rootList)
     }
     
-    mutating func reset() {
+    public mutating func reset() {
         self.state = .rootList
     }
     
-    init(_ state: State) {
+    public init(_ state: State) {
         self.state = state
         switch state {
         case .rootList:
@@ -63,7 +63,7 @@ internal struct Navigation {
         case .listVesselEdit(let v):
             self.isListVesselEdit = v
         case .listVesselEditReminderEdit(let v):
-            self.isListVesselEdit = .init(vesselID: v.vesselID)
+            self.isListVesselEdit = .init(v.vesselID)
             self.isListVesselEditReminderEdit = v
         case .listVesselEditEmoji(let v):
             self.isListVesselEditEmoji = v
@@ -74,79 +74,79 @@ internal struct Navigation {
         }
     }
     
-    var state: State {
+    public var state: State {
         didSet {
             self = .init(self.state)
         }
     }
     
-    var isRootList = false {
+    public var isRootList = false {
         didSet {
             guard self.isRootList == false else { return }
             self.reset()
         }
     }
-    var isRootError = false {
+    public var isRootError = false {
         didSet {
             guard self.isRootError == false else { return }
             self.reset()
         }
     }
-    var isListMenu: Bool = false {
+    public var isListMenu: Bool = false {
         didSet {
             guard self.isListMenu == false else { return }
             self.reset()
         }
     }
-    var isListMenuData: ReminderAndVesselInput? {
+    public var isListMenuData: ReminderAndVesselInput? {
         didSet {
             guard self.isListMenuData == nil else { return }
             self.reset()
         }
     }
-    var isListWatering: WateringInput? {
+    public var isListWatering: WateringInput? {
         didSet {
             guard self.isListWatering == nil else { return }
             self.reset()
         }
     }
-    var isListSummary: ReminderInput? {
+    public var isListSummary: ReminderInput? {
         didSet {
             guard self.isListSummary == nil else { return }
             self.reset()
         }
     }
-    var isListReminderEdit: ReminderInput? {
+    public var isListReminderEdit: ReminderInput? {
         didSet {
             guard self.isListReminderEdit == nil else { return }
             self.reset()
         }
     }
-    var isListVesselEdit: VesselInput? {
+    public var isListVesselEdit: VesselInput? {
         didSet {
             guard self.isListVesselEdit == nil else { return }
             self.reset()
         }
     }
-    var isListVesselEditReminderEdit: ReminderAndVesselInput? {
+    public var isListVesselEditReminderEdit: ReminderAndVesselInput? {
         didSet {
             guard self.isListVesselEditReminderEdit == nil else { return }
             self.state = .listVesselEdit(self.isListVesselEdit!)
         }
     }
-    var isListVesselEditEmoji: VesselInput? {
+    public var isListVesselEditEmoji: VesselInput? {
         didSet {
             guard self.isListVesselEditEmoji == nil else { return }
             self.state = .listVesselEdit(self.isListVesselEdit!)
         }
     }
-    var isListSettings = false {
+    public var isListSettings = false {
         didSet {
             guard self.isListSettings == false else { return }
             self.reset()
         }
     }
-    var isListError = false {
+    public var isListError = false {
         didSet {
             guard self.isListError == false else { return }
             self.reset()
@@ -156,23 +156,36 @@ internal struct Navigation {
 
 // MARK: Inputs
 
-internal struct ReminderInput: Codable, Identifiable {
-    var id: Reminder.アイディ { self.reminderID }
-    var reminderID: Reminder.アイディ
+public  struct ReminderInput: Codable, Identifiable {
+    public var id: Reminder.アイディ { self.reminderID }
+    public var reminderID: Reminder.アイディ
+    public init(_ reminderID: Reminder.アイディ) {
+        self.reminderID = reminderID
+    }
 }
 
-internal struct VesselInput: Codable, Identifiable {
-    var id: Vessel.アイディ { self.vesselID }
-    var vesselID: Vessel.アイディ
+public  struct VesselInput: Codable, Identifiable {
+    public var id: Vessel.アイディ { self.vesselID }
+    public var vesselID: Vessel.アイディ
+    public init(_ vesselID: Vessel.アイディ) {
+        self.vesselID = vesselID
+    }
 }
 
-internal struct ReminderAndVesselInput: Codable, Identifiable {
-    var id: String { self.vesselID.id + self.reminderID.id }
-    var reminderID: Reminder.アイディ
-    var vesselID: Vessel.アイディ
+public  struct ReminderAndVesselInput: Codable, Identifiable {
+    public var id: String { self.vesselID.id + self.reminderID.id }
+    public var reminderID: Reminder.アイディ
+    public var vesselID: Vessel.アイディ
+    public init(_ reminderID: Reminder.アイディ, _ vesselID: Vessel.アイディ) {
+        self.reminderID = reminderID
+        self.vesselID = vesselID
+    }
 }
 
-internal struct WateringInput: Codable, Identifiable, Hashable {
-    var id: Int { self.hashValue }
-    var reminderIDs: [Reminder.アイディ]
+public  struct WateringInput: Codable, Identifiable, Hashable {
+    public var id: Int { self.hashValue }
+    public var reminderIDs: [Reminder.アイディ]
+    public init(_ reminderIDs: [Reminder.アイディ]) {
+        self.reminderIDs = reminderIDs
+    }
 }

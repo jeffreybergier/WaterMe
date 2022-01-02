@@ -20,6 +20,7 @@
 
 import SwiftUI
 import Datum
+import Nav
 
 public struct Interface: View {
 
@@ -56,13 +57,13 @@ extension Interface {
                                     isPresented: self.$nav.isListMenu,
                                     presenting: self.nav.isListMenuData)
             { input in
-                Button   { self.nav.state = .listReminderEdit(.init(reminderID: input.reminderID)) }
+                Button   { self.nav.state = .listReminderEdit(.init(input.reminderID)) }
             label: { Text("Edit Reminder") }
-                Button   { self.nav.state = .listVesselEdit(.init(vesselID: input.vesselID)) }
+                Button   { self.nav.state = .listVesselEdit(.init(input.vesselID)) }
             label: { Text("Edit Plant") }
-                Button   { self.nav.state = .listSummary(.init(reminderID: input.reminderID)) }
+                Button   { self.nav.state = .listSummary(.init(input.reminderID)) }
             label: { Text("View Summary") }
-                Button { self.nav.state = .listWatering(.init(reminderIDs: [input.reminderID])) }
+                Button { self.nav.state = .listWatering(.init([input.reminderID])) }
             label: { Text("Mark as Done") }
                 Button { self.nav.reset() }
             label: { Text("Dismiss") }
