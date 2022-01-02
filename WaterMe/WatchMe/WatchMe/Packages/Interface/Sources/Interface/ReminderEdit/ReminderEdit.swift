@@ -33,49 +33,51 @@ internal struct ReminderEdit: View {
     }
     
     internal var body: some View {
-        Form {
-            Section(header: Text("Kind of Reminder")) {
-                Picker("Kind of Reminder", selection: self.$reminder.kind) {
-                    ForEach(ReminderKind.allCases) {
-                        Text($0.rawValue)
-                            .tag($0)
+        NavigationView {
+            Form {
+                Section(header: Text("Kind of Reminder")) {
+                    Picker("Kind of Reminder", selection: self.$reminder.kind) {
+                        ForEach(ReminderKind.allCases) {
+                            Text($0.rawValue)
+                                .tag($0)
+                        }
                     }
                 }
-            }
-            if case .move = self.reminder.kind {
-                Section(header: Text("Details")) {
-                    TextField("Move to", text: self.$reminder.kindDescription ?? "-1")
-                }
-            }
-            if case .other = self.reminder.kind {
-                Section(header: Text("Details")) {
-                    TextField("Description", text: self.$reminder.kindDescription ?? "-1")
-                }
-            }
-            Section(header: Text("Remind Every")) {
-                Picker("Remind Every", selection: self.$reminder.interval) {
-                    ForEach(ReminderConstants.minimumInterval..<ReminderConstants.maximumInterval) {
-                        Text(String($0)).tag($0)
+                if case .move = self.reminder.kind {
+                    Section(header: Text("Details")) {
+                        TextField("Move to", text: self.$reminder.kindDescription ?? "-1")
                     }
                 }
+                if case .other = self.reminder.kind {
+                    Section(header: Text("Details")) {
+                        TextField("Description", text: self.$reminder.kindDescription ?? "-1")
+                    }
+                }
+                Section(header: Text("Remind Every")) {
+                    Picker("Remind Every", selection: self.$reminder.interval) {
+                        ForEach(ReminderConstants.minimumInterval..<ReminderConstants.maximumInterval) {
+                            Text(String($0)).tag($0)
+                        }
+                    }
+                }
+                Section(header: Text("Notifications")) {
+                    // TODO: Reverse toggle
+                    Toggle("Pause Notifications", isOn: self.$reminder.isEnabled)
+                }
+                Section(header: Text("Notes")) {
+                    TextField("Notes", text: self.$reminder.note ?? "-1")
+                }
+                Section(header: Text("Siri Shortcuts")) {
+                    Text("// TODO: Siri Shortcuts")
+                }
+                Section(header: Text("Last Performed")) {
+                    Text(self.reminder.lastPerformDate?.description ?? "Never")
+                }
             }
-            Section(header: Text("Notifications")) {
-                // TODO: Reverse toggle
-                Toggle("Pause Notifications", isOn: self.$reminder.isEnabled)
+            .navigationTitle("Edit Reminder")
+            .toolbar {
+                Button("Done") { self.nav.reset() }
             }
-            Section(header: Text("Notes")) {
-                TextField("Notes", text: self.$reminder.note ?? "-1")
-            }
-            Section(header: Text("Siri Shortcuts")) {
-                Text("// TODO: Siri Shortcuts")
-            }
-            Section(header: Text("Last Performed")) {
-                Text(self.reminder.lastPerformDate?.description ?? "Never")
-            }
-        }
-        .navigationTitle("Edit Reminder")
-        .toolbar {
-            Button("Done") { self.nav.reset() }
         }
     }
 }

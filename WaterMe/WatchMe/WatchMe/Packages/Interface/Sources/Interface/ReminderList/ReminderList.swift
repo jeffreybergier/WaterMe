@@ -29,16 +29,19 @@ internal struct ReminderList: View {
     @EnvironmentObject private var controller: AnyController
     
     internal var body: some View {
-        VStack {
-            List(self.data) { item in
-                Button {
-                    self.nav.state = .listMenu(.init(item.id, item.wrappedValue.vesselID!))
-                } label: {
-                    Cell(reminder: item, controller: self.controller)
+        NavigationView {
+            VStack {
+                List(self.data) { item in
+                    Button {
+                        self.nav.state = .listMenu(.init(item.id, item.wrappedValue.vesselID!))
+                    } label: {
+                        Cell(reminder: item, controller: self.controller)
+                    }
                 }
             }
-            Button(action: { self.nav.reset() }) {
-                Text("Add")
+            .navigationTitle("WaterMe")
+            .toolbar {
+                Button("Add") { /* TODO: FixMe */ }
             }
         }
     }

@@ -28,13 +28,11 @@ public struct Interface: View {
     @StateObject private var controller = NewController(of: .local)!
     
     public init() {}
-
+    
     public var body: some View {
-        NavigationView {
-            self.render()
-        }
-        .environmentObject(self.controller)
-        .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
+        self.render()
+            .environmentObject(self.controller)
+            .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
     }
     
     @ViewBuilder private func render() -> some View {

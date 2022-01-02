@@ -35,37 +35,38 @@ internal struct VesselEdit: View {
     }
     
     internal var body: some View {
-        Form {
-            Section(header: Text("Photo")) {
-                switch self.vessel.icon {
-                case .none:
-                    Text("Nothing")
-                case .emoji(let emoji):
-                    Text(emoji)
-                case .image(let image):
-                    Image(uiImage: image)
-                }
-            }
-            Section(header: Text("Name")) {
-                TextField("Plant Name", text: self.$vessel.displayName ?? "-1")
-            }
-            Section(header: Text("Reminders")) {
-                List(self.reminders) { item in
-                    Button {
-                        self.nav.state = .listVesselEditReminderEdit(.init(item.id, self.vessel.id))
-                    } label: {
-                        Text(item.wrappedValue.note ?? "-1")
+        NavigationView {
+            Form {
+                Section(header: Text("Photo")) {
+                    switch self.vessel.icon {
+                    case .none:
+                        Text("Nothing")
+                    case .emoji(let emoji):
+                        Text(emoji)
+                    case .image(let image):
+                        Image(uiImage: image)
                     }
                 }
+                Section(header: Text("Name")) {
+                    TextField("Plant Name", text: self.$vessel.displayName ?? "-1")
+                }
+                Section(header: Text("Reminders")) {
+                    List(self.reminders) { item in
+                        Button {
+                            self.nav.state = .listVesselEditReminderEdit(.init(item.id, self.vessel.id))
+                        } label: {
+                            Text(item.wrappedValue.note ?? "-1")
+                        }
+                    }
+                }
+                Section(header: Text("Siri Shortcut")) {
+                    Text("// TODO: Coming Soon")
+                }
             }
-            Section(header: Text("Siri Shortcut")) {
-                Text("// TODO: Coming Soon")
+            .navigationTitle("Edit Plant")
+            .toolbar {
+                Button("Done") { self.nav.reset() }
             }
         }
-        .navigationTitle("Edit Plant")
-        .toolbar {
-            Button("Done") { self.nav.reset() }
-        }
-        // TODO: Add sheet here for reminder presentation
     }
 }
