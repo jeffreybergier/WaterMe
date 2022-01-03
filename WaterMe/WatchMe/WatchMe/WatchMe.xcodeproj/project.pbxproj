@@ -78,6 +78,7 @@
 		7345459627818E360001EC2E /* Model */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Model; path = Packages/Model; sourceTree = "<group>"; };
 		734545972781943D0001EC2E /* Nav */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Nav; path = Packages/Nav; sourceTree = "<group>"; };
 		7354DAAD277E749C007AC8FB /* Interface */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interface; path = Packages/Interface; sourceTree = "<group>"; };
+		737ECE6D2782EBF60003B941 /* Umbrella */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Umbrella; path = Packages/Umbrella; sourceTree = "<group>"; };
 		738F06A827817A5900579B01 /* iPhoneMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPhoneMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738F06AA27817A5900579B01 /* iPhoneMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneMeApp.swift; sourceTree = "<group>"; };
 		738F06AE27817A5A00579B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,14 +108,15 @@
 		7339DE3B277DD537008B20DD = {
 			isa = PBXGroup;
 			children = (
-				738F06A927817A5900579B01 /* iPhoneMe */,
-				7339DE4A277DD537008B20DD /* WatchMe WatchKit App */,
-				7339DE55277DD538008B20DD /* WatchMe WatchKit Extension */,
 				7354DAAD277E749C007AC8FB /* Interface */,
 				734545972781943D0001EC2E /* Nav */,
 				7339DE6F277DD76A008B20DD /* Datum */,
 				7339DE71277DD805008B20DD /* Style */,
 				7345459627818E360001EC2E /* Model */,
+				737ECE6D2782EBF60003B941 /* Umbrella */,
+				738F06A927817A5900579B01 /* iPhoneMe */,
+				7339DE4A277DD537008B20DD /* WatchMe WatchKit App */,
+				7339DE55277DD538008B20DD /* WatchMe WatchKit Extension */,
 				7339DE43277DD537008B20DD /* Products */,
 				7339DE72277DD85C008B20DD /* Frameworks */,
 			);
