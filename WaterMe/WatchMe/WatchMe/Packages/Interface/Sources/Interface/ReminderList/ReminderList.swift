@@ -41,7 +41,14 @@ internal struct ReminderList: View {
             }
             .navigationTitle("WaterMe")
             .toolbar {
-                Button("Add") { /* TODO: FixMe */ }
+                Button("Add") {
+                    switch self.controller.newVessel() {
+                    case .success(let id):
+                        self.nav.state = .listVesselEdit(.init(id))
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    }
+                }
             }
         }
     }

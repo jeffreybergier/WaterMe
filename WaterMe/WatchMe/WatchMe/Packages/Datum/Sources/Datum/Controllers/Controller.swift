@@ -18,8 +18,8 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Foundation
 import CoreData
+import Model
 
 public func NewController(of kind: ControllerKind) -> AnyController? {
     do {
@@ -31,26 +31,11 @@ public func NewController(of kind: ControllerKind) -> AnyController? {
     }
 }
 
-public class AnyController: Controller {
-    
-    internal let wrapped: AnyObject
-    private let _kind: () -> ControllerKind
-    private let ___ENVONLY__managedObjectContext: () -> NSManagedObjectContext
-    
-    public var kind: ControllerKind { _kind() }
-    public var __ENVONLY__managedObjectContext: NSManagedObjectContext { ___ENVONLY__managedObjectContext() }
-    
-    internal init<C: Controller>(_ controller: C) {
-        _kind = { controller.kind }
-        ___ENVONLY__managedObjectContext = { controller.__ENVONLY__managedObjectContext }
-        self.wrapped = controller
-    }
-}
-
 public protocol Controller: ObservableObject {
     var kind: ControllerKind { get }
     // HACK: Needed so the context can be placed into the SwiftUI environment
     var __ENVONLY__managedObjectContext: NSManagedObjectContext { get }
+    func newVessel() -> Result<Vessel.アイディ, Error>
 }
 
 public enum ControllerKind: RawRepresentable {
@@ -73,5 +58,27 @@ public enum ControllerKind: RawRepresentable {
 
     public init(rawValue: Bool) {
         self = rawValue ? .sync : .local
+    }
+}
+
+public class AnyController: Controller {
+    
+    internal let wrapped: AnyObject
+    private let _kind: () -> ControllerKind
+    private let ___ENVONLY__managedObjectContext: () -> NSManagedObjectContext
+    
+    public var kind: ControllerKind { _kind() }
+    public var __ENVONLY__managedObjectContext: NSManagedObjectContext { ___ENVONLY__managedObjectContext() }
+    
+    internal init<C: Controller>(_ controller: C) {
+        _kind = { controller.kind }
+        ___ENVONLY__managedObjectContext = { controller.__ENVONLY__managedObjectContext }
+        _newVessel = { controller.newVessel }
+        self.wrapped = controller
+    }
+    
+    private var _newVessel: () -> (() -> Result<Vessel.アイディ, Error>)
+    public func newVessel() -> Result<Vessel.アイディ, Error> {
+        return _newVessel()()
     }
 }

@@ -19,9 +19,10 @@
 //
 
 import CoreData
+import Model
 
 internal class CD_Controller: Controller {
- 
+    
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -79,7 +80,7 @@ internal class CD_Controller: Controller {
         }
 
         let lock = DispatchSemaphore(value: 0)
-        var error: Error?
+        var error: Swift.Error?
         container.loadPersistentStores { _, _error in
             error = _error
             lock.signal()
@@ -151,6 +152,206 @@ internal class CD_Controller: Controller {
     internal let kind: ControllerKind
     internal var __ENVONLY__managedObjectContext: NSManagedObjectContext {
         return self.container.viewContext
+    }
+    
+    internal func newVessel() -> Result<Vessel.アイディ, Error> {
+        // debug only sanity checks
+        assert(Thread.isMainThread)
+
+        // get vesselshare or bail
+        let vesselShareResult = self.maintenance_oneTrueVesselShare()
+        let vesselShare: CD_VesselShare
+        switch vesselShareResult {
+        case .success(let vs):
+            vesselShare = vs
+        case .failure(let error):
+            return .failure(error)
+        }
+
+        // create new vessel
+        let context = self.container.viewContext
+        let vessel = CD_ReminderVessel(context: context)
+
+        // enforce at least 1 reminder
+        let newReminder = CD_Reminder(context: context)
+        context.insert(newReminder)
+        context.insert(vessel)
+
+        // core data hooks up the inverse relationship
+        newReminder.raw_vessel = vessel
+        vessel.raw_share = vesselShare
+
+        // save
+        return context.waterme_save().map {
+            Vessel.アイディ(vessel.objectID.uriRepresentation().absoluteString)
+        }
+    }
+}
+
+// MARK: Maintenance
+
+extension CD_Controller {
+    fileprivate func maintenance_changeMonitor() -> Any {
+        return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextWillSave,
+                                                      object: nil,
+                                                      queue: nil)
+        { [weak self] notification in
+            guard
+                let context = notification.object as? NSManagedObjectContext,
+                let self = self
+            else {
+                assertionFailure("Core Data Dates Not Updated")
+                return
+            }
+            // TODO: Do any change processing if needed
+        }
+    }
+
+    fileprivate func maintenance_massageAllEntries() -> Result<Void, Error> {
+        guard UserDefaults.standard != nil else { //.didRunWithoutCloudSync else {
+            return .success(())
+        }
+        do {
+            let fetchRequest = CD_Base.requestBase
+            let context = self.container.viewContext
+            let data = try context.fetch(fetchRequest)
+            data.forEach { $0.raw_bloop.toggle() }
+            try context.save()
+            UserDefaults.standard//.didRunWithoutCloudSync = false
+            return .success(())
+        } catch {
+            error//.log()
+            return .failure(.maintenanceMassageAllEntries)
+        }
+    }
+
+    // have to make 2 functions because of type issues in maintenance token code in INIT
+    fileprivate func maintenance_oneTrueVesselShare() -> Result<CD_VesselShare, Error> {
+        return self.maintenance_oneTrueVesselShare(context: nil)
+    }
+
+    /* internal for migration only */
+    internal func maintenance_oneTrueVesselShare(context: NSManagedObjectContext?) -> Result<CD_VesselShare, Error> {
+        let context = context ?? self.container.viewContext
+        do {
+            // Clean up any errors caused by weird syncing
+            // 1. Fetch all VesselShare objects
+            let fetchRequest = CD_VesselShare.request
+            let fetchResult = try context.fetch(fetchRequest)
+            switch fetchResult.count {
+            case 0:
+                let share = CD_VesselShare(context: context)
+                context.insert(share)
+                try context.save()
+                "0 VesselShares present, but was able to create"//.log(as: .notice)
+                return .success(share)
+            case 1:
+                let originalVesselShare = fetchResult[0]
+                return .success(originalVesselShare)
+            default:
+                // 1. Find the vesselShare with highest count of vessels
+                let sorted = fetchResult.sorted(by: { $0.raw_vessels?.count ?? 0 > $1.raw_vessels?.count ?? 0 })
+                let willKeepShare = sorted[0]
+                sorted.dropFirst().forEach { willDeleteShare in
+                    // 2. Move vessels to willKeep vesselShare
+                    let vessels = (willDeleteShare.raw_vessels?.copy() as? NSSet) ?? []
+                    for vessel in vessels {
+                        guard let vessel = vessel as? CD_ReminderVessel else { continue }
+                        willDeleteShare.removeFromRaw_vessels(vessel)
+                        willKeepShare.addToRaw_vessels(vessel)
+                    }
+                    // 3. Delete all shares other than oldest one
+                    context.delete(willDeleteShare)
+                }
+                // 4. Save
+                try context.save()
+                // 5. Mark the data as dirty so everything syncs
+                UserDefaults.standard//.didRunWithoutCloudSync = true
+                "2+ VesselShares present, but was able to clean."//.log(as: .notice)
+                return .success(willKeepShare)
+            }
+        } catch {
+            assertionFailure(String(describing: error))
+            error//.log(as: .error)
+            return .failure(.maintenanceOneTrueVesselShare)
+        }
+    }
+
+    fileprivate func maintenance_fixDates() -> Result<Void, Error> {
+
+        let context = self.container.viewContext
+        let fetchRequest = CD_Base.requestBase
+        fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateModified)),
+            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated))
+        ])
+
+        do {
+            let fetchResult = try context.fetch(fetchRequest)
+            let count = fetchResult.count
+            guard count > 0 else { return .success(()) }
+            let now = Date()
+            fetchResult.forEach {
+                if $0.raw_dateCreated == nil {
+                    let message = "DateCreated missing: \($0)"
+                    assertionFailure(message)
+                    message// .log(as: .error)
+                    $0.raw_dateCreated = now
+                }
+                if $0.raw_dateModified == nil {
+                    let message = "DateModified missing: \($0)"
+                    assertionFailure(message)
+                    message //.log(as: .error)
+                    $0.raw_dateModified = now
+                }
+            }
+            try context.save()
+            "NIL Dates found: \(count)"//.log(as: .error)
+            return .success(())
+        } catch {
+            assertionFailure(String(describing: error))
+            error//.log(as: .error)
+            return .failure(.maintenanceFixDates)
+        }
+    }
+
+    fileprivate func maintenance_deleteOrphanedReminders() -> Result<Void, Error> {
+        let context = self.container.viewContext
+        let fetchRequest = CD_Reminder.request
+        fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_vessel))
+        do {
+            let fetchResult = try context.fetch(fetchRequest)
+            let count = fetchResult.count
+            guard count > 0 else { return .success(()) }
+            fetchResult.forEach { context.delete($0) }
+            try context.save()
+            "Orphaned Reminders Deleted: \(count)"//.log(as: .error)
+            return .success(())
+        } catch {
+            assertionFailure(String(describing: error))
+            error//.log(as: .error)
+            return .failure(.maintenanceDeleteOrphanedReminders)
+        }
+    }
+
+    fileprivate func maintenance_fixOrphanedVessels(share: CD_VesselShare) -> Result<Void, Error> {
+        let context = self.container.viewContext
+        let fetchRequest = CD_ReminderVessel.request
+        fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_ReminderVessel.raw_share))
+        do {
+            let fetchResult = try context.fetch(fetchRequest)
+            let count = fetchResult.count
+            guard count > 0 else { return .success(()) }
+            guard context === share.managedObjectContext else { return .failure(.maintenanceContextMismatch) }
+            fetchResult.forEach { share.addToRaw_vessels($0) }
+            try context.save()
+            "Orphaned ReminderVessels Found: \(count)"//.log(as: .error)
+            return .success(())
+        } catch {
+            assertionFailure(String(describing: error))
+            error//.log(as: .error)
+            return .failure(.maintenanceFixOrphanedVessels)
+        }
     }
 }
 
@@ -260,5 +461,26 @@ private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
     }
     deinit {
         // Loggable.default?.verbose()
+    }
+}
+
+extension NSManagedObjectContext {
+    internal func waterme_save() -> Result<Void, Error> {
+        // debug only sanity checks
+        assert(Thread.isMainThread)
+
+        do {
+            try self.save()
+            return .success(())
+        } catch let error as NSError {
+            // doing this async stops the tableviews from crashing
+            // TODO: Figure out how to remove this async
+            DispatchQueue.main.async {
+                // we need to rollback the context
+                self.rollback()
+            }
+            error//.log()
+            return .failure(.write)
+        }
     }
 }
