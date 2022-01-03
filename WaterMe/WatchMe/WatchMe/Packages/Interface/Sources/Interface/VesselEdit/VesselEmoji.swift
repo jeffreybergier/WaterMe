@@ -25,7 +25,7 @@ import Datum
 
 internal struct VesselEmoji: View {
     
-    @Nav private var nav
+    @Environment(\.dismiss) private var dismiss
     @VesselEditQuery private var vessel: Vessel
     
     internal init(id: Vessel.アイディ, controller: AnyController) {
@@ -41,7 +41,7 @@ internal struct VesselEmoji: View {
                     ForEach(Model.VesselEmoji) { item in
                         Button {
                             self.vessel.icon = .emoji(item)
-                            self.nav.state = .listVesselEdit(.init(self.vessel.id))
+                            self.dismiss()
                         } label: {
                             ZStack {
                                 if self.vessel.icon?.emoji == item {
@@ -55,7 +55,7 @@ internal struct VesselEmoji: View {
             }
             .navigationTitle("Choose an Emoji")
             .toolbar {
-                Button("Done") { self.nav.state = .listVesselEdit(.init(self.vessel.id)) }
+                Button("Done") { self.dismiss() }
             }
         }
     }

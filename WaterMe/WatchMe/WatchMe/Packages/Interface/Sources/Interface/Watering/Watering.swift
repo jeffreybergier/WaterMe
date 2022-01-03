@@ -22,12 +22,12 @@ import SwiftUI
 import Nav
 
 internal struct Watering: View {
-    @Nav private var nav
+    @Environment(\.dismiss) private var dismiss
     internal var body: some View {
         Text("// TODO: Video")
         .navigationTitle("Watering")
         .toolbar {
-            Button("Done") { self.nav.reset() }
+            Button("Done") { self.dismiss() }
         }
     }
 }

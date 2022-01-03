@@ -25,8 +25,8 @@ import Nav
 
 internal struct ReminderEdit: View {
     
-    @Nav private var nav
     @ReminderEditQuery var reminder: Reminder
+    @Environment(\.dismiss) private var dismiss
     
     internal init(id: Reminder.アイディ, controller: AnyController) {
         _reminder = ReminderEditQuery(id: id, controller: controller)
@@ -76,7 +76,7 @@ internal struct ReminderEdit: View {
             }
             .navigationTitle("Edit Reminder")
             .toolbar {
-                Button("Done") { self.nav.reset() }
+                Button("Done") { self.dismiss() }
             }
         }
     }

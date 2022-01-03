@@ -26,8 +26,9 @@ import Nav
 internal struct VesselEdit: View {
     
     @Nav private var nav
-    @VesselEditQuery var vessel: Vessel
-    @VesselEditReminderQuery var reminders: AnyRandomAccessCollection<Binding<Reminder>>
+    @VesselEditQuery private var vessel: Vessel
+    @VesselEditReminderQuery private var reminders: AnyRandomAccessCollection<Binding<Reminder>>
+    @Environment(\.dismiss) private var dismiss
     
     internal init(id: Vessel.アイディ, controller: AnyController) {
         _vessel = VesselEditQuery(id: id, controller: controller)
@@ -75,7 +76,7 @@ internal struct VesselEdit: View {
             }
             .navigationTitle("Edit Plant")
             .toolbar {
-                Button("Done") { self.nav.reset() }
+                Button("Done") { self.dismiss() }
             }
         }
     }
