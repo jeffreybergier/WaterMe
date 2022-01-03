@@ -27,7 +27,7 @@ internal struct VesselEdit: View {
     
     @Nav private var nav
     @VesselEditQuery private var vessel: Vessel
-    @VesselEditReminderQuery private var reminders: AnyRandomAccessCollection<Binding<Reminder>>
+    @VesselEditReminderQuery private var reminders: AnyRandomAccessCollection<Reminder>
     @Environment(\.dismiss) private var dismiss
     
     internal init(id: Vessel.アイディ, controller: AnyController) {
@@ -66,7 +66,7 @@ internal struct VesselEdit: View {
                         Button {
                             self.nav.state = .listVesselEditReminderEdit(.init(item.id, self.vessel.id))
                         } label: {
-                            Text(item.wrappedValue.note ?? "-1")
+                            Text(item.note ?? "-1")
                         }
                     }
                 }

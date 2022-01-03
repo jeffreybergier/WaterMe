@@ -52,7 +52,8 @@ public struct ReminderEditQuery: DynamicProperty {
                 self.cd_reminder.raw_interval = Int32(newValue.interval)
                 self.cd_reminder.raw_isEnabled = newValue.isEnabled
                 self.cd_reminder.raw_note = newValue.note
-                try! self.context.save() // TODO: Make this safe
+                guard case .failure(let error) = self.context.waterme_save() else { return }
+                fatalError(error.localizedDescription) // TODO: Make this safe
             }
         )
     }

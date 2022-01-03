@@ -56,7 +56,7 @@ public struct VesselEditQuery: DynamicProperty {
         self.cd_reminderVessel.raw_kindString = newValue.kind.rawValue
         self.cd_reminderVessel.raw_iconEmojiString = newValue.icon?.emoji
         self.cd_reminderVessel.raw_iconImageData = newValue.icon?.dataValue
-        // TODO: Finish values
-        try! self.context.save()
+        guard case .failure(let error) = self.context.waterme_save() else { return }
+        fatalError(error.localizedDescription) // TODO: Make this safe
     }
 }

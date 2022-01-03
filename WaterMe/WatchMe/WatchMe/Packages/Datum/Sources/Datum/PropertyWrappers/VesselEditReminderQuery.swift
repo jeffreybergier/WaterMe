@@ -38,26 +38,17 @@ public struct VesselEditReminderQuery: DynamicProperty {
         _data = fr
     }
     
-    public var wrappedValue: AnyRandomAccessCollection<Binding<Reminder>> {
+    public var wrappedValue: AnyRandomAccessCollection<Reminder> {
         get {
             AnyRandomAccessCollection(
                 TransformCollection(collection: self.data) { item in
-                    Binding(
-                        get: {
-                            Reminder(cd: item)
-                        },
-                        set: { newItem in
-                            // TODO: This fires twice for some reason
-//                            item.cd_title = newItem.title
-//                            item.cd_dateModified = newItem.dateModified
-//                            do {
-//                                try context.save()
-//                                print("Success: \(newItem.title)")
-//                            } catch {
-//                                print(error)
-//                            }
-                        }
-                    )
+                    Reminder(cd: item)
+//                    Binding(
+//                        get: { Reminder(cd: item) },
+//                        set: { newItem in
+//                            fatalError("No reason this wouldn't work. Its just not used in the app")
+//                        }
+//                    )
                 }
             )
         }
