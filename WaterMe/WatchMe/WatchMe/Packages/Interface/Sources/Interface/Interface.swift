@@ -85,12 +85,28 @@ extension Interface {
             content
                 .sheet(item: self.$nav.isListVesselEdit) { input in
                     VesselEdit(id: input.id, controller: self.controller)
-                        .sheet(item: self.$nav.isListVesselEditReminderEdit) { input in
-                            ReminderEdit(id: input.reminderID, controller: self.controller)
-                        }
-                        .sheet(item: self.$nav.isListVesselEditEmoji) { input in
-                            VesselEmoji(id: input.vesselID, controller: self.controller)
-                        }
+                        .modifier(ListVesselEditReminderEdit())
+                        .modifier(ListVesselEditEmoji())
+                }
+        }
+    }
+    private struct ListVesselEditReminderEdit: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isListVesselEditReminderEdit) { input in
+                    ReminderEdit(id: input.reminderID, controller: self.controller)
+                }
+        }
+    }
+    private struct ListVesselEditEmoji: ViewModifier {
+        @Nav private var nav
+        @EnvironmentObject private var controller: AnyController
+        func body(content: Content) -> some View {
+            content
+                .sheet(item: self.$nav.isListVesselEditEmoji) { input in
+                    VesselEmoji(id: input.vesselID, controller: self.controller)
                 }
         }
     }
