@@ -93,12 +93,14 @@ public struct Navigation {
             self.reset()
         }
     }
+    // TODO: Hack needed for confirmation dialog
     public var isListMenu: Bool = false {
         didSet {
             guard self.isListMenu == false else { return }
             self.reset()
         }
     }
+    // TODO: Hack needed for confirmation dialog
     public var isListMenuData: ReminderAndVesselInput? {
         didSet {
             guard self.isListMenuData == nil else { return }
@@ -132,13 +134,13 @@ public struct Navigation {
     public var isListVesselEditReminderEdit: ReminderAndVesselInput? {
         didSet {
             guard self.isListVesselEditReminderEdit == nil else { return }
-            self.state = .listVesselEdit(self.isListVesselEdit!)
+            self.state = self.isListVesselEdit.map { .listVesselEdit($0) } ?? .rootList
         }
     }
     public var isListVesselEditEmoji: VesselInput? {
         didSet {
             guard self.isListVesselEditEmoji == nil else { return }
-            self.state = .listVesselEdit(self.isListVesselEdit!)
+            self.state = self.isListVesselEdit.map { .listVesselEdit($0) } ?? .rootList
         }
     }
     public var isListSettings = false {
