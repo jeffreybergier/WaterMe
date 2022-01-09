@@ -21,17 +21,20 @@
 import SwiftUI
 import Datum
 import Nav
+import Umbrella
 
 public struct Interface: View {
 
     @Nav private var nav
     @StateObject private var controller = NewController(of: .local)!
+    @StateObject private var errorQ = ErrorQueue([])
     
     public init() {}
     
     public var body: some View {
         self.render()
             .environmentObject(self.controller)
+            .environmentObject(self.errorQ)
             .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
     }
     

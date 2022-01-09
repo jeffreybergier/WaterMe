@@ -34,7 +34,8 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(path: "../Datum"),
-        .package(path: "../Nav")
+        .package(path: "../Nav"),
+        .package(path: "../Umbrella")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -43,7 +44,8 @@ let package = Package(
             name: "Interface",
             dependencies: [
                 .byNameItem(name: "Datum", condition: nil),
-                .byNameItem(name: "Nav", condition: nil)
+                .byNameItem(name: "Nav", condition: nil),
+                .byNameItem(name: "Umbrella", condition: nil)
             ]),
         .testTarget(
             name: "InterfaceTests",

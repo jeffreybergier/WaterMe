@@ -21,12 +21,14 @@
 import SwiftUI
 import Nav
 import Datum
+import Umbrella
 
 internal struct ReminderList: View {
     
     @Nav private var nav
     @ReminderListQuery private var data
     @EnvironmentObject private var controller: AnyController
+    @EnvironmentObject private var errorQ: ErrorQueue
     
     internal var body: some View {
         NavigationView {
@@ -46,7 +48,7 @@ internal struct ReminderList: View {
                     case .success(let id):
                         self.nav.state = .listVesselEdit(.init(id))
                     case .failure(let error):
-                        fatalError(error.localizedDescription)
+                        self.errorQ.value.append(error)
                     }
                 }
             }
