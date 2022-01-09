@@ -24,18 +24,69 @@ import Model
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
     
-    @FetchRequest private var data: FetchedResults<CD_Reminder>
-    @Environment(\.managedObjectContext) private var context
-    
+    @FetchRequest private var section0: FetchedResults<CD_Reminder>
+    @FetchRequest private var section1: FetchedResults<CD_Reminder>
+    @FetchRequest private var section2: FetchedResults<CD_Reminder>
+    @FetchRequest private var section3: FetchedResults<CD_Reminder>
+    @FetchRequest private var section4: FetchedResults<CD_Reminder>
+    @FetchRequest private var section5: FetchedResults<CD_Reminder>
+
     public init() {
-        let sd = NSSortDescriptor(keyPath: \CD_Reminder.raw_nextPerformDate, ascending: true)
-        let fr = FetchRequest<CD_Reminder>(sortDescriptors: [sd], predicate: nil, animation: .default)
-        _data = fr
+        _section0 = fetchRequest(for: .late)
+        _section1 = fetchRequest(for: .today)
+        _section2 = fetchRequest(for: .tomorrow)
+        _section3 = fetchRequest(for: .thisWeek)
+        _section4 = fetchRequest(for: .later)
+        _section5 = fetchRequest(for: .disabled)
     }
     
-    public var wrappedValue: AnyRandomAccessCollection<Reminder> {
-        TransformCollection(collection: self.data) { item in
-            Reminder(cd: item)
-        }.eraseToAnyRandomAccessCollection()
+    public var wrappedValue: [Reminder.Section] {
+        return [
+            .init(.late, TransformCollection(collection: self.section0) { Reminder(cd: $0) }
+                    .eraseToAnyRandomAccessCollection()),
+            .init(.today, TransformCollection(collection: self.section1) { Reminder(cd: $0) }
+                    .eraseToAnyRandomAccessCollection()),
+            .init(.tomorrow, TransformCollection(collection: self.section2) { Reminder(cd: $0) }
+                    .eraseToAnyRandomAccessCollection()),
+            .init(.thisWeek, TransformCollection(collection: self.section3) { Reminder(cd: $0) }
+                    .eraseToAnyRandomAccessCollection()),
+            .init(.later, TransformCollection(collection: self.section4) { Reminder(cd: $0) }
+                    .eraseToAnyRandomAccessCollection()),
+            .init(.disabled, TransformCollection(collection: self.section5) { Reminder(cd: $0) }
+                    .eraseToAnyRandomAccessCollection()),
+        ]
     }
+}
+
+private func fetchRequest(for section: Reminder.Section.Kind) -> FetchRequest<CD_Reminder> {
+    let enabledPredicate = NSPredicate(format: "%K == YES", #keyPath(CD_Reminder.raw_isEnabled))
+    let disabledPredicate = NSPredicate(format: "%K == NO", #keyPath(CD_Reminder.raw_isEnabled))
+    let normalPredicate: (DateInterval) -> NSPredicate = { range in
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            enabledPredicate,
+            NSPredicate(format: "%K >= %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.start as NSDate)),
+            NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate))
+        ])
+    }
+
+    let predicate: NSPredicate
+    switch section {
+    case .disabled:
+        predicate = disabledPredicate
+    case .later, .thisWeek, .today, .tomorrow:
+        predicate = normalPredicate(section.dateInterval)
+    case .late:
+        let neverPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            enabledPredicate,
+            NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate))
+        ])
+        predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+            normalPredicate(section.dateInterval),
+            neverPredicate
+        ])
+    }
+    let sd = [CD_Reminder.sortDescriptor(for: .nextPerformDate, ascending: true)]
+    return FetchRequest(sortDescriptors: sd,
+                        predicate: predicate,
+                        animation: .default)
 }

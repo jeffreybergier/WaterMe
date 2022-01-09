@@ -22,7 +22,7 @@ import SwiftUI
 import Model
 import Datum
 
-extension ReminderList {
+extension ReminderList.Grid {
     internal struct Cell: View {
         
         var reminder: Reminder
@@ -35,6 +35,11 @@ extension ReminderList {
         
         internal var body: some View {
             VStack {
+                if let image = self.vessel.icon?.image {
+                    Image(uiImage: image)
+                } else {
+                    Text(self.vessel.icon?.emoji ?? "🌸")
+                }
                 Text(self.vessel.displayName ?? "-1")
             }
         }

@@ -26,20 +26,14 @@ import Umbrella
 internal struct ReminderList: View {
     
     @Nav private var nav
-    @ReminderListQuery private var data
+    @ReminderListQuery private var sections
     @EnvironmentObject private var controller: AnyController
     @EnvironmentObject private var errorQ: ErrorQueue
     
     internal var body: some View {
         NavigationView {
-            VStack {
-                List(self.data) { item in
-                    Button {
-                        self.nav.state = .listMenu(.init(item.id, item.vesselID!))
-                    } label: {
-                        Cell(reminder: item, controller: self.controller)
-                    }
-                }
+            Grid(sections: self.sections) { item in
+                self.nav.state = .listMenu(.init(item.id, item.vesselID!))
             }
             .navigationTitle("WaterMe")
             .toolbar {
