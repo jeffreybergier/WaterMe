@@ -21,12 +21,14 @@
 import SwiftUI
 import CoreData
 import Model
+import Umbrella
 
 @propertyWrapper
 public struct VesselEditQuery: DynamicProperty {
     
     @Environment(\.managedObjectContext) private var context
     @ObservedObject private var cd_reminderVessel: CD_ReminderVessel
+    @EnvironmentObject private var errorQ: ErrorQueue
     
     // TODO: Move controller into the environment
     public init(id: Vessel.アイディ, controller: AnyController) {
@@ -57,6 +59,6 @@ public struct VesselEditQuery: DynamicProperty {
         self.cd_reminderVessel.raw_iconEmojiString = newValue.icon?.emoji
         self.cd_reminderVessel.raw_iconImageData = newValue.icon?.dataValue
         guard case .failure(let error) = self.context.waterme_save() else { return }
-        fatalError(error.localizedDescription) // TODO: Make this safe
+        self.errorQ.value.append(error)
     }
 }

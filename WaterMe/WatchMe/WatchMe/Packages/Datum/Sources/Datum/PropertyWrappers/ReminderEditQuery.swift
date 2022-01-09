@@ -21,12 +21,14 @@
 import SwiftUI
 import CoreData
 import Model
+import Umbrella
 
 @propertyWrapper
 public struct ReminderEditQuery: DynamicProperty {
     
     @ObservedObject private var cd_reminder: CD_Reminder
     @Environment(\.managedObjectContext) private var context
+    @EnvironmentObject private var errorQ: ErrorQueue
     
     // TODO: Move controller into the environment
     public init(id: Reminder.アイディ, controller: AnyController) {
@@ -53,7 +55,7 @@ public struct ReminderEditQuery: DynamicProperty {
                 self.cd_reminder.raw_isEnabled = newValue.isEnabled
                 self.cd_reminder.raw_note = newValue.note
                 guard case .failure(let error) = self.context.waterme_save() else { return }
-                fatalError(error.localizedDescription) // TODO: Make this safe
+                self.errorQ.value.append(error)
             }
         )
     }
