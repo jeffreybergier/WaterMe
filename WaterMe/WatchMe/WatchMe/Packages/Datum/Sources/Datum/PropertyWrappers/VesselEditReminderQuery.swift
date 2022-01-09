@@ -39,18 +39,8 @@ public struct VesselEditReminderQuery: DynamicProperty {
     }
     
     public var wrappedValue: AnyRandomAccessCollection<Reminder> {
-        get {
-            AnyRandomAccessCollection(
-                TransformCollection(collection: self.data) { item in
-                    Reminder(cd: item)
-//                    Binding(
-//                        get: { Reminder(cd: item) },
-//                        set: { newItem in
-//                            fatalError("No reason this wouldn't work. Its just not used in the app")
-//                        }
-//                    )
-                }
-            )
-        }
+        TransformCollection(collection: self.data) { item in
+            Reminder(cd: item)
+        }.eraseToAnyRandomAccessCollection()
     }
 }

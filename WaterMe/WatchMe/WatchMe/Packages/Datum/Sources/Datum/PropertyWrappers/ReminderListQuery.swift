@@ -24,28 +24,18 @@ import Model
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
     
-    @FetchRequest(sortDescriptors: [
-        NSSortDescriptor(keyPath: \CD_Reminder.raw_nextPerformDate,
-                         ascending: false)
-    ], animation: .default)
-    private var data: FetchedResults<CD_Reminder>
+    @FetchRequest private var data: FetchedResults<CD_Reminder>
     @Environment(\.managedObjectContext) private var context
     
-    public init() {}
+    public init() {
+        let sd = NSSortDescriptor(keyPath: \CD_Reminder.raw_nextPerformDate, ascending: true)
+        let fr = FetchRequest<CD_Reminder>(sortDescriptors: [sd], predicate: nil, animation: .default)
+        _data = fr
+    }
     
     public var wrappedValue: AnyRandomAccessCollection<Reminder> {
-        get {
-            AnyRandomAccessCollection(
-                TransformCollection(collection: self.data) { item in
-                    Reminder(cd: item)
-//                    Binding(
-//                        get: { Reminder(cd: item) },
-//                        set: { _ in
-//                            fatalError("No reason this wouldn't work. Its just not used in the app")
-//                        }
-//                    )
-                }
-            )
-        }
+        TransformCollection(collection: self.data) { item in
+            Reminder(cd: item)
+        }.eraseToAnyRandomAccessCollection()
     }
 }
