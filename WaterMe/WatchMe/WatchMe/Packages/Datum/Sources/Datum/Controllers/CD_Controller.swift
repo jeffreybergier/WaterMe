@@ -32,7 +32,7 @@ internal class CD_Controller: Controller {
             let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
             let mom = NSManagedObjectModel(contentsOf: url)
         else {
-            "Unable to load MOM from application bundle" //.log(as: .emergency)
+            "Unable to load MOM from application bundle".log(as: .emergency)
             return nil
         }
 
@@ -220,7 +220,7 @@ extension CD_Controller {
             UserDefaults.standard//.didRunWithoutCloudSync = false
             return .success(())
         } catch {
-            error//.log()
+            error.log()
             return .failure(.maintenanceMassageAllEntries)
         }
     }
@@ -243,7 +243,7 @@ extension CD_Controller {
                 let share = CD_VesselShare(context: context)
                 context.insert(share)
                 try context.save()
-                "0 VesselShares present, but was able to create"//.log(as: .notice)
+                "0 VesselShares present, but was able to create".log(as: .notice)
                 return .success(share)
             case 1:
                 let originalVesselShare = fetchResult[0]
@@ -267,12 +267,12 @@ extension CD_Controller {
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
                 UserDefaults.standard//.didRunWithoutCloudSync = true
-                "2+ VesselShares present, but was able to clean."//.log(as: .notice)
+                "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
         } catch {
             assertionFailure(String(describing: error))
-            error//.log(as: .error)
+            error.log(as: .error)
             return .failure(.maintenanceOneTrueVesselShare)
         }
     }
@@ -295,22 +295,22 @@ extension CD_Controller {
                 if $0.raw_dateCreated == nil {
                     let message = "DateCreated missing: \($0)"
                     assertionFailure(message)
-                    message// .log(as: .error)
+                    message.log(as: .error)
                     $0.raw_dateCreated = now
                 }
                 if $0.raw_dateModified == nil {
                     let message = "DateModified missing: \($0)"
                     assertionFailure(message)
-                    message //.log(as: .error)
+                    message.log(as: .error)
                     $0.raw_dateModified = now
                 }
             }
             try context.save()
-            "NIL Dates found: \(count)"//.log(as: .error)
+            "NIL Dates found: \(count)".log(as: .error)
             return .success(())
         } catch {
             assertionFailure(String(describing: error))
-            error//.log(as: .error)
+            error.log(as: .error)
             return .failure(.maintenanceFixDates)
         }
     }
@@ -325,11 +325,11 @@ extension CD_Controller {
             guard count > 0 else { return .success(()) }
             fetchResult.forEach { context.delete($0) }
             try context.save()
-            "Orphaned Reminders Deleted: \(count)"//.log(as: .error)
+            "Orphaned Reminders Deleted: \(count)".log(as: .error)
             return .success(())
         } catch {
             assertionFailure(String(describing: error))
-            error//.log(as: .error)
+            error.log(as: .error)
             return .failure(.maintenanceDeleteOrphanedReminders)
         }
     }
@@ -345,11 +345,11 @@ extension CD_Controller {
             guard context === share.managedObjectContext else { return .failure(.maintenanceContextMismatch) }
             fetchResult.forEach { share.addToRaw_vessels($0) }
             try context.save()
-            "Orphaned ReminderVessels Found: \(count)"//.log(as: .error)
+            "Orphaned ReminderVessels Found: \(count)".log(as: .error)
             return .success(())
         } catch {
             assertionFailure(String(describing: error))
-            error//.log(as: .error)
+            error.log(as: .error)
             return .failure(.maintenanceFixOrphanedVessels)
         }
     }
@@ -373,7 +373,7 @@ extension CD_Controller {
                 .appendingPathComponent("CoreData", isDirectory: true)
         } else {
          */
-            "App group container could not be found"// .log(as: .emergency)
+            "App group container could not be found".log(as: .emergency)
             let url = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
@@ -428,7 +428,7 @@ extension CD_Controller {
             let sampleDB2URL = self.sampleDB2URL
         else {
             let e = "Unable to find sample DB files in bundle"
-            e// .log(as: .warning)
+            e.log(as: .warning)
             return
         }
         let fm = FileManager.default
@@ -439,7 +439,7 @@ extension CD_Controller {
             try fm.copyItem(at: sampleDB1URL, to: self.dbFileURL1)
             try fm.copyItem(at: sampleDB2URL, to: self.dbFileURL2)
         } catch {
-            error// .log()
+            error.log()
             try? fm.removeItem(at: self.storeDirectoryURL)
         }
     }
@@ -479,7 +479,7 @@ extension NSManagedObjectContext {
                 // we need to rollback the context
                 self.rollback()
             }
-            error//.log()
+            error.log()
             return .failure(.write)
         }
     }

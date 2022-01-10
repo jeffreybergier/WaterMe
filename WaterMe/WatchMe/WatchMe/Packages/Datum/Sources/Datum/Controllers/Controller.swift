@@ -26,7 +26,7 @@ public func NewController(of kind: ControllerKind) -> AnyController? {
         let controller = try CD_Controller(kind: kind)
         return AnyController(controller)
     } catch {
-        error //.log(as: .emergency)
+        error.log(as: .emergency)
         return nil
     }
 }
