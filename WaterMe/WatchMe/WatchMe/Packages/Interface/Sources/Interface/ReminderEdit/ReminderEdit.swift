@@ -62,8 +62,7 @@ internal struct ReminderEdit: View {
                     }
                 }
                 Section(header: Text("Notifications")) {
-                    // TODO: Reverse toggle
-                    Toggle("Pause Notifications", isOn: self.$reminder.isEnabled)
+                    JSBToggle("Pause Notifications", isOn: self.$reminder.isEnabled, isFlipped: true)
                 }
                 Section(header: Text("Notes")) {
                     JSBTextField("Notes", text: self.$reminder.note)
