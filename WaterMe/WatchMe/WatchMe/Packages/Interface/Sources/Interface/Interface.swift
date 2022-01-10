@@ -29,7 +29,9 @@ public struct Interface: View {
     @StateObject private var controller = NewController(of: .local)!
     @StateObject private var errorQ = ErrorQueue([])
     
-    public init() {}
+    public init() {
+        Loggable.configure()
+    }
     
     public var body: some View {
         self.render()
