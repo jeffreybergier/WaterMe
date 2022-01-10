@@ -67,7 +67,7 @@ internal struct VesselEdit: View {
                         Button {
                             self.nav.state = .listVesselEditReminderEdit(.init(item.id, self.vessel.id))
                         } label: {
-                            Text(item.note ?? "-1")
+                            JSBText("No Note", text: item.note)
                         }
                     }
                 }

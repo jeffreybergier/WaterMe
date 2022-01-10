@@ -21,6 +21,7 @@
 import SwiftUI
 import Model
 import Datum
+import Umbrella
 
 extension ReminderList.Grid {
     internal struct Cell: View {
@@ -38,9 +39,9 @@ extension ReminderList.Grid {
                 if let image = self.vessel.icon?.image {
                     Image(uiImage: image)
                 } else {
-                    Text(self.vessel.icon?.emoji ?? "🌸")
+                    JSBText("🌸", text: self.vessel.icon?.emoji)
                 }
-                Text(self.vessel.displayName ?? "-1")
+                JSBText("My Plant", text: self.vessel.displayName)
             }
         }
     }

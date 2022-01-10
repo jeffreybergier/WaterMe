@@ -72,7 +72,7 @@ internal struct ReminderEdit: View {
                     Text("// TODO: Siri Shortcuts")
                 }
                 Section(header: Text("Last Performed")) {
-                    Text(self.reminder.lastPerformDate?.description ?? "Never")
+                    JSBText("Never", text: self.reminder.lastPerformDate?.description)
                 }
             }
             .navigationTitle("Edit Reminder")
