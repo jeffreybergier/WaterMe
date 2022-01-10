@@ -22,6 +22,7 @@ import SwiftUI
 import Model
 import Datum
 import Nav
+import Umbrella
 
 internal struct VesselEdit: View {
     
@@ -59,7 +60,7 @@ internal struct VesselEdit: View {
                     }
                 }
                 Section(header: Text("Name")) {
-                    TextField("Plant Name", text: self.$vessel.displayName ?? "-1")
+                    JSBTextField("Plant Name", text: self.$vessel.displayName)
                 }
                 Section(header: Text("Reminders")) {
                     List(self.reminders) { item in

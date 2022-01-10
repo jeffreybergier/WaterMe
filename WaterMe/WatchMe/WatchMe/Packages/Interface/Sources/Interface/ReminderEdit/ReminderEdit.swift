@@ -22,6 +22,7 @@ import SwiftUI
 import Model
 import Datum
 import Nav
+import Umbrella
 
 internal struct ReminderEdit: View {
     
@@ -45,12 +46,12 @@ internal struct ReminderEdit: View {
                 }
                 if case .move = self.reminder.kind {
                     Section(header: Text("Details")) {
-                        TextField("Move to", text: self.$reminder.kindDescription ?? "-1")
+                        JSBTextField("Move to", text: self.$reminder.kindDescription)
                     }
                 }
                 if case .other = self.reminder.kind {
                     Section(header: Text("Details")) {
-                        TextField("Description", text: self.$reminder.kindDescription ?? "-1")
+                        JSBTextField("Description", text: self.$reminder.kindDescription)
                     }
                 }
                 Section(header: Text("Remind Every")) {
@@ -65,7 +66,7 @@ internal struct ReminderEdit: View {
                     Toggle("Pause Notifications", isOn: self.$reminder.isEnabled)
                 }
                 Section(header: Text("Notes")) {
-                    TextField("Notes", text: self.$reminder.note ?? "-1")
+                    JSBTextField("Notes", text: self.$reminder.note)
                 }
                 Section(header: Text("Siri Shortcuts")) {
                     Text("// TODO: Siri Shortcuts")
