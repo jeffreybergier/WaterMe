@@ -49,7 +49,7 @@ internal struct VesselEdit: View {
                         Image(uiImage: image)
                     }
                     Button {
-                        self.nav.state = .listVesselEditEmoji(.init(self.vessel.id))
+                        self.nav.state = .rootアListアVesselEditアEmoji(.init(self.vessel.id))
                     } label: {
                         Text("Update Emoji")
                     }
@@ -65,7 +65,7 @@ internal struct VesselEdit: View {
                 Section(header: Text("Reminders")) {
                     List(self.reminders) { item in
                         Button {
-                            self.nav.state = .listVesselEditReminderEdit(.init(item.id, self.vessel.id))
+                            self.nav.state = .rootアListアVesselEditアReminderEdit(.init(item.id, self.vessel.id))
                         } label: {
                             JSBText("No Note", text: item.note)
                         }

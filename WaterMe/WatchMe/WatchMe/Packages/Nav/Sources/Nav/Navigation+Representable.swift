@@ -26,7 +26,7 @@ extension Navigation.State: RawRepresentable {
             let data = rawValue.data(using: .utf8),
             let result = try? PropertyListDecoder().decode(Navigation.State.self, from: data)
         else {
-            self = .rootList
+            self = .rootアList
             return
         }
         self = result

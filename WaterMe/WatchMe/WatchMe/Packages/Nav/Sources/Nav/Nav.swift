@@ -23,7 +23,7 @@ import SwiftUI
 @propertyWrapper
 public struct Nav: DynamicProperty {
 
-    @SceneStorage("Navigation") private var state: Navigation.State = .rootList
+    @SceneStorage("Navigation") private var state: Navigation.State = .rootアList
     
     public init() {}
 

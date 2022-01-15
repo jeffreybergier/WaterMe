@@ -57,16 +57,16 @@ extension Interface {
         func body(content: Content) -> some View {
             content
                 .confirmationDialog("// TODO: FixMe",
-                                    isPresented: self.$nav.isListMenu,
-                                    presenting: self.nav.isListMenuData)
+                                    isPresented: self.$nav.isRootアListアMenu,
+                                    presenting: self.nav.isRootアListアMenuData)
             { input in
-                Button   { self.nav.state = .listReminderEdit(.init(input.reminderID)) }
+                Button   { self.nav.state = .rootアListアReminderEdit(.init(input.reminderID)) }
             label: { Text("Edit Reminder") }
-                Button   { self.nav.state = .listVesselEdit(.init(input.vesselID)) }
+                Button   { self.nav.state = .rootアListアVesselEdit(.init(input.vesselID)) }
             label: { Text("Edit Plant") }
-                Button   { self.nav.state = .listSummary(.init(input.reminderID)) }
+                Button   { self.nav.state = .rootアListアSummary(.init(input.reminderID)) }
             label: { Text("View Summary") }
-                Button { self.nav.state = .listWatering(.init([input.reminderID])) }
+                Button { self.nav.state = .rootアListアWatering(.init([input.reminderID])) }
             label: { Text("Mark as Done") }
                 Button { self.nav.reset() }
             label: { Text("Dismiss") }
@@ -78,7 +78,7 @@ extension Interface {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isListReminderEdit) { input in
+                .sheet(item: self.$nav.isRootアListアReminderEdit) { input in
                     ReminderEdit(id: input.reminderID, controller: self.controller)
                 }
         }
@@ -88,7 +88,7 @@ extension Interface {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isListVesselEdit) { input in
+                .sheet(item: self.$nav.isRootアListアVesselEdit) { input in
                     VesselEdit(id: input.id, controller: self.controller)
                         .modifier(ListVesselEditReminderEdit())
                         .modifier(ListVesselEditEmoji())
@@ -100,7 +100,7 @@ extension Interface {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isListVesselEditReminderEdit) { input in
+                .sheet(item: self.$nav.isRootアListアVesselEditアReminderEdit) { input in
                     ReminderEdit(id: input.reminderID, controller: self.controller)
                 }
         }
@@ -110,7 +110,7 @@ extension Interface {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isListVesselEditEmoji) { input in
+                .sheet(item: self.$nav.isRootアListアVesselEditアEmoji) { input in
                     VesselEmoji(id: input.vesselID, controller: self.controller)
                 }
         }
@@ -120,7 +120,7 @@ extension Interface {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isListWatering) { input in
+                .sheet(item: self.$nav.isRootアListアWatering) { input in
                     Watering()
                 }
         }

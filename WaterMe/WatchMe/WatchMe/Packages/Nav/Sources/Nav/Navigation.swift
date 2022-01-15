@@ -20,58 +20,59 @@
 
 import SwiftUI
 import Model
+import Umbrella
 
 public struct Navigation {
     public enum State: Codable {
-        case rootList
-        case rootError
-        case listMenu(ReminderAndVesselInput)
-        case listWatering(WateringInput)
-        case listSummary(ReminderInput)
-        case listReminderEdit(ReminderInput)
-        case listVesselEdit(VesselInput)
-        case listVesselEditReminderEdit(ReminderAndVesselInput)
-        case listVesselEditEmoji(VesselInput)
-        case listSettings
-        case listError
+        case rootアError
+        case rootアList
+        case rootアListアError
+        case rootアListアSettings
+        case rootアListアMenu(ReminderAndVesselInput)
+        case rootアListアWatering(WateringInput)
+        case rootアListアSummary(ReminderInput)
+        case rootアListアReminderEdit(ReminderInput)
+        case rootアListアVesselEdit(VesselInput)
+        case rootアListアVesselEditアReminderEdit(ReminderAndVesselInput)
+        case rootアListアVesselEditアEmoji(VesselInput)
     }
     
     public static func root() -> Navigation {
-        return Navigation(.rootList)
+        return Navigation(.rootアList)
     }
     
     public mutating func reset() {
-        self.state = .rootList
+        self.state = .rootアList
     }
     
     public init(_ state: State) {
         self.state = state
         switch state {
-        case .rootList:
-            self.isRootList = true
-        case .rootError:
-            self.isRootError = true
-        case .listMenu(let v):
-            self.isListMenu = true
-            self.isListMenuData = v
-        case .listWatering(let v):
-            self.isListWatering = v
-        case .listSummary(let v):
-            self.isListSummary = v
-        case .listReminderEdit(let v):
-            self.isListReminderEdit = v
-        case .listVesselEdit(let v):
-            self.isListVesselEdit = v
-        case .listVesselEditReminderEdit(let v):
-            self.isListVesselEdit = .init(v.vesselID)
-            self.isListVesselEditReminderEdit = v
-        case .listVesselEditEmoji(let v):
-            self.isListVesselEdit = .init(v.vesselID)
-            self.isListVesselEditEmoji = v
-        case .listSettings:
-            self.isListSettings = true
-        case .listError:
-            self.isListError = true
+        case .rootアError:
+            self.isRootアError = true
+        case .rootアList:
+            self.isRootアList = true
+        case .rootアListアError:
+            self.isRootアListアError = true
+        case .rootアListアSettings:
+            self.isRootアListアSettings = true
+        case .rootアListアMenu(let v):
+            self.isRootアListアMenu = true
+            self.isRootアListアMenuData = v
+        case .rootアListアWatering(let v):
+            self.isRootアListアWatering = v
+        case .rootアListアSummary(let v):
+            self.isRootアListアSummary = v
+        case .rootアListアReminderEdit(let v):
+            self.isRootアListアReminderEdit = v
+        case .rootアListアVesselEdit(let v):
+            self.isRootアListアVesselEdit = v
+        case .rootアListアVesselEditアReminderEdit(let v):
+            self.isRootアListアVesselEdit = .init(v.vesselID)
+            self.isRootアListアVesselEditアReminderEdit = v
+        case .rootアListアVesselEditアEmoji(let v):
+            self.isRootアListアVesselEdit = .init(v.vesselID)
+            self.isRootアListアVesselEditアEmoji = v
         }
     }
     
@@ -81,78 +82,78 @@ public struct Navigation {
         }
     }
     
-    public var isRootList = false {
+    public var isRootアError = false {
         didSet {
-            guard self.isRootList == false else { return }
+            guard self.isRootアError == false else { return }
             self.reset()
         }
     }
-    public var isRootError = false {
+    public var isRootアList = false {
         didSet {
-            guard self.isRootError == false else { return }
+            guard self.isRootアList == false else { return }
+            self.reset()
+        }
+    }
+    public var isRootアListアError = false {
+        didSet {
+            guard self.isRootアListアError == false else { return }
+            self.reset()
+        }
+    }
+    public var isRootアListアSettings = false {
+        didSet {
+            guard self.isRootアListアSettings == false else { return }
             self.reset()
         }
     }
     // TODO: Hack needed for confirmation dialog
-    public var isListMenu: Bool = false {
+    public var isRootアListアMenu: Bool = false {
         didSet {
-            guard self.isListMenu == false else { return }
+            guard self.isRootアListアMenu == false else { return }
             self.reset()
         }
     }
     // TODO: Hack needed for confirmation dialog
-    public var isListMenuData: ReminderAndVesselInput? {
+    public var isRootアListアMenuData: ReminderAndVesselInput? {
         didSet {
-            guard self.isListMenuData == nil else { return }
+            guard self.isRootアListアMenuData == nil else { return }
             self.reset()
         }
     }
-    public var isListWatering: WateringInput? {
+    public var isRootアListアWatering: WateringInput? {
         didSet {
-            guard self.isListWatering == nil else { return }
+            guard self.isRootアListアWatering == nil else { return }
             self.reset()
         }
     }
-    public var isListSummary: ReminderInput? {
+    public var isRootアListアSummary: ReminderInput? {
         didSet {
-            guard self.isListSummary == nil else { return }
+            guard self.isRootアListアSummary == nil else { return }
             self.reset()
         }
     }
-    public var isListReminderEdit: ReminderInput? {
+    public var isRootアListアReminderEdit: ReminderInput? {
         didSet {
-            guard self.isListReminderEdit == nil else { return }
+            guard self.isRootアListアReminderEdit == nil else { return }
             self.reset()
         }
     }
-    public var isListVesselEdit: VesselInput? {
+    public var isRootアListアVesselEdit: VesselInput? {
         didSet {
-            guard self.isListVesselEdit == nil else { return }
+            guard self.isRootアListアVesselEdit == nil else { return }
             self.reset()
         }
     }
-    public var isListVesselEditReminderEdit: ReminderAndVesselInput? {
+    public var isRootアListアVesselEditアReminderEdit: ReminderAndVesselInput? {
         didSet {
-            guard self.isListVesselEditReminderEdit == nil else { return }
-            self.state = self.isListVesselEdit.map { .listVesselEdit($0) } ?? .rootList
+            guard self.isRootアListアVesselEditアReminderEdit == nil else { return }
+            self.state = self.isRootアListアVesselEdit.map { .rootアListアVesselEdit($0) } ?? .rootアList
         }
     }
-    public var isListVesselEditEmoji: VesselInput? {
+    public var isRootアListアVesselEditアEmoji: VesselInput? {
         didSet {
-            guard self.isListVesselEditEmoji == nil else { return }
-            self.state = self.isListVesselEdit.map { .listVesselEdit($0) } ?? .rootList
-        }
-    }
-    public var isListSettings = false {
-        didSet {
-            guard self.isListSettings == false else { return }
-            self.reset()
-        }
-    }
-    public var isListError = false {
-        didSet {
-            guard self.isListError == false else { return }
-            self.reset()
+            guard self.isRootアListアVesselEditアEmoji == nil else { return }
+            self.state = self.isRootアListアVesselEdit.map { .rootアListアVesselEdit($0) } ?? .rootアList
         }
     }
 }

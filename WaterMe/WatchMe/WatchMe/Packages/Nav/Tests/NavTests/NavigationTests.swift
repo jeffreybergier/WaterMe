@@ -30,7 +30,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_rootList
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isRootList])
+        results.subtract([\.isRootアList])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -38,7 +38,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_rootError
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isRootError])
+        results.subtract([\.isRootアError])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -47,8 +47,8 @@ final class NavigationTests: XCTestCase {
         nav.state = .TEST_listMenu
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
         results.subtract([
-            \.isListMenu,
-            \.isListMenuData
+            \.isRootアListアMenu,
+            \.isRootアListアMenuData
         ])
         XCTAssertEqual(results.count, 0)
     }
@@ -57,7 +57,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listWatering
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isListWatering])
+        results.subtract([\.isRootアListアWatering])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -65,7 +65,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listSummary
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isListSummary])
+        results.subtract([\.isRootアListアSummary])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -73,7 +73,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listReminderEdit
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isListReminderEdit])
+        results.subtract([\.isRootアListアReminderEdit])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -81,7 +81,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listVesselEdit
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isListVesselEdit])
+        results.subtract([\.isRootアListアVesselEdit])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -90,8 +90,8 @@ final class NavigationTests: XCTestCase {
         nav.state = .TEST_listVesselEditReminderEdit
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
         results.subtract([
-            \.isListVesselEdit,
-            \.isListVesselEditReminderEdit
+            \.isRootアListアVesselEdit,
+            \.isRootアListアVesselEditアReminderEdit
         ])
         XCTAssertEqual(results.count, 0)
     }
@@ -101,8 +101,8 @@ final class NavigationTests: XCTestCase {
         nav.state = .TEST_listVesselEditEmoji
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
         results.subtract([
-            \.isListVesselEdit,
-            \.isListVesselEditEmoji
+            \.isRootアListアVesselEdit,
+            \.isRootアListアVesselEditアEmoji
         ])
         XCTAssertEqual(results.count, 0)
     }
@@ -111,7 +111,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listSettings
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isListSettings])
+        results.subtract([\.isRootアListアSettings])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -119,7 +119,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listError
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([\.isListError])
+        results.subtract([\.isRootアListアError])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -128,9 +128,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_rootList() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isRootList = false
+            nav.isRootアList = false
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -138,9 +138,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_rootError() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isRootError = false
+            nav.isRootアListアError = false
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -148,9 +148,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listMenu() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListMenu = false
+            nav.isRootアListアMenu = false
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -158,9 +158,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listMenuData() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListMenuData = nil
+            nav.isRootアListアMenuData = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -168,9 +168,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listWatering() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListWatering = nil
+            nav.isRootアListアWatering = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -178,9 +178,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listSummary() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListSummary = nil
+            nav.isRootアListアSummary = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -188,9 +188,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listReminderEdit() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListReminderEdit = nil
+            nav.isRootアListアSummary = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -198,9 +198,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listVesselEdit() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListVesselEdit = nil
+            nav.isRootアListアVesselEdit = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -208,13 +208,13 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listVesselEditReminderEdit() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListVesselEditReminderEdit = nil
+            nav.isRootアListアVesselEditアReminderEdit = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
             switch state {
-            case .listVesselEditReminderEdit, .listVesselEditEmoji, .listVesselEdit:
-                results.subtract([\.isListVesselEdit])
+            case .rootアListアVesselEditアReminderEdit, .rootアListアVesselEditアEmoji, .rootアListアVesselEdit:
+                results.subtract([\.isRootアListアVesselEdit])
             default:
-                results.subtract([\.isRootList])
+                results.subtract([\.isRootアList])
             }
             XCTAssertEqual(results.count, 0)
         }
@@ -223,13 +223,13 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listVesselEditEmoji() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListVesselEditEmoji = nil
+            nav.isRootアListアVesselEditアEmoji = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
             switch state {
-            case .listVesselEditReminderEdit, .listVesselEditEmoji, .listVesselEdit:
-                results.subtract([\.isListVesselEdit])
+            case .rootアListアVesselEditアReminderEdit, .rootアListアVesselEditアEmoji, .rootアListアVesselEdit:
+                results.subtract([\.isRootアListアVesselEdit])
             default:
-                results.subtract([\.isRootList])
+                results.subtract([\.isRootアList])
             }
             XCTAssertEqual(results.count, 0)
         }
@@ -238,9 +238,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listSettings() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListSettings = false
+            nav.isRootアListアSettings = false
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -248,9 +248,9 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listError() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isListError = false
+            nav.isRootアError = false
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootList])
+            results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
         }
     }
@@ -260,56 +260,56 @@ final class NavigationTests: XCTestCase {
     private typealias NavKP = PartialKeyPath<Navigation>
     private func keyPathsForNonNilAndTrueProperties(_ nav: Navigation) -> Set<NavKP> {
         var kps: Set<NavKP> = []
-        if nav.isRootList == true {
-            kps.insert(\.isRootList)
+        if nav.isRootアList == true {
+            kps.insert(\.isRootアList)
         }
-        if nav.isRootError == true {
-            kps.insert(\.isRootError)
+        if nav.isRootアError == true {
+            kps.insert(\.isRootアError)
         }
-        if nav.isListMenu == true {
-            kps.insert(\.isListMenu)
+        if nav.isRootアListアMenu == true {
+            kps.insert(\.isRootアListアMenu)
         }
-        if nav.isListMenuData != nil {
-            kps.insert(\.isListMenuData)
+        if nav.isRootアListアMenuData != nil {
+            kps.insert(\.isRootアListアMenuData)
         }
-        if nav.isListWatering != nil {
-            kps.insert(\.isListWatering)
+        if nav.isRootアListアWatering != nil {
+            kps.insert(\.isRootアListアWatering)
         }
-        if nav.isListSummary != nil {
-            kps.insert(\.isListSummary)
+        if nav.isRootアListアSummary != nil {
+            kps.insert(\.isRootアListアSummary)
         }
-        if nav.isListReminderEdit != nil {
-            kps.insert(\.isListReminderEdit)
+        if nav.isRootアListアReminderEdit != nil {
+            kps.insert(\.isRootアListアReminderEdit)
         }
-        if nav.isListVesselEdit != nil {
-            kps.insert(\.isListVesselEdit)
+        if nav.isRootアListアVesselEdit != nil {
+            kps.insert(\.isRootアListアVesselEdit)
         }
-        if nav.isListVesselEditReminderEdit != nil {
-            kps.insert(\.isListVesselEditReminderEdit)
+        if nav.isRootアListアVesselEditアReminderEdit != nil {
+            kps.insert(\.isRootアListアVesselEditアReminderEdit)
         }
-        if nav.isListVesselEditEmoji != nil {
-            kps.insert(\.isListVesselEditEmoji)
+        if nav.isRootアListアVesselEditアEmoji != nil {
+            kps.insert(\.isRootアListアVesselEditアEmoji)
         }
-        if nav.isListSettings == true {
-            kps.insert(\.isListSettings)
+        if nav.isRootアListアSettings == true {
+            kps.insert(\.isRootアListアSettings)
         }
-        if nav.isListError == true {
-            kps.insert(\.isListError)
+        if nav.isRootアListアError == true {
+            kps.insert(\.isRootアListアError)
         }
         
         // Will cause compile failure when ENUM changes
-        switch Navigation.State.rootList {
-        case .rootList: break
-        case .rootError: break
-        case .listMenu(_): break
-        case .listWatering(_): break
-        case .listSummary(_): break
-        case .listReminderEdit(_): break
-        case .listVesselEdit(_): break
-        case .listVesselEditReminderEdit(_): break
-        case .listVesselEditEmoji(_): break
-        case .listSettings: break
-        case .listError: break
+        switch Navigation.State.rootアList {
+        case .rootアError: break
+        case .rootアList: break
+        case .rootアListアError: break
+        case .rootアListアSettings: break
+        case .rootアListアMenu(_): break
+        case .rootアListアWatering(_): break
+        case .rootアListアSummary(_): break
+        case .rootアListアReminderEdit(_): break
+        case .rootアListアVesselEdit(_): break
+        case .rootアListアVesselEditアReminderEdit(_): break
+        case .rootアListアVesselEditアEmoji(_): break
         }
         return kps
     }
@@ -320,17 +320,17 @@ extension Navigation.State {
     
     static let TEST_reminderID = Reminder.アイディ("ABC123")
     static let TEST_vesselID = Vessel.アイディ("DEF456")
-    static let TEST_rootList: Navigation.State = .rootList
-    static let TEST_rootError: Navigation.State = .rootError
-    static let TEST_listMenu: Navigation.State = .listMenu(.init(TEST_reminderID, TEST_vesselID))
-    static let TEST_listWatering: Navigation.State = .listWatering(.init([TEST_reminderID]))
-    static let TEST_listSummary: Navigation.State = .listSummary(.init(TEST_reminderID))
-    static let TEST_listReminderEdit: Navigation.State = .listReminderEdit(.init(TEST_reminderID))
-    static let TEST_listVesselEdit: Navigation.State = .listVesselEdit(.init(TEST_vesselID))
-    static let TEST_listVesselEditReminderEdit: Navigation.State = .listVesselEditReminderEdit(.init(TEST_reminderID, TEST_vesselID))
-    static let TEST_listVesselEditEmoji: Navigation.State = .listVesselEditEmoji(.init(TEST_vesselID))
-    static let TEST_listSettings: Navigation.State = .listSettings
-    static let TEST_listError: Navigation.State = .listError
+    static let TEST_rootList: Navigation.State = .rootアList
+    static let TEST_rootError: Navigation.State = .rootアError
+    static let TEST_listMenu: Navigation.State = .rootアListアMenu(.init(TEST_reminderID, TEST_vesselID))
+    static let TEST_listWatering: Navigation.State = .rootアListアWatering(.init([TEST_reminderID]))
+    static let TEST_listSummary: Navigation.State = .rootアListアSummary(.init(TEST_reminderID))
+    static let TEST_listReminderEdit: Navigation.State = .rootアListアReminderEdit(.init(TEST_reminderID))
+    static let TEST_listVesselEdit: Navigation.State = .rootアListアVesselEdit(.init(TEST_vesselID))
+    static let TEST_listVesselEditReminderEdit: Navigation.State = .rootアListアVesselEditアReminderEdit(.init(TEST_reminderID, TEST_vesselID))
+    static let TEST_listVesselEditEmoji: Navigation.State = .rootアListアVesselEditアEmoji(.init(TEST_vesselID))
+    static let TEST_listSettings: Navigation.State = .rootアListアSettings
+    static let TEST_listError: Navigation.State = .rootアListアError
     static let TEST_allCases: [Navigation.State] = [
         TEST_rootList,
         TEST_rootError,

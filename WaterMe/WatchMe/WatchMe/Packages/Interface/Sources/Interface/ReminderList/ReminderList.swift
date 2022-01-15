@@ -33,14 +33,14 @@ internal struct ReminderList: View {
     internal var body: some View {
         NavigationView {
             Grid(sections: self.sections) { item in
-                self.nav.state = .listMenu(.init(item.id, item.vesselID!))
+                self.nav.state = .rootアListアMenu(.init(item.id, item.vesselID!))
             }
             .navigationTitle("WaterMe")
             .toolbar {
                 Button("Add") {
                     switch self.controller.newVessel() {
                     case .success(let id):
-                        self.nav.state = .listVesselEdit(.init(id))
+                        self.nav.state = .rootアListアVesselEdit(.init(id))
                     case .failure(let error):
                         self.errorQ.value.append(error)
                     }
