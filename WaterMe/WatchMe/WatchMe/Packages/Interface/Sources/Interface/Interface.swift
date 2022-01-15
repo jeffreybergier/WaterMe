@@ -23,11 +23,26 @@ import Datum
 import Nav
 import Umbrella
 
+// TODO: Rename and move somewhere else
+internal struct MyAlert: ViewModifier {
+    @State private var presented = false
+    var error: String?
+    func body(content: Content) -> some View {
+        content
+            .alert("Error", isPresented: self.$presented, presenting: self.error) { error in
+                Text(error)
+            }
+            .onChange(of: self.error) { newValue in
+                self.presented = newValue != nil
+            }
+    }
+}
+
 public struct Interface: View {
 
     @Nav private var nav
     @StateObject private var controller = NewController(of: .local)!
-    @StateObject private var errorQ = ErrorQueue([])
+    @StateObject private var errorQ = StringQueue(["SecondError"])
     
     public init() {
         Loggable.configure()
@@ -38,11 +53,19 @@ public struct Interface: View {
             .environmentObject(self.controller)
             .environmentObject(self.errorQ)
             .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
+            .onChange(of: self.errorQ.value.first) { error in
+                self.nav.append(String(describing: error))
+            }
+            .onAppear {
+                guard let error = self.errorQ.value.first else { return }
+                self.nav.append(String(describing: error))
+            }
     }
     
     @ViewBuilder private func render() -> some View {
         // TODO: Summary, Settings, Error
         ReminderList()
+            .modifier(MyAlert(error: self.nav.isRootアListアError))
             .modifier(ListMenu())
             .modifier(ListWatering())
             .modifier(ListReminderEdit())

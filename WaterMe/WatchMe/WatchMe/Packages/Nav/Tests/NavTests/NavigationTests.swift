@@ -138,7 +138,7 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_rootError() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isRootアListアError = false
+            nav.isRootアListアError = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
             results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
@@ -248,7 +248,7 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listError() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isRootアError = false
+            nav.isRootアError = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
             results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
@@ -263,7 +263,7 @@ final class NavigationTests: XCTestCase {
         if nav.isRootアList == true {
             kps.insert(\.isRootアList)
         }
-        if nav.isRootアError == true {
+        if nav.isRootアError != nil {
             kps.insert(\.isRootアError)
         }
         if nav.isRootアListアMenu == true {
@@ -293,7 +293,7 @@ final class NavigationTests: XCTestCase {
         if nav.isRootアListアSettings == true {
             kps.insert(\.isRootアListアSettings)
         }
-        if nav.isRootアListアError == true {
+        if nav.isRootアListアError != nil {
             kps.insert(\.isRootアListアError)
         }
         
@@ -321,7 +321,7 @@ extension Navigation.State {
     static let TEST_reminderID = Reminder.アイディ("ABC123")
     static let TEST_vesselID = Vessel.アイディ("DEF456")
     static let TEST_rootList: Navigation.State = .rootアList
-    static let TEST_rootError: Navigation.State = .rootアError
+    static let TEST_rootError: Navigation.State = .rootアError("AFakeError")
     static let TEST_listMenu: Navigation.State = .rootアListアMenu(.init(TEST_reminderID, TEST_vesselID))
     static let TEST_listWatering: Navigation.State = .rootアListアWatering(.init([TEST_reminderID]))
     static let TEST_listSummary: Navigation.State = .rootアListアSummary(.init(TEST_reminderID))
@@ -330,7 +330,7 @@ extension Navigation.State {
     static let TEST_listVesselEditReminderEdit: Navigation.State = .rootアListアVesselEditアReminderEdit(.init(TEST_reminderID, TEST_vesselID))
     static let TEST_listVesselEditEmoji: Navigation.State = .rootアListアVesselEditアEmoji(.init(TEST_vesselID))
     static let TEST_listSettings: Navigation.State = .rootアListアSettings
-    static let TEST_listError: Navigation.State = .rootアListアError
+    static let TEST_listError: Navigation.State = .rootアListアError("AFakeError")
     static let TEST_allCases: [Navigation.State] = [
         TEST_rootList,
         TEST_rootError,

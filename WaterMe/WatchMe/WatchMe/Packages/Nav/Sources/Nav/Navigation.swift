@@ -24,9 +24,9 @@ import Umbrella
 
 public struct Navigation {
     public enum State: Codable {
-        case rootアError
+        case rootアError(Error)
         case rootアList
-        case rootアListアError
+        case rootアListアError(Error)
         case rootアListアSettings
         case rootアListアMenu(ReminderAndVesselInput)
         case rootアListアWatering(WateringInput)
@@ -48,12 +48,12 @@ public struct Navigation {
     public init(_ state: State) {
         self.state = state
         switch state {
-        case .rootアError:
-            self.isRootアError = true
+        case .rootアError(let v):
+            self.isRootアError = v
         case .rootアList:
             self.isRootアList = true
-        case .rootアListアError:
-            self.isRootアListアError = true
+        case .rootアListアError(let v):
+            self.isRootアListアError = v
         case .rootアListアSettings:
             self.isRootアListアSettings = true
         case .rootアListアMenu(let v):
@@ -82,9 +82,9 @@ public struct Navigation {
         }
     }
     
-    public var isRootアError = false {
+    public var isRootアError: Error? {
         didSet {
-            guard self.isRootアError == false else { return }
+            guard self.isRootアError == nil else { return }
             self.reset()
         }
     }
@@ -94,9 +94,9 @@ public struct Navigation {
             self.reset()
         }
     }
-    public var isRootアListアError = false {
+    public var isRootアListアError: Error? {
         didSet {
-            guard self.isRootアListアError == false else { return }
+            guard self.isRootアListアError == nil else { return }
             self.reset()
         }
     }
@@ -156,6 +156,32 @@ public struct Navigation {
             self.state = self.isRootアListアVesselEdit.map { .rootアListアVesselEdit($0) } ?? .rootアList
         }
     }
+    public mutating func append(_ error: Error) {
+        switch self.state {
+        case .rootアError:
+            break // TODO: log ignore
+        case .rootアList:
+            self.state = .rootアListアError(error)
+        case .rootアListアError(_):
+            break // TODO: log ignore
+        case .rootアListアSettings:
+            break // TODO: log ignore
+        case .rootアListアMenu(_):
+            break // TODO: log ignore
+        case .rootアListアWatering(_):
+            break // TODO: log ignore
+        case .rootアListアSummary(_):
+            break // TODO: log ignore
+        case .rootアListアReminderEdit(_):
+            break // TODO: log ignore
+        case .rootアListアVesselEdit(_):
+            break // TODO: log ignore
+        case .rootアListアVesselEditアReminderEdit(_):
+            break // TODO: log ignore
+        case .rootアListアVesselEditアEmoji(_):
+            break // TODO: log ignore
+        }
+    }
 }
 
 // MARK: Inputs
@@ -177,6 +203,7 @@ public  struct VesselInput: Codable, Identifiable {
 }
 
 public  struct ReminderAndVesselInput: Codable, Identifiable {
+    // TODO: Add error options here
     public var id: String { self.vesselID.id + self.reminderID.id }
     public var reminderID: Reminder.アイディ
     public var vesselID: Vessel.アイディ
