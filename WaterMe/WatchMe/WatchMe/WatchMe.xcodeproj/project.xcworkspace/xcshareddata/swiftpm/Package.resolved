@@ -5,8 +5,8 @@
         "package": "ServerlessLogger",
         "repositoryURL": "https://github.com/jeffreybergier/JSBServerlessLogger.git",
         "state": {
-          "branch": "master",
-          "revision": "1dbd4243d9c760d577712ad2ca1b540c2f899507",
+          "branch": "2.0",
+          "revision": "e10fd5f831f1be5b51690fcac9cf050c26661887",
           "version": null
         }
       },
