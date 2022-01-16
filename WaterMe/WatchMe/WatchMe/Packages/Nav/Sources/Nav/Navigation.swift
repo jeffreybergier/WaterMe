@@ -57,8 +57,7 @@ public struct Navigation {
         case .rootアListアSettings:
             self.isRootアListアSettings = true
         case .rootアListアMenu(let v):
-            self.isRootアListアMenu = true
-            self.isRootアListアMenuData = v
+            self.isRootアListアMenu = v
         case .rootアListアWatering(let v):
             self.isRootアListアWatering = v
         case .rootアListアSummary(let v):
@@ -107,16 +106,9 @@ public struct Navigation {
         }
     }
     // TODO: Hack needed for confirmation dialog
-    public var isRootアListアMenu: Bool = false {
+    public var isRootアListアMenu: ReminderAndVesselInput? {
         didSet {
-            guard self.isRootアListアMenu == false else { return }
-            self.reset()
-        }
-    }
-    // TODO: Hack needed for confirmation dialog
-    public var isRootアListアMenuData: ReminderAndVesselInput? {
-        didSet {
-            guard self.isRootアListアMenuData == nil else { return }
+            guard self.isRootアListアMenu == nil else { return }
             self.reset()
         }
     }

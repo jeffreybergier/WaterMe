@@ -67,21 +67,22 @@ extension Interface {
         @Nav private var nav
         func body(content: Content) -> some View {
             content
-                .confirmationDialog("// TODO: FixMe",
-                                    isPresented: self.$nav.isRootアListアMenu,
-                                    presenting: self.nav.isRootアListアMenuData)
-            { input in
-                Button   { self.nav.state = .rootアListアReminderEdit(.init(input.reminderID)) }
-            label: { Text("Edit Reminder") }
-                Button   { self.nav.state = .rootアListアVesselEdit(.init(input.vesselID)) }
-            label: { Text("Edit Plant") }
-                Button   { self.nav.state = .rootアListアSummary(.init(input.reminderID)) }
-            label: { Text("View Summary") }
-                Button { self.nav.state = .rootアListアWatering(.init([input.reminderID])) }
-            label: { Text("Mark as Done") }
-                Button { self.nav.reset() }
-            label: { Text("Dismiss") }
-            }
+                .modifier(
+                    JSBConfirmationDialog(item: self.$nav.isRootアListアMenu,
+                                          titleKey: "// TODO: Fix Me")
+                    { input in
+                        Button   { self.nav.state = .rootアListアReminderEdit(.init(input.reminderID)) }
+                          label: { Text("Edit Reminder") }
+                        Button   { self.nav.state = .rootアListアVesselEdit(.init(input.vesselID)) }
+                          label: { Text("Edit Plant") }
+                        Button   { self.nav.state = .rootアListアSummary(.init(input.reminderID)) }
+                          label: { Text("View Summary") }
+                        Button   { self.nav.state = .rootアListアWatering(.init([input.reminderID])) }
+                          label: { Text("Mark as Done") }
+                        Button   { self.nav.reset() }
+                          label: { Text("Dismiss") }
+                    }
+                )
         }
     }
     private struct ListReminderEdit: ViewModifier {

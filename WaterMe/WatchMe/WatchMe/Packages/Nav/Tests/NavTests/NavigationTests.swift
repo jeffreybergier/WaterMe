@@ -46,10 +46,7 @@ final class NavigationTests: XCTestCase {
         var nav = Navigation.root()
         nav.state = .TEST_listMenu
         var results = self.keyPathsForNonNilAndTrueProperties(nav)
-        results.subtract([
-            \.isRootアListアMenu,
-            \.isRootアListアMenuData
-        ])
+        results.subtract([\.isRootアListアMenu])
         XCTAssertEqual(results.count, 0)
     }
     
@@ -148,17 +145,7 @@ final class NavigationTests: XCTestCase {
     func test_case_reset_listMenu() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
-            nav.isRootアListアMenu = false
-            var results = self.keyPathsForNonNilAndTrueProperties(nav)
-            results.subtract([\.isRootアList])
-            XCTAssertEqual(results.count, 0)
-        }
-    }
-    
-    func test_case_reset_listMenuData() {
-        for state in Navigation.State.TEST_allCases {
-            var nav = Navigation(state)
-            nav.isRootアListアMenuData = nil
+            nav.isRootアListアMenu = nil
             var results = self.keyPathsForNonNilAndTrueProperties(nav)
             results.subtract([\.isRootアList])
             XCTAssertEqual(results.count, 0)
@@ -266,11 +253,8 @@ final class NavigationTests: XCTestCase {
         if nav.isRootアError != nil {
             kps.insert(\.isRootアError)
         }
-        if nav.isRootアListアMenu == true {
+        if nav.isRootアListアMenu != nil {
             kps.insert(\.isRootアListアMenu)
-        }
-        if nav.isRootアListアMenuData != nil {
-            kps.insert(\.isRootアListアMenuData)
         }
         if nav.isRootアListアWatering != nil {
             kps.insert(\.isRootアListアWatering)
