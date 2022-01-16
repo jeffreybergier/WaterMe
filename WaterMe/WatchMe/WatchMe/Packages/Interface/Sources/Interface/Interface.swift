@@ -24,17 +24,29 @@ import Nav
 import Umbrella
 
 // TODO: Rename and move somewhere else
-internal struct MyAlert: ViewModifier {
-    @State private var presented = false
-    var error: String?
+internal struct JSBAlert<T, V: View>: ViewModifier {
+    @Binding private var isPresented: Bool
+    private var presenting: T?
+    private var content: (T) -> V
+    init(titleKey: LocalizedStringKey,
+         item: Binding<T?>,
+         @ViewBuilder content: @escaping (T) -> V)
+    {
+        self.content = content
+        self.presenting = item.wrappedValue
+        _isPresented = Binding {
+            item.wrappedValue != nil
+        } set: { newValue in
+            guard newValue == false else { return }
+            item.wrappedValue = nil
+        }
+    }
     func body(content: Content) -> some View {
         content
-            .alert("Error", isPresented: self.$presented, presenting: self.error) { error in
-                Text(error)
-            }
-            .onChange(of: self.error) { newValue in
-                self.presented = newValue != nil
-            }
+            .alert("Fake Error",
+                   isPresented: self.$isPresented,
+                   presenting: self.presenting,
+                   actions: self.content)
     }
 }
 
@@ -42,7 +54,7 @@ public struct Interface: View {
 
     @Nav private var nav
     @StateObject private var controller = NewController(of: .local)!
-    @StateObject private var errorQ = StringQueue(["SecondError"])
+    @StateObject private var errorQ = StringQueue(["An Error"])
     
     public init() {
         Loggable.configure()
@@ -65,7 +77,7 @@ public struct Interface: View {
     @ViewBuilder private func render() -> some View {
         // TODO: Summary, Settings, Error
         ReminderList()
-            .modifier(MyAlert(error: self.nav.isRootアListアError))
+            .modifier(JSBAlert(titleKey: "Fuck off", item: self.$nav.isRootアListアError) { Button($0, action: {}) })
             .modifier(ListMenu())
             .modifier(ListWatering())
             .modifier(ListReminderEdit())
