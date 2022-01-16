@@ -23,33 +23,6 @@ import Datum
 import Nav
 import Umbrella
 
-// TODO: Rename and move somewhere else
-internal struct JSBAlert<T, V: View>: ViewModifier {
-    @Binding private var isPresented: Bool
-    private var presenting: T?
-    private var content: (T) -> V
-    init(titleKey: LocalizedStringKey,
-         item: Binding<T?>,
-         @ViewBuilder content: @escaping (T) -> V)
-    {
-        self.content = content
-        self.presenting = item.wrappedValue
-        _isPresented = Binding {
-            item.wrappedValue != nil
-        } set: { newValue in
-            guard newValue == false else { return }
-            item.wrappedValue = nil
-        }
-    }
-    func body(content: Content) -> some View {
-        content
-            .alert("Fake Error",
-                   isPresented: self.$isPresented,
-                   presenting: self.presenting,
-                   actions: self.content)
-    }
-}
-
 public struct Interface: View {
 
     @Nav private var nav
@@ -77,7 +50,10 @@ public struct Interface: View {
     @ViewBuilder private func render() -> some View {
         // TODO: Summary, Settings, Error
         ReminderList()
-            .modifier(JSBAlert(titleKey: "Fuck off", item: self.$nav.isRootアListアError) { Button($0, action: {}) })
+            .modifier(JSBAlert(item: self.$nav.isRootアListアError, titleKey: "Fuck off", actions: { error in
+                Button("Kill Me", action: {})
+                Button(error, action: {})
+            }, message: { _ in Text("This is a message") }))
             .modifier(ListMenu())
             .modifier(ListWatering())
             .modifier(ListReminderEdit())
