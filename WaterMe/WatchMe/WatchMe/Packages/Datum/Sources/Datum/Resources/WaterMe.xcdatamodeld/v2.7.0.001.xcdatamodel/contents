@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2.6.1.001">
+    <entity name="CD_Base" representedClassName="CD_Base" isAbstract="YES" syncable="YES" codeGenerationType="category">
+        <attribute name="raw_bloop" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" elementID="bloop"/>
+        <attribute name="raw_dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" elementID="dateCreated"/>
+        <attribute name="raw_dateModified" optional="YES" attributeType="Date" usesScalarValueType="NO" elementID="dateModified"/>
+        <relationship name="raw_migrated" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CD_Migrated" inverseName="raw_parent" inverseEntity="CD_Migrated" elementID="migrated"/>
+    </entity>
+    <entity name="CD_Migrated" representedClassName="CD_Migrated" parentEntity="CD_Base" syncable="YES" codeGenerationType="category">
+        <attribute name="raw_realmIdentifier" optional="YES" attributeType="String" elementID="realmIdentifier"/>
+        <relationship name="raw_parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CD_Base" inverseName="raw_migrated" inverseEntity="CD_Base" elementID="parent"/>
+    </entity>
+    <entity name="CD_Reminder" representedClassName="CD_Reminder" parentEntity="CD_Base" syncable="YES" codeGenerationType="category">
+        <attribute name="raw_descriptionString" optional="YES" attributeType="String" elementID="descriptionString"/>
+        <attribute name="raw_interval" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" elementID="interval"/>
+        <attribute name="raw_isEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="raw_kindString" optional="YES" attributeType="String" elementID="kindString"/>
+        <attribute name="raw_lastPerformDate" optional="YES" attributeType="Date" usesScalarValueType="NO" elementID="lastPerformDate"/>
+        <attribute name="raw_nextPerformDate" optional="YES" attributeType="Date" usesScalarValueType="NO" elementID="nextPerformDate"/>
+        <attribute name="raw_note" optional="YES" attributeType="String" elementID="note"/>
+        <relationship name="raw_performed" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CD_ReminderPerform" inverseName="raw_reminder" inverseEntity="CD_ReminderPerform" elementID="performed"/>
+        <relationship name="raw_vessel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CD_ReminderVessel" inverseName="raw_reminders" inverseEntity="CD_ReminderVessel" elementID="vessel"/>
+    </entity>
+    <entity name="CD_ReminderPerform" representedClassName="CD_ReminderPerform" parentEntity="CD_Base" syncable="YES" codeGenerationType="category">
+        <attribute name="raw_date" optional="YES" attributeType="Date" usesScalarValueType="NO" elementID="date"/>
+        <relationship name="raw_reminder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CD_Reminder" inverseName="raw_performed" inverseEntity="CD_Reminder" elementID="reminder"/>
+    </entity>
+    <entity name="CD_ReminderVessel" representedClassName="CD_ReminderVessel" parentEntity="CD_Base" syncable="YES" codeGenerationType="category">
+        <attribute name="raw_displayName" optional="YES" attributeType="String" elementID="displayName"/>
+        <attribute name="raw_iconEmojiString" optional="YES" attributeType="String" elementID="iconEmojiString"/>
+        <attribute name="raw_iconImageData" optional="YES" attributeType="Binary" elementID="iconImageData"/>
+        <attribute name="raw_kindString" optional="YES" attributeType="String" elementID="kindString"/>
+        <relationship name="raw_reminders" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CD_Reminder" inverseName="raw_vessel" inverseEntity="CD_Reminder" elementID="reminders"/>
+        <relationship name="raw_share" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CD_VesselShare" inverseName="raw_vessels" inverseEntity="CD_VesselShare" elementID="share"/>
+    </entity>
+    <entity name="CD_VesselShare" representedClassName="CD_VesselShare" parentEntity="CD_Base" syncable="YES" codeGenerationType="category">
+        <relationship name="raw_vessels" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CD_ReminderVessel" inverseName="raw_share" inverseEntity="CD_ReminderVessel" elementID="vessels"/>
+    </entity>
+    <elements>
+        <element name="CD_Base" positionX="285.828125" positionY="-57.45703125" width="128" height="89"/>
+        <element name="CD_Migrated" positionX="393.69140625" positionY="81.95703125" width="128" height="59"/>
+        <element name="CD_Reminder" positionX="-102.375" positionY="191.87109375" width="128" height="164"/>
+        <element name="CD_ReminderPerform" positionX="90.30859375" positionY="378.4609375" width="128" height="59"/>
+        <element name="CD_ReminderVessel" positionX="-81.7890625" positionY="-41.59375" width="128" height="119"/>
+        <element name="CD_VesselShare" positionX="-86.21875" positionY="-158.2734375" width="128" height="44"/>
+    </elements>
+</model>

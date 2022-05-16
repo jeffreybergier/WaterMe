@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2.6.0.001">
+    <entity name="CD_Base" representedClassName="CD_Base" isAbstract="YES" syncable="YES">
+        <attribute name="bloop" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateModified" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="migrated" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CD_Migrated"/>
+    </entity>
+    <entity name="CD_Migrated" representedClassName="CD_Migrated" parentEntity="CD_Base" syncable="YES">
+        <attribute name="realmIdentifier" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CD_Reminder" representedClassName="CD_Reminder" parentEntity="CD_Base" syncable="YES">
+        <attribute name="descriptionString" optional="YES" attributeType="String"/>
+        <attribute name="interval" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="kindString" attributeType="String"/>
+        <attribute name="lastPerformDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="nextPerformDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <relationship name="performed" toMany="YES" deletionRule="Cascade" destinationEntity="CD_ReminderPerform" inverseName="reminder" inverseEntity="CD_ReminderPerform"/>
+        <relationship name="vessel" maxCount="1" deletionRule="Nullify" destinationEntity="CD_ReminderVessel" inverseName="reminders" inverseEntity="CD_ReminderVessel"/>
+    </entity>
+    <entity name="CD_ReminderPerform" representedClassName="CD_ReminderPerform" parentEntity="CD_Base" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="reminder" maxCount="1" deletionRule="Nullify" destinationEntity="CD_Reminder" inverseName="performed" inverseEntity="CD_Reminder"/>
+    </entity>
+    <entity name="CD_ReminderVessel" representedClassName="CD_ReminderVessel" parentEntity="CD_Base" syncable="YES">
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="iconEmojiString" optional="YES" attributeType="String"/>
+        <attribute name="iconImageData" optional="YES" attributeType="Binary"/>
+        <attribute name="kindString" attributeType="String"/>
+        <relationship name="reminders" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="CD_Reminder" inverseName="vessel" inverseEntity="CD_Reminder"/>
+        <relationship name="share" maxCount="1" deletionRule="Nullify" destinationEntity="CD_VesselShare" inverseName="vessels" inverseEntity="CD_VesselShare"/>
+    </entity>
+    <entity name="CD_VesselShare" representedClassName="CD_VesselShare" parentEntity="CD_Base" syncable="YES">
+        <relationship name="vessels" toMany="YES" deletionRule="Cascade" destinationEntity="CD_ReminderVessel" inverseName="share" inverseEntity="CD_ReminderVessel"/>
+    </entity>
+    <elements>
+        <element name="CD_Base" positionX="285.828125" positionY="-57.45703125" width="128" height="103"/>
+        <element name="CD_Reminder" positionX="-102.375" positionY="191.87109375" width="128" height="163"/>
+        <element name="CD_ReminderPerform" positionX="90.30859375" positionY="378.4609375" width="128" height="73"/>
+        <element name="CD_ReminderVessel" positionX="-81.7890625" positionY="-41.59375" width="128" height="133"/>
+        <element name="CD_VesselShare" positionX="-86.21875" positionY="-158.2734375" width="128" height="58"/>
+        <element name="CD_Migrated" positionX="393.69140625" positionY="81.95703125" width="128" height="58"/>
+    </elements>
+</model>
