@@ -22,12 +22,11 @@ import CoreData
 import Model
 
 internal class CD_Controller: Controller {
-    
+
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
-        
         guard
             let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
             let mom = NSManagedObjectModel(contentsOf: url)
@@ -70,7 +69,7 @@ internal class CD_Controller: Controller {
         assert(Thread.isMainThread)
 
         guard let container = CD_Controller.container(kind: kind)
-            else { fatalError() } //DatumError.load }
+            else { fatalError() } // DatumError.load }
 
         switch kind {
         case .local, .sync:
@@ -147,13 +146,13 @@ internal class CD_Controller: Controller {
         }
         #endif
     }
-    
+
     internal let container: NSPersistentContainer
     internal let kind: ControllerKind
     internal var __ENVONLY__managedObjectContext: NSManagedObjectContext {
         return self.container.viewContext
     }
-    
+
     internal func newVessel() -> Result<Vessel.アイディ, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -208,7 +207,7 @@ extension CD_Controller {
     }
 
     fileprivate func maintenance_massageAllEntries() -> Result<Void, Error> {
-        guard UserDefaults.standard != nil else { //.didRunWithoutCloudSync else {
+        guard UserDefaults.standard != nil else { // .didRunWithoutCloudSync else {
             return .success(())
         }
         do {
@@ -217,7 +216,7 @@ extension CD_Controller {
             let data = try context.fetch(fetchRequest)
             data.forEach { $0.raw_bloop.toggle() }
             try context.save()
-            UserDefaults.standard//.didRunWithoutCloudSync = false
+            UserDefaults.standard// .didRunWithoutCloudSync = false
             return .success(())
         } catch {
             error.log()
@@ -266,7 +265,7 @@ extension CD_Controller {
                 // 4. Save
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
-                UserDefaults.standard//.didRunWithoutCloudSync = true
+                UserDefaults.standard// .didRunWithoutCloudSync = true
                 "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
@@ -393,14 +392,14 @@ extension CD_Controller {
             .storeDirectoryURL
             .appendingPathComponent("WaterMe.sqlite-wal", isDirectory: false)
     }()
-    
+
     private static let RLM_legacyStoreDirectoryURL: URL = {
         return FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("WaterMe", isDirectory: true)
             .appendingPathComponent("Free", isDirectory: true)
     }()
-    
+
     private static let RLM_legacyRealmFile: URL = {
         return RLM_legacyStoreDirectoryURL
             .appendingPathComponent("Realm.realm", isDirectory: false)
@@ -411,7 +410,7 @@ extension CD_Controller {
         let exists = fm.fileExists(atPath: self.dbFileURL1.path)
         return exists
     }
-    
+
     internal class var RLM_legacyStoreExists: Bool {
         let fm = FileManager.default
         let exists = fm.fileExists(atPath: self.RLM_legacyRealmFile.path)

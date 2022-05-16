@@ -24,12 +24,12 @@ import Datum
 import Umbrella
 
 internal struct ReminderList: View {
-    
+
     @Nav private var nav
     @ReminderListQuery private var sections
     @EnvironmentObject private var controller: AnyController
     @EnvironmentObject private var errorQ: ErrorQueue
-    
+
     internal var body: some View {
         NavigationView {
             Grid(sections: self.sections) { item in

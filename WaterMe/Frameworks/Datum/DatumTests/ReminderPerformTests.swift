@@ -90,7 +90,7 @@ extension RLM_ReminderPerformTests {
 
 public func XCTAssertDatesClose(_ expression1: @autoclosure () throws -> Date,
                                 _ expression2: @autoclosure () throws -> Date,
-                                within interval:  TimeInterval,
+                                within interval: TimeInterval,
                                 _ message: @autoclosure () -> String = "",
                                 file: StaticString = #file,
                                 line: UInt = #line)
@@ -102,7 +102,7 @@ public func XCTAssertDatesClose(_ expression1: @autoclosure () throws -> Date,
         let gapABS = abs(gap)
         guard gapABS > interval else { return }
         XCTAssertEqual(date1, date2, message(), file: file, line: line)
-    }  catch {
+    } catch {
         XCTFail(error.localizedDescription)
     }
 }

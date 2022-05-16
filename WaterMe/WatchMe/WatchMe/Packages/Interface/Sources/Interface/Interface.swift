@@ -28,11 +28,11 @@ public struct Interface: View {
     @Nav private var nav
     @StateObject private var controller = NewController(of: .local)!
     @StateObject private var errorQ = StringQueue(["An Error"])
-    
+
     public init() {
         Loggable.configure()
     }
-    
+
     public var body: some View {
         self.render()
             .environmentObject(self.controller)
@@ -46,7 +46,7 @@ public struct Interface: View {
                 self.nav.append(String(describing: error))
             }
     }
-    
+
     @ViewBuilder private func render() -> some View {
         // TODO: Summary, Settings, Error
         ReminderList()
@@ -60,7 +60,6 @@ public struct Interface: View {
             .modifier(ListVesselEdit())
     }
 }
-
 
 extension Interface {
     internal struct ListMenu: ViewModifier {
@@ -132,10 +131,9 @@ extension Interface {
         @EnvironmentObject private var controller: AnyController
         func body(content: Content) -> some View {
             content
-                .sheet(item: self.$nav.isRootアListアWatering) { input in
+                .sheet(item: self.$nav.isRootアListアWatering) { _ in
                     Watering()
                 }
         }
     }
 }
-

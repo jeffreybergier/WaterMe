@@ -30,7 +30,7 @@ public struct Reminder: Identifiable, Hashable {
     public var nextPerformDate: Date?
     public var lastPerformDate: Date?
     public var vesselID: Vessel.アイディ?
-    
+
     public init(id: アイディ,
                 kind: ReminderKind = .water,
                 kindDescription: String? = nil,

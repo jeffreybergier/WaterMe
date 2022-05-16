@@ -24,14 +24,14 @@ import SwiftUI
 public struct Nav: DynamicProperty {
 
     @SceneStorage("Navigation") private var state: Navigation.State = .rootアList
-    
+
     public init() {}
 
     public var wrappedValue: Navigation {
         get { .init(self.state) }
         nonmutating set { self.state = newValue.state }
     }
-    
+
     public var projectedValue: Binding<Navigation> {
         Binding {
             self.wrappedValue

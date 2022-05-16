@@ -28,7 +28,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Style",
-            targets: ["Style"]),
+            targets: ["Style"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -42,6 +42,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "StyleTests",
-            dependencies: ["Style"]),
+            dependencies: ["Style"])
     ]
 )

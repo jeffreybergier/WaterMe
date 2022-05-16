@@ -46,7 +46,7 @@ class CD_VesselShareTests: DatumTestsBase {
         var sharedReference: CD_VesselShare!
 
         _ = try! self.basicController.newReminderVessel(displayName: "One", icon: nil).get()
-        
+
         _ = {
             let request = CD_VesselShare.request
             let context = self.context
@@ -55,7 +55,7 @@ class CD_VesselShareTests: DatumTestsBase {
             sharedReference = results.first!
             XCTAssertEqual(sharedReference.raw_vessels!.count, 1)
         }()
-        
+
         _ = try! self.basicController.newReminderVessel(displayName: "Two", icon: nil).get()
 
         _ = {

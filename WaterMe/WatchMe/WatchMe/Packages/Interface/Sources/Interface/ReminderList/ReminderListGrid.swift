@@ -24,11 +24,11 @@ import Datum
 
 extension ReminderList {
     internal struct Grid: View {
-        
+
         let sections: [Reminder.Section]
         let onTap: (Reminder) -> Void
         @EnvironmentObject private var controller: AnyController
-        
+
         internal var body: some View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.flexible(minimum: 64, maximum: 320)),
@@ -43,7 +43,7 @@ extension ReminderList {
                 }
             }
         }
-        
+
         @ViewBuilder private func section(_ section: Reminder.Section) -> some View {
             Section("\(section.kind)") {
                 ForEach(section.data) { item in

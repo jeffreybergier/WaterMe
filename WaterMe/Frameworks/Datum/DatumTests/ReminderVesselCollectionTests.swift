@@ -25,12 +25,12 @@ import XCTest
 @testable import Datum
 
 class ReminderVesselCollectionTests: DatumTestsBase {
-    
+
     override func setUpWithError() throws {
         try super.setUpWithError()
         try self.setUpSmall()
     }
-    
+
     func test_load() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let wait = XCTestExpectation()
@@ -38,11 +38,11 @@ class ReminderVesselCollectionTests: DatumTestsBase {
             wait.fulfill()
             let count = data.count
             XCTAssertEqual(count, 2)
-            XCTAssertEqual(data[count-1]!.displayName!, "200番花")
+            XCTAssertEqual(data[count - 1]!.displayName!, "200番花")
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_map() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let wait = XCTestExpectation()
@@ -52,11 +52,11 @@ class ReminderVesselCollectionTests: DatumTestsBase {
             let mapped: [String?] = data.map() { $0!.displayName }
             XCTAssertEqual(preCount, mapped.count)
             XCTAssertEqual(mapped[0], "100番花")
-            XCTAssertEqual(mapped[preCount-1]!, data[preCount-1]!.displayName!)
+            XCTAssertEqual(mapped[preCount - 1]!, data[preCount - 1]!.displayName!)
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_compactMap() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let wait = XCTestExpectation()
@@ -65,11 +65,11 @@ class ReminderVesselCollectionTests: DatumTestsBase {
             let preCount = data.count
             let mapped: [String] = data.compactMap() { $0!.displayName }
             XCTAssertEqual(mapped.count, preCount) // 2 of the notes in this collection are nil
-            XCTAssertEqual(mapped.last!, data[preCount-1]!.displayName!)
+            XCTAssertEqual(mapped.last!, data[preCount - 1]!.displayName!)
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_indexOfItem() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let wait = XCTestExpectation()
@@ -84,7 +84,7 @@ class ReminderVesselCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_indexOfIdentifier() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let wait = XCTestExpectation()
@@ -100,7 +100,7 @@ class ReminderVesselCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_update_deletions() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
@@ -116,7 +116,7 @@ class ReminderVesselCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_update_insert() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let wait = XCTestExpectation()
@@ -132,7 +132,7 @@ class ReminderVesselCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_update_modifications() {
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
         let vessel = try! self.basicController.newReminderVessel(displayName: "ZZZzzz",

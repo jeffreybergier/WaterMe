@@ -24,15 +24,15 @@ struct TransformCollection<Collection: RandomAccessCollection, Output>: RandomAc
     typealias Transform = (Collection.Element) -> Output
     typealias Element = Output
     typealias Index = Int
-    
+
     private let collection: Collection
     private let transform: Transform
-    
+
     init(collection: Collection, transform: @escaping Transform) {
         self.collection = collection
         self.transform = transform
     }
-    
+
     var startIndex: Int { self.collection.startIndex }
     var endIndex: Int { self.collection.endIndex }
     subscript(position: Int) -> Output {

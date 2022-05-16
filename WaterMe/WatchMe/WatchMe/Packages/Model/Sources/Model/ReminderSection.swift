@@ -22,11 +22,11 @@ import Foundation
 
 extension Reminder {
     public struct Section: Identifiable {
-        
+
         public enum Kind: Int, CaseIterable {
             case late, today, tomorrow, thisWeek, later, disabled
         }
-        
+
         public var id: Int { self.kind.rawValue }
         public var kind: Kind
         public var data: AnyRandomAccessCollection<Reminder>

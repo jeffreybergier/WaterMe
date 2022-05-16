@@ -23,7 +23,7 @@ import Model
 
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
-    
+
     @FetchRequest private var section0: FetchedResults<CD_Reminder>
     @FetchRequest private var section1: FetchedResults<CD_Reminder>
     @FetchRequest private var section2: FetchedResults<CD_Reminder>
@@ -39,7 +39,7 @@ public struct ReminderListQuery: DynamicProperty {
         _section4 = fetchRequest(for: .later)
         _section5 = fetchRequest(for: .disabled)
     }
-    
+
     public var wrappedValue: [Reminder.Section] {
         return [
             .init(.late, TransformCollection(collection: self.section0) { Reminder(cd: $0) }
@@ -53,7 +53,7 @@ public struct ReminderListQuery: DynamicProperty {
             .init(.later, TransformCollection(collection: self.section4) { Reminder(cd: $0) }
                     .eraseToAnyRandomAccessCollection()),
             .init(.disabled, TransformCollection(collection: self.section5) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
+                    .eraseToAnyRandomAccessCollection())
         ]
     }
 }

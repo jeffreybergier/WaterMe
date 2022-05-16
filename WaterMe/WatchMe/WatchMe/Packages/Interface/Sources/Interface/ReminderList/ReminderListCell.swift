@@ -25,15 +25,15 @@ import Umbrella
 
 extension ReminderList.Grid {
     internal struct Cell: View {
-        
+
         var reminder: Reminder
         @VesselEditQuery var vessel: Vessel
-        
+
         internal init(reminder: Reminder, controller: AnyController) {
             self.reminder = reminder
             _vessel = VesselEditQuery(reminder, controller: controller)
         }
-        
+
         internal var body: some View {
             VStack {
                 if let image = self.vessel.icon?.image {

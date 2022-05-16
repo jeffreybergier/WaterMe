@@ -36,15 +36,15 @@ public struct Navigation {
         case rootアListアVesselEditアReminderEdit(ReminderAndVesselInput)
         case rootアListアVesselEditアEmoji(VesselInput)
     }
-    
+
     public static func root() -> Navigation {
         return Navigation(.rootアList)
     }
-    
+
     public mutating func reset() {
         self.state = .rootアList
     }
-    
+
     public init(_ state: State) {
         self.state = state
         switch state {
@@ -74,13 +74,13 @@ public struct Navigation {
             self.isRootアListアVesselEditアEmoji = v
         }
     }
-    
+
     public var state: State {
         didSet {
             self = .init(self.state)
         }
     }
-    
+
     public var isRootアError: Error? {
         didSet {
             guard self.isRootアError == nil else { return }
@@ -154,23 +154,23 @@ public struct Navigation {
             break // TODO: log ignore
         case .rootアList:
             self.state = .rootアListアError(error)
-        case .rootアListアError(_):
+        case .rootアListアError:
             break // TODO: log ignore
         case .rootアListアSettings:
             break // TODO: log ignore
-        case .rootアListアMenu(_):
+        case .rootアListアMenu:
             break // TODO: log ignore
-        case .rootアListアWatering(_):
+        case .rootアListアWatering:
             break // TODO: log ignore
-        case .rootアListアSummary(_):
+        case .rootアListアSummary:
             break // TODO: log ignore
-        case .rootアListアReminderEdit(_):
+        case .rootアListアReminderEdit:
             break // TODO: log ignore
-        case .rootアListアVesselEdit(_):
+        case .rootアListアVesselEdit:
             break // TODO: log ignore
-        case .rootアListアVesselEditアReminderEdit(_):
+        case .rootアListアVesselEditアReminderEdit:
             break // TODO: log ignore
-        case .rootアListアVesselEditアEmoji(_):
+        case .rootアListアVesselEditアEmoji:
             break // TODO: log ignore
         }
     }

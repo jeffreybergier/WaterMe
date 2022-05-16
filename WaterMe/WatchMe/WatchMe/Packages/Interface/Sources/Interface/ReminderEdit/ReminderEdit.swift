@@ -25,14 +25,14 @@ import Nav
 import Umbrella
 
 internal struct ReminderEdit: View {
-    
+
     @ReminderEditQuery var reminder: Reminder
     @Environment(\.dismiss) private var dismiss
-    
+
     internal init(id: Reminder.アイディ, controller: AnyController) {
         _reminder = ReminderEditQuery(id: id, controller: controller)
     }
-    
+
     internal var body: some View {
         NavigationView {
             Form {

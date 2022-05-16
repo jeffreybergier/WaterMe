@@ -25,11 +25,11 @@ import Umbrella
 
 @propertyWrapper
 public struct ReminderEditQuery: DynamicProperty {
-    
+
     @ObservedObject private var cd_reminder: CD_Reminder
     @Environment(\.managedObjectContext) private var context
     @EnvironmentObject private var errorQ: ErrorQueue
-    
+
     // TODO: Move controller into the environment
     public init(id: Reminder.アイディ, controller: AnyController) {
         let controller = controller.wrapped as! CD_Controller
@@ -37,11 +37,11 @@ public struct ReminderEditQuery: DynamicProperty {
         let cd_reminder = controller.container.viewContext.object(with: id) as! CD_Reminder
         _cd_reminder = .init(initialValue: cd_reminder)
     }
-    
+
     public init(_ reminder: Reminder, controller: AnyController) {
         self.init(id: reminder.id, controller: controller)
     }
-    
+
     public var wrappedValue: Reminder {
         Reminder(cd: self.cd_reminder)
     }

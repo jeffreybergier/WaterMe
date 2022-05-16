@@ -62,21 +62,21 @@ public enum ControllerKind: RawRepresentable {
 }
 
 public class AnyController: Controller {
-    
+
     internal let wrapped: AnyObject
     private let _kind: () -> ControllerKind
     private let ___ENVONLY__managedObjectContext: () -> NSManagedObjectContext
-    
+
     public var kind: ControllerKind { _kind() }
     public var __ENVONLY__managedObjectContext: NSManagedObjectContext { ___ENVONLY__managedObjectContext() }
-    
+
     internal init<C: Controller>(_ controller: C) {
         _kind = { controller.kind }
         ___ENVONLY__managedObjectContext = { controller.__ENVONLY__managedObjectContext }
         _newVessel = { controller.newVessel }
         self.wrapped = controller
     }
-    
+
     private var _newVessel: () -> (() -> Result<Vessel.アイディ, Error>)
     public func newVessel() -> Result<Vessel.アイディ, Error> {
         return _newVessel()()

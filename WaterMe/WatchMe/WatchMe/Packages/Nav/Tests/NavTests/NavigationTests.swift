@@ -23,9 +23,9 @@ import Nav
 import Model
 
 final class NavigationTests: XCTestCase {
-    
+
     // MARK: Init
-    
+
     func test_case_init_rootList() {
         var nav = Navigation.root()
         nav.state = .TEST_rootList
@@ -33,7 +33,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアList])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_rootError() {
         var nav = Navigation.root()
         nav.state = .TEST_rootError
@@ -41,7 +41,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアError])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listMenu() {
         var nav = Navigation.root()
         nav.state = .TEST_listMenu
@@ -49,7 +49,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアMenu])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listWatering() {
         var nav = Navigation.root()
         nav.state = .TEST_listWatering
@@ -57,7 +57,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアWatering])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listSummary() {
         var nav = Navigation.root()
         nav.state = .TEST_listSummary
@@ -65,7 +65,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアSummary])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listReminderEdit() {
         var nav = Navigation.root()
         nav.state = .TEST_listReminderEdit
@@ -73,7 +73,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアReminderEdit])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listVesselEdit() {
         var nav = Navigation.root()
         nav.state = .TEST_listVesselEdit
@@ -81,7 +81,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアVesselEdit])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listVesselEditReminderEdit() {
         var nav = Navigation.root()
         nav.state = .TEST_listVesselEditReminderEdit
@@ -92,7 +92,7 @@ final class NavigationTests: XCTestCase {
         ])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listVesselEditEmoji() {
         var nav = Navigation.root()
         nav.state = .TEST_listVesselEditEmoji
@@ -103,7 +103,7 @@ final class NavigationTests: XCTestCase {
         ])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listSettings() {
         var nav = Navigation.root()
         nav.state = .TEST_listSettings
@@ -111,7 +111,7 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアSettings])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     func test_case_init_listError() {
         var nav = Navigation.root()
         nav.state = .TEST_listError
@@ -119,9 +119,9 @@ final class NavigationTests: XCTestCase {
         results.subtract([\.isRootアListアError])
         XCTAssertEqual(results.count, 0)
     }
-    
+
     // MARK: Reset
-    
+
     func test_case_reset_rootList() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -131,7 +131,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_rootError() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -141,7 +141,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listMenu() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -151,7 +151,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listWatering() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -161,7 +161,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listSummary() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -171,7 +171,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listReminderEdit() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -181,7 +181,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listVesselEdit() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -191,7 +191,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listVesselEditReminderEdit() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -206,7 +206,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listVesselEditEmoji() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -221,7 +221,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listSettings() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -231,7 +231,7 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     func test_case_reset_listError() {
         for state in Navigation.State.TEST_allCases {
             var nav = Navigation(state)
@@ -241,10 +241,11 @@ final class NavigationTests: XCTestCase {
             XCTAssertEqual(results.count, 0)
         }
     }
-    
+
     // MARK: Helpers
-    
+
     private typealias NavKP = PartialKeyPath<Navigation>
+    // swiftlint:disable:next cyclomatic_complexity
     private func keyPathsForNonNilAndTrueProperties(_ nav: Navigation) -> Set<NavKP> {
         var kps: Set<NavKP> = []
         if nav.isRootアList == true {
@@ -280,28 +281,27 @@ final class NavigationTests: XCTestCase {
         if nav.isRootアListアError != nil {
             kps.insert(\.isRootアListアError)
         }
-        
+
         // Will cause compile failure when ENUM changes
         switch Navigation.State.rootアList {
         case .rootアError: break
         case .rootアList: break
         case .rootアListアError: break
         case .rootアListアSettings: break
-        case .rootアListアMenu(_): break
-        case .rootアListアWatering(_): break
-        case .rootアListアSummary(_): break
-        case .rootアListアReminderEdit(_): break
-        case .rootアListアVesselEdit(_): break
-        case .rootアListアVesselEditアReminderEdit(_): break
-        case .rootアListアVesselEditアEmoji(_): break
+        case .rootアListアMenu: break
+        case .rootアListアWatering: break
+        case .rootアListアSummary: break
+        case .rootアListアReminderEdit: break
+        case .rootアListアVesselEdit: break
+        case .rootアListアVesselEditアReminderEdit: break
+        case .rootアListアVesselEditアEmoji: break
         }
         return kps
     }
 }
 
-
 extension Navigation.State {
-    
+
     static let TEST_reminderID = Reminder.アイディ("ABC123")
     static let TEST_vesselID = Vessel.アイディ("DEF456")
     static let TEST_rootList: Navigation.State = .rootアList
@@ -326,6 +326,6 @@ extension Navigation.State {
         TEST_listVesselEditReminderEdit,
         TEST_listVesselEditEmoji,
         TEST_listSettings,
-        TEST_listError,
+        TEST_listError
     ]
 }

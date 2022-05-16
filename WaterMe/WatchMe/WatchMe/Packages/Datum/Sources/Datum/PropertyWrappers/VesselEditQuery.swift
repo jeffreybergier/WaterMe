@@ -25,11 +25,11 @@ import Umbrella
 
 @propertyWrapper
 public struct VesselEditQuery: DynamicProperty {
-    
+
     @Environment(\.managedObjectContext) private var context
     @ObservedObject private var cd_reminderVessel: CD_ReminderVessel
     @EnvironmentObject private var errorQ: ErrorQueue
-    
+
     // TODO: Move controller into the environment
     public init(id: Vessel.アイディ, controller: AnyController) {
         let controller = controller.wrapped as! CD_Controller
@@ -37,11 +37,11 @@ public struct VesselEditQuery: DynamicProperty {
         let cd_vessel = controller.container.viewContext.object(with: id) as! CD_ReminderVessel
         _cd_reminderVessel = .init(initialValue: cd_vessel)
     }
-    
+
     public init(_ reminder: Reminder, controller: AnyController) {
         self.init(id: reminder.vesselID!, controller: controller)
     }
-    
+
     public var wrappedValue: Vessel {
         get { Vessel(cd: self.cd_reminderVessel) }
         nonmutating set { self.update(with: newValue) }
@@ -52,7 +52,7 @@ public struct VesselEditQuery: DynamicProperty {
             set: { self.update(with: $0) }
         )
     }
-    
+
     private func update(with newValue: Vessel) {
         self.cd_reminderVessel.raw_displayName = newValue.displayName
         self.cd_reminderVessel.raw_kindString = newValue.kind.rawValue

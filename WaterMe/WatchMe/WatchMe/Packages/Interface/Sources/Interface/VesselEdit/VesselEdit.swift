@@ -25,17 +25,17 @@ import Nav
 import Umbrella
 
 internal struct VesselEdit: View {
-    
+
     @Nav private var nav
     @VesselEditQuery private var vessel: Vessel
     @VesselEditReminderQuery private var reminders: AnyRandomAccessCollection<Reminder>
     @Environment(\.dismiss) private var dismiss
-    
+
     internal init(id: Vessel.アイディ, controller: AnyController) {
         _vessel = VesselEditQuery(id: id, controller: controller)
         _reminders = VesselEditReminderQuery(id: id, controller: controller)
     }
-    
+
     internal var body: some View {
         NavigationView {
             Form {

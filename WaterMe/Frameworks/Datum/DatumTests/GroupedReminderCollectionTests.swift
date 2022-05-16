@@ -25,12 +25,12 @@ import XCTest
 @testable import Datum
 
 class GroupedReminderCollectionTests: DatumTestsBase {
-    
+
     override func setUpWithError() throws {
         try super.setUpWithError()
         try self.setUpSmall()
     }
-    
+
     func test_indexOfItem() {
         let query = try! self.basicController.groupedReminders().get()
         let wait = XCTestExpectation()
@@ -45,7 +45,7 @@ class GroupedReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_indexOfIdentifier() {
         let query = try! self.basicController.groupedReminders().get()
         let wait = XCTestExpectation()
@@ -61,7 +61,7 @@ class GroupedReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_update_insert() {
         let query = try! self.basicController.groupedReminders().get()
         let wait = XCTestExpectation()
@@ -76,7 +76,7 @@ class GroupedReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_update_modifications() {
         let query = try! self.basicController.groupedReminders().get()
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
@@ -93,7 +93,7 @@ class GroupedReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_update_deletions() {
         let query = try! self.basicController.groupedReminders().get()
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()

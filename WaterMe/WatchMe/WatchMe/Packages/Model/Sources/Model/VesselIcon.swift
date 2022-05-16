@@ -91,7 +91,7 @@ extension VesselIcon {
             let max = UIImage.style_maxSize
             guard let data = image.waterme_jpegData(maxBytes: max) else {
                 let message = "Image couldn't be compressed to fit: \(max) bytes"
-                message //.log()
+                message // .log()
                 assertionFailure(message)
                 return nil
             }

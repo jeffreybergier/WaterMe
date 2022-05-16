@@ -24,14 +24,14 @@ import Nav
 import Datum
 
 internal struct VesselEmoji: View {
-    
+
     @Environment(\.dismiss) private var dismiss
     @VesselEditQuery private var vessel: Vessel
-    
+
     internal init(id: Vessel.アイディ, controller: AnyController) {
         _vessel = VesselEditQuery(id: id, controller: controller)
     }
-    
+
     internal var body: some View {
         NavigationView {
             ScrollView {

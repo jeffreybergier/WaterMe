@@ -27,7 +27,7 @@ public struct Vessel: Hashable, Identifiable {
     public var shortLabelSafeDisplayName: String? {
         self.displayName?.truncated(to: 20)
     }
-    
+
     public init(id: アイディ,
                 displayName: String? = nil,
                 icon: VesselIcon? = nil,
