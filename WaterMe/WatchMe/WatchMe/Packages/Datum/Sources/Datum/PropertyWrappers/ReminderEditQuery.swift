@@ -25,38 +25,28 @@ import Umbrella
 
 @propertyWrapper
 public struct ReminderEditQuery: DynamicProperty {
+    
+    @CDObjectQuery<CD_Reminder, Reminder, Error> private var reminder: Reminder?
+    @ControllerProperty private var controller
 
-    @ObservedObject private var cd_reminder: CD_Reminder
-    @Environment(\.managedObjectContext) private var context
-    @EnvironmentObject private var errorQ: ErrorQueue
-
-    // TODO: Move controller into the environment
-    public init(id: Reminder.アイディ, controller: AnyController) {
-        let controller = controller.wrapped as! CD_Controller
-        let id = controller.container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: URL(string: id.id)!)!
-        let cd_reminder = controller.container.viewContext.object(with: id) as! CD_Reminder
-        _cd_reminder = .init(initialValue: cd_reminder)
+    public init(id: Reminder.アイディ) {
+        let url = URL(string: id.id)!
+        _reminder = .init(objectIDURL: url) {
+            Reminder(cd: $0)
+        }
     }
-
-    public init(_ reminder: Reminder, controller: AnyController) {
-        self.init(id: reminder.id, controller: controller)
+    
+    public mutating func update() {
+        guard self._reminder.onWrite.value == nil else { return }
+        self._reminder.onWrite.value = self._controller.cdController.updateOpt(_:with:)
     }
-
+    
     public var wrappedValue: Reminder {
-        Reminder(cd: self.cd_reminder)
+        get { self.reminder! }
+        nonmutating set { self.reminder = newValue }
     }
+    
     public var projectedValue: Binding<Reminder> {
-        Binding(
-            get: { self.wrappedValue },
-            set: { newValue in
-                self.cd_reminder.raw_kindString = newValue.kind.rawValue
-                self.cd_reminder.raw_descriptionString = newValue.kindDescription
-                self.cd_reminder.raw_interval = Int32(newValue.interval)
-                self.cd_reminder.raw_isEnabled = newValue.isEnabled
-                self.cd_reminder.raw_note = newValue.note
-                guard case .failure(let error) = self.context.waterme_save() else { return }
-                self.errorQ.value.append(error)
-            }
-        )
+        self.$reminder!
     }
 }

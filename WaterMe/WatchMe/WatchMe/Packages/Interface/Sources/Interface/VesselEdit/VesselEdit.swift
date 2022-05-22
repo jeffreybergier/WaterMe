@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2021/12/31.
+//  Created by Jeffrey Bergier on 2022/02/04.
 //  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -19,65 +19,130 @@
 //
 
 import SwiftUI
-import Model
-import Datum
-import Nav
 import Umbrella
+import Datum
+import Errors
+import Model
+import Nav
+import Style
+import Localize
 
 internal struct VesselEdit: View {
-
-    @Nav private var nav
+    
+    internal struct Presentation: ViewModifier {
+        
+        @NavVesselEdit private var nav
+        
+        internal func body(content: Content) -> some View {
+            content
+                .modifier(Alert(self.$nav.isError))
+                .modifier(OnAppearErrorHandler())
+                .modifier(VesselIconMenu())
+                .sheet(item: self.$nav.isReminderEdit) { input in
+                    ReminderEdit(id: input.reminderID)
+                        .modifier(ReminderEdit.Presentation())
+                }
+                .sheet(item: self.$nav.isIconEmoji) { input in
+                    VesselEmoji(id: input.vesselID)
+                        .modifier(VesselEmoji.Presentation())
+                }
+                .xp_fullScreenCover(item: self.$nav.isIconCamera) { input in
+                    VesselCamera(id: input.vesselID)
+                        .modifier(VesselCamera.Presentation())
+                }
+                .xp_fullScreenCover(item: self.$nav.isIconLibrary) { input in
+                    VesselLibrary(id: input.vesselID)
+                        .modifier(VesselLibrary.Presentation())
+                }
+        }
+    }
+    
     @VesselEditQuery private var vessel: Vessel
     @VesselEditReminderQuery private var reminders: AnyRandomAccessCollection<Reminder>
+    @ControllerProperty private var controller
+    
+    @UFErrorQ private var errorQ
+    @Style.Form private var style
+    @NavVesselEdit private var nav
+    @Localize.VesselEdit private var text
     @Environment(\.dismiss) private var dismiss
-
-    internal init(id: Vessel.アイディ, controller: AnyController) {
-        _vessel = VesselEditQuery(id: id, controller: controller)
-        _reminders = VesselEditReminderQuery(id: id, controller: controller)
+    @EnvironmentBundle<ImageBundle> private var image
+    
+    internal init(id: Vessel.アイディ) {
+        _vessel = VesselEditQuery(id: id)
+        _reminders = VesselEditReminderQuery(id: id)
     }
-
+    
     internal var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Photo")) {
-                    switch self.vessel.icon {
-                    case .none:
-                        Text("Nothing")
-                    case .emoji(let emoji):
-                        Text(emoji)
-                    case .image(let image):
-                        Image(uiImage: image)
-                    }
-                    Button {
-                        self.nav.state = .rootアListアVesselEditアEmoji(.init(self.vessel.id))
-                    } label: {
-                        Text("Update Emoji")
-                    }
-                    Button {
-                        // TODO: FixMe
-                    } label: {
-                        Text("Update Image")
-                    }
-                }
-                Section(header: Text("Name")) {
-                    JSBTextField("Plant Name", text: self.$vessel.displayName)
-                }
-                Section(header: Text("Reminders")) {
-                    List(self.reminders) { item in
+                Section {
+                    ZStack {
+                        VesselIcon(icon: self.vessel.icon)
                         Button {
-                            self.nav.state = .rootアListアVesselEditアReminderEdit(.init(item.id, self.vessel.id))
+                            self.nav.isIconMenu = .init(self.vessel.id)
                         } label: {
-                            JSBText("No Note", text: item.note)
+                            self.image.camera
+                                .modifier(ButtonModifier(role: .normal))
                         }
                     }
+                    .modifier(CenterModifier())
+                    .modifier(self.style.sectionPaddingTop)
+                    .modifier(self.style.sectionPaddingBottom)
+                } header: {
+                    Text(self.text(\.sectionPhoto))
+                        .modifier(self.style.sectionTitle)
                 }
-                Section(header: Text("Siri Shortcut")) {
-                    Text("// TODO: Coming Soon")
+                Section {
+                    JSBTextField(self.text(\.placeholderPlantName), text: self.$vessel.displayName)
+                        .modifier(self.style.subsectionData)
+                        .modifier(self.style.sectionPaddingTop)
+                        .modifier(self.style.sectionPaddingBottom)
+                } header: {
+                    Text(self.text(\.sectionName))
+                        .modifier(self.style.sectionTitle)
                 }
+                Section {
+                    List(self.reminders) { item in
+                        Button {
+                            self.nav.isReminderEdit = .init(item.id)
+                        } label: {
+                            ReminderCell(id: item.id)
+                        }
+                    }
+                    .modifier(self.style.sectionPaddingTop)
+                    Button {
+                        switch self.controller.newReminder(for: self.vessel.id) {
+                        case .success(let reminder):
+                            self.nav.isReminderEdit = .init(reminder)
+                        case .failure(let error):
+                            self.errorQ.append(error)
+                        }
+                    } label: {
+                        Text(self.text(\.buttonAddReminder))
+                    }
+                    .modifier(ButtonModifier(role: .normal))
+                    .modifier(self.style.sectionPaddingBottom)
+                } header: {
+                    Text(self.text(\.sectionReminders))
+                        .modifier(self.style.sectionTitle)
+                }
+                XPSiriShortcuts()
             }
-            .navigationTitle("Edit Plant")
-            .toolbar {
-                Button("Done") { self.dismiss() }
+            .navigationTitle(self.text(\.title))
+            .modifier(ForceNavigationBarTitleDisplayModeInline())
+            .modifier(
+                XPDoneDeleteToolbar(
+                    onDone: { self.dismiss() },
+                    onDelete: .generic {
+                        self.controller.delete(self.vessel.id).error
+                            .map { self.errorQ.append($0) }
+                    }
+                )
+            )
+            .onChange(of: self.vessel.isDeleted) { isDeleted in
+                guard isDeleted else { return }
+                self.dismiss()
             }
         }
     }

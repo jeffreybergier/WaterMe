@@ -1,0 +1,761 @@
+/*
+ 
+ _           _          _
+| |         | |        | |
+| |     __ _| |__   ___| |___
+| |    / _` | '_ \ / _ \ / __|
+| |___| (_| | |_) |  __/ \__ \
+|______\__,_|_.__/ \___|_|___/
+                              
+Used to describe Nouns and
+other static items in the UI
+ 
+*/
+
+/* Name of the app. Shows in various places like Navigation Bars and Alerts. */
+"Label.WaterMe" = "WaterMe";
+
+/* Noun for a reminder in titles and lists */
+"Label.Reminder" = "Reminder";
+
+/* Noun for a plant. Used in titles and lists. */
+"Label.Plant" = "Plant";
+
+/* Noun for a name like person name or plant name */
+"Label.Name" = "Name";
+
+/* Name shown to the user when they have not given the plant a specific name. */
+"Label.My Plant" = "My Plant";
+
+/* Describes when the reminder was last marked as done */
+"Label.Last Performed" = "Last Performed";
+
+/* Describes how often a reminder needs to be performed */
+"Label.Remind Every" = "Remind Every";
+
+/* Short: Describes the reminder kind. Water, Fertilize, etc. */
+"Label.Kind.Short" = "Kind";
+
+/* Long: Describes the reminder kind. Water, Fertilize, etc. */
+"Label.Kind.Long" = "Kind of Reminder";
+
+/* Describes when to perform the reminder next */
+"Label.Due Next" = "Due Next";
+
+/* When a reminder has never been performed */
+"Label.Never" = "Never";
+
+/* Now, related to time */
+"Label.Now" = "Now";
+
+/* Reminder Kind: Short Description: This type reminds the user to mist their plant. */
+"Label.Mist.Short" = "Mist";
+
+/* Reminder Kind: Long Description: This type reminds the user to mist their plant. */
+"Label.Mist.Long" = "Mist Plant";
+
+/* Reminder Kind: Short Description: This type reminds the user to move their plant. */
+"Label.Move.Short" = "Move";
+
+/* Reminder Kind: Long Description: This type reminds the user to move their plant. */
+"Label.Move.Long" = "Move Plant";
+
+/* Edit Reminder: Data Entry Label: The label to the left of a text field. The user should type where they want to move their plant to in the textfield. */
+"Label.Move to" = "Move to";
+
+/* Reminder Kind: Short Description: This type reminds the user to trim their plant. */
+"Label.Trim.Short" = "Trim";
+
+/* Reminder Kind: Long Description: This type reminds the user to trim their plant. */
+"Label.Trim.Long" = "Trim Plant";
+
+/* Reminder Kind: Short Description: This type reminds the user to fertilize their plant. */
+"Label.Fertilize.Short" = "Fertilize";
+
+/* Reminder Kind: Long Description: This type reminds the user to fertilize their plant. */
+"Label.Fertilize.Long" = "Fertilize Soil";
+
+/* Reminder Kind: Short Description: This type reminds the user to water their plant. */
+"Label.Water.Short" = "Water";
+
+/* Reminder Kind: Long Description: This type reminds the user to water their plant. */
+"Label.Water.Long" = "Water Plant";
+
+/* Reminder Kind: This type reminds the user to do something the user entered. */
+"Label.Other" = "Other";
+
+/* Describes a note where users can enter misc information */
+"Label.Notes" = "Notes";
+
+/* Describes when the reminder needs to be performed */
+"Label.Late" = "Late";
+
+/* Describes when the reminder needs to be performed */
+"Label.Today" = "Today";
+
+/* Describes when the reminder needs to be performed */
+"Label.Tomorrow" = "Tomorrow";
+
+/* Describes when the reminder needs to be performed */
+"Label.This Week" = "This Week";
+
+/* Describes when the reminder needs to be performed */
+"Label.Later" = "Later";
+
+/* Describes when the reminder needs to be performed */
+"Label.Paused" = "Paused";
+
+/* Title of edit plant screen */
+"Label.Edit Plant" = "Edit Plant";
+
+/* Title of edit reminder screen */
+"Label.Edit Reminder" = "Edit Reminder";
+
+/* Photo for the plant */
+"Label.Photo" = "Photo";
+
+/* Reminders to perform, plural 2+ */
+"Label.Reminders" = "Reminders";
+
+/* Plant Name */
+"Label.Plant Name" = "Plant Name";
+
+/* Default icon when no plant icon is chosen */
+"Label.🌸" = "🌸";
+
+/* Displayed before text similar to Every: 27 Days */
+"Label.Every" = "Every";
+
+/* Displayed before text similar to Every: 27 Days */
+"Label.Every:" = "Every:";
+
+/* Displayed before misc description entered by the user */
+"Label.Description" = "Description";
+
+/* Displayed before details of a specific item in the app (like a reminder) */
+"Label.Details" = "Details";
+
+/* Displayed before a section where notification information is displayed */
+"Label.Notifications" = "Notifications";
+
+/* We can’t access a feature of the device because the user has denied permission. */
+"Label.Permission Denied" = "Permission Denied";
+
+/* Displayed when there is a generic error */
+"Label.Error" = "Error";
+
+/* Displayed when unable to delete something */
+"Label.Error Deleting" = "Error Deleting";
+
+/* Displayed when unable to load something */
+"Label.Error Loading" = "Error Loading";
+
+/* Displayed when there was an error while saving something */
+"Label.Error Saving" = "Error Saving";
+
+/*
+ 
+              _   _
+    /\       | | (_)
+   /  \   ___| |_ _  ___  _ __  ___
+  / /\ \ / __| __| |/ _ \| '_ \/ __|
+ / ____ \ (__| |_| | (_) | | | \__ \
+/_/    \_\___|\__|_|\___/|_| |_|___/
+                       
+Used to describe Verbs
+other buttons in the UI
+ 
+*/
+
+/* Generic button to add something */
+"Action.Add Generic" = "Add";
+
+/* Button to add a new plant */
+"Action.Add Plant" = "Add Plant";
+
+/* Button to add a new reminder */
+"Action.Add Reminder" = "Add Reminder";
+
+/* Button to dismiss the current screen */
+"Action.Dismiss" = "Dismiss";
+
+/* Button to open screen to edit plant */
+"Action.Edit Plant" = "Edit Plant";
+
+/* Button to open screen to edit reminder */
+"Action.Edit Reminder" = "Edit Reminder";
+
+/* Button to mark reminder as completed */
+"Action.Mark Reminder as Done" = "Mark Reminder as Done";
+
+/* Button to mark something as completed */
+"Action.Mark as Done" = "Mark as Done";
+
+/* Button that allows the user to delete a reminder or a plant. */
+"Action.Delete" = "Delete";
+
+/* Button that allows the user to close a screen and save changes */
+"Action.Done" = "Done";
+
+/* Button tht allows the user to see the current photo larger */
+"Action.View Current Photo" = "View Current Photo";
+
+/* Button thst allows the user to cancel the current operation */
+"Action.Cancel" = "Cancel";
+
+/* Button that allows user to choose an emoji */
+"Action.Emoji" = "Emoji";
+
+/* Button that allows the user to take a picture */
+"Action.Camera" = "Camera";
+
+/* Button that allows the user to take a picture but there is an issue with camera permissions */
+"Action.Camera 🔒" = "Camera 🔒";
+
+/* Button that allows the user to choose a photo from the photos library */
+"Action.Photos" = "Photos";
+
+/* Button that allows the user to choose a photo from the photos library but there is an issue with library permissions */
+"Action.Photos 🔒" = "Photos 🔒";
+
+/* Describes notifications that can be paused on a per reminder basis */
+"Action.Pause Notifications" = "Pause Notifications";
+
+/* Button that allows the user to pause notifications for a reminder */
+"Action.Pause" = "Pause";
+
+/* Button that allows the user to open the settings app on the device */
+"Action.Open Settings" = "Open Settings";
+
+/* When the user is being asked to confirm to delete an item, this button lets them not delete it. */
+"Action.Don't Delete" = "Don’t Delete";
+
+/*
+ 
+ _____  _
+|  __ \| |
+| |__) | |__  _ __ __ _ ___  ___  ___
+|  ___/| '_ \| '__/ _` / __|/ _ \/ __|
+| |    | | | | | | (_| \__ \  __/\__ \
+|_|    |_| |_|_|  \__,_|___/\___||___/
+                                      
+Used for explanations and other sentences
+ 
+*/
+
+/* Placeholder text in a textfield. The user should type in what they want to be reminded to do to their plant. */
+"Trim the leaves and throw out the clippings." = "Trim the leaves and throw out the clippings.";
+
+/* Placeholder text in a textfield. The user should type in where they want to move their plant. */
+"Other side of the yard." = "Other side of the yard.";
+
+/* Title of an Alert that tells the user that they can choose a new photo or emoji for their plant or they can view the current photo for their plant. */
+"View the current photo or choose a new photo or emoji for your plant." = "View the current photo or choose a new photo or emoji for your plant.";
+
+/* Title of screen where user can choose an emoji */
+"Choose an Emoji" = "Choose an Emoji";
+
+/* When there was an error saving the photo for some reason */
+"Error saving photo" = "Error saving photo";
+
+/* Alert Body: Camera Restricted: We can’t access the camera because it is not allowed by an IT policy / parent control. This text needs to explain the problem. */
+"WaterMe cannot access your camera. This feature has been restricted by this device’s administrator." = "WaterMe cannot access your camera. This feature has been restricted by this device’s administrator.";
+
+/* Alert Body: Camera Denied: We can’t access the camera because it has been denied by the user. The text needs to explain they can fix this by tapping the Settings button on the alert. */
+"WaterMe cannot access your camera. You can grant access in Settings" = "WaterMe cannot access your camera. You can grant access in Settings";
+
+/* Displayed when this device does not have a camera */
+"This device does not have a camera." = "This device does not have a camera.";
+
+/* Displayed when this device is not capable of loading from photo library */
+"The Apple Watch version of WaterMe does not support choosing from Photo Library yet." = "The Apple Watch version of WaterMe does not support choosing from Photo Library yet.";
+
+/* Some sort of database error ocurred. This usually means there is not enough free space */
+"Error loading save file. Check to make sure there is free space available on this device." = "Error loading save file. Check to make sure there is free space available on this device.";
+
+/* Some sort of database error ocurred. This usually means there is not enough free space */
+"Error saving changes. Check to make sure there is free space available on this device." = "Error saving changes. Check to make sure there is free space available on this device.";
+
+/* Some sort of database error ocurred. This usually means there is not enough free space */
+"Error performing maintenance. Check to make sure there is free space available on this device." = "Error performing maintenance. Check to make sure there is free space available on this device.";
+
+/* Error deleting last reminder for a plant because its not allowed */
+"Unable to delete this reminder because its the only reminder for this plant. Each plant must have at least one reminder." = "Unable to delete this reminder because its the only reminder for this plant. Each plant must have at least one reminder.";
+
+/* Error when trying to make changes to an item that has been deleted */
+"Unable to save changes because the item was deleted. Possibly from another device." = "Unable to save changes because the item was deleted. Possibly from another device.";
+
+/* When there was an error capturing the image from the camera */
+"The selected photo couldn’t be saved. Please take a different photo or choose an emoji." = "The selected photo couldn’t be saved. Please take a different photo or choose an emoji.";
+
+/* Message of the alert that asks the user if they want to delete this item. */
+"Are you sure you want to delete this?" = "Are you sure you want to delete this?";
+
+
+/*
+ _
+| |
+| |     ___  __ _  __ _  ___ _   _
+| |    / _ \/ _` |/ _` |/ __| | | |
+| |___|  __/ (_| | (_| | (__| |_| |
+|______\___|\__, |\__,_|\___|\__, |
+             __/ |            __/ |
+            |___/            |___/
+ */
+
+/**
+                          _____ _        _
+     /\                  / ____| |      (_)
+    /  \   _ __  _ __   | (___ | |_ _ __ _ _ __   __ _ ___
+   / /\ \ | '_ \| '_ \   \___ \| __| '__| | '_ \ / _` / __|
+  / ____ \| |_) | |_) |  ____) | |_| |  | | | | | (_| \__ \
+ /_/    \_\ .__/| .__/  |_____/ \__|_|  |_|_| |_|\__, |___/
+          | |   | |                               __/ |
+          |_|   |_|                              |___/
+ */
+
+/* ReminderMainViewController: Select Reminder Alert Title: 2 Arguments: When the user taps on a reminder, this is the title of the alert if the plant has a name. It tells the user the kind of reminder and the name of the plant. e.g. ‘Water Plant - My Cool Plant’ */
+"%@ – %@" = "%1$@ – %2$@";
+
+/* Alert: Purchase Network Error: Message: Message when there was a networking error during the purchase process. */
+"A network error ocurred. Check your data connection and try to purchase again." = "A network error ocurred. Check your data connection and try to purchase again.";
+
+/* Alert: Purchase Not Allowed Error: Message: Message when an unknown error ocurred during the purchase. */
+"An unknown error ocurred during the purchase. Please try again later." = "An unknown error ocurred during the purchase. Please try again later.";
+
+/* SiriShortcut: Phrase: Random4 */
+"Bam! Watered." = "Bam! Watered.";
+
+/* Button Title in an Alert that allows the user to unpause/resume notifications for a reminder */
+"Unpause" = "Resume";
+
+/* Alert Title: Camera Restricted: We can’t access the camera because it is not allowed by an IT policy / parent control. */
+"Camera Restricted" = "Camera Restricted";
+
+/* Alert: Permission Denied: Title: Title of the alert that tells the user that notification permissions are denied. */
+"Can’t Send Push Notifications" = "Can’t Send Push Notifications";
+
+/* Title of an Alert that tells the user that they can choose a new photo or emoji for their plant. */
+"Choose a new emoji or photo for your plant." = "Choose a new emoji or photo for your plant.";
+
+/* Button Title in an Alert that allows the user to open the Camera, Photo Picker, or Emoji Picker Screen. */
+"Choose a Photo" = "Choose a Photo";
+
+/* Alert: Email Copy: Button Title and Alert Title: When the user taps this button, the developers email address is copied into the users clipboard so the user can paste it into their favorite email app. */
+"Copy Email Address" = "Copy Email Address";
+
+/* Alert: Email Copy: Message: Alert message that tells the user that they can copy my email address into their clipboard and paste it in their favorite email app. */
+"Copy my email address into your clipboard, then paste it in your favorite email app." = "Copy my email address into your clipboard, then paste it in your favorite email app.";
+
+/* Data Label: Description: Value of the text next to the label is what the user wants to be reminded to do to their plant. */
+"Description: " = "Description: ";
+
+/* Alert: New Permission: Message: Message of the alert that asks the user if they want to grant notification permissions. */
+"Do you want WaterMe to send notifications when your plants need attention? WaterMe sends no more than 1 per day." = "Do you want WaterMe to send notifications when your plants need attention? WaterMe sends no more than 1 per day.";
+
+/* Alert: New Permission: Button Title: Don’t Ask Again: Button title that will stop the app from asking the user to do this action again in the future. */
+"Don’t Ask Again" = "Don’t Ask Again";
+
+/* Alert: New Permission: Button Title: Don’t Send Notifications: Title of the button that will result in the user not being asked for permissions ever again. */
+"Don’t Send Notifications" = "Don’t Send Notifications";
+
+/* ReminderMainViewController: Select Reminder Alert Message: 1 Argument: When the user taps on a reminder, this is the message of the alert when the reminder does not have a note. It tells the user the Due date of the reminder. The due date is provided by the system already localized. */
+"Due: %@" = "Due: %@";
+
+/* ReminderMainViewController: Select Reminder Alert Message: 2 Arguments: When the user taps on a reminder, this is the message of the alert when the reminder has a note. It tells the user the Due date of the reminder and the note. The due date is provided by the system already localized. */
+"Due: %@\nNote: %@" = "Due: %1$@\nNote: %2$@";
+
+/* SiriShortcut: Title: EditPlant: Shows the plant name that the siri shortcut corresponds to. */
+"Edit %@" = "Edit %@";
+
+/* SiriShortcut: Title: ViewReminder: Shows the reminder kind and the name of the plant so the user knows what the SiriShortcut applies to. */
+"Edit %@ %@ Reminder" = "Edit %1$@ %2$@ Reminder";
+
+/* SiriShortcut: Description: EditPlant: Explains to the user that by using this SiriShortcut they can edit their plant. */
+"Edit plant name, photo, or reminders." = "Edit plant name, photo, or reminders.";
+
+/* SiriShortcut: Description: EditReminder: Explains to the user that by using this SiriShortcut they can edit the reminder. */
+"Edit reminder notes, kind, and interval." = "Edit reminder notes, kind, and interval.";
+
+/* Settings: Cell Title: Email Developer: When tapped, this opens an email screen to email the developer. */
+"Email Developer" = "Email Developer";
+
+/* Realm Error: Pause: Message: Pausing reminders not supported. */
+"Pausing notifications not available." = "Pausing notifications not available.";
+
+/* Settings: Cell Price: Price of leaving a review on the app store... Free */
+"Free" = "Free";
+
+/* SiriShortcut: Phrase: Random5 */
+"Green thumb for the win!" = "Green thumb for the win!";
+
+/* SiriShortcut: Phrase: Random1 */
+"I gardened!" = "I gardened!";
+
+/* Email Compose: Subject: Shows in the subject line when an iOS in-app mail sheet is presented. */
+"I have an idea for WaterMe!" = "I have an idea for WaterMe!";
+
+/* Purchase Thanks: Subtitle: Reminding the user what we’re thanking them for. */
+"In-App Purchase" = "In-App Purchase";
+
+/* Settings: Info Cell: Title: Text in the tip jar area that explains why someone should give money. */
+"I’m Jeff, a professional iOS Developer and UX Designer. I like making small and polished apps in my spare time. If you find WaterMe useful and would like to fund its development, consider supporting the app with the buttons below." = "I’m Jeff, a professional iOS Developer and UX Designer. I like making small and polished apps in my spare time. If you find WaterMe useful and would like to fund its development, consider supporting the app with the buttons below.";
+
+/* SiriShortcut: Phrase: Random6 */
+"Live long and prosper." = "Live long and prosper.";
+
+/* View Reminder: Section Header: Shows where the user has selected to move their plant. */
+"Location" = "Location";
+
+/* Data Label: Location: Value of the text next to the label is the location where the user wants to be reminded to move their plant. */
+"Location: " = "Location: ";
+
+/* SiriShortcut: Title: PerformReminder: Shows the reminder kind and the name of the plant so the user knows what the SiriShortcut applies to. */
+"Mark %@ %@ as Done" = "Mark %1$@ %2$@ as Done";
+
+/* Spotlight: Description: ViewReminder: Explains to the user that by tapping this spotlight entry they can view the reminder summary screen. */
+"Mark as done, view notes, or edit information." = "Mark as done, view notes, or edit information.";
+
+/*ReminderMainViewController: Instructional text that instructs the user and drag and drop to this location to mark the reminder as done. */
+"Drag and Drop Here" = "Drag and Drop Here";
+
+/* SiriShortcut: Description: PerformReminder: Explains to the user that by using this SiriShortcut they mark a reminder as done. */
+"Mark this reminder as done." = "Mark this reminder as done.";
+
+/* Error Saving: Reminder: Notifications Paused: If the user has paused notifications for the reminder, a warning is presented when they try to save changes to a reminder. */
+"Notifications Paused" = "Notifications Paused";
+
+/* Error Saving: Reminder: Missing Description: If the user has not entered a description for their other reminder and tries to save, an alert will warn them. This is the button title to fix the error. */
+"Missing Description" = "Missing Description";
+
+/* Error Saving: Reminder: Missing Location: If the user has no entered a location for their move reminder and tries to save, an alert will warn them. This is the button title to fix the error. */
+"Missing Location" = "Missing Location";
+
+/* Error Saving: Plant: Missing Name: If the user has not a name for their plant and tries to save, an alert will warn them. This is the button title to fix the error. */
+"Missing Name" = "Missing Name";
+
+/* Error Saving: Plant: Missing Photo: If the user has not chosen a photo or an emoji for their plant and tries to save, an alert will warn them. This is the button title to fix the error. */
+"Missing Photo" = "Missing Photo";
+
+/* Error Saving: Plant: Missing Reminders: If the user has not added at least one reminder for their plant and tries to save, an alert will warn them. This is the button title to fix the error. */
+"Missing Reminders" = "Missing Reminders";
+
+/* Data Value: Description not entered: This is the placeholder value if the user does not enter a description for what they want to be reminded to do to their plant. */
+"No Description Entered" = "No Description Entered";
+
+/* Data Value: Location not entered: This is the placeholder value if the user does not enter a location for their move plant reminder. */
+"No Location Entered" = "No Location Entered";
+
+/* Alert: App Update: Button Title: Button title that allows the user to open the app store in order to update WaterMe. */
+"Open App Store" = "Open App Store";
+
+/* Alert: Permission Denied: Message: Message of the alert that tells the user that notification permissions are denied. It asks the user to open Settings. */
+"Permissions to send notifications have been denied. If you would like to receive notifications when your plants need to be attened to, tap the ‘Open Settings’ button below." = "Permissions to send notifications have been denied. If you would like to receive notifications when your plants need to be attened to, tap the ‘Open Settings’ button below.";
+
+/* Alert Title: Plant Not Found when trying to execute a SiriShortcut */
+"Plant Not Found" = "Plant Not Found";
+
+/* Title of the screen where the user can manage their plants. Also, title of the button that opens this screen. */
+"Plants" = "Plants";
+
+/* Alert: Purchase Error: Title: The title for all purchase error alerts. */
+"Purchase Error" = "Purchase Error";
+
+/* Alert: New Permission: Title: Title of the alert that asks the user if they want to grant notification permissions. */
+"Push Notifications" = "Push Notifications";
+
+/* Alert Title: Reminder Not Found when trying to execute a SiriShortcut */
+"Reminder Not Found" = "Reminder Not Found";
+
+/* "Reminder Interval Chooser: Title" */
+"Reminder Interval" = "Reminder Interval";
+
+/* Button Title in an Alert to save the reminder or plant even though all of the fields have not been filled in yet. Fields not yet filled in could include Name, Photo, Reminders. */
+"Save Anyway" = "Save Anyway";
+
+/* Alert: New Permission: Button Title: Send Notifications: Title of the button that will result in the user being presented the system dialog to grant notification permissions. */
+"Send Notifications" = "Send Notifications";
+
+/* Button title that opens both the in-app settings screen and the iOS settings screen for WaterMe. */
+"Settings" = "Settings";
+
+/* Alert Title: Generic Siri Shortcuts Error */
+"Shortcut Error" = "Shortcut Error";
+
+/* Alert Title: On iOS 11, Siri Shortcuts is not available, but they tapped on a button the tries to use this feature. This alert tells them whats wrong. */
+"Siri Shortcuts are only available in iOS 12. Please update to use this feature." = "Siri Shortcuts are only available in iOS 12. Please update to use this feature.";
+
+/* Alert Title: On iOS 11, Siri Shortcuts is not available, but they tapped on a button the tries to use this feature. This alert tells them whats wrong. */
+"Siri Shortcuts Unavailable" = "Siri Shortcuts Unavailable";
+
+/* Alert: App Update: Message: Alert title that tells TestFlight beta users that an update is available for WaterMe */
+"Thank you for beta testing WaterMe. A newer version is now available on the App Store. There’s no rush, you can update now or later." = "Thank you for beta testing WaterMe. A newer version is now available on the App Store. There’s no rush, you can update now or later.";
+
+/* Alert: App Update: Message: Alert title that tells the user that an update is available for WaterMe */
+"Thank you for using WaterMe. A newer version is now available on the App Store. There’s no rush, you can update now or later." = "Thank you for using WaterMe. A newer version is now available on the App Store. There’s no rush, you can update now or later.";
+
+/* Alert: Dark Mode Improper: Title: Title of alert that is presented when Dark Mode settings are configured on iOS 11 or 12. */
+"Dark Mode" = "Dark Mode";
+
+/* Alert: Dark Mode Improper: Message: Message of alert that is presented when Dark Mode settings are configured on iOS 11 or 12. */
+"The dark mode settings for WaterMe only work when running iOS 13 or higher." = "The dark mode settings for WaterMe only work when running iOS 13 or higher.";
+
+/* Purchase Thanks: Body: Body text thanking the user for their support. */
+"Thank you for your purchase. Your support is critical to the continued development of WaterMe." = "Thank you for your purchase. Your support is critical to the continued development of WaterMe.";
+
+/* Purchase Thanks: Title: A thank you to the user for supporting WaterMe via In-App Purchase. */
+"Thank You!" = "Thank You!";
+
+/* SiriShortcut: Phrase: Random3 */
+"Thats that!" = "Thats that!";
+
+/* Alert Message: Plant Not Found when trying to execute a SiriShortcut */
+"The plant for this Siri Shortcut could not be found. You may want to delete this Siri Shortcut." = "The plant for this Siri Shortcut could not be found. You may want to delete this Siri Shortcut.";
+
+/* Alert Message: Reminder Not Found when trying to execute a SiriShortcut */
+"The reminder for this Siri Shortcut could not be found. You may want to delete this Siri Shortcut." = "The reminder for this Siri Shortcut could not be found. You may want to delete this Siri Shortcut.";
+
+/* Title of an Alert that tells the user that they are trying to save a Plant or Reminder and they have not filled in all the fields. They may want to cancel the save and go back and fill them in. Or they may want to Save the changes anyway. Fields not filled in could include, Name, Photo, Reminders. */
+"There are some issues you might want to resolve." = "There are some issues you might want to resolve.";
+
+/* Alert Message: Error Ocurred when Creating a new Siri Shortcut. */
+"There was an error adding this Siri Shortcut. Please try again later." = "There was an error adding this Siri Shortcut. Please try again later.";
+
+/* Alert Message: Error ocurred when executing an existing Shortcut. */
+"There was an error executing this Siri Shortcut. If you see this error repeatedly, it may help to delete and recreate it." = "There was an error executing this Siri Shortcut. If you see this error repeatedly, it may help to delete and recreate it.";
+
+/* Screen title for the settings screen. Also used for button titles to open the Settings screen. */
+"Tip Jar" = "Tip Jar";
+
+/* Alert: App Update: Title: Alert title that tells the user that an update is available for WaterMe */
+"Update Available" = "Update Available";
+
+/* SiriShortcut: Title: ViewReminder: Shows the reminder kind and the name of the plant so the user knows what the SiriShortcut applies to. */
+"View %@ %@ Reminder" = "View %1$@ %2$@ Reminder";
+
+/* SiriShortcut: Description: ViewReminder: Explains to the user that by using this SiriShortcut they can view the reminder summary screen. */
+"View notes, last performed date, mark as done." = "View notes, last performed date, mark as done.";
+
+/* Edit Reminder: Siri Shortcut Title: Label for a cell that when tapped, lets the user add a Siri Shortcut for viewing the reminder summary. */
+"View Summary of Reminder" = "View Summary of Reminder";
+
+/* SiriShortcut: Phrase: Random2 */
+"Water Me Baby!" = "Water Me Baby!";
+
+/* Settings: Cell Title: Tip Jar Free: When tapped, this opens an screen to review the app. */
+"Write App Review" = "Write App Review";
+
+/* Alert: Purchase Not Allowed Error: Message: Message when the user was not allowed to make a purchase. */
+"You’re not allowed to make purchases on this device. Thank you for the thought, though ❤️" = "You’re not allowed to make purchases on this device. Thank you for the thought, though ❤️";
+
+/* Notification Body: Many Items: When more than 2 plants needs to be taken care of in a day, this is the body text of the notification. */
+"‘%@’ and %d more plants need attention today." = "‘%1$@’ and %2$d more plants need attention today.";
+
+/* Notification Body: 2 Items: When 2 plants needs to be taken care of in a day, this is the body text of the notification. */
+"‘%@’ and ‘%@’ need attention today." = "‘%1$@’ and ‘%2$@’ need attention today.";
+
+/* Notification Body: 1 Item: When 1 plant needs to be taken care of in a day, this is the body text of the notification. */
+"‘%@’ needs attention today." = "‘%@’ needs attention today.";
+
+/*
+
+_  _____ _                 _    _____
+(_)/ ____| |               | |  / ____|
+_| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
+| | |    | |/ _ \| | | |/ _` |  \___ \| | | | '_ \ / __|
+| | |____| | (_) | |_| | (_| |  ____) | |_| | | | | (__
+|_|\_____|_|\___/ \__,_|\__,_| |_____/ \__, |_| |_|\___|
+                                       __/ |
+                                      |___/
+
+*/
+
+/* Cloud Sync Info: Title: Lets the user know that iCloud sync is possible */
+"iCloud Sync" = "iCloud Sync";
+
+/* Cloud Sync Info: Body: Lets the user know how iCloud sync works and that it can be enabled and disabled from the settings app. */
+"WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen." = "WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen.";
+
+/* Alert Title: Indicates there was an error with iCloud Sync. */
+"iCloud Sync Error" = "iCloud Sync Error";
+
+/* Alert Message: Indicates there was an issue with the password used for iCloud. This requires going to the phone's settings app. */
+"Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud." = "Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud.";
+
+/* Alert Message: Indicates there was an issue because iCloud reached a rate limit. */
+"Sync couldn't be completed because of an iCloud rate limit. Syncing will automatically resume later." = "Sync couldn't be completed because of an iCloud rate limit. Syncing will automatically resume later.";
+
+/* Alert Message: Indicates there was an issue because the user's iCloud storage is full. */
+"Sync failed because your iCloud storage is full. You can buy more iCloud storage, delete data in iCloud, or disable iCloud sync for WaterMe in the settings app." = "Sync failed because your iCloud storage is full. You can buy more iCloud storage, delete data in iCloud, or disable iCloud sync for WaterMe in the settings app.";
+
+/* Alert Message: Indicates there was a network error. Syncing will automatically resume when connected again. */
+"Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume." = "Sync failed because there was a network error. Next time there is a network connection, sync will automatically resume.";
+
+/* Alert Message: Indicates some data was able to sync but not all. Syncing will resume again later. */
+"Partial sync complete. Syncing will automatically resume later." = "Partial sync complete. Syncing will automatically resume later.";
+
+/* Alert Message: Indicates something went wrong, but its not known why. Syncing will resume again later. */
+"An unknown error ocurred. Syncing will automatically resume later." = "An unknown error ocurred. Syncing will automatically resume later.";
+
+/* Alert Message: App could not detect iCloud login status. Very strange error, restarting device might help. */
+"Unable to detect your iCloud account status. Turning your device off and on may resolve this issue." = "Unable to detect your iCloud account status. Turning your device off and on may resolve this issue.";
+
+/* Alert Message: iCloud is restricted on this device. The user cannot fix this issue. */
+"iCloud Sync is restricted by parental or administrator controls." = "iCloud Sync is restricted by parental or administrator controls.";
+
+/* Alert Message: The user is not signed in with iCloud and therefore cannot use iCloud Sync with WaterMe. */
+"To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings." = "To use iCloud Sync with WaterMe, please sign into your iCloud account and enable 'iCloud Drive.' If you do not want to see this error, disable 'Sync via iCloud' in Settings.";
+
+/* Alert Message: The device is running an old version of iOS and cannot use iCloud Sync. */
+"iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings." = "iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings.";
+
+/* Status Bar: iCloud sync recently completed. Not a button. */
+"iCloud Sync Complete" = "iCloud Sync Complete";
+
+/* Status Bar: iCloud syncing is currently in progress. Not a button. */
+"Syncing with iCloud…" = "Syncing with iCloud…";
+
+/* Status Bar: iCloud syncing had an error. A tappable button. */
+"Sync Error" = "Sync Error";
+
+/* Status Bar: iCloud syncing unavailable on this device. A tappable button. */
+"iCloud Sync Unavailable" = "iCloud Sync Unavailable";
+
+/*
+ 
+   _____        _          __  __ _                 _   _
+ |  __ \      | |        |  \/  (_)               | | (_)
+ | |  | | __ _| |_ __ _  | \  / |_  __ _ _ __ __ _| |_ _  ___  _ __
+ | |  | |/ _` | __/ _` | | |\/| | |/ _` | '__/ _` | __| |/ _ \| '_ \
+ | |__| | (_| | || (_| | | |  | | | (_| | | | (_| | |_| | (_) | | | |
+ |_____/ \__,_|\__\__,_| |_|  |_|_|\__, |_|  \__,_|\__|_|\___/|_| |_|
+                                    __/ |
+                                   |___/
+ 
+ */
+
+/* MigratorScreen: Subtitle: Explains what is happening on the screen. */
+"Data Migration" = "Data Migration";
+
+/* MigratorScreen: Subtitle: Explains an error ocurred while migrating */
+"Migration Error" = "Migration Error";
+
+/* MigratorScreen: Body: Body text that explains the one time migration needed to upgrade to the new WaterMe. */
+"Sorry for the interruption. A one-time data migration is needed in order to continue using WaterMe." = "Sorry for the interruption. A one-time data migration is needed in order to continue using WaterMe.";
+
+/* MigratorScreen: Body: Body text that explains that the user should not lock the screen or switch apps until the migration is complete. */
+"Don't go to the home screen, change apps, or lock the screen." = "Don't go to the home screen, change apps, or lock the screen.";
+
+/* MigratorScreen: Body: Body text that explains that the migration succeeded. */
+"Success! Your plants have been migrated." = "Success! Your plants have been migrated.";
+
+/* MigratorScreen: Body: An error ocurred before migration started. */
+"Migration could not be started due to an error. Please try again later." = "Migration could not be started due to an error. Please try again later.";
+
+/* MigratorScreen: Body: Body text that explains that all data should be migrated but there was an error cleaning up at the end. */
+"An error ocurred when cleaning up after migration. Please double-check all of your plants are in WaterMe." = "An error ocurred when cleaning up after migration. Please double-check all of your plants are in WaterMe.";
+
+/* MigratorScreen: Body: Body text that explains that migration may be incomplete. */
+"One or more plants could not be migrated. Please double-check all of your plants are in WaterMe." = "One or more plants could not be migrated. Please double-check all of your plants are in WaterMe.";
+
+/* MigratorScreen: Start Button Title: When the user clicks this button the migration starts. */
+"Start Migration" = "Start Migration";
+
+/* MigratorScreen: Migrating Button Title: After the user starts the migration, the text of the button changes to this to show that migration is in progress. */
+"Migrating…" = "Migrating…";
+
+/* MigratorScreen: Cancel Button Title: When the user clicks this button the screen is dismissed and the migration does not happen, but next time the app is started, it will ask again. */
+"Skip for Now" = "Skip for Now";
+
+/* MigratorScreen: Delete Button Title: When the user clicks this button, the screen is dismissed and it will never appear again and they will not have access to their previous plants. This action is destructive. */
+"Don’t Migrate My Plants" = "Don’t Migrate My Plants";
+
+/* MigratorScreen: Confirmation that the user does not want to migrate their plants. */
+"This cannot be undone" = "This cannot be undone";
+
+/* MigratorScreen: Finish Button Title: After the migration is done, this button allows the user to finish the migration and go back to using the app as normal. */
+"Finish" = "Finish";
+
+/*
+  _____                       _        _____  ____
+ / ____|                     | |      |  __ \|  _ \
+| (___   __ _ _ __ ___  _ __ | | ___  | |  | | |_) |
+ \___ \ / _` | '_ ` _ \| '_ \| |/ _ \ | |  | |  _ <
+ ____) | (_| | | | | | | |_) | |  __/ | |__| | |_) |
+|_____/ \__,_|_| |_| |_| .__/|_|\___| |_____/|____/
+                       | |
+                       |_|
+*/
+
+/* First Launch: When the user opens the app for the first time, there is one plant shown in the app. When the user taps on the plant, this is the note shown that tells them how to use the app. */
+"Welcome to WaterMe! This is your first plant. Use the button below to edit this plant and make it your own. When you’re ready to add all your plants, tap the ‘Add Plant’ button at the top right of the screen." = "Welcome to WaterMe! This is your first plant. Use the button below to edit this plant and make it your own. When you’re ready to add all your plants, tap the ‘Add Plant’ button at the top right of the screen.";
+
+/* First Launch: When the user opens the app for the first time, there is one plant shown in the app. It is called something that will make the user tap on it. */
+"Tap on Me" = "Tap on Me";
+
+/*
+  _____          _____
+ |_   _|   /\   |  __ \
+   | |    /  \  | |__) |
+   | |   / /\ \ |  ___/
+  _| |_ / ____ \| |
+ |_____/_/    \_\_|
+
+ */
+
+/* Large Tip */
+"Amazing Tip" = "Amazing Tip";
+
+/* Large Tip Description */
+"Help support the development of WaterMe with an amazing tip." = "Help support the development of WaterMe with an amazing tip.";
+
+/* Medium Tip */
+"Massive Tip" = "Massive Tip";
+
+/* Medium Tip Description */
+"Help support the development of WaterMe with a massive tip." = "Help support the development of WaterMe with a massive tip.";
+
+/* Small Tip */
+"Generous Tip" = "Generous Tip";
+
+/* Small Tip Description */
+"Help support the development of WaterMe with a generous tip." = "Help support the development of WaterMe with a generous tip.";
+
+/*
+  _____ _                   _____
+ / ____| |                 |  __ \
+| (___ | |_ ___  _ __ ___  | |  | | ___  ___  ___
+ \___ \| __/ _ \| '__/ _ \ | |  | |/ _ \/ __|/ __|
+ ____) | || (_) | | |  __/ | |__| |  __/\__ \ (__
+|_____/ \__\___/|_|  \___| |_____/ \___||___/\___|
+ 
+ http://www.patorjk.com/software/taag/#p=display&f=Big&t=Data%20Migration
+
+*/
+
+/*
+ Never let another plant turn brown again. WaterMe reminds you when to tend to the plants in your garden:
+
+ 1) Add your plants into the app.
+ 2) Add reminders for watering, fertilizing, etc.
+ 3) Get 1 notification every day reminding you which plants need care.
+ 4) Take care of the plant in real life.
+ 5) Drag and drop the reminder to mark it as complete.
+
+ Thats it! Every day you'll get one, and only one, notification that reminds you to take care of your plants.
+
+ - Supports multiple kinds of reminders per plant
+     - Water, Fertilize, Trim, and more
+ - Easy to see which plants need to be taken care of and when.
+ - Syncs data across all of your iOS devices via iCloud.
+ - Supports working quickly with Drag and Drop interface.
+ - Customize the time notifications are sent every day.
+ - Care for your garden with your voice using Siri Shortcuts.
+ - Tip Jar In-App Purchases allow you to directly support the development of WaterMe.
+ - Supports Split Screen and Slide Over iPad Multitasking.
+ - Supports Dynamic Type.
+ - Supports Voiceover and other iOS accessibility features.
+ */
+
+// Keywords
+// plant, flower, green thumb, water, house, garden, yard, fertilize, green, fruit, tree, vegetable

@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/01/01.
+//  Created by Jeffrey Bergier on 2022/01/28.
 //  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -19,24 +19,60 @@
 //
 
 import SwiftUI
+import Umbrella
 
 @propertyWrapper
-public struct Nav: DynamicProperty {
-
-    @SceneStorage("Navigation") private var state: Navigation.State = .rootアList
-
+public struct NavGeneric: DynamicProperty {
+    @SceneStorage("NavigationGeneric") private var store = NavigationGeneric()
     public init() {}
-
-    public var wrappedValue: Navigation {
-        get { .init(self.state) }
-        nonmutating set { self.state = newValue.state }
+    public var wrappedValue: NavigationGeneric {
+        get { self.store }
+        nonmutating set { self.store = newValue }
     }
+    public var projectedValue: Binding<NavigationGeneric> {
+        Binding { self.wrappedValue }
+        set: { self.store = $0 }
+    }
+}
 
-    public var projectedValue: Binding<Navigation> {
-        Binding {
-            self.wrappedValue
-        } set: { newValue in
-            self.state = newValue.state
-        }
+@propertyWrapper
+public struct NavReminderList: DynamicProperty {
+    @SceneStorage("NavigationReminderList") private var store = NavigationReminderList()
+    public init() {}
+    public var wrappedValue: NavigationReminderList {
+        get { self.store }
+        nonmutating set { self.store = newValue }
+    }
+    public var projectedValue: Binding<NavigationReminderList> {
+        Binding { self.wrappedValue }
+        set: { self.store = $0 }
+    }
+}
+
+@propertyWrapper
+public struct NavReminderEdit: DynamicProperty {
+    @SceneStorage("NavigationReminderEdit") private var store = NavigationReminderEdit()
+    public init() {}
+    public var wrappedValue: NavigationReminderEdit {
+        get { self.store }
+        nonmutating set { self.store = newValue }
+    }
+    public var projectedValue: Binding<NavigationReminderEdit> {
+        Binding { self.wrappedValue }
+        set: { self.store = $0 }
+    }
+}
+
+@propertyWrapper
+public struct NavVesselEdit: DynamicProperty {
+    @SceneStorage("NavigationVesselEdit") private var store = NavigationVesselEdit()
+    public init() {}
+    public var wrappedValue: NavigationVesselEdit {
+        get { self.store }
+        nonmutating set { self.store = newValue }
+    }
+    public var projectedValue: Binding<NavigationVesselEdit> {
+        Binding { self.wrappedValue }
+        set: { self.store = $0 }
     }
 }

@@ -78,11 +78,13 @@
 		7345459627818E360001EC2E /* Model */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Model; path = Packages/Model; sourceTree = "<group>"; };
 		734545972781943D0001EC2E /* Nav */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Nav; path = Packages/Nav; sourceTree = "<group>"; };
 		7354DAAD277E749C007AC8FB /* Interface */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interface; path = Packages/Interface; sourceTree = "<group>"; };
-		737ECE6D2782EBF60003B941 /* Umbrella */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Umbrella; path = Packages/Umbrella; sourceTree = "<group>"; };
 		738F06A827817A5900579B01 /* iPhoneMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPhoneMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738F06AA27817A5900579B01 /* iPhoneMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneMeApp.swift; sourceTree = "<group>"; };
 		738F06AE27817A5A00579B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		738F06B127817A5A00579B01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		73D8E24927AE20E90044EE47 /* Errors */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Errors; path = Packages/Errors; sourceTree = "<group>"; };
+		73E8B81227C1E8B000A4B4E4 /* Localize */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Localize; path = Packages/Localize; sourceTree = "<group>"; };
+		73F82F0427EEDFD5006CDC2D /* WatchMe WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchMe WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,10 +112,11 @@
 			children = (
 				7354DAAD277E749C007AC8FB /* Interface */,
 				734545972781943D0001EC2E /* Nav */,
+				73D8E24927AE20E90044EE47 /* Errors */,
 				7339DE6F277DD76A008B20DD /* Datum */,
+				73E8B81227C1E8B000A4B4E4 /* Localize */,
 				7339DE71277DD805008B20DD /* Style */,
 				7345459627818E360001EC2E /* Model */,
-				737ECE6D2782EBF60003B941 /* Umbrella */,
 				738F06A927817A5900579B01 /* iPhoneMe */,
 				7339DE4A277DD537008B20DD /* WatchMe WatchKit App */,
 				7339DE55277DD538008B20DD /* WatchMe WatchKit Extension */,
@@ -145,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				7339DE58277DD538008B20DD /* WatchMeApp.swift */,
+				73F82F0427EEDFD5006CDC2D /* WatchMe WatchKit Extension.entitlements */,
 				7339DE5A277DD538008B20DD /* ComplicationController.swift */,
 				7339DE5C277DD539008B20DD /* Assets.xcassets */,
 				7339DE61277DD539008B20DD /* Info.plist */,
@@ -521,7 +525,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -554,7 +558,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -579,7 +583,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -604,7 +608,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -645,12 +649,13 @@
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"Spooky Action at a Distance\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -675,12 +680,13 @@
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"Spooky Action at a Distance\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

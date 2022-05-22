@@ -18,25 +18,28 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct Vessel: Hashable, Identifiable {
+public struct Vessel: Identifiable {
     public var id: アイディ
     public var displayName: String?
     public var icon: VesselIcon?
     public var kind: VesselKind
+    public var isDeleted: Bool
 //  public var isModelComplete: ModelCompleteError?
     public var shortLabelSafeDisplayName: String? {
         self.displayName?.truncated(to: 20)
     }
-
+    
     public init(id: アイディ,
                 displayName: String? = nil,
                 icon: VesselIcon? = nil,
-                kind: VesselKind = .plant)
+                kind: VesselKind = .plant,
+                isDeleted: Bool = false)
     {
         self.id = id
         self.displayName = displayName
         self.icon = icon
         self.kind = kind
+        self.isDeleted = isDeleted
     }
 }
 

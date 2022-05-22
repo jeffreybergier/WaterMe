@@ -22,11 +22,12 @@ import CoreData
 import Model
 
 internal class CD_Controller: Controller {
-
+    
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
+        
         guard
             let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
             let mom = NSManagedObjectModel(contentsOf: url)
@@ -69,7 +70,7 @@ internal class CD_Controller: Controller {
         assert(Thread.isMainThread)
 
         guard let container = CD_Controller.container(kind: kind)
-            else { fatalError() } // DatumError.load }
+            else { fatalError() } //DatumError.load }
 
         switch kind {
         case .local, .sync:
@@ -146,13 +147,15 @@ internal class CD_Controller: Controller {
         }
         #endif
     }
-
+    
     internal let container: NSPersistentContainer
     internal let kind: ControllerKind
     internal var __ENVONLY__managedObjectContext: NSManagedObjectContext {
         return self.container.viewContext
     }
-
+    
+    // MARK: Create
+    
     internal func newVessel() -> Result<Vessel.アイディ, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -185,6 +188,176 @@ internal class CD_Controller: Controller {
             Vessel.アイディ(vessel.objectID.uriRepresentation().absoluteString)
         }
     }
+    
+    internal func newReminder(for vessel: Vessel.アイディ) -> Result<Reminder.アイディ, Error> {
+        let context = self.container.viewContext
+        return __genericSearch(matching: vessel.id).flatMap
+        { (vessel: CD_ReminderVessel) -> Result<Reminder.アイディ, Error> in
+            // debug only sanity checks
+            assert(Thread.isMainThread)
+            assert(context === vessel.managedObjectContext!)
+            
+            let newReminder = CD_Reminder(context: context)
+            context.insert(newReminder)
+            // core data hooks up the inverse relationship
+            newReminder.raw_vessel = vessel
+            return context.waterme_save()
+                .map { Reminder.アイディ(newReminder.objectID) }
+        }
+    }
+    
+    internal func appendNewPerformToReminders(with ids: [Reminder.アイディ]) -> Result<Void, Error> {
+        // debug only sanity checks
+        assert(Thread.isMainThread)
+
+        let results: [Result<CD_Reminder, Error>] = ids.map{ $0.id }.map(__genericSearch(matching:))
+        let reminders = results.compactMap { try? $0.get() }
+        guard reminders.count == ids.count else { return .failure(.objectMissing) }
+
+        let context = self.container.viewContext
+
+        reminders.forEach { reminder in
+            let perform = CD_ReminderPerform(context: context)
+            context.insert(perform)
+            // core data hooks up the inverse relationship
+            perform.raw_reminder = reminder
+            reminder.updateDates(withAppendedPerformDate: perform.raw_date)
+        }
+
+        return context.waterme_save()
+            .reduce(self.maintenance_fixDates)
+            .reduce(self.maintenance_deleteOrphanedReminders)
+            .reduce(self.maintenance_oneTrueVesselShare)
+            .reduce(self.maintenance_fixOrphanedVessels(share:))
+    }
+    
+    // MARK: Delete
+
+    internal func delete(_ vessel: Vessel.アイディ) -> Result<Void, Error> {
+        let context = self.container.viewContext
+        return __genericSearch(matching: vessel.id).flatMap
+        { (vessel: CD_ReminderVessel) -> Result<Void, Error> in
+            // debug only sanity checks
+            assert(Thread.isMainThread)
+            assert(context === vessel.managedObjectContext)
+
+            context.delete(vessel)
+            return context.waterme_save()
+        }
+    }
+
+    internal func delete(_ reminder: Reminder.アイディ) -> Result<Void, Error> {
+        let context = self.container.viewContext
+        return __genericSearch(matching: reminder.id).flatMap
+        { (reminder: CD_Reminder) -> Result<Void, Error> in
+            // debug only sanity checks
+            assert(Thread.isMainThread)
+            assert(context === reminder.managedObjectContext)
+
+            guard let vessel = reminder.raw_vessel else {
+                context.delete(reminder)
+                return context.waterme_save()
+            }
+
+            let reminderCount = vessel.raw_reminders?.count ?? 0
+            guard reminderCount >= 2 else {
+                return .failure(.cannotDeleteLastReminder)
+            }
+
+            context.delete(reminder)
+            return context.waterme_save()
+        }
+    }
+    
+    // MARK: Search
+    
+    // swiftlint:disable:next function_body_length
+    private func __genericSearch<T: CD_Base>(matching uuid: String) -> Result<T, Error> {
+        let coordinator = self.container.persistentStoreCoordinator
+        let context = self.container.viewContext
+
+        // debug only sanity checks
+        assert(Thread.isMainThread)
+
+        do {
+            if uuid.starts(with: "x-coredata://"), let url = URL(string: uuid) {
+                // Core Data reference
+                guard let id = coordinator.managedObjectID(forURIRepresentation: url)
+                    else { return .failure(.objectMissing) }
+                let _object = try context.existingObject(with: id)
+                // if the object is the wrong type, log as an error
+                guard let object = _object as? T else {
+                    let e = "found: \(type(of: _object)) != expected: \(T.self))"
+                    assertionFailure(e)
+                    e.log()
+                    return .failure(.objectMissing)
+                }
+                return .success(object)
+            } else if UUID(uuidString: uuid) != nil {
+                // Migrated Legacy Realm Reference
+                let req = NSFetchRequest<NSFetchRequestResult>(entityName: T.entityName)
+                let kp = #keyPath(CD_Base.raw_migrated.raw_realmIdentifier)
+                req.predicate = .init(format: "%K == %@", kp, uuid)
+                let results = try context.fetch(req)
+                let count = results.count
+                // if we had no results, return object deleted
+                guard count > 0 else { return .failure(.objectMissing) }
+                // if we had more than 1 result, just log this as an error
+                if count > 1 {
+                    let e = ("\(T.self), id: \(uuid), count: \(count): "
+                           + "There should only be 1 match")
+                    assertionFailure(e)
+                    e.log()
+                }
+                // if the object is the wrong type, log this as an error
+                let _object = results[0]
+                guard let object = _object as? T else {
+                    let e = "found: \(type(of: _object)) != expected: \(T.self))"
+                    assertionFailure(e)
+                    e.log()
+                    return .failure(.objectMissing)
+                }
+                return .success(object)
+            } else {
+                let e = "\(uuid): does not appear to be Core Data or Realm identifier"
+                assertionFailure(e)
+                e.log()
+                return .failure(.objectMissing)
+            }
+        } catch {
+            assertionFailure("\(error)")
+            error.log()
+            return .failure(.load)
+        }
+    }
+    
+    // MARK: Internal for Property Wrappers
+    
+    internal func updateOpt(_ cd: CD_Reminder?, with newValue: Reminder?) -> Result<Void, Error> {
+        // TODO: If nil should I return an error?
+        self.update(cd!, with: newValue!)
+    }
+    
+    internal func update(_ cd: CD_Reminder, with newValue: Reminder) -> Result<Void, Error> {
+        cd.raw_kindString        = newValue.kind.rawValue
+        cd.raw_descriptionString = newValue.kindDescription
+        cd.raw_interval          = Int32(newValue.interval)
+        cd.raw_isEnabled         = newValue.isEnabled
+        cd.raw_note              = newValue.note
+        return self.container.viewContext.waterme_save()
+    }
+    
+    internal func updateOpt(_ cd: CD_ReminderVessel?, with newValue: Vessel?) -> Result<Void, Error> {
+        self.update(cd!, with: newValue!)
+    }
+    
+    internal func update(_ cd: CD_ReminderVessel, with newValue: Vessel) -> Result<Void, Error> {
+        cd.raw_displayName     = newValue.displayName
+        cd.raw_kindString      = newValue.kind.rawValue
+        cd.raw_iconEmojiString = newValue.icon?.stringValue
+        cd.raw_iconImageData   = newValue.icon?.dataValue
+        return self.container.viewContext.waterme_save()
+    }
 }
 
 // MARK: Maintenance
@@ -207,7 +380,7 @@ extension CD_Controller {
     }
 
     fileprivate func maintenance_massageAllEntries() -> Result<Void, Error> {
-        guard UserDefaults.standard != nil else { // .didRunWithoutCloudSync else {
+        guard UserDefaults.standard != nil else { //.didRunWithoutCloudSync else {
             return .success(())
         }
         do {
@@ -216,7 +389,7 @@ extension CD_Controller {
             let data = try context.fetch(fetchRequest)
             data.forEach { $0.raw_bloop.toggle() }
             try context.save()
-            UserDefaults.standard// .didRunWithoutCloudSync = false
+            UserDefaults.standard//.didRunWithoutCloudSync = false
             return .success(())
         } catch {
             error.log()
@@ -265,7 +438,7 @@ extension CD_Controller {
                 // 4. Save
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
-                UserDefaults.standard// .didRunWithoutCloudSync = true
+                UserDefaults.standard//.didRunWithoutCloudSync = true
                 "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
@@ -392,14 +565,14 @@ extension CD_Controller {
             .storeDirectoryURL
             .appendingPathComponent("WaterMe.sqlite-wal", isDirectory: false)
     }()
-
+    
     private static let RLM_legacyStoreDirectoryURL: URL = {
         return FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("WaterMe", isDirectory: true)
             .appendingPathComponent("Free", isDirectory: true)
     }()
-
+    
     private static let RLM_legacyRealmFile: URL = {
         return RLM_legacyStoreDirectoryURL
             .appendingPathComponent("Realm.realm", isDirectory: false)
@@ -410,7 +583,7 @@ extension CD_Controller {
         let exists = fm.fileExists(atPath: self.dbFileURL1.path)
         return exists
     }
-
+    
     internal class var RLM_legacyStoreExists: Bool {
         let fm = FileManager.default
         let exists = fm.fileExists(atPath: self.RLM_legacyRealmFile.path)

@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.5.0
 
 //
 //  Created by Jeffrey Bergier on 2021/12/31.
@@ -29,13 +29,18 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Interface",
-            targets: ["Interface"])
+            targets: ["Interface"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(path: "../Datum"),
         .package(path: "../Nav"),
-        .package(path: "../Umbrella")
+        .package(path: "../Errors"),
+        .package(path: "../Style"),
+        .package(path: "../Model"),
+        .package(path: "../Localize"),
+        .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "v2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -45,10 +50,21 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "Datum", condition: nil),
                 .byNameItem(name: "Nav", condition: nil),
-                .byNameItem(name: "Umbrella", condition: nil)
-            ]),
+                .byNameItem(name: "Umbrella", condition: nil),
+                .byNameItem(name: "Errors", condition: nil),
+                .byNameItem(name: "Style", condition: nil),
+                .byNameItem(name: "Model", condition: nil),
+                .byNameItem(name: "Localize", condition: nil)
+            ],
+            resources: [
+                .copy("Resources/TEST_IMAGE.jpeg"),
+                .copy("Resources/WateringLandscape.mov"),
+                .copy("Resources/WateringPortrait.mov"),
+            ]
+        ),
         .testTarget(
             name: "InterfaceTests",
-            dependencies: ["Interface"])
+            dependencies: ["Interface"]
+        ),
     ]
 )

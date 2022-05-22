@@ -19,14 +19,17 @@
 //
 
 import Model
+import CoreData
 
 extension Vessel {
     internal init(cd: CD_ReminderVessel) {
-        self.init(id: .init(cd.objectID.uriRepresentation().absoluteString),
+        self.init(id: .init(cd.objectID),
                   displayName: cd.raw_displayName,
-                  icon: .init(rawImageData: cd.raw_iconImageData,
-                              emojiString: cd.raw_iconEmojiString),
-                  kind: .init(rawValue: cd.raw_kindString ?? "-1") ?? .plant)
+                  icon: .init(cleanData: cd.raw_iconImageData,
+                              cleanString: cd.raw_iconEmojiString),
+                  kind: .init(rawValue: cd.raw_kindString ?? "-1") ?? .plant,
+                  // TODO: Hack that might not work correctly in all cases
+                  isDeleted: cd.managedObjectContext == nil)
     }
     internal init?(cd: CD_ReminderVessel?) {
         guard let cd = cd else { return nil }
@@ -34,5 +37,11 @@ extension Vessel {
     }
     internal init() {
         self.init(id: .init("FALSE"))
+    }
+}
+
+extension Vessel.アイディ {
+    internal init(_ objectID: NSManagedObjectID) {
+        self.init(objectID.uriRepresentation().absoluteString)
     }
 }

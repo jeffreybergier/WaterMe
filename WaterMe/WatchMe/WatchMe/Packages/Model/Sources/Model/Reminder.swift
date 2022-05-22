@@ -29,8 +29,9 @@ public struct Reminder: Identifiable, Hashable {
     public var note: String?
     public var nextPerformDate: Date?
     public var lastPerformDate: Date?
+    public var isDeleted: Bool
     public var vesselID: Vessel.アイディ?
-
+    
     public init(id: アイディ,
                 kind: ReminderKind = .water,
                 kindDescription: String? = nil,
@@ -39,6 +40,7 @@ public struct Reminder: Identifiable, Hashable {
                 note: String? = nil,
                 nextPerformDate: Date? = nil,
                 lastPerformDate: Date? = nil,
+                isDeleted: Bool = false,
                 vesselID: Vessel.アイディ? = nil)
     {
         self.id = id
@@ -49,6 +51,7 @@ public struct Reminder: Identifiable, Hashable {
         self.note = note
         self.nextPerformDate = nextPerformDate
         self.lastPerformDate = lastPerformDate
+        self.isDeleted = isDeleted
         self.vesselID = vesselID
     }
 }

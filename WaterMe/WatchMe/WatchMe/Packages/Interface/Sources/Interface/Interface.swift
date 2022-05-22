@@ -22,117 +22,57 @@ import SwiftUI
 import Datum
 import Nav
 import Umbrella
+import Errors
+import Localize
 
 public struct Interface: View {
 
-    @Nav private var nav
-    @StateObject private var controller = NewController(of: .local)!
-    @StateObject private var errorQ = StringQueue(["An Error"])
-
+    @NavGeneric private var navGeneric
+    @NavVesselEdit private var navVesselEdit
+    @NavReminderList private var navReminderList
+    @NavReminderEdit private var navReminderEdit
+    @UFErrorQ private var errorQ
+    
+    @State private var controllerLoadError: Datum.Error?
+    @StateObject private var controllerEnvironment: ControllerProperty.Environment
+    @ObservedObject private var datumErrorQueue = EnvironmentQueue<Datum.Error>.newEnvirementObject()
+    
+    // TODO: For debugging error propogation
+    private let DEBUG_errorTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
+    
     public init() {
         Loggable.configure()
+        let tuple = ControllerProperty.newEnvironment(of: .local)
+        _controllerEnvironment = .init(wrappedValue: tuple.0)
+        _controllerLoadError = .init(wrappedValue: tuple.1)
     }
-
+    
     public var body: some View {
-        self.render()
-            .environmentObject(self.controller)
-            .environmentObject(self.errorQ)
-            .environment(\.managedObjectContext, self.controller.__ENVONLY__managedObjectContext)
-            .onChange(of: self.errorQ.value.first) { error in
-                self.nav.append(String(describing: error))
-            }
-            .onAppear {
-                guard let error = self.errorQ.value.first else { return }
-                self.nav.append(String(describing: error))
-            }
-    }
-
-    @ViewBuilder private func render() -> some View {
-        // TODO: Summary, Settings, Error
-        ReminderList()
-            .modifier(JSBAlert(item: self.$nav.isRootアListアError, titleKey: "Fuck off", actions: { error in
-                Button("Kill Me", action: {})
-                Button(error, action: {})
-            }, message: { _ in Text("This is a message") }))
-            .modifier(ListMenu())
-            .modifier(ListWatering())
-            .modifier(ListReminderEdit())
-            .modifier(ListVesselEdit())
-    }
-}
-
-extension Interface {
-    internal struct ListMenu: ViewModifier {
-        @Nav private var nav
-        func body(content: Content) -> some View {
-            content
-                .modifier(
-                    JSBConfirmationDialog(item: self.$nav.isRootアListアMenu,
-                                          titleKey: "// TODO: Fix Me")
-                    { input in
-                        Button   { self.nav.state = .rootアListアReminderEdit(.init(input.reminderID)) }
-                          label: { Text("Edit Reminder") }
-                        Button   { self.nav.state = .rootアListアVesselEdit(.init(input.vesselID)) }
-                          label: { Text("Edit Plant") }
-                        Button   { self.nav.state = .rootアListアSummary(.init(input.reminderID)) }
-                          label: { Text("View Summary") }
-                        Button   { self.nav.state = .rootアListアWatering(.init([input.reminderID])) }
-                          label: { Text("Mark as Done") }
-                        Button   { self.nav.reset() }
-                          label: { Text("Dismiss") }
-                    }
-                )
-        }
-    }
-    private struct ListReminderEdit: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isRootアListアReminderEdit) { input in
-                    ReminderEdit(id: input.reminderID, controller: self.controller)
+        if let error = self.controllerLoadError {
+            Text(error.title)
+            Text(error.message)
+        } else {
+            ReminderList()
+                .modifier(ReminderList.Presentation())
+                .environmentObject(self.datumErrorQueue)
+                .environmentObject(self.controllerEnvironment)
+                .environmentObject(LocalizeBundle())
+                .environmentObject(ImageBundle())
+                .environment(\.managedObjectContext, self.controllerEnvironment.value!.__ENVONLY__managedObjectContext)
+                .onReceive(self.datumErrorQueue.objectDidChange) { [datumErrorQueue] in
+                    guard datumErrorQueue.value.isEmpty == false else { return }
+                    self.errorQ.append(contentsOf: datumErrorQueue.value.map { $0 as UserFacingError })
+                    datumErrorQueue.value = []
                 }
-        }
-    }
-    private struct ListVesselEdit: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isRootアListアVesselEdit) { input in
-                    VesselEdit(id: input.id, controller: self.controller)
-                        .modifier(ListVesselEditReminderEdit())
-                        .modifier(ListVesselEditEmoji())
-                }
-        }
-    }
-    private struct ListVesselEditReminderEdit: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isRootアListアVesselEditアReminderEdit) { input in
-                    ReminderEdit(id: input.reminderID, controller: self.controller)
-                }
-        }
-    }
-    private struct ListVesselEditEmoji: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isRootアListアVesselEditアEmoji) { input in
-                    VesselEmoji(id: input.vesselID, controller: self.controller)
-                }
-        }
-    }
-    private struct ListWatering: ViewModifier {
-        @Nav private var nav
-        @EnvironmentObject private var controller: AnyController
-        func body(content: Content) -> some View {
-            content
-                .sheet(item: self.$nav.isRootアListアWatering) { _ in
-                    Watering()
+                // TODO: For debugging error propogation
+                .onReceive(self.DEBUG_errorTimer) { _ in
+                    self.DEBUG_errorTimer.upstream.connect().cancel()
+                    /*
+                    self.errorQ.append(CameraPermissionError.libraryIncapable)
+                    self.datumErrorQueue.value.append(.maintenanceDeleteOrphanedReminders)
+                    self.errorQ.append(CameraPermissionError.cameraRestricted)
+                    self.datumErrorQueue.value.append(.cannotDeleteLastReminder)
+                    */
                 }
         }
     }

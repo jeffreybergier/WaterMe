@@ -19,64 +19,113 @@
 //
 
 import SwiftUI
-import Model
-import Datum
-import Nav
 import Umbrella
+import Errors
+import Datum
+import Model
+import Nav
+import Style
+import Localize
 
 internal struct ReminderEdit: View {
-
-    @ReminderEditQuery var reminder: Reminder
-    @Environment(\.dismiss) private var dismiss
-
-    internal init(id: Reminder.アイディ, controller: AnyController) {
-        _reminder = ReminderEditQuery(id: id, controller: controller)
+    
+    internal struct Presentation: ViewModifier {
+        @NavReminderEdit private var nav
+        internal func body(content: Content) -> some View {
+            content
+                .modifier(Alert(self.$nav.isError))
+                .modifier(OnAppearErrorHandler())
+        }
     }
-
+    
+    @ReminderEditQuery var reminder: Reminder
+    
+    @UFErrorQ private var errorQ
+    @Style.Form private var style
+    @Localize.ReminderEdit private var text
+    @ControllerProperty private var controller
+    @Environment(\.dismiss) private var dismiss
+    
+    internal init(id: Reminder.アイディ) {
+        _reminder = ReminderEditQuery(id: id)
+    }
+    
     internal var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Kind of Reminder")) {
-                    Picker("Kind of Reminder", selection: self.$reminder.kind) {
-                        ForEach(ReminderKind.allCases) {
-                            Text($0.rawValue)
+                Section {
+                    Picker(selection: self.$reminder.interval) {
+                        ForEach(ReminderConstants.minimumInterval..<ReminderConstants.maximumInterval) {
+                            Text(self._text.subsectionDataInterval($0))
                                 .tag($0)
                         }
+                    } label: {
+                        Text(self.text(\.subsectionTitleInterval))
                     }
-                }
-                if case .move = self.reminder.kind {
-                    Section(header: Text("Details")) {
-                        JSBTextField("Move to", text: self.$reminder.kindDescription)
-                    }
-                }
-                if case .other = self.reminder.kind {
-                    Section(header: Text("Details")) {
-                        JSBTextField("Description", text: self.$reminder.kindDescription)
-                    }
-                }
-                Section(header: Text("Remind Every")) {
-                    Picker("Remind Every", selection: self.$reminder.interval) {
-                        ForEach(ReminderConstants.minimumInterval..<ReminderConstants.maximumInterval) {
-                            Text(String($0)).tag($0)
+                    .modifier(self.style.subsectionData)
+                    
+                    Picker(selection: self.$reminder.kind) {
+                        ForEach(Model.ReminderKind.allCases) {
+                            Text(self._text.subsectionDataKind($0))
+                                .tag($0)
                         }
+                    } label: {
+                        Text(self.text(\.subsectionTitleKind))
                     }
+                    .modifier(self.style.subsectionData)
+                    
+                    if case .move = self.reminder.kind {
+                        JSBTextField(self.text(\.subsectionPlaceholderMoveTo),
+                                     text: self.$reminder.kindDescription)
+                            .modifier(self.style.subsectionData)
+                    }
+                    if case .other = self.reminder.kind {
+                        JSBTextField(self.text(\.subsectionPlaceholderDescription),
+                                     text: self.$reminder.kindDescription)
+                            .modifier(self.style.subsectionData)
+                        
+                    }
+                } header: {
+                    Text(self.text(\.sectionTitleDetails))
+                        .modifier(self.style.sectionTitle)
                 }
-                Section(header: Text("Notifications")) {
-                    JSBToggle("Pause Notifications", isOn: self.$reminder.isEnabled, isFlipped: true)
+                Section {
+                    JSBToggle(self.text(\.subsectionTitleNotifications),
+                              isOn: self.$reminder.isEnabled, isFlipped: true)
+                        .modifier(self.style.subsectionData)
+                } header: {
+                    Text(self.text(\.sectionTitleNotifications))
+                        .modifier(self.style.sectionTitle)
                 }
-                Section(header: Text("Notes")) {
-                    JSBTextField("Notes", text: self.$reminder.note)
+                Section {
+                    JSBTextEditor(text: self.$reminder.note)
+                        .modifier(self.style.textEditorMinHeight)
+                        .modifier(self.style.subsectionData)
+                } header: {
+                    Text(self.text(\.sectionTitleNotes))
+                        .modifier(self.style.sectionTitle)
                 }
-                Section(header: Text("Siri Shortcuts")) {
-                    Text("// TODO: Siri Shortcuts")
-                }
-                Section(header: Text("Last Performed")) {
-                    JSBText("Never", text: self.reminder.lastPerformDate?.description)
+                XPSiriShortcuts()
+                Section {
+                    JSBText(self.text(\.subsectionPlaceholderLastPerformed),
+                            text: self._text.subsectionDataLastPerformed(self.reminder.lastPerformDate))
+                        .modifier(self.style.subsectionData)
+                } header: {
+                    Text(self.text(\.sectionTitleLastPerformed))
+                        .modifier(self.style.sectionTitle)
                 }
             }
-            .navigationTitle("Edit Reminder")
-            .toolbar {
-                Button("Done") { self.dismiss() }
+            .navigationTitle(self.text(\.title))
+            .modifier(XPDoneDeleteToolbar(
+                onDone: { self.dismiss() },
+                onDelete: .generic {
+                    self.controller.delete(self.reminder.id).error
+                        .map { self.errorQ.append($0) }
+                }
+            ))
+            .onChange(of: self.reminder.isDeleted) { isDeleted in
+                guard isDeleted else { return }
+                self.dismiss()
             }
         }
     }

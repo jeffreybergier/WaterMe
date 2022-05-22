@@ -1,5 +1,24 @@
-// swift-tools-version:5.5
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.5.0
+
+//
+//  Created by Jeffrey Bergier on 2022/01/02.
+//  Copyright © 2021 Saturday Apps.
+//
+//  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
+//
+//  WaterMe is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  WaterMe is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
+//
 
 import PackageDescription
 
@@ -10,7 +29,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Model",
-            targets: ["Model"])
+            targets: ["Model"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -24,6 +43,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "ModelTests",
-            dependencies: ["Model"])
+            dependencies: ["Model"]),
     ]
 )

@@ -1,6 +1,6 @@
 //
-//  Created by Jeffrey Bergier on 6/4/17.
-//  Copyright © 2017 Saturday Apps.
+//  Created by Jeffrey Bergier on 2022/02/04.
+//  Copyright © 2022 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -18,94 +18,52 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import UIKit
+import Foundation
 
-public enum VesselIcon: Hashable {
-    case emoji(String), image(UIImage)
-
-    internal init?(rawImage: UIImage?, emojiString: String?) {
-        if let emoji = emojiString {
-            self.init(emojiString: emoji)
-        } else if let image = rawImage {
-            self.init(rawImage: image)
-        } else {
-            return nil
-        }
-    }
-
-    // Hack: Needed just for the initializer above. Otherwise it produced an error.
-    // self used before self.init
-    private init(emojiString: String) {
-        self = .emoji(emojiString)
-    }
-
-    private init(rawImage: UIImage) {
-        // all of this code assumes we're cropping to square image
-        // it also assumes that we're converting it to a new image with a scale of 1
-        let smallestDimension = rawImage.size.width > rawImage.size.height ? rawImage.size.height : rawImage.size.width
-        let smallestScaledDimension = smallestDimension * rawImage.scale
-        let originalSquareSize = CGSize(width: smallestScaledDimension, height: smallestScaledDimension)
-        let cropped = rawImage.cropping(to: originalSquareSize)
-        let max = UIImage.style_maxWidth
-        let reducedSize = originalSquareSize.width > max ? CGSize(width: max, height: max) : originalSquareSize
-        let resized = cropped.resize(toTargetSize: reducedSize)
-        self = .image(resized)
-    }
-
-    public var image: UIImage? {
-        switch self {
-        case .image(let image):
-            return image
-        case .emoji:
-            return nil
-        }
-    }
-
-    public var emoji: String? {
-        switch self {
-        case .image:
-            return nil
-        case .emoji(let string):
-            return string
-        }
-    }
+public protocol VesselIconProtocol {
+    var stringValue: String? { get }
+    var dataValue: Data? { get }
+    var imageValue: XPImage? { get }
+    init?(cleanData: Data?, cleanString: String?)
+    init?(uncleanData: Data)
+    init?(uncleanString: String)
 }
 
-extension VesselIcon {
-
-    public init?(rawImageData: Data?, emojiString: String?) {
-        if let data = rawImageData, let image = UIImage(data: data) {
-            self = .image(image)
-        } else if let emojiString = emojiString {
-            self = .emoji(emojiString)
-        } else {
-            return nil
-        }
+public enum VesselIcon: VesselIconProtocol {
+    
+    case emoji(String), image(Data)
+    
+    public var stringValue: String? {
+        guard case .emoji(let string) = self else { return nil }
+        return string
     }
-
+    
     public var dataValue: Data? {
-        switch self {
-        case .emoji:
-            return nil
-        case .image(let image):
-            let max = UIImage.style_maxSize
-            guard let data = image.waterme_jpegData(maxBytes: max) else {
-                let message = "Image couldn't be compressed to fit: \(max) bytes"
-                message // .log()
-                assertionFailure(message)
-                return nil
-            }
-            return data
-        }
+        guard case .image(let data) = self else { return nil }
+        return data
     }
-
-    internal var stringValue: String? {
-        switch self {
-        case .emoji(let string):
-            return string
-        case .image:
-            return nil
+    
+    public init?(cleanData: Data?, cleanString: String?) {
+        if let data = cleanData {
+            self = .image(data)
+            return
         }
+        if let string = cleanString {
+            self = .emoji(string)
+            return
+        }
+        return nil
     }
-
+    
+    public init?(uncleanString: String) {
+        return nil
+    }
 }
+
+#if canImport(UIKit)
+import UIKit
+public typealias XPImage = UIImage
+#elseif canImport(AppKit)
+import AppKit
+public typealias XPImage = NSImage
+#endif
