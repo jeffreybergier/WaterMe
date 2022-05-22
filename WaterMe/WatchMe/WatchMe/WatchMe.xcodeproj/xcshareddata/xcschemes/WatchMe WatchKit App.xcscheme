@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7339DE45277DD537008B20DD"
-               BuildableName = "WatchMe WatchKit App.app"
+               BuildableName = "WaterMeW.app"
                BlueprintName = "WatchMe WatchKit App"
                ReferencedContainer = "container:WatchMe.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7339DE41277DD537008B20DD"
-               BuildableName = "WatchMe.app"
+               BuildableName = "WaterMeW.app"
                BlueprintName = "WatchMe"
                ReferencedContainer = "container:WatchMe.xcodeproj">
             </BuildableReference>
@@ -59,7 +59,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7339DE45277DD537008B20DD"
-            BuildableName = "WatchMe WatchKit App.app"
+            BuildableName = "WaterMeW.app"
             BlueprintName = "WatchMe WatchKit App"
             ReferencedContainer = "container:WatchMe.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7339DE45277DD537008B20DD"
-            BuildableName = "WatchMe WatchKit App.app"
+            BuildableName = "WaterMeW.app"
             BlueprintName = "WatchMe WatchKit App"
             ReferencedContainer = "container:WatchMe.xcodeproj">
          </BuildableReference>

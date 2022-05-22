@@ -1,3 +1,8 @@
+included:
+  - WaterMe
+  - WatchMe
+excluded:
+
 disabled_rules:
   - opening_brace
   - identifier_name

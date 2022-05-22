@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "738F06A727817A5900579B01"
-               BuildableName = "iPhoneMe.app"
+               BuildableName = "WaterMeiOS.app"
                BlueprintName = "iPhoneMe"
                ReferencedContainer = "container:WatchMe.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "738F06A727817A5900579B01"
-            BuildableName = "iPhoneMe.app"
+            BuildableName = "WaterMeiOS.app"
             BlueprintName = "iPhoneMe"
             ReferencedContainer = "container:WatchMe.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "738F06A727817A5900579B01"
-            BuildableName = "iPhoneMe.app"
+            BuildableName = "WaterMeiOS.app"
             BlueprintName = "iPhoneMe"
             ReferencedContainer = "container:WatchMe.xcodeproj">
          </BuildableReference>
