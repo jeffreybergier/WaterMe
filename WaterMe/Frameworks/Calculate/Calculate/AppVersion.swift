@@ -22,6 +22,7 @@
 //
 
 import Foundation
+import ServerlessLogger
 
 public struct AppVersion: Equatable {
     public var major: Int

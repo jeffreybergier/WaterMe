@@ -29,6 +29,7 @@ import CoreData
 import Combine
 import CloudKit
 import Collections
+import ServerlessLogger
 
 extension CKContainer {
     public class var sync_accountStatus: CKAccountStatus {

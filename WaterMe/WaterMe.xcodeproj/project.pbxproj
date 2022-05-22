@@ -205,7 +205,6 @@
 		50DD7A38215D6BBF00047B0C /* EmojiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B61EE01F2FB904004654B4 /* EmojiImageView.swift */; };
 		50E3F2CB1FF70D27003245E3 /* CoreDataMigration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50E3F2CA1FF70D27003245E3 /* CoreDataMigration.storyboard */; };
 		50E3F2CD1FF70D3B003245E3 /* CoreDataMigratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3F2CC1FF70D3B003245E3 /* CoreDataMigratorViewController.swift */; };
-		50E831F3250CB598008758E2 /* Loggable+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E831F2250CB598008758E2 /* Loggable+System.swift */; };
 		50E831FD250CF567008758E2 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E831FC250CF567008758E2 /* Loggable.swift */; };
 		50E8B1E41EE1C1DD00ACCDAF /* ReminderVesselEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50E8B1E31EE1C1DD00ACCDAF /* ReminderVesselEdit.storyboard */; };
 		50E8B1E61EE1C1F100ACCDAF /* ReminderVesselEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E8B1E51EE1C1F100ACCDAF /* ReminderVesselEditViewController.swift */; };
@@ -515,7 +514,6 @@
 		50D2B2B8216FD4EF00957E04 /* ReminderVesselEditViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderVesselEditViewController+Delegate.swift"; sourceTree = "<group>"; };
 		50E3F2CA1FF70D27003245E3 /* CoreDataMigration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CoreDataMigration.storyboard; sourceTree = "<group>"; };
 		50E3F2CC1FF70D3B003245E3 /* CoreDataMigratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigratorViewController.swift; sourceTree = "<group>"; };
-		50E831F2250CB598008758E2 /* Loggable+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Loggable+System.swift"; sourceTree = "<group>"; };
 		50E831FC250CF567008758E2 /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		50E8B1E31EE1C1DD00ACCDAF /* ReminderVesselEdit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReminderVesselEdit.storyboard; sourceTree = "<group>"; };
 		50E8B1E51EE1C1F100ACCDAF /* ReminderVesselEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderVesselEditViewController.swift; sourceTree = "<group>"; };
@@ -687,7 +685,6 @@
 				48A7B0F12467FDF500DC0861 /* SignificantTimePassedDetector.swift */,
 				48A7B0F42467FDF600DC0861 /* UserFacingError.swift */,
 				50E831FC250CF567008758E2 /* Loggable.swift */,
-				50E831F2250CB598008758E2 /* Loggable+System.swift */,
 				73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */,
 				733BC95226880E9700F821D6 /* Result+Convenience.swift */,
 				730E74B7269A84A500E63335 /* TypedNSError.swift */,
@@ -1543,7 +1540,6 @@
 				48A7B0F52467FDF600DC0861 /* PrivateKeys.swift in Sources */,
 				48A7B0F82467FDF600DC0861 /* AppVersion.swift in Sources */,
 				730E74B9269A889C00E63335 /* TypedNSError.swift in Sources */,
-				50E831F3250CB598008758E2 /* Loggable+System.swift in Sources */,
 				7311AEFF263E762C0089B36E /* ContinuousProgress.swift in Sources */,
 				48A7B0F72467FDF600DC0861 /* NSCalendar+WaterMe.swift in Sources */,
 				48A7B0F92467FDF600DC0861 /* UserFacingError.swift in Sources */,

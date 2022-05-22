@@ -24,6 +24,7 @@
 import UIKit
 import Calculate
 import Datum
+import ServerlessLogger
 
 class CloudSyncProgressView: ZStackView {
 

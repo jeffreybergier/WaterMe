@@ -30,6 +30,7 @@ import UIKit
 import Calculate
 import CloudKit
 import Combine
+import ServerlessLogger
 
 @UIApplicationMain
 // swiftlint:disable:next type_body_length
@@ -62,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // configure logging
         UIDevice.current.isBatteryMonitoringEnabled = true // turned on for logger
-        Loggable.configure(with: self.loggerDelegate)
+        LoggableConfigure(with: self.loggerDelegate)
 
         // configure simulator
         self.simulator_configure()
