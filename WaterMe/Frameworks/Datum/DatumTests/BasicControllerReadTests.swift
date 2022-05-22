@@ -25,17 +25,17 @@ import XCTest
 @testable import Datum
 
 class BasicControllerReadTests: DatumTestsBase {
-    
+
     // MARK: Vessels
-    
+
     private func vesselSortingSetup() throws -> ReminderVessel {
-        _ =    try self.basicController.newReminderVessel(displayName: "A", icon: nil).get()
-        _ =    try self.basicController.newReminderVessel(displayName: "C", icon: nil).get()
+        _ = try self.basicController.newReminderVessel(displayName: "A", icon: nil).get()
+        _ = try self.basicController.newReminderVessel(displayName: "C", icon: nil).get()
         return try self.basicController.newReminderVessel(displayName: "B", icon: nil).get()
     }
-    
+
 //    func allVessels(sorted: ReminderVesselSortOrder, ascending: Bool) -> Result<AnyCollectionQuery<ReminderVessel, Int>, DatumError>
-    
+
     func test_vessel_sort_name_ascend() {
         _ = try! self.vesselSortingSetup()
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: true).get()
@@ -49,7 +49,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_vessel_sort_name_descend() {
         _ = try! self.vesselSortingSetup()
         let query = try! self.basicController.allVessels(sorted: .displayName, ascending: false).get()
@@ -63,18 +63,18 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     //    func reminderVessel(matching identifier: Identifier) -> Result<ReminderVessel, DatumError>
-    
+
     func test_vessel_load_byIdentifier() {
         let input = try! self.vesselSortingSetup()
         let inputIdentifier = Identifier(rawValue: input.uuid)
         let output = try! self.basicController.reminderVessel(matching: inputIdentifier).get()
         XCTAssertEqual(input.uuid, output.uuid)
     }
-    
+
     // MARK: Reminders
-    
+
     private func reminderSortingSetup() throws -> Reminder {
         let vessel = try self.basicController.newReminderVessel(displayName: "A", icon: nil).get()
         let water = try self.basicController.newReminder(for: vessel).get()
@@ -95,16 +95,16 @@ class BasicControllerReadTests: DatumTestsBase {
             try self.basicController.update(kind: .other(description: "xxDDxx"), interval: 2, isEnabled: false, note: "Disabled", in: disabled).get()
         }
         try self.basicController.appendNewPerformToReminders(with:
-            [water,trim,fertilize,mist,move,other].map { Identifier(rawValue: $0.uuid) }
+            [water, trim, fertilize, mist, move, other].map { Identifier(rawValue: $0.uuid) }
         ).get()
         return mist
     }
-    
+
     /// This one is already really well tested in `GroupedReminderCollectionTests`
     //    func groupedReminders() -> Result<AnyCollectionQuery<Reminder, IndexPath>, DatumError>
 
     //    func allReminders(sorted: ReminderSortOrder, ascending: Bool) -> Result<AnyCollectionQuery<Reminder, Int>, DatumError>
-    
+
     func test_reminder_sort_kind_ascend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .kind, ascending: true).get()
@@ -122,7 +122,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_kind_descend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .kind, ascending: false).get()
@@ -140,7 +140,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_interval_ascend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .interval, ascending: true).get()
@@ -158,7 +158,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_interval_descend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .interval, ascending: false).get()
@@ -176,7 +176,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_note_ascend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .note, ascending: true).get()
@@ -194,7 +194,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_note_descend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .note, ascending: false).get()
@@ -212,7 +212,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_nextPerformDate_ascend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
@@ -230,7 +230,7 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_reminder_sort_nextPerformDate_descend() {
         _ = try! self.reminderSortingSetup()
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: false).get()
@@ -248,9 +248,9 @@ class BasicControllerReadTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     //    func reminder(matching identifier: Identifier) -> Result<Reminder, DatumError>
-    
+
     func test_reminder_load_byIdentifier() {
         let input = try! self.reminderSortingSetup()
         let inputIdentifier = Identifier(rawValue: input.uuid)

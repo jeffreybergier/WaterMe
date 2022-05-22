@@ -101,7 +101,6 @@
 		503476C924552F9900C3DAD3 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503476C224552F9900C3DAD3 /* PurchaseController.swift */; };
 		503476CD24552F9900C3DAD3 /* TipJarProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503476C624552F9900C3DAD3 /* TipJarProducts.swift */; };
 		503476CF24552F9900C3DAD3 /* InFlightTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503476C824552F9900C3DAD3 /* InFlightTransaction.swift */; };
-		5034770224557CB200C3DAD3 /* Cheers in Frameworks */ = {isa = PBXBuildFile; productRef = 5034770124557CB200C3DAD3 /* Cheers */; };
 		5040B41724C4768800AB747B /* StarterData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5040B41924C4768800AB747B /* StarterData.sqlite */; };
 		5045CBA91EFCCA5C008E6D6A /* ReminderEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5045CBA81EFCCA5C008E6D6A /* ReminderEdit.storyboard */; };
 		5045CBAB1EFCCB50008E6D6A /* ReminderEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045CBAA1EFCCB50008E6D6A /* ReminderEditViewController.swift */; };
@@ -221,6 +220,7 @@
 		7311AF06263E76CA0089B36E /* SimpleToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311AEFB263E17780089B36E /* SimpleToggleTableViewCell.swift */; };
 		731B01E826411E8B00165220 /* CloudSyncProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B01E726411E8B00165220 /* CloudSyncProgressView.swift */; };
 		732B1FCB26423AAD00B36C12 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 732B1FCA26423AAD00B36C12 /* Collections */; };
+		7334218C2839DF77007F540E /* Cheers in Frameworks */ = {isa = PBXBuildFile; productRef = 7334218B2839DF77007F540E /* Cheers */; };
 		7334FE1D26429286004381A0 /* CloudSyncErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334FE1C26429286004381A0 /* CloudSyncErrors.swift */; };
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
@@ -596,10 +596,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A7B0E82467FCB100DC0861 /* Calculate.framework in Frameworks */,
-				5034770224557CB200C3DAD3 /* Cheers in Frameworks */,
 				73D02F75263F864500E90138 /* SimpleImageViewer in Frameworks */,
 				5034765824552CFD00C3DAD3 /* Datum.framework in Frameworks */,
 				73D02F74263F864500E90138 /* CropViewController in Frameworks */,
+				7334218C2839DF77007F540E /* Cheers in Frameworks */,
 				5034767B24552D0700C3DAD3 /* Store.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1338,9 +1338,9 @@
 			);
 			name = WaterMe;
 			packageProductDependencies = (
-				5034770124557CB200C3DAD3 /* Cheers */,
 				7313858D260E15B000CDC138 /* CropViewController */,
 				73730857260E2F22000B99DB /* SimpleImageViewer */,
+				7334218B2839DF77007F540E /* Cheers */,
 			);
 			productName = WaterMe;
 			productReference = 50BB0F501EBFCDE500850FF4 /* WaterMe.app */;
@@ -1412,12 +1412,12 @@
 			);
 			mainGroup = 50BB0F471EBFCDE500850FF4;
 			packageReferences = (
-				5034770024557CB200C3DAD3 /* XCRemoteSwiftPackageReference "Cheers" */,
 				500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				5031FBF924F7ACBE00CBBB2E /* XCRemoteSwiftPackageReference "JSBServerlessLogger" */,
 				7313858C260E15B000CDC138 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				73730856260E2F22000B99DB /* XCRemoteSwiftPackageReference "SimpleImageViewer" */,
 				732B1FC926423AAD00B36C12 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				737012F02839DE42003BAFD8 /* XCRemoteSwiftPackageReference "EasyConfetti" */,
 			);
 			productRefGroup = 50BB0F511EBFCDE500850FF4 /* Products */;
 			projectDirPath = "";
@@ -1519,7 +1519,7 @@
 		50BB0F7A1EC214AC00850FF4 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -2461,15 +2461,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jeffreybergier/JSBServerlessLogger.git";
 			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		5034770024557CB200C3DAD3 /* XCRemoteSwiftPackageReference "Cheers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onmyway133/Cheers";
-			requirement = {
-				branch = master;
+				branch = 2.0;
 				kind = branch;
 			};
 		};
@@ -2487,6 +2479,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.0.2;
+			};
+		};
+		737012F02839DE42003BAFD8 /* XCRemoteSwiftPackageReference "EasyConfetti" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onmyway133/EasyConfetti.git";
+			requirement = {
+				kind = revision;
+				revision = 361b9820cc54413c87a4d75828b55d5421e34df6;
 			};
 		};
 		73730856260E2F22000B99DB /* XCRemoteSwiftPackageReference "SimpleImageViewer" */ = {
@@ -2515,11 +2515,6 @@
 			package = 5031FBF924F7ACBE00CBBB2E /* XCRemoteSwiftPackageReference "JSBServerlessLogger" */;
 			productName = ServerlessLogger;
 		};
-		5034770124557CB200C3DAD3 /* Cheers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5034770024557CB200C3DAD3 /* XCRemoteSwiftPackageReference "Cheers" */;
-			productName = Cheers;
-		};
 		7313858D260E15B000CDC138 /* CropViewController */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7313858C260E15B000CDC138 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
@@ -2529,6 +2524,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 732B1FC926423AAD00B36C12 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = Collections;
+		};
+		7334218B2839DF77007F540E /* Cheers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 737012F02839DE42003BAFD8 /* XCRemoteSwiftPackageReference "EasyConfetti" */;
+			productName = Cheers;
 		};
 		73730857260E2F22000B99DB /* SimpleImageViewer */ = {
 			isa = XCSwiftPackageProductDependency;

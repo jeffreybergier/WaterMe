@@ -25,9 +25,9 @@ import XCTest
 @testable import Datum
 
 class BasicControllerCreateUpdateTests: DatumTestsBase {
-    
+
 //    func update(displayName: String?, icon: ReminderVesselIcon?, in vessel: ReminderVessel) -> Result<Void, DatumError>
-    
+
     func test_update_vessel_values() {
         let item = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
         XCTAssertNil(item.displayName)
@@ -38,7 +38,7 @@ class BasicControllerCreateUpdateTests: DatumTestsBase {
         XCTAssertEqual(item.icon?.emoji, "🌵")
         XCTAssertEqual(item.kind, .plant)
     }
-    
+
     func test_update_vessel_nil() {
         let item = try! self.basicController.newReminderVessel(displayName: "お花水", icon: .emoji("🌵")).get()
         XCTAssertEqual(item.displayName, "お花水")
@@ -49,9 +49,9 @@ class BasicControllerCreateUpdateTests: DatumTestsBase {
         XCTAssertEqual(item.icon?.emoji, "🌵")
         XCTAssertEqual(item.kind, .plant)
     }
-    
+
 //    func update(kind: ReminderKind?, interval: Int?, note: String?, in reminder: Reminder) -> Result<Void, DatumError>
-    
+
     func test_update_reminder_values() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
         let item = try! self.basicController.newReminder(for: vessel).get()
@@ -63,7 +63,7 @@ class BasicControllerCreateUpdateTests: DatumTestsBase {
         XCTAssertEqual(item.kind, .move(location: "ベランダー"))
         XCTAssertEqual(item.interval, 20)
     }
-    
+
     func test_update_reminder_nil() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
         let item = try! self.basicController.newReminder(for: vessel).get()
@@ -79,7 +79,7 @@ class BasicControllerCreateUpdateTests: DatumTestsBase {
         XCTAssertEqual(item.kind, .move(location: "ベランダー"))
         XCTAssertEqual(item.interval, 20)
     }
-    
+
 }
 
 //    func appendNewPerformToReminders(with identifiers: [Identifier]) -> Result<Void, DatumError>

@@ -25,7 +25,7 @@ import XCTest
 @testable import Datum
 
 class ReminderVesselTests: DatumTestsBase {
-    
+
     func test_nilValues() {
         let item = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -33,7 +33,7 @@ class ReminderVesselTests: DatumTestsBase {
         XCTAssertNil(item.displayName)
         XCTAssertNil(item.icon)
     }
-    
+
     func test_realValues() {
         let item = try! self.basicController.newReminderVessel(displayName: "お花水",
                                                                icon: .emoji("🌵")).get()
@@ -41,7 +41,7 @@ class ReminderVesselTests: DatumTestsBase {
         XCTAssertEqual(item.displayName, "お花水")
         XCTAssertEqual(item.icon?.emoji, "🌵")
     }
-    
+
     func test_modelComplete() {
         let item = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -52,7 +52,7 @@ class ReminderVesselTests: DatumTestsBase {
         XCTAssertEqual(itemError?._actions[2], .cancel)
         XCTAssertEqual(itemError?._actions[3], .saveAnyway)
     }
-    
+
     func test_update() {
         let item = try! self.basicController.newReminderVessel(displayName: "お花水",
                                                                icon: .emoji("🧗‍♂️")).get()
@@ -77,7 +77,7 @@ class ReminderVesselTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_updateReminders_vessel() {
         let item = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()

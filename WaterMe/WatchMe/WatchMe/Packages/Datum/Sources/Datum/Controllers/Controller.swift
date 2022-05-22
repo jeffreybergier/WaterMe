@@ -21,21 +21,15 @@
 import CoreData
 import Model
 
-public func NewController(of kind: ControllerKind) -> AnyController? {
-    do {
-        let controller = try CD_Controller(kind: kind)
-        return AnyController(controller)
-    } catch {
-        error.log(as: .emergency)
-        return nil
-    }
-}
-
-public protocol Controller: ObservableObject {
+public protocol Controller {
     var kind: ControllerKind { get }
     // HACK: Needed so the context can be placed into the SwiftUI environment
     var __ENVONLY__managedObjectContext: NSManagedObjectContext { get }
     func newVessel() -> Result<Vessel.アイディ, Error>
+    func newReminder(for vessel: Vessel.アイディ) -> Result<Reminder.アイディ, Error>
+    func appendNewPerformToReminders(with ids: [Reminder.アイディ]) -> Result<Void, Error>
+    func delete(_: Vessel.アイディ) -> Result<Void, Error>
+    func delete(_: Reminder.アイディ) -> Result<Void, Error>
 }
 
 public enum ControllerKind: RawRepresentable {
@@ -58,27 +52,5 @@ public enum ControllerKind: RawRepresentable {
 
     public init(rawValue: Bool) {
         self = rawValue ? .sync : .local
-    }
-}
-
-public class AnyController: Controller {
-    
-    internal let wrapped: AnyObject
-    private let _kind: () -> ControllerKind
-    private let ___ENVONLY__managedObjectContext: () -> NSManagedObjectContext
-    
-    public var kind: ControllerKind { _kind() }
-    public var __ENVONLY__managedObjectContext: NSManagedObjectContext { ___ENVONLY__managedObjectContext() }
-    
-    internal init<C: Controller>(_ controller: C) {
-        _kind = { controller.kind }
-        ___ENVONLY__managedObjectContext = { controller.__ENVONLY__managedObjectContext }
-        _newVessel = { controller.newVessel }
-        self.wrapped = controller
-    }
-    
-    private var _newVessel: () -> (() -> Result<Vessel.アイディ, Error>)
-    public func newVessel() -> Result<Vessel.アイディ, Error> {
-        return _newVessel()()
     }
 }

@@ -25,30 +25,30 @@
 import CoreData
 import XCTest
 
-fileprivate let TestDB1URL     = Bundle(for: NonSyncContainer.self)
+private let TestDB1URL     = Bundle(for: NonSyncContainer.self)
                                        .url(forResource: "TestDB", withExtension: "sqlite")!
-fileprivate let TestDB2URL     = Bundle(for: NonSyncContainer.self)
+private let TestDB2URL     = Bundle(for: NonSyncContainer.self)
                                        .url(forResource: "TestDB", withExtension: "sqlite-wal")!
-fileprivate let StoreParentURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+private let StoreParentURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
                                     .appendingPathComponent(UUID().uuidString, isDirectory: true)
-fileprivate let Store1URL      = StoreParentURL.appendingPathComponent("WaterMe.sqlite", isDirectory: false)
-fileprivate let Store2URL      = StoreParentURL.appendingPathComponent("WaterMe.sqlite-wal", isDirectory: false)
+private let Store1URL      = StoreParentURL.appendingPathComponent("WaterMe.sqlite", isDirectory: false)
+private let Store2URL      = StoreParentURL.appendingPathComponent("WaterMe.sqlite-wal", isDirectory: false)
 
-fileprivate class NonSyncContainer: NSPersistentContainer {
+private class NonSyncContainer: NSPersistentContainer {
     override class func defaultDirectoryURL() -> URL {
         return StoreParentURL
     }
 }
 
 @available(iOS 14.0, *)
-fileprivate class SyncContainer: NSPersistentCloudKitContainer {
+private class SyncContainer: NSPersistentCloudKitContainer {
     override class func defaultDirectoryURL() -> URL {
         return StoreParentURL
     }
 }
 
 class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
-        
+
     override func setUpWithError() throws {
         try super.setUpWithError()
         let fm = FileManager.default
@@ -58,24 +58,24 @@ class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
         try fm.copyItem(at: TestDB1URL, to: Store1URL)
         try fm.copyItem(at: TestDB2URL, to: Store2URL)
     }
-    
+
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         let fm = FileManager.default
         try fm.removeItem(at: StoreParentURL)
     }
-    
+
     func test_nonSync_initialize_simpleMigration() throws {
         let c = try CD_BasicController(kind: .__testing_withClass(NonSyncContainer.self))
         try self.verifyMigratedData(c)
     }
-    
+
     @available(iOS 14.0, *)
     func test_sync_initialize_simpleMigration() throws {
         let c = try CD_BasicController(kind: .__testing_withClass(SyncContainer.self))
         try self.verifyMigratedData(c)
     }
-    
+
     private func verifyMigratedData(_ c: BasicController) throws {
         let reminders = try c.groupedReminders().get()
         let wait = self.expectation(description: "Reminders")
@@ -126,5 +126,5 @@ class CoreDataSchemaMigrationTests: RealmToCoreDataMigratorBaseTests {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
 }

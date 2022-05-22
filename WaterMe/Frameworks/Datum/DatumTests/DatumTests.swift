@@ -25,18 +25,18 @@ import XCTest
 @testable import Datum
 
 class DatumTestsBase: XCTestCase {
-    
+
     func newBasicController() -> BasicController {
         fatalError("Subclass to provide Realm or CD Basic Controller for testing")
     }
-    
+
     private(set) var basicController: BasicController!
     internal var token: ObservationToken!
 
     override func setUpWithError() throws {
         self.basicController = self.newBasicController()
     }
-    
+
     func setUpSmall() throws {
         for x in 1...2 {
             let num = x * 100
@@ -92,7 +92,7 @@ extension CollectionQuery {
             }
         }
     }
-    
+
     func test_observe_receiveUpdates(_ closure: @escaping ((AnyCollection<Element, Index>, CollectionChangeUpdate<Index>)) -> Void) -> ObservationToken {
         var data: AnyCollection<Element, Index>!
         return self.observe() { change in

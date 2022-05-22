@@ -22,21 +22,34 @@ import SwiftUI
 import Model
 import Nav
 import Datum
+import Style
+import Localize
 
 internal struct VesselEmoji: View {
     
-    @Environment(\.dismiss) private var dismiss
+    internal struct Presentation: ViewModifier {
+        @NavGeneric private var nav
+        func body(content: Content) -> some View {
+            content
+                .modifier(Alert(self.$nav.isError))
+                .modifier(OnAppearErrorHandler())
+        }
+    }
+    
     @VesselEditQuery private var vessel: Vessel
     
-    internal init(id: Vessel.アイディ, controller: AnyController) {
-        _vessel = VesselEditQuery(id: id, controller: controller)
+    @Style.VesselEmoji private var style
+    @Localize.VesselIcon private var text
+    @Environment(\.dismiss) private var dismiss
+    
+    internal init(id: Vessel.アイディ) {
+        _vessel = VesselEditQuery(id: id)
     }
     
     internal var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: [GridItem(.fixed(64)),
-                                    GridItem(.adaptive(minimum: 64, maximum: 64))])
+                LazyVGrid(columns: self.style.columns)
                 {
                     ForEach(Model.VesselEmoji) { item in
                         Button {
@@ -44,7 +57,7 @@ internal struct VesselEmoji: View {
                             self.dismiss()
                         } label: {
                             ZStack {
-                                if self.vessel.icon?.emoji == item {
+                                if self.vessel.icon?.stringValue == item {
                                     Color.accentColor
                                 }
                                 Text(item).font(Font.largeTitle)
@@ -53,9 +66,14 @@ internal struct VesselEmoji: View {
                     }
                 }
             }
-            .navigationTitle("Choose an Emoji")
+            .navigationTitle(self.text(\.titleEmojiPicker))
             .toolbar {
-                Button("Done") { self.dismiss() }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(self.text(\.buttonCancel)) {
+                        self.dismiss()
+                    }
+                    .modifier(ButtonModifier(role: .cancel))
+                }
             }
         }
     }

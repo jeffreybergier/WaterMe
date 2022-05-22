@@ -25,12 +25,12 @@ import XCTest
 @testable import Datum
 
 class ReminderCollectionTests: DatumTestsBase {
-    
+
     override func setUpWithError() throws {
         try super.setUpWithError()
         try self.setUpSmall()
     }
-    
+
     func test_load() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let wait = XCTestExpectation()
@@ -38,11 +38,11 @@ class ReminderCollectionTests: DatumTestsBase {
             wait.fulfill()
             let count = data.count
             XCTAssertEqual(count, 8)
-            XCTAssertEqual(data[count-1]!.note!, "Vessel: 200番花: Reminder: 300")
+            XCTAssertEqual(data[count - 1]!.note!, "Vessel: 200番花: Reminder: 300")
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_map() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let wait = XCTestExpectation()
@@ -52,11 +52,11 @@ class ReminderCollectionTests: DatumTestsBase {
             let mapped: [String?] = data.map() { $0!.note }
             XCTAssertEqual(preCount, mapped.count)
             XCTAssertNil(mapped[0])
-            XCTAssertEqual(mapped[preCount-1]!, data[preCount-1]!.note!)
+            XCTAssertEqual(mapped[preCount - 1]!, data[preCount - 1]!.note!)
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_compactMap() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let wait = XCTestExpectation()
@@ -64,12 +64,12 @@ class ReminderCollectionTests: DatumTestsBase {
             wait.fulfill()
             let preCount = data.count
             let mapped: [String] = data.compactMap() { $0!.note }
-            XCTAssertEqual(mapped.count, preCount-2) // 2 of the notes in this collection are nil
-            XCTAssertEqual(mapped.last!, data[preCount-1]!.note!)
+            XCTAssertEqual(mapped.count, preCount - 2) // 2 of the notes in this collection are nil
+            XCTAssertEqual(mapped.last!, data[preCount - 1]!.note!)
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_indexOfItem() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let wait = XCTestExpectation()
@@ -84,7 +84,7 @@ class ReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_indexOfIdentifier() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let wait = XCTestExpectation()
@@ -100,7 +100,7 @@ class ReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.1)
     }
-    
+
     func test_update_modifications() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
@@ -117,7 +117,7 @@ class ReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_update_deletions() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
@@ -133,7 +133,7 @@ class ReminderCollectionTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_update_insert() {
         let query = try! self.basicController.enabledReminders(sorted: .nextPerformDate, ascending: true).get()
         let wait = XCTestExpectation()

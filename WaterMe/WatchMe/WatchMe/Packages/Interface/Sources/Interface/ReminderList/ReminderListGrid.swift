@@ -21,38 +21,55 @@
 import SwiftUI
 import Model
 import Datum
+import Style
+import Nav
+import Localize
 
 extension ReminderList {
     internal struct Grid: View {
         
         let sections: [Reminder.Section]
         let onTap: (Reminder) -> Void
-        @EnvironmentObject private var controller: AnyController
+        @NavReminderList private var nav
+        @Style.ReminderListGrid private var style
+        @Localize.ReminderList private var text
         
         internal var body: some View {
             ScrollView {
-                LazyVGrid(columns: [GridItem(.flexible(minimum: 64, maximum: 320)),
-                                    GridItem(.flexible(minimum: 64, maximum: 320)),
-                                    GridItem(.flexible(minimum: 64, maximum: 320))])
+                LazyVGrid(columns: self.style.columns,
+                          pinnedViews: .sectionHeaders)
                 {
                     ForEach(self.sections) { section in
                         if section.data.isEmpty == false {
-                            self.section(section)
+                            self.section(for: section)
                         }
                     }
                 }
             }
         }
         
-        @ViewBuilder private func section(_ section: Reminder.Section) -> some View {
-            Section("\(section.kind)") {
+        @ViewBuilder private func section(for section: Reminder.Section) -> some View {
+            Section {
                 ForEach(section.data) { item in
-                    Button {
-                        self.onTap(item)
-                    } label: {
-                        Cell(reminder: item, controller: self.controller)
-                    }
+                    self.row(for: item)
                 }
+            } header: {
+                Text(self._text.sectionHeader(section.kind))
+                    .modifier(self.style.header)
+                    .environment(\.sectionNumber, section.kind.rawValue)
+            }
+        }
+        
+        @ViewBuilder private func row(for item: Reminder) -> some View {
+            Button {
+                self.onTap(item)
+            } label: {
+                Cell(reminder: item)
+                    .xp_popover(item: self.$nav.isSummary) { input in
+                        ReminderSummary(rID: input.reminderID,
+                                        vID: input.vesselID)
+                            .modifier(ReminderSummary.Presentation())
+                    }
             }
         }
     }

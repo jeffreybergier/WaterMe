@@ -22,30 +22,66 @@ import SwiftUI
 import Nav
 import Datum
 import Umbrella
+import Errors
+import Style
+import Localize
 
 internal struct ReminderList: View {
     
-    @Nav private var nav
-    @ReminderListQuery private var sections
-    @EnvironmentObject private var controller: AnyController
-    @EnvironmentObject private var errorQ: ErrorQueue
+    internal struct Presentation: ViewModifier {
+        
+        @NavReminderList private var nav
+        
+        internal func body(content: Content) -> some View {
+            content
+                .modifier(Alert(self.$nav.isError))
+                .modifier(OnAppearErrorHandler())
+             //  Moved ReminderSummary presentation to ReminderListGrid
+             //  Due to the popover needing to be present on the cell
+             // .sheet(item: self.$nav.isSummary) { input in
+             //     ReminderSummary(rID: input.reminderID,
+                .xp_fullScreenCover(item: self.$nav.isWatering) { input in
+                    Watering(ids: input.reminderIDs)
+                }
+                .sheet(item: self.$nav.isReminderEdit) { input in
+                    ReminderEdit(id: input.reminderID)
+                        .modifier(ReminderEdit.Presentation())
+                }
+                .sheet(item: self.$nav.isVesselEdit) { input in
+                    VesselEdit(id: input.id)
+                        .modifier(VesselEdit.Presentation())
+                }
+        }
+    }
     
+    @UFErrorQ private var errorQ
+    @NavReminderList private var nav
+    @Localize.ReminderList private var loc
+    @ReminderListQuery private var sections
+    @ControllerProperty private var controller
+
     internal var body: some View {
         NavigationView {
             Grid(sections: self.sections) { item in
-                self.nav.state = .rootアListアMenu(.init(item.id, item.vesselID!))
+                self.nav.isSummary = .init(item.id, item.vesselID!)
             }
-            .navigationTitle("WaterMe")
+            .navigationTitle(self.loc(\.title))
+            .modifier(ForceNavigationBarTitleDisplayModeInline())
             .toolbar {
-                Button("Add") {
-                    switch self.controller.newVessel() {
-                    case .success(let id):
-                        self.nav.state = .rootアListアVesselEdit(.init(id))
-                    case .failure(let error):
-                        self.errorQ.value.append(error)
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        switch self.controller.newVessel() {
+                        case .success(let id):
+                            self.nav.isVesselEdit = .init(id)
+                        case .failure(let error):
+                            self.errorQ.append(error)
+                        }
+                    } label: {
+                        Text(self.loc(\.buttonAdd))
                     }
                 }
             }
         }
+        .modifier(ForceNavigationViewStyleStack())
     }
 }

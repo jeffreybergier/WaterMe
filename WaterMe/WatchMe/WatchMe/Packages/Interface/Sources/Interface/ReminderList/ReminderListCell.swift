@@ -22,26 +22,33 @@ import SwiftUI
 import Model
 import Datum
 import Umbrella
+import Style
+import Localize
 
 extension ReminderList.Grid {
     internal struct Cell: View {
         
-        var reminder: Reminder
-        @VesselEditQuery var vessel: Vessel
+        private var reminder: Reminder
+        @VesselEditQuery private var vessel: Vessel
+        @Localize.ReminderList private var text
+        @Style.ReminderListGridCell private var style
         
-        internal init(reminder: Reminder, controller: AnyController) {
+        internal init(reminder: Reminder) {
             self.reminder = reminder
-            _vessel = VesselEditQuery(reminder, controller: controller)
+            _vessel = VesselEditQuery(reminder)
         }
         
         internal var body: some View {
             VStack {
-                if let image = self.vessel.icon?.image {
-                    Image(uiImage: image)
-                } else {
-                    JSBText("🌸", text: self.vessel.icon?.emoji)
+                ZStack(alignment: .bottomTrailing) {
+                    VesselIcon(icon: self.vessel.icon)
+                    ReminderKind(kind: self.reminder.kind)
                 }
-                JSBText("My Plant", text: self.vessel.displayName)
+                JSBText(self.text(\.subsectionPlaceholderName),
+                        text: self.vessel.displayName)
+                    .modifier(self.style.vesselDisplayNameText)
+                Text(self._text.subsectionDataKind(self.reminder.kind))
+                    .modifier(self.style.reminderKindText)
             }
         }
     }

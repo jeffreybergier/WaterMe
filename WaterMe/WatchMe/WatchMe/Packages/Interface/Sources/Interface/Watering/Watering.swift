@@ -19,15 +19,51 @@
 //
 
 import SwiftUI
-import Nav
+import Umbrella
+import Datum
+import Style
+import Model
+import Errors
 
 internal struct Watering: View {
+    
+    let ids: [Reminder.アイディ]
+    @State private var isPlaying = false
+
+    @Style.Watering private var style
+    @UFErrorQ private var errorQ
     @Environment(\.dismiss) private var dismiss
+    @ControllerProperty private var controller
+    @EnvironmentBundle<ImageBundle> private var image
+    
+    private var urls: CompleteDictionary<Size, URL> {
+        [
+            .small: self.image.videoLandscape,
+            .medium: self.image.videoLandscape,
+            .large: self.image.videoPortrait
+        ]
+    }
+    
     internal var body: some View {
-        Text("// TODO: Video")
-        .navigationTitle("Watering")
-        .toolbar {
-            Button("Done") { self.dismiss() }
+        Button(role: .cancel) {
+            self.dismiss()
+        } label: {
+            Video(isPlaying: self.$isPlaying,
+                  videoURL: self.urls[self.style.verticalSize])
+            {
+                self.isPlaying = false
+                self.dismiss()
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .onAppear() {
+            switch self.controller.appendNewPerformToReminders(with: self.ids) {
+            case .success:
+                self.isPlaying = true
+            case .failure(let error):
+                self.errorQ.append(error)
+                self.dismiss()
+            }
         }
     }
 }

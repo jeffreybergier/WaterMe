@@ -19,46 +19,64 @@
 //
 
 import SwiftUI
+import Umbrella
 import Model
 
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
     
-    @FetchRequest private var section0: FetchedResults<CD_Reminder>
-    @FetchRequest private var section1: FetchedResults<CD_Reminder>
-    @FetchRequest private var section2: FetchedResults<CD_Reminder>
-    @FetchRequest private var section3: FetchedResults<CD_Reminder>
-    @FetchRequest private var section4: FetchedResults<CD_Reminder>
-    @FetchRequest private var section5: FetchedResults<CD_Reminder>
+    @CDListQuery<CD_Reminder, Reminder, Error> private var section0: AnyRandomAccessCollection<Reminder>
+    @CDListQuery<CD_Reminder, Reminder, Error> private var section1: AnyRandomAccessCollection<Reminder>
+    @CDListQuery<CD_Reminder, Reminder, Error> private var section2: AnyRandomAccessCollection<Reminder>
+    @CDListQuery<CD_Reminder, Reminder, Error> private var section3: AnyRandomAccessCollection<Reminder>
+    @CDListQuery<CD_Reminder, Reminder, Error> private var section4: AnyRandomAccessCollection<Reminder>
+    @CDListQuery<CD_Reminder, Reminder, Error> private var section5: AnyRandomAccessCollection<Reminder>
+    
+    @ControllerProperty private var controller
 
     public init() {
-        _section0 = fetchRequest(for: .late)
-        _section1 = fetchRequest(for: .today)
-        _section2 = fetchRequest(for: .tomorrow)
-        _section3 = fetchRequest(for: .thisWeek)
-        _section4 = fetchRequest(for: .later)
-        _section5 = fetchRequest(for: .disabled)
+        _section0 = query(for: .late)
+        _section1 = query(for: .today)
+        _section2 = query(for: .tomorrow)
+        _section3 = query(for: .thisWeek)
+        _section4 = query(for: .later)
+        _section5 = query(for: .disabled)
+    }
+    
+    public mutating func update() {
+        guard _section0.onWrite.value == nil else { return }
+        _section0.onWrite.value = _controller.cdController.update(_:with:)
+        _section1.onWrite.value = _controller.cdController.update(_:with:)
+        _section2.onWrite.value = _controller.cdController.update(_:with:)
+        _section3.onWrite.value = _controller.cdController.update(_:with:)
+        _section4.onWrite.value = _controller.cdController.update(_:with:)
+        _section5.onWrite.value = _controller.cdController.update(_:with:)
     }
     
     public var wrappedValue: [Reminder.Section] {
         return [
-            .init(.late, TransformCollection(collection: self.section0) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
-            .init(.today, TransformCollection(collection: self.section1) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
-            .init(.tomorrow, TransformCollection(collection: self.section2) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
-            .init(.thisWeek, TransformCollection(collection: self.section3) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
-            .init(.later, TransformCollection(collection: self.section4) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
-            .init(.disabled, TransformCollection(collection: self.section5) { Reminder(cd: $0) }
-                    .eraseToAnyRandomAccessCollection()),
+            .init(self.section0, .late),
+            .init(self.section1, .today),
+            .init(self.section2, .tomorrow),
+            .init(self.section3, .thisWeek),
+            .init(self.section4, .later),
+            .init(self.section5, .disabled),
+        ]
+    }
+    
+    public var projectedValue: [Reminder.BindingSection] {
+        return [
+            .init(self.$section0, .late),
+            .init(self.$section1, .today),
+            .init(self.$section2, .tomorrow),
+            .init(self.$section3, .thisWeek),
+            .init(self.$section4, .later),
+            .init(self.$section5, .disabled),
         ]
     }
 }
 
-private func fetchRequest(for section: Reminder.Section.Kind) -> FetchRequest<CD_Reminder> {
+private func query(for section: Reminder.Section.Kind) -> CDListQuery<CD_Reminder, Reminder, Error> {
     let enabledPredicate = NSPredicate(format: "%K == YES", #keyPath(CD_Reminder.raw_isEnabled))
     let disabledPredicate = NSPredicate(format: "%K == NO", #keyPath(CD_Reminder.raw_isEnabled))
     let normalPredicate: (DateInterval) -> NSPredicate = { range in
@@ -85,8 +103,11 @@ private func fetchRequest(for section: Reminder.Section.Kind) -> FetchRequest<CD
             neverPredicate
         ])
     }
-    let sd = [CD_Reminder.sortDescriptor(for: .nextPerformDate, ascending: true)]
-    return FetchRequest(sortDescriptors: sd,
-                        predicate: predicate,
-                        animation: .default)
+    let sort = [CD_Reminder.sortDescriptor(for: .nextPerformDate, ascending: true)]
+    return CDListQuery(sort: sort,
+                       predicate: predicate,
+                       animation: .default)
+    {
+        Reminder(cd: $0)
+    }
 }

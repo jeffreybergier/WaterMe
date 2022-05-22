@@ -25,9 +25,9 @@ import XCTest
 @testable import Datum
 
 class BasicControllerDeleteTests: DatumTestsBase {
-    
+
 //    func delete(vessel: ReminderVessel) -> Result<Void, DatumError>
-    
+
     func test_delete_vessel() {
         let item = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
         let wait = XCTestExpectation()
@@ -48,9 +48,9 @@ class BasicControllerDeleteTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     //    func delete(reminder: Reminder) -> Result<Void, DatumError>
-    
+
     func test_delete_reminder() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
         let item = try! self.basicController.newReminder(for: vessel).get()
@@ -70,7 +70,7 @@ class BasicControllerDeleteTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_delete_last_reminder() {
         let exp = self.expectation(description: "")
         _ = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()

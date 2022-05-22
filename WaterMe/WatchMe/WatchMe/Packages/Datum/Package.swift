@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.5.0
 
 //
 //  Created by Jeffrey Bergier on 2021/12/30.
@@ -34,7 +34,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(path: "../Model"),
-        .package(path: "../Umbrella")
+        .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "v2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

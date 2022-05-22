@@ -26,7 +26,7 @@ import Calculate
 @testable import Datum
 
 class ReminderTests: DatumTestsBase {
-    
+
     func test_nilValues() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -40,7 +40,7 @@ class ReminderTests: DatumTestsBase {
         XCTAssertNil(item.isModelComplete)
         XCTAssertEqual(item.vessel!.uuid, vessel.uuid)
     }
-    
+
     func test_modelComplete() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -59,7 +59,7 @@ class ReminderTests: DatumTestsBase {
         XCTAssertEqual(item2Error?._actions[1], .cancel)
         XCTAssertEqual(item2Error?._actions[2], .saveAnyway)
     }
-    
+
     func test_updateName_vessel() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -81,7 +81,7 @@ class ReminderTests: DatumTestsBase {
         }
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_updatePerformDates() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -128,7 +128,7 @@ extension CD_ReminderTests {
 
         self.wait(for: [wait], timeout: 0.3)
     }
-    
+
     func test_modelComplete_isEnabled() throws {
         let vessel = try self.basicController.newReminderVessel(displayName: nil,
                                                                icon: nil).get()
@@ -154,7 +154,7 @@ extension RLM_ReminderTests {
         let item = try! self.basicController.newReminder(for: vessel).get()
         XCTAssertTrue(item.isEnabled)
 
-        self.token = item.observe() { change in
+        self.token = item.observe() { _ in
             XCTFail()
         }
 

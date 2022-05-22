@@ -18,19 +18,31 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Foundation
+import SwiftUI
 
 extension Reminder {
     public struct Section: Identifiable {
-        
         public enum Kind: Int, CaseIterable {
             case late, today, tomorrow, thisWeek, later, disabled
         }
-        
         public var id: Int { self.kind.rawValue }
         public var kind: Kind
         public var data: AnyRandomAccessCollection<Reminder>
-        public init(_ kind: Kind, _ data: AnyRandomAccessCollection<Reminder>) {
+        public init(_ data: AnyRandomAccessCollection<Reminder>,
+                    _ kind: Kind)
+        {
+            self.kind = kind
+            self.data = data
+        }
+    }
+    
+    public struct BindingSection: Identifiable {
+        public var id: Int { self.kind.rawValue }
+        public var kind: Section.Kind
+        public var data: AnyRandomAccessCollection<Binding<Reminder>>
+        public init(_ data: AnyRandomAccessCollection<Binding<Reminder>>,
+                    _ kind: Section.Kind)
+        {
             self.kind = kind
             self.data = data
         }

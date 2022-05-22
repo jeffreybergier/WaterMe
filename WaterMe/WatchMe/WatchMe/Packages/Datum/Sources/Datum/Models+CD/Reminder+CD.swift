@@ -19,10 +19,11 @@
 //
 
 import Model
+import CoreData
 
 extension Reminder {
     internal init(cd: CD_Reminder) {
-        self.init(id: .init(cd.objectID.uriRepresentation().absoluteString),
+        self.init(id: .init(cd.objectID),
                   kind: .init(rawValue: cd.raw_kindString ?? "-1") ?? .water,
                   kindDescription: cd.raw_descriptionString,
                   interval: Int(cd.raw_interval),
@@ -30,6 +31,14 @@ extension Reminder {
                   note: cd.raw_note,
                   nextPerformDate: cd.raw_nextPerformDate,
                   lastPerformDate: cd.raw_lastPerformDate,
+                  // TODO: Hack that might not work correctly in all cases
+                  isDeleted: cd.managedObjectContext == nil,
                   vesselID: (cd.raw_vessel?.objectID.uriRepresentation().absoluteString).map { .init($0) })
+    }
+}
+
+extension Reminder.アイディ {
+    internal init(_ objectID: NSManagedObjectID) {
+        self.init(objectID.uriRepresentation().absoluteString)
     }
 }
