@@ -13,8 +13,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jeffreybergier/JSBServerlessLogger.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "1dbd4243d9c760d577712ad2ca1b540c2f899507"
+        "branch" : "2.0",
+        "revision" : "a5e29c07d8975f02b7cfecee968edfe32c1dd190"
       }
     },
     {
