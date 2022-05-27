@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import ServerlessLogger
 import Umbrella
 
 @propertyWrapper

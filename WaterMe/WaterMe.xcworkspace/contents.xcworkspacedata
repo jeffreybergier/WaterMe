@@ -4,4 +4,7 @@
    <FileRef
       location = "group:WaterMe.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:WatchMe/WatchMe/WatchMe.xcodeproj">
+   </FileRef>
 </Workspace>

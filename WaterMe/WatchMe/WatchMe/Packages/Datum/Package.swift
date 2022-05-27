@@ -35,6 +35,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(path: "../Model"),
         .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "v2"),
+        .package(url: "https://github.com/jeffreybergier/JSBServerlessLogger.git", branch: "2.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -43,7 +44,8 @@ let package = Package(
             name: "Datum",
             dependencies: [
                 .byNameItem(name: "Model", condition: nil),
-                .byNameItem(name: "Umbrella", condition: nil)
+                .byNameItem(name: "Umbrella", condition: nil),
+                .product(name: "ServerlessLogger", package: "JSBServerlessLogger"),
             ],
             resources: [
                 .copy("Resources/SampleDB.sqlite"),

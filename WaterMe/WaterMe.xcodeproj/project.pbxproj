@@ -2474,7 +2474,7 @@
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.2;
+				minimumVersion = 1.0.0;
 			};
 		};
 		737012F02839DE42003BAFD8 /* XCRemoteSwiftPackageReference "EasyConfetti" */ = {
