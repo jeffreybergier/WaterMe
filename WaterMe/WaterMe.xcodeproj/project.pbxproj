@@ -227,6 +227,7 @@
 		733A72682840D0300040640B /* WaterMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WaterMeApp.swift */; };
 		733A726C2840D0310040640B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733A726B2840D0310040640B /* Assets.xcassets */; };
 		733A727D2840D0430040640B /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 733A727C2840D0430040640B /* Interface */; };
+		733A72802840F0FE0040640B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733A727F2840F0FE0040640B /* CloudKit.framework */; };
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
 		73D02F66263F683300E90138 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F64263F683200E90138 /* TestDB.sqlite */; };
@@ -577,6 +578,8 @@
 		733A72672840D0300040640B /* WaterMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeApp.swift; sourceTree = "<group>"; };
 		733A726B2840D0310040640B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		733A72702840D0310040640B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		733A727E2840F0FB0040640B /* WaterMeW WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WaterMeW WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		733A727F2840F0FE0040640B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		733BC95226880E9700F821D6 /* Result+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
 		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
@@ -656,6 +659,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				733A727D2840D0430040640B /* Interface in Frameworks */,
+				733A72802840F0FE0040640B /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,17 +1210,20 @@
 			children = (
 				733A725A2840D0300040640B /* Assets.xcassets */,
 			);
-			path = "WaterMeW WatchKit App";
+			name = "WaterMeW WatchKit App";
+			path = "WaterMe/WaterMeW WatchKit App";
 			sourceTree = "<group>";
 		};
 		733A72642840D0300040640B /* WaterMeW WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				733A727E2840F0FB0040640B /* WaterMeW WatchKit Extension.entitlements */,
 				733A72672840D0300040640B /* WaterMeApp.swift */,
 				733A726B2840D0310040640B /* Assets.xcassets */,
 				733A72702840D0310040640B /* Info.plist */,
 			);
-			path = "WaterMeW WatchKit Extension";
+			name = "WaterMeW WatchKit Extension";
+			path = "WaterMe/WaterMeW WatchKit Extension";
 			sourceTree = "<group>";
 		};
 		734048C0260F1B04001FAB8E /* CloudSyncInfo */ = {
@@ -1234,6 +1241,7 @@
 		73755A682610AA4000FCC684 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				733A727F2840F0FE0040640B /* CloudKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2567,7 +2575,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.watch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch2;
 				PRODUCT_NAME = WaterMe;
 				SWIFT_VERSION = 5.0;
 			};
@@ -2585,7 +2593,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.watch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch2;
 				PRODUCT_NAME = WaterMe;
 				SWIFT_VERSION = 5.0;
 			};
@@ -2610,7 +2618,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.watch.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch2.app;
 				PRODUCT_NAME = WaterMe;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2639,7 +2647,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.watch.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch2.app;
 				PRODUCT_NAME = WaterMe;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2657,6 +2665,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "WaterMe/WaterMeW WatchKit Extension/WaterMeW WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -2664,7 +2673,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "WaterMeW WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "WaterMe/WaterMeW WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = WaterMe;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
@@ -2677,7 +2686,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.watch.app.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch2.app.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2695,6 +2704,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "WaterMe/WaterMeW WatchKit Extension/WaterMeW WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -2702,7 +2712,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "WaterMeW WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "WaterMe/WaterMeW WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = WaterMe;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
@@ -2714,7 +2724,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.watch.app.ext;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch2.app.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
