@@ -23,7 +23,7 @@
 
 import UIKit
 import SimpleImageViewer
-import Datum
+import DatumL
 
 class ReminderSummaryViewController: StandardViewController {
 

@@ -76,11 +76,11 @@
 		502E68311F91188D00B0359C /* ReminderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 502E68301F91169000B0359C /* ReminderCollectionViewCell.xib */; };
 		502E68331F9122F100B0359C /* ReminderFinishDropTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E68321F9122F100B0359C /* ReminderFinishDropTargetViewController.swift */; };
 		5031FBFB24F7ACBE00CBBB2E /* ServerlessLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 5031FBFA24F7ACBE00CBBB2E /* ServerlessLogger */; };
-		5034764C24552CFD00C3DAD3 /* Datum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034764324552CFD00C3DAD3 /* Datum.framework */; };
+		5034764C24552CFD00C3DAD3 /* DatumL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034764324552CFD00C3DAD3 /* DatumL.framework */; };
 		5034765324552CFD00C3DAD3 /* DatumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034765224552CFD00C3DAD3 /* DatumTests.swift */; };
 		5034765524552CFD00C3DAD3 /* Datum.h in Headers */ = {isa = PBXBuildFile; fileRef = 5034764524552CFD00C3DAD3 /* Datum.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5034765824552CFD00C3DAD3 /* Datum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034764324552CFD00C3DAD3 /* Datum.framework */; };
-		5034765924552CFD00C3DAD3 /* Datum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5034764324552CFD00C3DAD3 /* Datum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5034765824552CFD00C3DAD3 /* DatumL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034764324552CFD00C3DAD3 /* DatumL.framework */; };
+		5034765924552CFD00C3DAD3 /* DatumL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5034764324552CFD00C3DAD3 /* DatumL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5034766F24552D0700C3DAD3 /* Store.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5034766624552D0600C3DAD3 /* Store.framework */; };
 		5034767624552D0700C3DAD3 /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5034767524552D0700C3DAD3 /* StoreTests.swift */; };
 		5034767824552D0700C3DAD3 /* Store.h in Headers */ = {isa = PBXBuildFile; fileRef = 5034766824552D0600C3DAD3 /* Store.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -224,7 +224,7 @@
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
 		73C3C8C92840F6C40001BF37 /* WaterMeW WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		73C3C8DB2840F6C50001BF37 /* WaterMeW.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMeW.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMe.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8E62840F8180001BF37 /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73C3C8E52840F8180001BF37 /* Interface */; };
 		73C3C8E72840FA870001BF37 /* WaterMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WaterMeApp.swift */; };
 		73C3C8E82840FA8B0001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733A726B2840D0310040640B /* Assets.xcassets */; };
@@ -318,7 +318,7 @@
 			files = (
 				5034767C24552D0700C3DAD3 /* Store.framework in Embed Frameworks */,
 				48A7B0E92467FCB100DC0861 /* Calculate.framework in Embed Frameworks */,
-				5034765924552CFD00C3DAD3 /* Datum.framework in Embed Frameworks */,
+				5034765924552CFD00C3DAD3 /* DatumL.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,7 +340,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				73C3C8DB2840F6C50001BF37 /* WaterMeW.app in Embed Watch Content */,
+				73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,10 +415,10 @@
 		5029E09A214234B4005285F5 /* ReminderSummaryPopoverBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderSummaryPopoverBackgroundView.m; sourceTree = "<group>"; };
 		502E68301F91169000B0359C /* ReminderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderCollectionViewCell.xib; sourceTree = "<group>"; };
 		502E68321F9122F100B0359C /* ReminderFinishDropTargetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFinishDropTargetViewController.swift; sourceTree = "<group>"; };
-		5034764324552CFD00C3DAD3 /* Datum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Datum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5034764324552CFD00C3DAD3 /* DatumL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DatumL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5034764524552CFD00C3DAD3 /* Datum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Datum.h; sourceTree = "<group>"; };
 		5034764624552CFD00C3DAD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5034764B24552CFD00C3DAD3 /* DatumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5034764B24552CFD00C3DAD3 /* DatumLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatumLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5034765224552CFD00C3DAD3 /* DatumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatumTests.swift; sourceTree = "<group>"; };
 		5034765424552CFD00C3DAD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5034766624552D0600C3DAD3 /* Store.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Store.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -577,7 +577,7 @@
 		733BC95226880E9700F821D6 /* Result+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
 		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
-		73C3C8C02840F6C30001BF37 /* WaterMeW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMeW.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73C3C8C02840F6C30001BF37 /* WaterMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WaterMeW WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D02F64263F683200E90138 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
@@ -617,7 +617,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5034764C24552CFD00C3DAD3 /* Datum.framework in Frameworks */,
+				5034764C24552CFD00C3DAD3 /* DatumL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +643,7 @@
 			files = (
 				48A7B0E82467FCB100DC0861 /* Calculate.framework in Frameworks */,
 				73D02F75263F864500E90138 /* SimpleImageViewer in Frameworks */,
-				5034765824552CFD00C3DAD3 /* Datum.framework in Frameworks */,
+				5034765824552CFD00C3DAD3 /* DatumL.framework in Frameworks */,
 				73D02F74263F864500E90138 /* CropViewController in Frameworks */,
 				7334218C2839DF77007F540E /* Cheers in Frameworks */,
 				5034767B24552D0700C3DAD3 /* Store.framework in Frameworks */,
@@ -1122,13 +1122,13 @@
 			isa = PBXGroup;
 			children = (
 				50BB0F501EBFCDE500850FF4 /* WaterMe.app */,
-				5034764324552CFD00C3DAD3 /* Datum.framework */,
-				5034764B24552CFD00C3DAD3 /* DatumTests.xctest */,
+				5034764324552CFD00C3DAD3 /* DatumL.framework */,
+				5034764B24552CFD00C3DAD3 /* DatumLTests.xctest */,
 				5034766624552D0600C3DAD3 /* Store.framework */,
 				5034766E24552D0700C3DAD3 /* StoreTests.xctest */,
 				48A7B0D32467FCB100DC0861 /* Calculate.framework */,
 				48A7B0DB2467FCB100DC0861 /* CalculateTests.xctest */,
-				73C3C8C02840F6C30001BF37 /* WaterMeW.app */,
+				73C3C8C02840F6C30001BF37 /* WaterMe.app */,
 				73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */,
 			);
 			name = Products;
@@ -1310,9 +1310,9 @@
 			productReference = 48A7B0DB2467FCB100DC0861 /* CalculateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5034764224552CFD00C3DAD3 /* Datum */ = {
+		5034764224552CFD00C3DAD3 /* DatumL */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5034765A24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "Datum" */;
+			buildConfigurationList = 5034765A24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "DatumL" */;
 			buildPhases = (
 				5034763E24552CFD00C3DAD3 /* Headers */,
 				5034763F24552CFD00C3DAD3 /* Sources */,
@@ -1324,18 +1324,18 @@
 			dependencies = (
 				48A7B1072467FE3800DC0861 /* PBXTargetDependency */,
 			);
-			name = Datum;
+			name = DatumL;
 			packageProductDependencies = (
 				500D24062474C1800070162E /* Realm */,
 				500D24082474C1800070162E /* RealmSwift */,
 			);
 			productName = Datum;
-			productReference = 5034764324552CFD00C3DAD3 /* Datum.framework */;
+			productReference = 5034764324552CFD00C3DAD3 /* DatumL.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5034764A24552CFD00C3DAD3 /* DatumTests */ = {
+		5034764A24552CFD00C3DAD3 /* DatumLTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5034765E24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "DatumTests" */;
+			buildConfigurationList = 5034765E24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "DatumLTests" */;
 			buildPhases = (
 				5034764724552CFD00C3DAD3 /* Sources */,
 				5034764824552CFD00C3DAD3 /* Frameworks */,
@@ -1346,9 +1346,9 @@
 			dependencies = (
 				5034764E24552CFD00C3DAD3 /* PBXTargetDependency */,
 			);
-			name = DatumTests;
+			name = DatumLTests;
 			productName = DatumTests;
-			productReference = 5034764B24552CFD00C3DAD3 /* DatumTests.xctest */;
+			productReference = 5034764B24552CFD00C3DAD3 /* DatumLTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		5034766524552D0600C3DAD3 /* Store */ = {
@@ -1431,7 +1431,7 @@
 			);
 			name = WaterMeW;
 			productName = WaterMeW;
-			productReference = 73C3C8C02840F6C30001BF37 /* WaterMeW.app */;
+			productReference = 73C3C8C02840F6C30001BF37 /* WaterMe.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		73C3C8C72840F6C40001BF37 /* WaterMeW WatchKit Extension */ = {
@@ -1536,8 +1536,8 @@
 			projectRoot = "";
 			targets = (
 				50BB0F4F1EBFCDE500850FF4 /* WaterMe */,
-				5034764224552CFD00C3DAD3 /* Datum */,
-				5034764A24552CFD00C3DAD3 /* DatumTests */,
+				5034764224552CFD00C3DAD3 /* DatumL */,
+				5034764A24552CFD00C3DAD3 /* DatumLTests */,
 				5034766524552D0600C3DAD3 /* Store */,
 				5034766D24552D0700C3DAD3 /* StoreTests */,
 				48A7B0D22467FCB100DC0861 /* Calculate */,
@@ -1917,12 +1917,12 @@
 		};
 		5034764E24552CFD00C3DAD3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5034764224552CFD00C3DAD3 /* Datum */;
+			target = 5034764224552CFD00C3DAD3 /* DatumL */;
 			targetProxy = 5034764D24552CFD00C3DAD3 /* PBXContainerItemProxy */;
 		};
 		5034765724552CFD00C3DAD3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5034764224552CFD00C3DAD3 /* Datum */;
+			target = 5034764224552CFD00C3DAD3 /* DatumL */;
 			targetProxy = 5034765624552CFD00C3DAD3 /* PBXContainerItemProxy */;
 		};
 		5034767124552D0700C3DAD3 /* PBXTargetDependency */ = {
@@ -2133,7 +2133,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.Datum;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.DatumL;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2168,7 +2168,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.Datum;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.waterme.DatumL;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -2533,14 +2533,14 @@
 				CODE_SIGN_ENTITLEMENTS = "WaterMe/WaterMeW WatchKit Extension/WaterMeW WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 282004;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WaterMe/WaterMeW WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "WaterMeW WatchKit Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -2549,7 +2549,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.8.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3.ext;
@@ -2574,14 +2574,14 @@
 				CODE_SIGN_ENTITLEMENTS = "WaterMe/WaterMeW WatchKit Extension/WaterMeW WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 282004;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WaterMe/WaterMeW WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "WaterMeW WatchKit Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -2590,7 +2590,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.8.2;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3.ext;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -2614,19 +2614,18 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 282004;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = WaterMeW_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = WaterMeW;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.saturdayapps.WaterMe;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.8.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WaterMe;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2646,18 +2645,17 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 282004;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = WaterMeW_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = WaterMeW;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.saturdayapps.WaterMe;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.8.2;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WaterMe;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2688,7 +2686,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5034765A24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "Datum" */ = {
+		5034765A24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "DatumL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5034765B24552CFD00C3DAD3 /* Debug */,
@@ -2697,7 +2695,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5034765E24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "DatumTests" */ = {
+		5034765E24552CFD00C3DAD3 /* Build configuration list for PBXNativeTarget "DatumLTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5034765F24552CFD00C3DAD3 /* Debug */,

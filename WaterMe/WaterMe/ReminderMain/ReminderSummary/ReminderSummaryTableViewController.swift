@@ -22,7 +22,7 @@
 //
 
 import UIKit
-import Datum
+import DatumL
 
 protocol ReminderSummaryTableViewControllerDelegate: AnyObject {
     var reminderResult: Result<Reminder, DatumError>! { get }
