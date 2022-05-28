@@ -19,10 +19,12 @@
 //
 
 import CoreData
+import Umbrella
 import Model
 
 public protocol Controller {
     var kind: ControllerKind { get }
+    var syncProgress: CloudKitContainerContinuousProgress? { get }
     // HACK: Needed so the context can be placed into the SwiftUI environment
     var __ENVONLY__managedObjectContext: NSManagedObjectContext { get }
     func newVessel() -> Result<Vessel.アイディ, Error>
