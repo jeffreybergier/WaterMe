@@ -223,7 +223,7 @@
 		7334FE1D26429286004381A0 /* CloudSyncErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334FE1C26429286004381A0 /* CloudSyncErrors.swift */; };
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
-		73C3C8C92840F6C40001BF37 /* WaterMeW WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMe.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8E62840F8180001BF37 /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73C3C8E52840F8180001BF37 /* Interface */; };
 		73C3C8E72840FA870001BF37 /* WatchMeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WatchMeMain.swift */; };
@@ -330,7 +330,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				73C3C8C92840F6C40001BF37 /* WaterMeW WatchKit Extension.appex in Embed App Extensions */,
+				73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -579,7 +579,7 @@
 		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
 		73C3C8C02840F6C30001BF37 /* WaterMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WaterMeW WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WatchMeExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C3C92C284344980001BF37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73D02F64263F683200E90138 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
@@ -1131,7 +1131,7 @@
 				48A7B0D32467FCB100DC0861 /* Calculate.framework */,
 				48A7B0DB2467FCB100DC0861 /* CalculateTests.xctest */,
 				73C3C8C02840F6C30001BF37 /* WaterMe.app */,
-				73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */,
+				73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1436,9 +1436,9 @@
 			productReference = 50BB0F501EBFCDE500850FF4 /* WaterMe.app */;
 			productType = "com.apple.product-type.application";
 		};
-		73C3C8BF2840F6C30001BF37 /* WaterMeW */ = {
+		73C3C8BF2840F6C30001BF37 /* WatchMeApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WaterMeW" */;
+			buildConfigurationList = 73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeApp" */;
 			buildPhases = (
 				73C3C8BE2840F6C30001BF37 /* Resources */,
 				73C3C8DF2840F6C50001BF37 /* Embed App Extensions */,
@@ -1448,14 +1448,14 @@
 			dependencies = (
 				73C3C8CB2840F6C40001BF37 /* PBXTargetDependency */,
 			);
-			name = WaterMeW;
+			name = WatchMeApp;
 			productName = WaterMeW;
 			productReference = 73C3C8C02840F6C30001BF37 /* WaterMe.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		73C3C8C72840F6C40001BF37 /* WaterMeW WatchKit Extension */ = {
+		73C3C8C72840F6C40001BF37 /* WatchMeExt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73C3C8DC2840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WaterMeW WatchKit Extension" */;
+			buildConfigurationList = 73C3C8DC2840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeExt" */;
 			buildPhases = (
 				73C3C8C42840F6C40001BF37 /* Sources */,
 				73C3C8C52840F6C40001BF37 /* Frameworks */,
@@ -1465,12 +1465,12 @@
 			);
 			dependencies = (
 			);
-			name = "WaterMeW WatchKit Extension";
+			name = WatchMeExt;
 			packageProductDependencies = (
 				73C3C8E52840F8180001BF37 /* Interface */,
 			);
 			productName = "WaterMeW WatchKit Extension";
-			productReference = 73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */;
+			productReference = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1561,8 +1561,8 @@
 				5034766D24552D0700C3DAD3 /* StoreTests */,
 				48A7B0D22467FCB100DC0861 /* Calculate */,
 				48A7B0DA2467FCB100DC0861 /* CalculateTests */,
-				73C3C8BF2840F6C30001BF37 /* WaterMeW */,
-				73C3C8C72840F6C40001BF37 /* WaterMeW WatchKit Extension */,
+				73C3C8BF2840F6C30001BF37 /* WatchMeApp */,
+				73C3C8C72840F6C40001BF37 /* WatchMeExt */,
 			);
 		};
 /* End PBXProject section */
@@ -1957,12 +1957,12 @@
 		};
 		73C3C8CB2840F6C40001BF37 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73C3C8C72840F6C40001BF37 /* WaterMeW WatchKit Extension */;
+			target = 73C3C8C72840F6C40001BF37 /* WatchMeExt */;
 			targetProxy = 73C3C8CA2840F6C40001BF37 /* PBXContainerItemProxy */;
 		};
 		73C3C8DA2840F6C50001BF37 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73C3C8BF2840F6C30001BF37 /* WaterMeW */;
+			target = 73C3C8BF2840F6C30001BF37 /* WatchMeApp */;
 			targetProxy = 73C3C8D92840F6C50001BF37 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2760,7 +2760,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73C3C8DC2840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WaterMeW WatchKit Extension" */ = {
+		73C3C8DC2840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeExt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73C3C8DD2840F6C50001BF37 /* Debug */,
@@ -2769,7 +2769,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WaterMeW" */ = {
+		73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73C3C8E12840F6C50001BF37 /* Debug */,
