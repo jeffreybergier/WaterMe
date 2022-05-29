@@ -20,6 +20,7 @@
 
 import Combine
 import CoreData
+import ServerlessLogger
 import Umbrella
 import Settings
 import Model
@@ -64,8 +65,9 @@ internal class CD_Controller: Controller {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
-        guard let container = CD_Controller.container(kind: kind)
-            else { fatalError() } //DatumError.load }
+        guard let container = CD_Controller.container(kind: kind) else {
+            throw Error.load
+        }
 
         switch kind {
         case .local, .sync:
@@ -100,7 +102,7 @@ internal class CD_Controller: Controller {
         // Configure maintenance monitor
         self.maintenance_changeToken = self.maintenance_changeMonitor()
         if case .local = self.kind {
-            UserDefaults.standard //.didRunWithoutCloudSync = true
+            UserDefaults.standard.didRunWithoutCloudSync = true
         }
 
         // Observe sync changes to perform maintenance
@@ -376,7 +378,7 @@ extension CD_Controller {
     }
 
     fileprivate func maintenance_massageAllEntries() -> Result<Void, Error> {
-        guard UserDefaults.standard != nil else { //.didRunWithoutCloudSync else {
+        guard UserDefaults.standard.didRunWithoutCloudSync else {
             return .success(())
         }
         do {
@@ -385,7 +387,7 @@ extension CD_Controller {
             let data = try context.fetch(fetchRequest)
             data.forEach { $0.raw_bloop.toggle() }
             try context.save()
-            UserDefaults.standard//.didRunWithoutCloudSync = false
+            UserDefaults.standard.didRunWithoutCloudSync = false
             return .success(())
         } catch {
             error.log()
@@ -434,7 +436,7 @@ extension CD_Controller {
                 // 4. Save
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
-                UserDefaults.standard//.didRunWithoutCloudSync = true
+                UserDefaults.standard.didRunWithoutCloudSync = true
                 "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
@@ -532,7 +534,6 @@ extension CD_Controller {
 
     internal static let storeDirectoryURL: URL = {
         let fm = FileManager.default
-        /*
         if let appGroup = fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.saturdayapps.WaterMe") {
             return appGroup
                 .appendingPathComponent("Library", isDirectory: true)
@@ -540,14 +541,11 @@ extension CD_Controller {
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
         } else {
-         */
             "App group container could not be found".log(as: .emergency)
-            let url = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            return fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
-        return url
-        // file:///Users/jeffberg/Library/Developer/CoreSimulator/Devices/AC661100-4106-4564-80B9-2F1DEB8DB4C5/data/Containers/Data/PluginKitPlugin/025C0612-D021-4DAF-A2C8-0728F236591E/Library/Application%20Support/WaterMe.sqlite)
-//        }
+        }
     }()
 
     private static let dbFileURL1: URL = {
@@ -618,7 +616,7 @@ private class WaterMe_PersistentContainer: NSPersistentContainer {
         return CD_Controller.storeDirectoryURL
     }
     deinit {
-        // Loggable.default?.verbose()
+        log.verbose()
     }
 }
 
@@ -628,7 +626,7 @@ private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
         return CD_Controller.storeDirectoryURL
     }
     deinit {
-        // Loggable.default?.verbose()
+        log.verbose()
     }
 }
 

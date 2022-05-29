@@ -21,6 +21,7 @@
 import SwiftUI
 import ServerlessLogger
 import Umbrella
+import Settings
 import Datum
 import Nav
 import Errors
@@ -43,7 +44,8 @@ public struct Interface: View {
     
     public init() {
         Loggable.configure()
-        let tuple = ControllerProperty.newEnvironment(of: .local)
+        UserDefaults.standard.configure()
+        let tuple = ControllerProperty.newEnvironment(of: UserDefaults.standard.controllerKind)
         _controllerEnvironment = .init(wrappedValue: tuple.0)
         _controllerLoadError = .init(wrappedValue: tuple.1)
     }

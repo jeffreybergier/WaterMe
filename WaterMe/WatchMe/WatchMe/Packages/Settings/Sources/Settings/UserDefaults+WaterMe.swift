@@ -126,8 +126,18 @@ extension UserDefaults {
             return number.boolValue
         }
         set {
-            guard #available(iOS 14, *) else { return }
             self.set(NSNumber(value: newValue), forKey: Constants.kCloudSyncInfoShown)
+        }
+    }
+
+    public var didRunWithoutCloudSync: Bool {
+        get {
+            guard let number = self.object(forKey: Constants.kDidRunWithoutCloudSync) as? NSNumber
+                else { fatalError("Must call configure() before accessing user defaults") }
+            return number.boolValue
+        }
+        set {
+            self.set(NSNumber(value: newValue), forKey: Constants.kDidRunWithoutCloudSync)
         }
     }
 

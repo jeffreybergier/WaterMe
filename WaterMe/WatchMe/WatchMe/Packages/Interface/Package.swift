@@ -40,6 +40,7 @@ let package = Package(
         .package(path: "../Style"),
         .package(path: "../Model"),
         .package(path: "../Localize"),
+        .package(path: "../Settings"),
         .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "v2"),
     ],
     targets: [
@@ -50,11 +51,12 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "Datum", condition: nil),
                 .byNameItem(name: "Nav", condition: nil),
-                .byNameItem(name: "Umbrella", condition: nil),
                 .byNameItem(name: "Errors", condition: nil),
                 .byNameItem(name: "Style", condition: nil),
                 .byNameItem(name: "Model", condition: nil),
-                .byNameItem(name: "Localize", condition: nil)
+                .byNameItem(name: "Localize", condition: nil),
+                .byNameItem(name: "Settings", condition: nil),
+                .byNameItem(name: "Umbrella", condition: nil),
             ],
             resources: [
                 .copy("Resources/TEST_IMAGE.jpeg"),
