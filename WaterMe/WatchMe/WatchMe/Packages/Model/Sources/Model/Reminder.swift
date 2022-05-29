@@ -62,5 +62,9 @@ extension Reminder {
         public init(_ id: String) {
             self.id = id
         }
+        public static var fake: Reminder.アイディ {
+            // x-coredata://8B8CF780-4286-4B6E-A8CB-17A45BBAB411/CD_Reminder/p3
+            return .init("x-coredata://" + UUID().uuidString + "/CD_Reminder")
+        }
     }
 }

@@ -42,11 +42,11 @@ public struct ReminderEditQuery: DynamicProperty {
     }
 
     public var wrappedValue: Reminder {
-        get { self.reminder! }
+        get { self.reminder ?? .init(id: .fake, interval: ReminderConstants.defaultInterval) }
         nonmutating set { self.reminder = newValue }
     }
 
     public var projectedValue: Binding<Reminder> {
-        self.$reminder!
+        self.$reminder ?? Binding() { self.wrappedValue } set: { _ in }
     }
 }

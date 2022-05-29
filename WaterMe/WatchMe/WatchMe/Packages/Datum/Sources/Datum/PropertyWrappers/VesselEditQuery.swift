@@ -37,7 +37,7 @@ public struct VesselEditQuery: DynamicProperty {
     }
 
     public init(_ reminder: Reminder) {
-        self.init(id: reminder.vesselID!)
+        self.init(id: reminder.vesselID ?? .fake)
     }
 
     public mutating func update() {
@@ -46,11 +46,11 @@ public struct VesselEditQuery: DynamicProperty {
     }
 
     public var wrappedValue: Vessel {
-        get { self.vessel! }
+        get { self.vessel ?? Vessel(id: .fake) }
         nonmutating set { self.vessel = newValue }
     }
 
     public var projectedValue: Binding<Vessel> {
-        self.$vessel!
+        self.$vessel ?? Binding() { self.wrappedValue } set: { _ in }
     }
 }
