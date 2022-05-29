@@ -35,7 +35,7 @@ extension Reminder {
             self.data = data
         }
     }
-    
+
     public struct BindingSection: Identifiable {
         public var id: Int { self.kind.rawValue }
         public var kind: Section.Kind

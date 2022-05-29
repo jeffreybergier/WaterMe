@@ -49,7 +49,7 @@ enum Analytics {
 
         static func extras(count: Int) -> [String: Any] {
             return [
-                "count": NSNumber(value: count)
+                "count": NSNumber(value: count),
             ]
         }
     }
@@ -87,7 +87,7 @@ enum Analytics {
         static func extras(migrated: Int, total: Int) -> [String: Any] {
             return [
                 "migrated": NSNumber(value: migrated),
-                "total": NSNumber(value: total)
+                "total": NSNumber(value: total),
             ]
         }
     }

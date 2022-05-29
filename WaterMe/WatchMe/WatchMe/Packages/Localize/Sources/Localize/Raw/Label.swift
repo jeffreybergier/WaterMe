@@ -22,7 +22,7 @@ import SwiftUI
 import Umbrella
 
 internal struct Label {
-    
+
     internal static let appTitle: LocalizationKey = "Label.WaterMe"
     internal static let reminder: LocalizationKey = "Label.Reminder"
     internal static let plant: LocalizationKey = "Label.Plant"

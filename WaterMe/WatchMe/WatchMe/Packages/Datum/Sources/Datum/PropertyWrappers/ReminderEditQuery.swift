@@ -25,7 +25,7 @@ import Umbrella
 
 @propertyWrapper
 public struct ReminderEditQuery: DynamicProperty {
-    
+
     @CDObjectQuery<CD_Reminder, Reminder, Error> private var reminder: Reminder?
     @ControllerProperty private var controller
 
@@ -35,17 +35,17 @@ public struct ReminderEditQuery: DynamicProperty {
             Reminder(cd: $0)
         }
     }
-    
+
     public mutating func update() {
         guard self._reminder.onWrite.value == nil else { return }
         self._reminder.onWrite.value = self._controller.cdController.updateOpt(_:with:)
     }
-    
+
     public var wrappedValue: Reminder {
         get { self.reminder! }
         nonmutating set { self.reminder = newValue }
     }
-    
+
     public var projectedValue: Binding<Reminder> {
         self.$reminder!
     }

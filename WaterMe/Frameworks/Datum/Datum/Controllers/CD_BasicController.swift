@@ -309,7 +309,7 @@ internal class CD_BasicController: BasicController {
             return NSCompoundPredicate(andPredicateWithSubpredicates: [
                 enabledPredicate,
                 NSPredicate(format: "%K >= %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.start as NSDate)),
-                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate))
+                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate)),
             ])
         }
 
@@ -322,11 +322,11 @@ internal class CD_BasicController: BasicController {
         case .late:
             let neverPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
                 enabledPredicate,
-                NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate))
+                NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate)),
             ])
             predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
                 normalPredicate(section.dateInterval),
-                neverPredicate
+                neverPredicate,
             ])
         }
 
@@ -667,7 +667,7 @@ extension CD_BasicController {
         let fetchRequest = CD_Base.requestBase
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateModified)),
-            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated))
+            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated)),
         ])
 
         do {

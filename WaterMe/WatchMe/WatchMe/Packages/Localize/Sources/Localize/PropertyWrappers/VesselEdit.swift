@@ -24,7 +24,7 @@ import Model
 
 @propertyWrapper
 public struct VesselEdit: DynamicProperty {
-    
+
     public struct Value {
         public var title: LocalizationKey = Label.editPlant
         public var buttonDone: LocalizationKey = Action.done
@@ -36,17 +36,17 @@ public struct VesselEdit: DynamicProperty {
         public var placeholderPlantName: LocalizationKey = Label.plantName
         public var subsectionEvery: LocalizationKey = Label.everyColon
     }
-    
+
     private static let reminderIntervalFormatter = Formatter.newReminderIntervalFormatter
-    
+
     @EnvironmentBundle<LocalizeBundle> private var bundle
-    
+
     public init() {}
-    
+
     public var wrappedValue: (KeyPath<Value, LocalizationKey>) -> LocalizedString {{
         self.bundle.localized(key: Value()[keyPath: $0])
     }}
-    
+
     // TODO: Find workaround for this
     // It would be nice if I could somehow do this via `Value`
     public func subsectionDataDayInterval(_ interval: Int) -> LocalizedString {

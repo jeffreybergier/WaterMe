@@ -57,7 +57,7 @@ class ModalParentViewController: StandardViewController {
             grayView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1),
             grayView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1),
             grayView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0),
-            grayView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0)
+            grayView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0),
             ])
 
         self.view.backgroundColor = .clear
@@ -94,7 +94,7 @@ class ModalParentViewController: StandardViewController {
                 sub.leadingAnchor.constraint(equalToSystemSpacingAfter: safe.leadingAnchor, multiplier: 1),
                 safe.trailingAnchor.constraint(equalToSystemSpacingAfter: sub.trailingAnchor, multiplier: 1),
                 sub.topAnchor.constraint(equalToSystemSpacingBelow: safe.topAnchor, multiplier: 1),
-                safe.bottomAnchor.constraint(equalToSystemSpacingBelow: sub.bottomAnchor, multiplier: 1)
+                safe.bottomAnchor.constraint(equalToSystemSpacingBelow: sub.bottomAnchor, multiplier: 1),
             ]
         } else {
             switch (tc.verticalSizeClassIsRegular, tc.horizontalSizeClassIsCompact) {
@@ -103,21 +103,21 @@ class ModalParentViewController: StandardViewController {
                     sub.centerXAnchor.constraint(equalTo: safe.centerXAnchor, constant: 0),
                     sub.centerYAnchor.constraint(equalTo: safe.centerYAnchor, constant: 0),
                     sub.widthAnchor.constraint(equalToConstant: 400),
-                    sub.heightAnchor.constraint(equalToConstant: 400)
+                    sub.heightAnchor.constraint(equalToConstant: 400),
                 ]
             case (true, _):
                 newConstraints = [
                     sub.centerXAnchor.constraint(equalTo: safe.centerXAnchor, constant: 0),
                     sub.centerYAnchor.constraint(equalTo: safe.centerYAnchor, constant: 0),
                     sub.widthAnchor.constraint(equalTo: safe.widthAnchor, multiplier: 5 / 6),
-                    sub.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 4 / 7)
+                    sub.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 4 / 7),
                 ]
             case (false, _):
                 newConstraints = [
                     sub.centerXAnchor.constraint(equalTo: safe.centerXAnchor, constant: 0),
                     sub.centerYAnchor.constraint(equalTo: safe.centerYAnchor, constant: 0),
                     sub.widthAnchor.constraint(equalTo: safe.widthAnchor, multiplier: 1 / 2),
-                    sub.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 1)
+                    sub.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 1),
                 ]
             }
         }

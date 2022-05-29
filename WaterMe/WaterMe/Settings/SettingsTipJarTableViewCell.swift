@@ -62,7 +62,7 @@ class SettingsTipJarTableViewCell: UITableViewCell {
             self.contentView.bottomAnchor.constraint(greaterThanOrEqualTo: self.trailingLabel.bottomAnchor, constant: UITableViewCell.style_labelCellBottomPadding),
             self.contentView.trailingAnchor.constraint(equalTo: self.trailingLabel.trailingAnchor, constant: UITableViewCell.style_labelCellTrailingPadding),
             self.leadingLabel.firstBaselineAnchor.constraint(equalTo: self.trailingLabel.firstBaselineAnchor, constant: 0),
-            self.trailingLabel.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: self.leadingLabel.trailingAnchor, multiplier: 1)
+            self.trailingLabel.leadingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: self.leadingLabel.trailingAnchor, multiplier: 1),
             ])
     }
 

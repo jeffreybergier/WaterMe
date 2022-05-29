@@ -24,14 +24,14 @@ import Model
 
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
-    
+
     @CDListQuery<CD_Reminder, Reminder, Error> private var section0: AnyRandomAccessCollection<Reminder>
     @CDListQuery<CD_Reminder, Reminder, Error> private var section1: AnyRandomAccessCollection<Reminder>
     @CDListQuery<CD_Reminder, Reminder, Error> private var section2: AnyRandomAccessCollection<Reminder>
     @CDListQuery<CD_Reminder, Reminder, Error> private var section3: AnyRandomAccessCollection<Reminder>
     @CDListQuery<CD_Reminder, Reminder, Error> private var section4: AnyRandomAccessCollection<Reminder>
     @CDListQuery<CD_Reminder, Reminder, Error> private var section5: AnyRandomAccessCollection<Reminder>
-    
+
     @ControllerProperty private var controller
 
     public init() {
@@ -42,7 +42,7 @@ public struct ReminderListQuery: DynamicProperty {
         _section4 = query(for: .later)
         _section5 = query(for: .disabled)
     }
-    
+
     public mutating func update() {
         guard _section0.onWrite.value == nil else { return }
         _section0.onWrite.value = _controller.cdController.update(_:with:)
@@ -52,7 +52,7 @@ public struct ReminderListQuery: DynamicProperty {
         _section4.onWrite.value = _controller.cdController.update(_:with:)
         _section5.onWrite.value = _controller.cdController.update(_:with:)
     }
-    
+
     public var wrappedValue: [Reminder.Section] {
         return [
             .init(self.section0, .late),
@@ -63,7 +63,7 @@ public struct ReminderListQuery: DynamicProperty {
             .init(self.section5, .disabled),
         ]
     }
-    
+
     public var projectedValue: [Reminder.BindingSection] {
         return [
             .init(self.$section0, .late),
@@ -83,7 +83,7 @@ private func query(for section: Reminder.Section.Kind) -> CDListQuery<CD_Reminde
         return NSCompoundPredicate(andPredicateWithSubpredicates: [
             enabledPredicate,
             NSPredicate(format: "%K >= %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.start as NSDate)),
-            NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate))
+            NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate)),
         ])
     }
 
@@ -96,11 +96,11 @@ private func query(for section: Reminder.Section.Kind) -> CDListQuery<CD_Reminde
     case .late:
         let neverPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
             enabledPredicate,
-            NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate))
+            NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate)),
         ])
         predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             normalPredicate(section.dateInterval),
-            neverPredicate
+            neverPredicate,
         ])
     }
     let sort = [CD_Reminder.sortDescriptor(for: .nextPerformDate, ascending: true)]

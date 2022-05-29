@@ -50,7 +50,7 @@ let package = Package(
                 .byNameItem(name: "Datum", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
                 .byNameItem(name: "Localize", condition: nil),
-                .product(name: "Collections", package: "swift-collections")
+                .product(name: "Collections", package: "swift-collections"),
             ]),
         .testTarget(
             name: "ErrorsTests",

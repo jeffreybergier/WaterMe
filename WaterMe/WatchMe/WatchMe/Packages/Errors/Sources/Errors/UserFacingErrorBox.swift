@@ -23,17 +23,17 @@ import Umbrella
 import Datum
 
 internal struct UserFacingErrorBox: Codable {
-    
+
     internal var error: UserFacingError?
-    
+
     internal init(_ error: UserFacingError?) {
         self.error = error
     }
-    
+
     private enum CodingKeys: String, CodingKey {
          case datum, camera, cameraPermission
     }
-    
+
     internal func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         switch self.error {
@@ -48,7 +48,7 @@ internal struct UserFacingErrorBox: Codable {
             break
         }
     }
-    
+
     internal init(from decoder: Decoder) throws {
         let d = try decoder.container(keyedBy: CodingKeys.self)
         if let error = try? d.decode(Datum.Error.self, forKey: .datum) {

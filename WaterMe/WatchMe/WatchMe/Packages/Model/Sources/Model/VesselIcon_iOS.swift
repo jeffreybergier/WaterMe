@@ -22,12 +22,12 @@
 import UIKit
 
 extension VesselIcon {
-    
+
     public var imageValue: XPImage? {
         guard case .image(let data) = self else { return nil }
         return UIImage(data: data)
     }
-    
+
     public init?(uncleanData: Data) {
         // all of this code assumes we're cropping to square image
         // it also assumes that we're converting it to a new image with a scale of 1

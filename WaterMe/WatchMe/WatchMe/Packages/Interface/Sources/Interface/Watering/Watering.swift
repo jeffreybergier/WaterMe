@@ -26,7 +26,7 @@ import Model
 import Errors
 
 internal struct Watering: View {
-    
+
     let ids: [Reminder.アイディ]
     @State private var isPlaying = false
 
@@ -35,15 +35,15 @@ internal struct Watering: View {
     @Environment(\.dismiss) private var dismiss
     @ControllerProperty private var controller
     @EnvironmentBundle<ImageBundle> private var image
-    
+
     private var urls: CompleteDictionary<Size, URL> {
         [
             .small: self.image.videoLandscape,
             .medium: self.image.videoLandscape,
-            .large: self.image.videoPortrait
+            .large: self.image.videoPortrait,
         ]
     }
-    
+
     internal var body: some View {
         Button(role: .cancel) {
             self.dismiss()

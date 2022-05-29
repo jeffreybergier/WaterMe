@@ -24,16 +24,16 @@ import Model
 
 @propertyWrapper
 public struct DoneDeleteToolbar: DynamicProperty {
-    
+
     public struct Value {
         public var buttonDone: LocalizationKey = Action.done
         public var buttonDelete: LocalizationKey = Action.delete
     }
-    
+
     @EnvironmentBundle<LocalizeBundle> private var bundle
-    
+
     public init() {}
-    
+
     public var wrappedValue: (KeyPath<Value, LocalizationKey>) -> LocalizedString {{
         self.bundle.localized(key: Value()[keyPath: $0])
     }}

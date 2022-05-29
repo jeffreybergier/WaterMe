@@ -85,7 +85,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             self.toolbarItems = [
                 UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                 UIBarButtonItem(customView: progressView),
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             ]
         }
 

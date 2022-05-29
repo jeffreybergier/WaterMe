@@ -34,14 +34,14 @@ public struct Interface: View {
     @NavReminderList private var navReminderList
     @NavReminderEdit private var navReminderEdit
     @UFErrorQ private var errorQ
-    
+
     @State private var controllerLoadError: Datum.Error?
     @StateObject private var controllerEnvironment: ControllerProperty.Environment
     @ObservedObject private var datumErrorQueue = EnvironmentQueue<Datum.Error>.newEnvirementObject()
-    
+
     // TODO: For debugging error propogation
     private let DEBUG_errorTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
-    
+
     public init() {
         Loggable.configure()
         UserDefaults.standard.configure()
@@ -49,7 +49,7 @@ public struct Interface: View {
         _controllerEnvironment = .init(wrappedValue: tuple.0)
         _controllerLoadError = .init(wrappedValue: tuple.1)
     }
-    
+
     public var body: some View {
         if let error = self.controllerLoadError {
             Text(error.title)

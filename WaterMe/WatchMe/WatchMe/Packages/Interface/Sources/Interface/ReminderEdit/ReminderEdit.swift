@@ -28,7 +28,7 @@ import Style
 import Localize
 
 internal struct ReminderEdit: View {
-    
+
     internal struct Presentation: ViewModifier {
         @NavReminderEdit private var nav
         internal func body(content: Content) -> some View {
@@ -37,19 +37,19 @@ internal struct ReminderEdit: View {
                 .modifier(OnAppearErrorHandler())
         }
     }
-    
+
     @ReminderEditQuery var reminder: Reminder
-    
+
     @UFErrorQ private var errorQ
     @Style.Form private var style
     @Localize.ReminderEdit private var text
     @ControllerProperty private var controller
     @Environment(\.dismiss) private var dismiss
-    
+
     internal init(id: Reminder.アイディ) {
         _reminder = ReminderEditQuery(id: id)
     }
-    
+
     internal var body: some View {
         NavigationView {
             Form {
@@ -63,7 +63,7 @@ internal struct ReminderEdit: View {
                         Text(self.text(\.subsectionTitleInterval))
                     }
                     .modifier(self.style.subsectionData)
-                    
+
                     Picker(selection: self.$reminder.kind) {
                         ForEach(Model.ReminderKind.allCases) {
                             Text(self._text.subsectionDataKind($0))
@@ -73,7 +73,7 @@ internal struct ReminderEdit: View {
                         Text(self.text(\.subsectionTitleKind))
                     }
                     .modifier(self.style.subsectionData)
-                    
+
                     if case .move = self.reminder.kind {
                         JSBTextField(self.text(\.subsectionPlaceholderMoveTo),
                                      text: self.$reminder.kindDescription)
@@ -83,7 +83,7 @@ internal struct ReminderEdit: View {
                         JSBTextField(self.text(\.subsectionPlaceholderDescription),
                                      text: self.$reminder.kindDescription)
                             .modifier(self.style.subsectionData)
-                        
+
                     }
                 } header: {
                     Text(self.text(\.sectionTitleDetails))

@@ -26,7 +26,7 @@ import Style
 import Localize
 
 internal struct VesselEmoji: View {
-    
+
     internal struct Presentation: ViewModifier {
         @NavGeneric private var nav
         func body(content: Content) -> some View {
@@ -35,17 +35,17 @@ internal struct VesselEmoji: View {
                 .modifier(OnAppearErrorHandler())
         }
     }
-    
+
     @VesselEditQuery private var vessel: Vessel
-    
+
     @Style.VesselEmoji private var style
     @Localize.VesselIcon private var text
     @Environment(\.dismiss) private var dismiss
-    
+
     internal init(id: Vessel.アイディ) {
         _vessel = VesselEditQuery(id: id)
     }
-    
+
     internal var body: some View {
         NavigationView {
             ScrollView {

@@ -27,11 +27,11 @@ import Style
 import Localize
 
 internal struct ReminderList: View {
-    
+
     internal struct Presentation: ViewModifier {
-        
+
         @NavReminderList private var nav
-        
+
         internal func body(content: Content) -> some View {
             content
                 .modifier(Alert(self.$nav.isError))
@@ -53,7 +53,7 @@ internal struct ReminderList: View {
                 }
         }
     }
-    
+
     @UFErrorQ private var errorQ
     @NavReminderList private var nav
     @Localize.ReminderList private var loc

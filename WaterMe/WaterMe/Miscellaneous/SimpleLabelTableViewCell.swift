@@ -51,7 +51,7 @@ class SimpleLabelTableViewCell: UITableViewCell {
             self.label.topAnchor.constraint(equalTo: self.contentView.topAnchor,
                                             constant: UITableViewCell.style_labelCellTopPadding),
             self.contentView.bottomAnchor.constraint(equalTo: self.label.bottomAnchor,
-                                                     constant: UITableViewCell.style_labelCellBottomPadding)
+                                                     constant: UITableViewCell.style_labelCellBottomPadding),
             ])
     }
 }

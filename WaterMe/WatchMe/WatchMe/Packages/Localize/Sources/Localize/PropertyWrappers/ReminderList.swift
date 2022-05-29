@@ -24,21 +24,21 @@ import Model
 
 @propertyWrapper
 public struct ReminderList: DynamicProperty {
-    
+
     public struct Value {
         public var title: LocalizationKey = Label.appTitle
         public var buttonAdd: LocalizationKey = Action.addPlant
         public var subsectionPlaceholderName: LocalizationKey = Label.myPlant
     }
-    
+
     @EnvironmentBundle<LocalizeBundle> private var bundle
-    
+
     public init() {}
-    
+
     public var wrappedValue: (KeyPath<Value, LocalizationKey>) -> LocalizedString {{
         self.bundle.localized(key: Value()[keyPath: $0])
     }}
-    
+
     // TODO: Find workaround for this
     // It would be nice if I could somehow do this via `Value`
     public func sectionHeader(_ kind: Reminder.Section.Kind) -> LocalizedString {

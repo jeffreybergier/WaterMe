@@ -51,7 +51,7 @@ let package = Package(
             ],
             resources: [
                 .copy("Resources/SampleDB.sqlite"),
-                .copy("Resources/SampleDB.sqlite-wal")
+                .copy("Resources/SampleDB.sqlite-wal"),
             ]),
         .testTarget(
             name: "DatumTests",

@@ -26,7 +26,7 @@ import Settings
 import Model
 
 internal class CD_Controller: Controller {
-    
+
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -453,7 +453,7 @@ extension CD_Controller {
         let fetchRequest = CD_Base.requestBase
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateModified)),
-            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated))
+            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated)),
         ])
 
         do {

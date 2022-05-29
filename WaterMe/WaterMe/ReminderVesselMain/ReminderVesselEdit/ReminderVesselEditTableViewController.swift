@@ -50,7 +50,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
 
     func reloadPhotoAndName() {
         self.tableView.reloadSections(IndexSet([Section.photo.rawValue,
-                                                Section.name.rawValue]),
+                                                Section.name.rawValue,]),
                                       with: .automatic)
     }
 

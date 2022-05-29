@@ -30,27 +30,27 @@ extension NavigationGeneric: Codable {
 }
 
 extension NavigationReminderList: Codable {
-    
+
     private enum CodingKeys: String, CodingKey {
          case settings, watering, summary, reminderEdit, vesselEdit
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(self.isSettings != nil, forKey: .settings)
-        try c.encode(self.isWatering,        forKey: .watering)
-        try c.encode(self.isSummary,         forKey: .summary)
-        try c.encode(self.isReminderEdit,    forKey: .reminderEdit)
-        try c.encode(self.isVesselEdit,      forKey: .vesselEdit)
+        try c.encode(self.isWatering, forKey: .watering)
+        try c.encode(self.isSummary, forKey: .summary)
+        try c.encode(self.isReminderEdit, forKey: .reminderEdit)
+        try c.encode(self.isVesselEdit, forKey: .vesselEdit)
     }
-    
+
     public init(from decoder: Decoder) throws {
         let d = try decoder.container(keyedBy: CodingKeys.self)
-        self.isSettings     = try  d.decode(Bool.self,                   forKey: .settings) ? () : nil
-        self.isWatering     = try? d.decode(WateringInput.self,          forKey: .watering)
+        self.isSettings     = try  d.decode(Bool.self, forKey: .settings) ? () : nil
+        self.isWatering     = try? d.decode(WateringInput.self, forKey: .watering)
         self.isSummary      = try? d.decode(ReminderAndVesselInput.self, forKey: .summary)
-        self.isReminderEdit = try? d.decode(ReminderInput.self,          forKey: .reminderEdit)
-        self.isVesselEdit   = try? d.decode(VesselInput.self,            forKey: .vesselEdit)
+        self.isReminderEdit = try? d.decode(ReminderInput.self, forKey: .reminderEdit)
+        self.isVesselEdit   = try? d.decode(VesselInput.self, forKey: .vesselEdit)
     }
 }
 
@@ -60,28 +60,28 @@ extension NavigationReminderEdit: Codable {
 }
 
 extension NavigationVesselEdit: Codable {
-    
+
     private enum CodingKeys: String, CodingKey {
          case reminderEdit, iconMenu, iconEmoji, iconCamera, iconLibrary, iconView
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(self.isReminderEdit, forKey: .reminderEdit)
-        try c.encode(self.isIconMenu,     forKey: .iconMenu)
-        try c.encode(self.isIconEmoji,    forKey: .iconEmoji)
-        try c.encode(self.isIconCamera,   forKey: .iconCamera)
-        try c.encode(self.isIconLibrary,  forKey: .iconLibrary)
-        try c.encode(self.isIconView,     forKey: .iconView)
+        try c.encode(self.isIconMenu, forKey: .iconMenu)
+        try c.encode(self.isIconEmoji, forKey: .iconEmoji)
+        try c.encode(self.isIconCamera, forKey: .iconCamera)
+        try c.encode(self.isIconLibrary, forKey: .iconLibrary)
+        try c.encode(self.isIconView, forKey: .iconView)
     }
-    
+
     public init(from decoder: Decoder) throws {
         let d = try decoder.container(keyedBy: CodingKeys.self)
         self.isReminderEdit = try? d.decode(ReminderInput.self, forKey: .reminderEdit)
-        self.isIconMenu     = try? d.decode(VesselInput.self,   forKey: .iconMenu)
-        self.isIconEmoji    = try? d.decode(VesselInput.self,   forKey: .iconEmoji)
-        self.isIconCamera   = try? d.decode(VesselInput.self,   forKey: .iconCamera)
-        self.isIconLibrary  = try? d.decode(VesselInput.self,   forKey: .iconLibrary)
-        self.isIconView     = try? d.decode(VesselInput.self,   forKey: .iconView)
+        self.isIconMenu     = try? d.decode(VesselInput.self, forKey: .iconMenu)
+        self.isIconEmoji    = try? d.decode(VesselInput.self, forKey: .iconEmoji)
+        self.isIconCamera   = try? d.decode(VesselInput.self, forKey: .iconCamera)
+        self.isIconLibrary  = try? d.decode(VesselInput.self, forKey: .iconLibrary)
+        self.isIconView     = try? d.decode(VesselInput.self, forKey: .iconView)
     }
 }

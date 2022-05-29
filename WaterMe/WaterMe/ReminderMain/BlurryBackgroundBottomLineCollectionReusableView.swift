@@ -85,7 +85,7 @@ class BlurryBackgroundBottomLineCollectionReusableView: UICollectionReusableView
                 self.backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
                 self.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor, constant: 8),
                 top,
-                bottom
+                bottom,
                 ])
         }()
 
@@ -97,7 +97,7 @@ class BlurryBackgroundBottomLineCollectionReusableView: UICollectionReusableView
                 cv.leadingAnchor.constraint(equalTo: self.colorView.leadingAnchor),
                 cv.trailingAnchor.constraint(equalTo: self.colorView.trailingAnchor),
                 cv.bottomAnchor.constraint(equalTo: self.colorView.bottomAnchor),
-                self.colorView.heightAnchor.constraint(equalToConstant: 3)
+                self.colorView.heightAnchor.constraint(equalToConstant: 3),
                 ])
         }()
 
@@ -107,7 +107,7 @@ class BlurryBackgroundBottomLineCollectionReusableView: UICollectionReusableView
             self.addConstraints([
                 self.stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
                 self.trailingAnchor.constraint(equalTo: self.stackView.trailingAnchor, constant: 20),
-                self.centerYAnchor.constraint(equalTo: self.stackView.centerYAnchor)
+                self.centerYAnchor.constraint(equalTo: self.stackView.centerYAnchor),
                 ])
         }()
     }

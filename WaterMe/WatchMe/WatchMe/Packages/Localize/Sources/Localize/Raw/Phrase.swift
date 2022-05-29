@@ -22,7 +22,7 @@ import SwiftUI
 import Umbrella
 
 internal struct Phrase {
-    
+
     internal static let placeholderTrim: LocalizationKey = "Trim the leaves and throw out the clippings."
     internal static let placeholderMove: LocalizationKey = "Other side of the yard."
     internal static let chooseIconMenuTitle: LocalizationKey = "View the current photo or choose a new photo or emoji for your plant."
@@ -39,5 +39,5 @@ internal struct Phrase {
     internal static let errorMaintenance: LocalizationKey = "Error performing maintenance. Check to make sure there is free space available on this device."
     internal static let errorAlreadyDeleted: LocalizationKey = "Unable to save changes because the item was deleted. Possibly from another device."
     internal static let confirmDelete: LocalizationKey = "Are you sure you want to delete this?"
-    
+
 }

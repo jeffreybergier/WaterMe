@@ -102,7 +102,7 @@ class BasicControllerClosureTests: DatumTestsBase {
         try! self.basicController.appendNewPerformToReminders(
             with: [
                 .init(rawValue: item1.uuid),
-                .init(rawValue: item2.uuid)
+                .init(rawValue: item2.uuid),
             ]
         ).get()
         self.wait(for: [exp], timeout: 0.1)

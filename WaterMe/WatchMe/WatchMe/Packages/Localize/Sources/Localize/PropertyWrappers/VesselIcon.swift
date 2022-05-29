@@ -24,7 +24,7 @@ import Model
 
 @propertyWrapper
 public struct VesselIcon: DynamicProperty {
-    
+
     public struct Value {
         public var titleMenu = Phrase.chooseIconMenuTitle
         public var titleEmojiPicker = Phrase.chooseAnEmoji
@@ -37,11 +37,11 @@ public struct VesselIcon: DynamicProperty {
         public var buttonChoosePhotoIssue = Action.photosLock
         public var placeholderIcon = Label.defaultEmoji
     }
-    
+
     @EnvironmentBundle<LocalizeBundle> private var bundle
-    
+
     public init() {}
-    
+
     public var wrappedValue: (KeyPath<Value, LocalizationKey>) -> LocalizedString {{
         self.bundle.localized(key: Value()[keyPath: $0])
     }}

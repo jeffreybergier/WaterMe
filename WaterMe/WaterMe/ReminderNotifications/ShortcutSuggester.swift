@@ -46,7 +46,7 @@ class ShortcutSuggester: ShortcutSuggesterProtocol {
                 NSUserActivity.uniqueString(for: .viewReminder,
                                             and: [reminder.uuid]),
                 NSUserActivity.uniqueString(for: .performReminder,
-                                            and: [reminder.uuid])
+                                            and: [reminder.uuid]),
             ]
         }
         NSUserActivity.deleteSavedUserActivities(withPersistentIdentifiers: ids,

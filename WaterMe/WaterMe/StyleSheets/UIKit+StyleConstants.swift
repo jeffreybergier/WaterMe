@@ -111,12 +111,12 @@ extension UIApplication {
         UIView.appearance().tintColor = Color.tint
 
         UIImageView.appearance(whenContainedInInstancesOf: [
-            ReminderTableViewCell.self
+            ReminderTableViewCell.self,
         ]).tintColor = Color.textSecondary
 
         // For some reason these have to be separate in order for it to be effective.
         let types: [UIAppearanceContainer.Type] = [ReminderSummaryViewController.self,
-                                                   ReminderSummaryPopoverBackgroundView.self]
+                                                   ReminderSummaryPopoverBackgroundView.self,]
         types.forEach {
             UIVisualEffectView
                 .appearance(whenContainedInInstancesOf: [$0])
@@ -136,7 +136,7 @@ extension UIApplication {
             // make sure visual effect views have the legacy appearance
             // For some reason these have to be separate in order for it to be effective.
             let types: [UIAppearanceContainer.Type] = [ReminderSummaryViewController.self,
-                                                       ReminderFinishDropTargetViewController.self]
+                                                       ReminderFinishDropTargetViewController.self,]
             types.forEach {
                 UIVisualEffectView
                     .appearance(whenContainedInInstancesOf: [$0])

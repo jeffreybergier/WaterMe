@@ -28,11 +28,11 @@ import Style
 import Localize
 
 internal struct VesselEdit: View {
-    
+
     internal struct Presentation: ViewModifier {
-        
+
         @NavVesselEdit private var nav
-        
+
         internal func body(content: Content) -> some View {
             content
                 .modifier(Alert(self.$nav.isError))
@@ -56,23 +56,23 @@ internal struct VesselEdit: View {
                 }
         }
     }
-    
+
     @VesselEditQuery private var vessel: Vessel
     @VesselEditReminderQuery private var reminders: AnyRandomAccessCollection<Reminder>
     @ControllerProperty private var controller
-    
+
     @UFErrorQ private var errorQ
     @Style.Form private var style
     @NavVesselEdit private var nav
     @Localize.VesselEdit private var text
     @Environment(\.dismiss) private var dismiss
     @EnvironmentBundle<ImageBundle> private var image
-    
+
     internal init(id: Vessel.アイディ) {
         _vessel = VesselEditQuery(id: id)
         _reminders = VesselEditReminderQuery(id: id)
     }
-    
+
     internal var body: some View {
         NavigationView {
             Form {

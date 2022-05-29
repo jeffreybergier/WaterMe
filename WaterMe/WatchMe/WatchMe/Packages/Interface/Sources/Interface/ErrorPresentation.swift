@@ -25,22 +25,22 @@ import Errors
 import Localize
 
 internal struct Alert: ViewModifier {
-    
+
     @UFErrorQ private var errorQ
     @NavReminderList private var navReminderList
     @NavReminderEdit private var navReminderEdit
     @NavVesselEdit private var navVesselEdit
     @NavGeneric private var navGeneric
-    
+
     @Binding private var error: UserFacingError?
     private var alertType = UFEAlert<LocalizeBundle>.self
-    
+
     init(_ error: Binding<UserFacingError?>) {
         _error = error
     }
-    
+
     func body(content: Content) -> some View {
-        content.modifier(self.alertType.init(self.$error) { error in
+        content.modifier(self.alertType.init(self.$error) { _ in
             self.navReminderList.isError = nil
             self.navReminderEdit.isError = nil
             self.navVesselEdit.isError = nil
@@ -52,7 +52,7 @@ internal struct Alert: ViewModifier {
 }
 
 internal struct OnAppearErrorHandler: ViewModifier {
-    
+
     @NavReminderList private var navReminderList
     @NavReminderEdit private var navReminderEdit
     @NavVesselEdit private var navVesselEdit

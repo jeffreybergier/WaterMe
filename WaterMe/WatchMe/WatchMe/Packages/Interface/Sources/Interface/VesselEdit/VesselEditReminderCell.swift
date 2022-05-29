@@ -27,17 +27,17 @@ import Localize
 
 extension VesselEdit {
     internal struct ReminderCell: View {
-        
+
         @ReminderEditQuery private var reminder: Reminder
         // TODO: Make new style for this
         @Style.Form private var style
         @Localize.VesselEdit private var text
         @EnvironmentBundle<ImageBundle> private var image
-        
+
         internal init(id: Reminder.アイディ) {
             _reminder = ReminderEditQuery(id: id)
         }
-        
+
         @ViewBuilder internal var body: some View {
             // TODO: Replace magic number
             HStack(spacing: 8) {

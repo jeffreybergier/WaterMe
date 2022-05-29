@@ -174,7 +174,7 @@ extension UserDefaults {
             Constants.kIncreaseContrast        : false,
             Constants.kDarkMode                : 0,
             Constants.kCheckForUpdatesOnLaunch : true,
-            Constants.kDidRunWithoutCloudSync  : true
+            Constants.kDidRunWithoutCloudSync  : true,
         ])
         // swiftlint:enable colon
 

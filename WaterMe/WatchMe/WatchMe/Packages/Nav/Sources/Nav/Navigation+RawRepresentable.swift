@@ -29,7 +29,7 @@ extension NavigationGeneric: RawRepresentable {
 }
 
 extension NavigationReminderList: RawRepresentable {
-    
+
     public init?(rawValue: String) {
         do {
             guard let data = Data(base64Encoded: rawValue) else { return nil }
@@ -44,7 +44,7 @@ extension NavigationReminderList: RawRepresentable {
             return nil
         }
     }
-    
+
     public var rawValue: String {
         return (try? PropertyListEncoder().encode(self))?.base64EncodedString() ?? ""
     }
@@ -56,7 +56,7 @@ extension NavigationReminderEdit: RawRepresentable {
 }
 
 extension NavigationVesselEdit: RawRepresentable {
-    
+
     public init?(rawValue: String) {
         do {
             guard let data = Data(base64Encoded: rawValue) else { return nil }
@@ -72,7 +72,7 @@ extension NavigationVesselEdit: RawRepresentable {
             return nil
         }
     }
-    
+
     public var rawValue: String {
         (try? PropertyListEncoder().encode(self))?.base64EncodedString() ?? ""
     }

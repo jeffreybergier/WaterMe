@@ -32,21 +32,21 @@ public struct CenterModifier: ViewModifier {
 }
 
 public struct ButtonModifier: ViewModifier {
-    
+
     public enum Action: CaseIterable {
         case primary, normal, cancel, destructive
     }
-    
+
     private var action: Action
     @ThemeClass private var theme
-    
+
     public init(role: Action) {
         self.action = role
     }
-    
+
     private var font: ButtonFont = Fonts.button
     private var color: ButtonColor = Colors.button
-    
+
     public func body(content: Content) -> some View {
         content
             .font(self.font[self.action])

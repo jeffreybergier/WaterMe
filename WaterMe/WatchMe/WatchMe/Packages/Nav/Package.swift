@@ -45,7 +45,7 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "Model", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
-                .byNameItem(name: "Errors", condition: nil)
+                .byNameItem(name: "Errors", condition: nil),
             ]),
         .testTarget(
             name: "NavTests",

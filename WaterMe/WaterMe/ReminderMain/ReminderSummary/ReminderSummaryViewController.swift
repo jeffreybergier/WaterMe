@@ -247,7 +247,7 @@ extension UIPresentationController {
             "sha",
             "dow",
             "Vi",
-            "ew"
+            "ew",
         ]
         let subterfuge = _subterfuge.reduce("", +)
         guard

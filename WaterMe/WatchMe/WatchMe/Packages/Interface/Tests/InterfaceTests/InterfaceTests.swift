@@ -20,5 +20,3 @@
 
 import XCTest
 @testable import Interface
-
-

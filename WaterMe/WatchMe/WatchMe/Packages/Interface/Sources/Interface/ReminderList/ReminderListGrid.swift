@@ -27,13 +27,13 @@ import Localize
 
 extension ReminderList {
     internal struct Grid: View {
-        
+
         let sections: [Reminder.Section]
         let onTap: (Reminder) -> Void
         @NavReminderList private var nav
         @Style.ReminderListGrid private var style
         @Localize.ReminderList private var text
-        
+
         internal var body: some View {
             ScrollView {
                 LazyVGrid(columns: self.style.columns,
@@ -47,7 +47,7 @@ extension ReminderList {
                 }
             }
         }
-        
+
         @ViewBuilder private func section(for section: Reminder.Section) -> some View {
             Section {
                 ForEach(section.data) { item in
@@ -59,7 +59,7 @@ extension ReminderList {
                     .environment(\.sectionNumber, section.kind.rawValue)
             }
         }
-        
+
         @ViewBuilder private func row(for item: Reminder) -> some View {
             Button {
                 self.onTap(item)

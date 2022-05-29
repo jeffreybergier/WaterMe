@@ -162,19 +162,19 @@ enum VerticalLocationInGroup {
                 .layerMaxXMaxYCorner,
                 .layerMaxXMinYCorner,
                 .layerMinXMaxYCorner,
-                .layerMinXMinYCorner
+                .layerMinXMinYCorner,
             ]
         case .bottom:
             layer.maskedCorners = [
                 .layerMaxXMaxYCorner,
-                .layerMinXMaxYCorner
+                .layerMinXMaxYCorner,
             ]
         case .middle:
             layer.maskedCorners = []
         case .top:
             layer.maskedCorners = [
                 .layerMaxXMinYCorner,
-                .layerMinXMinYCorner
+                .layerMinXMinYCorner,
             ]
         }
     }
