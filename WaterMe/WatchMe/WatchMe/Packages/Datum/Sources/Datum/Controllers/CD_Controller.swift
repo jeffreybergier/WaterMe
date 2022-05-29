@@ -21,6 +21,7 @@
 import Combine
 import CoreData
 import Umbrella
+import Settings
 import Model
 
 internal class CD_Controller: Controller {

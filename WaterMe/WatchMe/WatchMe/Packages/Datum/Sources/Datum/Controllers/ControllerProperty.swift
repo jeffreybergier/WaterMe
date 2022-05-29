@@ -21,6 +21,7 @@
 import SwiftUI
 import ServerlessLogger
 import Umbrella
+import Settings
 
 @propertyWrapper
 public struct ControllerProperty: DynamicProperty {
