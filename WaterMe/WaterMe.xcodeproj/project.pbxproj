@@ -226,8 +226,9 @@
 		73C3C8C92840F6C40001BF37 /* WaterMeW WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMe.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8E62840F8180001BF37 /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73C3C8E52840F8180001BF37 /* Interface */; };
-		73C3C8E72840FA870001BF37 /* WaterMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WaterMeApp.swift */; };
+		73C3C8E72840FA870001BF37 /* WatchMeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WatchMeMain.swift */; };
 		73C3C8E82840FA8B0001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733A726B2840D0310040640B /* Assets.xcassets */; };
+		73C3C92D284344980001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C3C92C284344980001BF37 /* Assets.xcassets */; };
 		73D02F66263F683300E90138 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F64263F683200E90138 /* TestDB.sqlite */; };
 		73D02F67263F683300E90138 /* TestDB.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F65263F683300E90138 /* TestDB.sqlite-wal */; };
 		73D02F69263F69ED00E90138 /* SchemaMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */; };
@@ -569,16 +570,17 @@
 		7311AF03263E76A60089B36E /* CloudSyncInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CloudSyncInfo.storyboard; sourceTree = "<group>"; };
 		731B01E726411E8B00165220 /* CloudSyncProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncProgressView.swift; sourceTree = "<group>"; };
 		7334FE1C26429286004381A0 /* CloudSyncErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncErrors.swift; sourceTree = "<group>"; };
-		733A72672840D0300040640B /* WaterMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeApp.swift; sourceTree = "<group>"; };
+		733A72672840D0300040640B /* WatchMeMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMeMain.swift; sourceTree = "<group>"; };
 		733A726B2840D0310040640B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		733A72702840D0310040640B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		733A727E2840F0FB0040640B /* WaterMeW WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WaterMeW WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		733A727E2840F0FB0040640B /* WatchMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchMe.entitlements; sourceTree = "<group>"; };
 		733A727F2840F0FE0040640B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		733BC95226880E9700F821D6 /* Result+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
 		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
 		73C3C8C02840F6C30001BF37 /* WaterMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C3C8C82840F6C40001BF37 /* WaterMeW WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WaterMeW WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73C3C92C284344980001BF37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73D02F64263F683200E90138 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
 		73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMigrationTests.swift; sourceTree = "<group>"; };
@@ -1112,7 +1114,7 @@
 				5034765124552CFD00C3DAD3 /* DatumTests */,
 				5034767424552D0700C3DAD3 /* StoreTests */,
 				48A7B0E12467FCB100DC0861 /* CalculateTests */,
-				733A72642840D0300040640B /* WaterMeW WatchKit Extension */,
+				733A72642840D0300040640B /* WatchMe */,
 				50BB0F511EBFCDE500850FF4 /* Products */,
 				73755A682610AA4000FCC684 /* Frameworks */,
 			);
@@ -1198,16 +1200,14 @@
 			path = CoreDataMigration;
 			sourceTree = "<group>";
 		};
-		733A72642840D0300040640B /* WaterMeW WatchKit Extension */ = {
+		733A72642840D0300040640B /* WatchMe */ = {
 			isa = PBXGroup;
 			children = (
-				733A727E2840F0FB0040640B /* WaterMeW WatchKit Extension.entitlements */,
-				733A72672840D0300040640B /* WaterMeApp.swift */,
-				733A726B2840D0310040640B /* Assets.xcassets */,
-				733A72702840D0310040640B /* Info.plist */,
+				73C3C92B284344830001BF37 /* Extension */,
+				73C3C92A284344760001BF37 /* App */,
 			);
-			name = "WaterMeW WatchKit Extension";
-			path = "WaterMe/WaterMeW WatchKit Extension";
+			name = WatchMe;
+			path = WaterMe/WatchMe;
 			sourceTree = "<group>";
 		};
 		734048C0260F1B04001FAB8E /* CloudSyncInfo */ = {
@@ -1228,6 +1228,25 @@
 				733A727F2840F0FE0040640B /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		73C3C92A284344760001BF37 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				73C3C92C284344980001BF37 /* Assets.xcassets */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		73C3C92B284344830001BF37 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				733A727E2840F0FB0040640B /* WatchMe.entitlements */,
+				733A72672840D0300040640B /* WatchMeMain.swift */,
+				733A726B2840D0310040640B /* Assets.xcassets */,
+				733A72702840D0310040640B /* Info.plist */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		73D02F63263F680F00E90138 /* SchemaMigration */ = {
@@ -1631,6 +1650,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73C3C92D284344980001BF37 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1888,7 +1908,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73C3C8E72840FA870001BF37 /* WaterMeApp.swift in Sources */,
+				73C3C8E72840FA870001BF37 /* WatchMeMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2530,7 +2550,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "WaterMe/WaterMeW WatchKit Extension/WaterMeW WatchKit Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/Extension/WatchMe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 283001;
@@ -2539,7 +2559,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "WaterMe/WaterMeW WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = WaterMe/WatchMe/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
@@ -2571,7 +2591,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "WaterMe/WaterMeW WatchKit Extension/WaterMeW WatchKit Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/Extension/WatchMe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 283001;
@@ -2580,7 +2600,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "WaterMe/WaterMeW WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = WaterMe/WatchMe/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
