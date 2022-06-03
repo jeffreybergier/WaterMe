@@ -19,6 +19,9 @@
 //
 
 import CoreData
+#if canImport(UIKit)
+import UIKit
+#endif
 
 public enum ControllerKind: RawRepresentable {
 
@@ -48,8 +51,6 @@ public enum DarkMode: Int {
     case forceLight = 1
     case forceDark = 2
 }
-
-import UIKit
 
 internal var isDarkerSystemColorsEnabled: Bool {
     #if os(iOS) || os(tvOS)

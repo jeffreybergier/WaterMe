@@ -24,7 +24,7 @@ import PackageDescription
 
 let package = Package(
     name: "Settings",
-    platforms: [.iOS(.v13), .macOS(.v10_15), .watchOS(.v6)],
+    platforms: [.iOS(.v14), .macOS(.v11), .watchOS(.v7), .tvOS(.v14)],
     products: [
         .library(
             name: "Settings",

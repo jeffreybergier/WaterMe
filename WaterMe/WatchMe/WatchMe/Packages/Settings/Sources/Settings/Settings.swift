@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/05/28.
+//  Created by Jeffrey Bergier on 2022/06/03.
 //  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -17,3 +17,31 @@
 //  You should have received a copy of the GNU General Public License
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
+
+import SwiftUI
+
+//internal static let kFirstRun = "FIRST_RUN"
+//internal static let kCloudSync = "CLOUD_SYNC"
+//internal static let kCloudSyncInfoShown = "CLOUD_SYNC_INFO_SHOWN"
+//internal static let kReminderHour = "REMINDER_HOUR"
+//internal static let kNumberOfReminderDays = "NUMBER_OF_REMINDER_DAYS"
+//internal static let kIncreaseContrast = "INCREASE_CONTRAST"
+//internal static let kDarkMode = "DARK_MODE"
+//internal static let kBuildNumberKey = "LAST_BUILD_NUMBER"
+//internal static let kRequestReviewDate = "REQUEST_REVIEW_DATE"
+//internal static let kCheckForUpdatesOnLaunch = "CHECK_FOR_UPDATES"
+//// Make sure this stays in sync with BasicWrappers.swift file
+//internal static let kDidRunWithoutCloudSync = "DID_RUN_WITHOUT_CLOUD_SYNC"
+
+@propertyWrapper
+public struct FirstRun: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kFirstRun) private var value: Bool = false
+    public init() {}
+    public var wrappedValue: Bool {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Bool> {
+        self.$value
+    }
+}
