@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5034764A24552CFD00C3DAD3"
-               BuildableName = "DatumTests.xctest"
+               BuildableName = "DatumLTests.xctest"
                BlueprintName = "DatumLTests"
                ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>
@@ -86,7 +86,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5034764A24552CFD00C3DAD3"
-               BuildableName = "DatumTests.xctest"
+               BuildableName = "DatumLTests.xctest"
                BlueprintName = "DatumLTests"
                ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>

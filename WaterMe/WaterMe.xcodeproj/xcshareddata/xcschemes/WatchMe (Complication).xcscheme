@@ -54,12 +54,9 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "32"
-      notificationPayloadFile = "PushNotificationPayload.apns">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/(null)">
+      launchAutomaticallySubstyle = "32">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "73C3C8BF2840F6C30001BF37"
@@ -67,7 +64,7 @@
             BlueprintName = "WatchMeApp"
             ReferencedContainer = "container:WaterMe.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -76,10 +73,8 @@
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "32">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/(null)">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "73C3C8BF2840F6C30001BF37"
@@ -87,16 +82,7 @@
             BlueprintName = "WatchMeApp"
             ReferencedContainer = "container:WaterMe.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73C3C8BF2840F6C30001BF37"
-            BuildableName = "WaterMe.app"
-            BlueprintName = "WatchMeApp"
-            ReferencedContainer = "container:WaterMe.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
