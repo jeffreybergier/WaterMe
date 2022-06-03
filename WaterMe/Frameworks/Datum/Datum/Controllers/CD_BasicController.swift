@@ -700,6 +700,8 @@ extension CD_BasicController {
     }
 
     fileprivate func maintenance_deleteOrphanedReminders() -> Result<Void, DatumError> {
+        return .success(()) // skip this because a slow sync will cause data loss
+        /*
         let context = self.container.viewContext
         let fetchRequest = CD_Reminder.request
         fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_vessel))
@@ -716,9 +718,12 @@ extension CD_BasicController {
             error.log(as: .error)
             return .failure(.maintenanceDeleteOrphanedReminders)
         }
+        */
     }
 
     fileprivate func maintenance_fixOrphanedVessels(share: CD_VesselShare) -> Result<Void, DatumError> {
+        return .success(()) // skip this because a slow sync will cause data loss
+        /*
         let context = self.container.viewContext
         let fetchRequest = CD_ReminderVessel.request
         fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_ReminderVessel.raw_share))
@@ -736,6 +741,7 @@ extension CD_BasicController {
             error.log(as: .error)
             return .failure(.maintenanceFixOrphanedVessels)
         }
+        */
     }
 }
 
