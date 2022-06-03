@@ -227,6 +227,9 @@ other buttons in the UI
 /* Button that allows the user to open the settings app on the device */
 "Action.Open Settings" = "Open Settings";
 
+/* Button title that opens both the in-app settings screen and the iOS settings screen for WaterMe. */
+"Action.Settings" = "Settings";
+
 /* When the user is being asked to confirm to delete an item, this button lets them not delete it. */
 "Action.Don't Delete" = "Don’t Delete";
 
@@ -475,9 +478,6 @@ Used for explanations and other sentences
 
 /* Alert: New Permission: Button Title: Send Notifications: Title of the button that will result in the user being presented the system dialog to grant notification permissions. */
 "Send Notifications" = "Send Notifications";
-
-/* Button title that opens both the in-app settings screen and the iOS settings screen for WaterMe. */
-"Settings" = "Settings";
 
 /* Alert Title: Generic Siri Shortcuts Error */
 "Shortcut Error" = "Shortcut Error";

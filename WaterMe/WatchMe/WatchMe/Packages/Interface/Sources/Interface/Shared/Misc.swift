@@ -143,3 +143,24 @@ internal struct XPDoneDeleteToolbar: ViewModifier {
             }
     }
 }
+
+internal struct XPDoneToolbar: ViewModifier {
+
+    internal var onDone: () -> Void
+
+    @Localize.DoneDeleteToolbar private var text
+
+    internal func body(content: Content) -> some View {
+        content
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        self.onDone()
+                    } label: {
+                        Text(self.text(\.buttonDone))
+                    }
+                    .modifier(Style.ButtonModifier(role: .primary))
+                }
+            }
+    }
+}

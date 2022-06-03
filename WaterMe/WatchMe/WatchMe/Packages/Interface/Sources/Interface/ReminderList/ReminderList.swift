@@ -51,6 +51,9 @@ internal struct ReminderList: View {
                     VesselEdit(id: input.id)
                         .modifier(VesselEdit.Presentation())
                 }
+                .sheet(isPresented: self.$nav.isSettings) {
+                    Settings()
+                }
         }
     }
 
@@ -68,6 +71,13 @@ internal struct ReminderList: View {
             .navigationTitle(self.loc(\.title))
             .modifier(ForceNavigationBarTitleDisplayModeInline())
             .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        self.nav.isSettings = true
+                    } label: {
+                        Text(self.loc(\.buttonSettings))
+                    }
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         switch self.controller.newVessel() {

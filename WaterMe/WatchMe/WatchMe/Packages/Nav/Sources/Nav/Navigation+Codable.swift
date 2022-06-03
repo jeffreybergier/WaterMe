@@ -37,7 +37,7 @@ extension NavigationReminderList: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
-        try c.encode(self.isSettings != nil, forKey: .settings)
+        try c.encode(self.isSettings, forKey: .settings)
         try c.encode(self.isWatering, forKey: .watering)
         try c.encode(self.isSummary, forKey: .summary)
         try c.encode(self.isReminderEdit, forKey: .reminderEdit)
@@ -46,7 +46,7 @@ extension NavigationReminderList: Codable {
 
     public init(from decoder: Decoder) throws {
         let d = try decoder.container(keyedBy: CodingKeys.self)
-        self.isSettings     = try  d.decode(Bool.self, forKey: .settings) ? () : nil
+        self.isSettings     = (try?  d.decode(Bool.self, forKey: .settings)) ?? false
         self.isWatering     = try? d.decode(WateringInput.self, forKey: .watering)
         self.isSummary      = try? d.decode(ReminderAndVesselInput.self, forKey: .summary)
         self.isReminderEdit = try? d.decode(ReminderInput.self, forKey: .reminderEdit)

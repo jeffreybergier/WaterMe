@@ -44,4 +44,5 @@ internal struct Action {
     internal static let pauseNotifications: LocalizationKey = "Action.Pause Notifications"
     internal static let pause: LocalizationKey = "Action.Pause"
     internal static let openSettings: LocalizationKey = "Action.Open Settings"
+    internal static let settings: LocalizationKey = "Action.Settings"
 }

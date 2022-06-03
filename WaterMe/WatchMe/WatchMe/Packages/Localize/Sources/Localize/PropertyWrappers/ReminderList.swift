@@ -28,6 +28,7 @@ public struct ReminderList: DynamicProperty {
     public struct Value {
         public var title: LocalizationKey = Label.appTitle
         public var buttonAdd: LocalizationKey = Action.addPlant
+        public var buttonSettings: LocalizationKey = Action.settings
         public var subsectionPlaceholderName: LocalizationKey = Label.myPlant
     }
 

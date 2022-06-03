@@ -37,14 +37,14 @@ public struct NavigationGeneric: NavigationProtocol {
 
 public struct NavigationReminderList: NavigationProtocol {
     public var isError: UserFacingError?
-    public var isSettings: Void?
+    public var isSettings: Bool = false
     public var isWatering: WateringInput?
     public var isSummary: ReminderAndVesselInput?
     public var isReminderEdit: ReminderInput?
     public var isVesselEdit: VesselInput?
     @discardableResult public mutating func append(_ error: UserFacingError) -> UserFacingError? {
         if self.isError != nil { return error }
-        if self.isSettings != nil { return error }
+        if self.isSettings == true { return error }
         if self.isWatering != nil { return error }
         if self.isSummary != nil { return error }
         if self.isReminderEdit != nil { return error }
