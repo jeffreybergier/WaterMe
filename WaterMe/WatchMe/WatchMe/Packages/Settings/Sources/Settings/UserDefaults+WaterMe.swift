@@ -86,11 +86,11 @@ extension UserDefaults {
         }
     }
 
-    public var darkMode: DarkMode {
+    public var darkMode: DarkModeOverride {
         get {
             guard let number = self.object(forKey: Constants.kDarkMode) as? NSNumber
                 else { fatalError("Must call configure() before accessing user defaults") }
-            return DarkMode(rawValue: number.intValue) ?? .system
+            return .init(rawValue: number.intValue) ?? .system
         }
         set {
             self.set(NSNumber(value: newValue.rawValue), forKey: Constants.kDarkMode)

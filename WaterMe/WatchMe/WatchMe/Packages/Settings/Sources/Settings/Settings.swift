@@ -20,22 +20,125 @@
 
 import SwiftUI
 
-//internal static let kFirstRun = "FIRST_RUN"
-//internal static let kCloudSync = "CLOUD_SYNC"
-//internal static let kCloudSyncInfoShown = "CLOUD_SYNC_INFO_SHOWN"
-//internal static let kReminderHour = "REMINDER_HOUR"
-//internal static let kNumberOfReminderDays = "NUMBER_OF_REMINDER_DAYS"
-//internal static let kIncreaseContrast = "INCREASE_CONTRAST"
-//internal static let kDarkMode = "DARK_MODE"
-//internal static let kBuildNumberKey = "LAST_BUILD_NUMBER"
-//internal static let kRequestReviewDate = "REQUEST_REVIEW_DATE"
-//internal static let kCheckForUpdatesOnLaunch = "CHECK_FOR_UPDATES"
-//// Make sure this stays in sync with BasicWrappers.swift file
-//internal static let kDidRunWithoutCloudSync = "DID_RUN_WITHOUT_CLOUD_SYNC"
+public var store = UserDefaults.standard
 
 @propertyWrapper
 public struct FirstRun: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kFirstRun) private var value: Bool = false
+    @AppStorage(UserDefaults.Constants.kFirstRun, store: store)
+    private var value = true
+    public init() {}
+    public var wrappedValue: Bool {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Bool> {
+        self.$value
+    }
+}
+
+@propertyWrapper
+public struct CloudSync: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kCloudSync, store: store)
+    private var value = true
+    public init() {}
+    public var wrappedValue: ControllerKind {
+        get { .init(rawValue: self.value) }
+        nonmutating set { self.value = newValue.rawValue }
+    }
+    public var projectedValue: Binding<ControllerKind> {
+        Binding { self.wrappedValue } set: { self.wrappedValue = $0 }
+    }
+}
+
+@propertyWrapper
+public struct CloudSyncInfoHasShown: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kCloudSyncInfoShown, store: store)
+    private var value = true
+    public init() {}
+    public var wrappedValue: Bool {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Bool> {
+        self.$value
+    }
+}
+
+@propertyWrapper
+public struct ReminderHour: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kReminderHour, store: store)
+    private var value = 8
+    public init() {}
+    public var wrappedValue: Int {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Int> {
+        self.$value
+    }
+}
+
+@propertyWrapper
+public struct ReminderDaysCount: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kNumberOfReminderDays, store: store)
+    private var value = 14
+    public init() {}
+    public var wrappedValue: Int {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Int> {
+        self.$value
+    }
+}
+
+@propertyWrapper
+public struct IncreaseContrast: DynamicProperty {
+    @Environment(\.colorSchemeContrast) private var contrast
+    @AppStorage(UserDefaults.Constants.kIncreaseContrast, store: store)
+    private var value = false
+    public init() {}
+    public var wrappedValue: Bool {
+        get { self.contrast == .increased ? true : self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Bool> {
+        Binding { self.wrappedValue } set: { self.wrappedValue = $0 }
+    }
+}
+
+@propertyWrapper
+public struct DarkMode: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kDarkMode, store: store)
+    private var value = 0
+    public init() {}
+    public var wrappedValue: DarkModeOverride {
+        get { .init(rawValue: self.value) ?? .system }
+        nonmutating set { self.value = newValue.rawValue }
+    }
+    public var projectedValue: Binding<DarkModeOverride> {
+        Binding { self.wrappedValue } set: { self.wrappedValue = $0 }
+    }
+}
+
+@propertyWrapper
+public struct CheckForUpdatesOnLaunch: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kCheckForUpdatesOnLaunch, store: store)
+    private var value = true
+    public init() {}
+    public var wrappedValue: Bool {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Bool> {
+        self.$value
+    }
+}
+
+@propertyWrapper
+public struct DidRunWithoutCloudSync: DynamicProperty {
+    @AppStorage(UserDefaults.Constants.kDidRunWithoutCloudSync, store: store)
+    private var value = true
     public init() {}
     public var wrappedValue: Bool {
         get { self.value }
