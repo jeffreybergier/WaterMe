@@ -21,39 +21,15 @@
 import Settings
 import Umbrella
 
-extension Days {
+extension DarkMode {
     internal var localized: LocalizationKey {
         switch self {
-        case .days7:
-            return Label.days7
-        case .days8:
-            return Label.days8
-        case .days9:
-            return Label.days9
-        case .days10:
-            return Label.days10
-        case .days11:
-            return Label.days11
-        case .days12:
-            return Label.days12
-        case .days13:
-            return Label.days13
-        case .days14:
-            return Label.days14
-        case .days15:
-            return Label.days15
-        case .days16:
-            return Label.days16
-        case .days17:
-            return Label.days17
-        case .days18:
-            return Label.days18
-        case .days19:
-            return Label.days19
-        case .days20:
-            return Label.days20
-        case .days21:
-            return Label.days21
+        case .system:
+            return Label.changeWithSystem
+        case .forceLight:
+            return Label.alwaysLight
+        case .forceDark:
+            return Label.alwaysDark
         }
     }
 }

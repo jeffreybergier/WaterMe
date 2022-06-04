@@ -21,7 +21,7 @@
 import Settings
 import Umbrella
 
-extension Hours {
+extension ReminderHours {
     internal var localized: LocalizationKey {
         switch self {
         case .hour4:

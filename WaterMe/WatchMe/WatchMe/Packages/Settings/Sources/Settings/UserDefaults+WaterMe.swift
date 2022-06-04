@@ -86,7 +86,7 @@ extension UserDefaults {
         }
     }
 
-    public var darkMode: DarkModeOverride {
+    public var darkMode: DarkMode {
         get {
             guard let number = self.object(forKey: Constants.kDarkMode) as? NSNumber
                 else { fatalError("Must call configure() before accessing user defaults") }
@@ -141,25 +141,25 @@ extension UserDefaults {
         }
     }
 
-    public var reminderHour: Int {
+    public var reminderHour: ReminderHours {
         get {
             guard let number = self.object(forKey: Constants.kReminderHour) as? NSNumber
                 else { fatalError("Must call configure() before accessing user defaults") }
-            return number.intValue
+            return .init(rawValue: number.intValue) ?? .default
         }
         set {
-            self.set(NSNumber(value: newValue), forKey: Constants.kReminderHour)
+            self.set(NSNumber(value: newValue.rawValue), forKey: Constants.kReminderHour)
         }
     }
 
-    public var reminderDays: Int {
+    public var reminderDays: ReminderDays {
         get {
             guard let number = self.object(forKey: Constants.kNumberOfReminderDays) as? NSNumber
                 else { fatalError("Must call configure() before accessing user defaults") }
-            return number.intValue
+            return .init(rawValue: number.intValue) ?? .default
         }
         set {
-            self.set(NSNumber(value: newValue), forKey: Constants.kNumberOfReminderDays)
+            self.set(NSNumber(value: newValue.rawValue), forKey: Constants.kNumberOfReminderDays)
         }
     }
 

@@ -23,16 +23,16 @@ import CoreData
 import UIKit
 #endif
 
-public enum Days: Int, CaseIterable, Identifiable {
+public enum ReminderDays: Int, CaseIterable, Identifiable {
     public var id: Int { self.rawValue }
-    public static let `default`: Days = .days14
+    public static let `default`: ReminderDays = .days14
     case days7 = 7, days8, days9, days10, days11, days12, days13, days14,
          days15, days16, days17, days18, days19, days20, days21
 }
 
-public enum Hours: Int, CaseIterable, Identifiable {
+public enum ReminderHours: Int, CaseIterable, Identifiable {
     public var id: Int { self.rawValue }
-    public static let `default`: Hours = .hour8
+    public static let `default`: ReminderHours = .hour8
     case hour4 = 4, hour5, hour6, hour7, hour8, hour9, hour10, hour11, hour12,
          hour13, hour14, hour15, hour16, hour17, hour18, hour19, hour20,
          hour21, hour22, hour23
@@ -61,7 +61,7 @@ public enum ControllerKind: RawRepresentable {
     }
 }
 
-public enum DarkModeOverride: Int, CaseIterable, Identifiable {
+public enum DarkMode: Int, CaseIterable, Identifiable {
     public var id: Int { self.rawValue }
     case system = 0
     case forceLight = 1

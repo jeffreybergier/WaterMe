@@ -45,15 +45,15 @@ public struct Settings: DynamicProperty {
         self.bundle.localized(key: Value()[keyPath: $0])
     }}
 
-    public func hours(_ input: Hours) -> LocalizedString {
+    public func hours(_ input: ReminderHours) -> LocalizedString {
         self.bundle.localized(key: input.localized)
     }
 
-    public func days(_ input: Days) -> LocalizedString {
+    public func days(_ input: ReminderDays) -> LocalizedString {
         self.bundle.localized(key: input.localized)
     }
 
-    public func darkMode(_ input: DarkModeOverride) -> LocalizedString {
+    public func darkMode(_ input: DarkMode) -> LocalizedString {
         self.bundle.localized(key: input.localized)
     }
 }

@@ -27,20 +27,20 @@ internal struct Settings: View {
     @Localize.Settings private var loc
     @Environment(\.dismiss) private var dismiss
 
-    @ReminderHour private var reminderHour
-    @ReminderDaysCount private var reminderDays
-    @CloudSync private var cloudSync
+    @ReminderHourProp private var reminderHour
+    @ReminderDaysProp private var reminderDays
+    @ControllerKindProp private var controllerKind
     @AskForNotifications private var askForNotifications
     @CheckForUpdatesOnLaunch private var checkForUpdates
     @IncreaseContrast private var increaseContrast
-    @DarkMode private var darkMode
+    @DarkModeProp private var darkMode
 
     internal var body: some View {
         NavigationView {
             Form {
                 // Reminder Hour
                 Picker(selection: self.$reminderHour) {
-                    ForEach(Hours.allCases) {
+                    ForEach(ReminderHours.allCases) {
                         Text(self._loc.hours($0)).tag($0)
                     }
                 } label: {
@@ -48,14 +48,14 @@ internal struct Settings: View {
                 }
                 // Reminder Days
                 Picker(selection: self.$reminderDays) {
-                    ForEach(Days.allCases) {
+                    ForEach(ReminderDays.allCases) {
                         Text(self._loc.days($0)).tag($0)
                     }
                 } label: {
                     Text(self.loc(\.labelReminderDays))
                 }
                 // Cloud Sync
-                Toggle(isOn: self.$cloudSync) {
+                Toggle(isOn: self._controllerKind.raw) {
                     Text(self.loc(\.labelCloudSync))
                 }
                 // Ask for notifications
@@ -72,7 +72,7 @@ internal struct Settings: View {
                 }
                 // Dark Mode
                 Picker(selection: self.$darkMode) {
-                    ForEach(DarkModeOverride.allCases) {
+                    ForEach(DarkMode.allCases) {
                         Text(self._loc.darkMode($0)).tag($0)
 
                     }

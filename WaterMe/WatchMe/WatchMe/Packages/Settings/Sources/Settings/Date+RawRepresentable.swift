@@ -18,18 +18,15 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Settings
-import Umbrella
+import Foundation
 
-extension DarkModeOverride {
-    internal var localized: LocalizationKey {
-        switch self {
-        case .system:
-            return Label.changeWithSystem
-        case .forceLight:
-            return Label.alwaysLight
-        case .forceDark:
-            return Label.alwaysDark
-        }
+extension Date: RawRepresentable {
+    private static let formatter = ISO8601DateFormatter()
+    public var rawValue: String {
+        type(of: self).formatter.string(from: self)
+    }
+    public init?(rawValue: String) {
+        guard let date = Self.formatter.date(from: rawValue) else { return nil }
+        self = date
     }
 }
