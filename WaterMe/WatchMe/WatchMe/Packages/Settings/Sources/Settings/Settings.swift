@@ -73,9 +73,9 @@ public struct ReminderHour: DynamicProperty {
     @AppStorage(UserDefaults.Constants.kReminderHour, store: store)
     private var value = 8
     public init() {}
-    public var wrappedValue: Int {
-        get { self.value }
-        nonmutating set { self.value = newValue }
+    public var wrappedValue: Hours {
+        get { .init(rawValue: self.value) ?? .default }
+        nonmutating set { self.value = newValue.rawValue }
     }
     public var projectedValue: Binding<Int> {
         self.$value
@@ -87,9 +87,9 @@ public struct ReminderDaysCount: DynamicProperty {
     @AppStorage(UserDefaults.Constants.kNumberOfReminderDays, store: store)
     private var value = 14
     public init() {}
-    public var wrappedValue: Int {
-        get { self.value }
-        nonmutating set { self.value = newValue }
+    public var wrappedValue: Days {
+        get { .init(rawValue: self.value) ?? .default }
+        nonmutating set { self.value = newValue.rawValue }
     }
     public var projectedValue: Binding<Int> {
         self.$value

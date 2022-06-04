@@ -19,10 +19,12 @@
 //
 
 import SwiftUI
+import Localize
 import Settings
 
 internal struct Settings: View {
 
+    @Localize.Settings private var loc
     @Environment(\.dismiss) private var dismiss
 
     @ReminderHour private var reminderHour
@@ -38,52 +40,47 @@ internal struct Settings: View {
             Form {
                 // Reminder Hour
                 Picker(selection: self.$reminderHour) {
-                    ForEach(4..<24) {
-                        Text("\($0)").tag($0)
+                    ForEach(Hours.allCases) {
+                        Text(self._loc.hours($0)).tag($0)
                     }
                 } label: {
-                    Text("Remind at")
+                    Text(self.loc(\.labelReminderHour))
                 }
                 // Reminder Days
                 Picker(selection: self.$reminderDays) {
-                    ForEach(7..<22) {
-                        Text("\($0) days").tag($0)
+                    ForEach(Days.allCases) {
+                        Text(self._loc.days($0)).tag($0)
                     }
                 } label: {
-                    Text("Remind for")
+                    Text(self.loc(\.labelReminderDays))
                 }
                 // Cloud Sync
                 Toggle(isOn: self.$cloudSync) {
-                    Text("Sync via iCloud")
+                    Text(self.loc(\.labelCloudSync))
                 }
                 // Ask for notifications
                 Toggle(isOn: self.$askForNotifications) {
-                    Text("Ask for Notifications")
+                    Text(self.loc(\.labelAskForNotifications))
                 }
                 // Check for Updates
                 Toggle(isOn: self.$checkForUpdates) {
-                    Text("Check for Updates")
+                    Text(self.loc(\.labelCheckForUpdates))
                 }
                 // Reduce Pink / Increase Contrast
                 Toggle(isOn: self.$increaseContrast) {
-                    Text("Reduce Pink")
+                    Text(self.loc(\.labelIncreaseContrast))
                 }
                 // Dark Mode
                 Picker(selection: self.$darkMode) {
                     ForEach(DarkModeOverride.allCases) {
-                        switch $0 {
-                        case .system:
-                            Text("System").tag($0)
-                        case .forceLight:
-                            Text("Always Light").tag($0)
-                        case .forceDark:
-                            Text("Always Dark").tag($0)
-                        }
+                        Text(self._loc.darkMode($0)).tag($0)
+
                     }
                 } label: {
-                    Text("Dark Mode")
+                    Text(self.loc(\.labelDarkMode))
                 }
             }
+            .navigationTitle(self.loc(\.title))
             .modifier(XPDoneToolbar { self.dismiss() })
         }
     }

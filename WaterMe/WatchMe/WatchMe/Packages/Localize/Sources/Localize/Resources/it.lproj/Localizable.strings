@@ -153,6 +153,79 @@ other static items in the UI
 /* Displayed when there was an error while saving something */
 "Label.Error Saving" = "Errore di salvataggio";
 
+/* Displayed when the user is on the Settings screen. */
+"Label.Settings" = "Impostazini";
+
+/* Title of the setting that allows the user to change whether WaterMe checks the app store for application updates. */
+"Label.Check for Updates" = "Controlla gli aggiornamenti";
+
+/* Title of the setting that allows the user to change how many days they get reminded for */
+"Label.Remind for" = "Ricorda per";
+
+/* Hour values for that notification setting */
+"Label.7 Days" = "7 Giorni";
+"Label.8 Days" = "8 Giorni";
+"Label.9 Days" = "9 Giorni";
+"Label.10 Days" = "10 Giorni";
+"Label.11 Days" = "11 Giorni";
+"Label.12 Days" = "12 Giorni";
+"Label.13 Days" = "13 Giorni";
+"Label.14 Days" = "14 Giorni";
+"Label.15 Days" = "15 Giorni";
+"Label.16 Days" = "16 Giorni";
+"Label.17 Days" = "17 Giorni";
+"Label.18 Days" = "18 Giorni";
+"Label.19 Days" = "19 Giorni";
+"Label.20 Days" = "20 Giorni";
+"Label.21 Days" = "21 Giorni";
+
+/* Title of the setting that allows the user to set which hour in the day they want notifications to trigger */
+"Label.Remind at" = "Ricordare alle";
+
+/* Hour values for that notification setting */
+"Label.4 am" = "4 am";
+"Label.5 am" = "5 am";
+"Label.6 am" = "6 am";
+"Label.7 am" = "7 am";
+"Label.8 am" = "8 am";
+"Label.9 am" = "9 am";
+"Label.10 am" = "10 am";
+"Label.11 am" = "11 am";
+"Label.Noon" = "Mezzogiorno";
+"Label.1 pm" = "1 pm";
+"Label.2 pm" = "2 pm";
+"Label.3 pm" = "3 pm";
+"Label.4 pm" = "4 pm";
+"Label.5 pm" = "5 pm";
+"Label.6 pm" = "6 pm";
+"Label.7 pm" = "7 pm";
+"Label.8 pm" = "8 pm";
+"Label.9 pm" = "9 pm";
+"Label.10 pm" = "10 pm";
+"Label.11 pm" = "11 pm";
+
+/* Enable and disable iCloud syncing */
+"Label.Sync via iCloud" = "Sincronizzazione di iCloud";
+
+/* text that informs the user that notifications should be enabled. If on and notifications permissions are disabled, then the app will tell the user that we can't send notifications. If off, the app won't tell users that nofications won't work */
+"Label.Ask for Notifications" = "Richiedi le notifiche";
+
+/* text that informs the user they can reduce the amount of pink color in the app */
+"Label.Increase Contrast" = "Riduci Rosa";
+
+/* dark mode setting name */
+"Label.Dark Mode" = "Dark Mode";
+
+/* dark mode use system setting */
+"Label.Change with System" = "Cambia con il sistema";
+
+/* dark mode force light mode setting */
+"Label.Always Light" = "Sempre Chiaro";
+
+/* dark mode force dark mode setting */
+"Label.Always Dark" = "Sempre Scuro";
+
+
 /*
  
               _   _
