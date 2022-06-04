@@ -46,7 +46,8 @@ public enum ControllerKind: RawRepresentable {
     }
 }
 
-public enum DarkModeOverride: Int {
+public enum DarkModeOverride: Int, CaseIterable, Identifiable {
+    public var id: Int { self.rawValue }
     case system = 0
     case forceLight = 1
     case forceDark = 2

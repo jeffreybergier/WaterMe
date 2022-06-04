@@ -23,7 +23,7 @@ import SwiftUI
 public var store = UserDefaults.standard
 
 @propertyWrapper
-public struct FirstRun: DynamicProperty {
+public struct AskForNotifications: DynamicProperty {
     @AppStorage(UserDefaults.Constants.kFirstRun, store: store)
     private var value = true
     public init() {}
@@ -45,8 +45,12 @@ public struct CloudSync: DynamicProperty {
         get { .init(rawValue: self.value) }
         nonmutating set { self.value = newValue.rawValue }
     }
-    public var projectedValue: Binding<ControllerKind> {
-        Binding { self.wrappedValue } set: { self.wrappedValue = $0 }
+    public var projectedValue: Binding<Bool> {
+        Binding {
+            self.wrappedValue.rawValue
+        } set: {
+            self.wrappedValue = .init(rawValue: $0)
+        }
     }
 }
 

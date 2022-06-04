@@ -19,15 +19,72 @@
 //
 
 import SwiftUI
+import Settings
 
 internal struct Settings: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    @ReminderHour private var reminderHour
+    @ReminderDaysCount private var reminderDays
+    @CloudSync private var cloudSync
+    @AskForNotifications private var askForNotifications
+    @CheckForUpdatesOnLaunch private var checkForUpdates
+    @IncreaseContrast private var increaseContrast
+    @DarkMode private var darkMode
+
     internal var body: some View {
         NavigationView {
-            Color.red
-                .modifier(XPDoneToolbar { self.dismiss() })
+            Form {
+                // Reminder Hour
+                Picker(selection: self.$reminderHour) {
+                    ForEach(4..<24) {
+                        Text("\($0)").tag($0)
+                    }
+                } label: {
+                    Text("Remind at")
+                }
+                // Reminder Days
+                Picker(selection: self.$reminderDays) {
+                    ForEach(7..<22) {
+                        Text("\($0) days").tag($0)
+                    }
+                } label: {
+                    Text("Remind for")
+                }
+                // Cloud Sync
+                Toggle(isOn: self.$cloudSync) {
+                    Text("Sync via iCloud")
+                }
+                // Ask for notifications
+                Toggle(isOn: self.$askForNotifications) {
+                    Text("Ask for Notifications")
+                }
+                // Check for Updates
+                Toggle(isOn: self.$checkForUpdates) {
+                    Text("Check for Updates")
+                }
+                // Reduce Pink / Increase Contrast
+                Toggle(isOn: self.$increaseContrast) {
+                    Text("Reduce Pink")
+                }
+                // Dark Mode
+                Picker(selection: self.$darkMode) {
+                    ForEach(DarkModeOverride.allCases) {
+                        switch $0 {
+                        case .system:
+                            Text("System").tag($0)
+                        case .forceLight:
+                            Text("Always Light").tag($0)
+                        case .forceDark:
+                            Text("Always Dark").tag($0)
+                        }
+                    }
+                } label: {
+                    Text("Dark Mode")
+                }
+            }
+            .modifier(XPDoneToolbar { self.dismiss() })
         }
     }
 }
