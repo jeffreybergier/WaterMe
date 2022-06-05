@@ -51,8 +51,11 @@ public struct Interface: View {
 
     public var body: some View {
         self._body
+            .modifier(RespectDarkMode())
             .onChange(of: self.controllerKind) { _ in
-                // TODO: This crashes on WatchOS
+                // TODO: Crashes
+                // *** Terminating app due to uncaught exception 'NSInvalidArgumentException',
+                // reason: 'executeFetchRequest:error: A fetch request must have an entity.'
                 self.resetController()
             }
             .onAppear {

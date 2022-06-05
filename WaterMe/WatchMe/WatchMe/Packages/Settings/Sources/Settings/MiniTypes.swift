@@ -19,6 +19,7 @@
 //
 
 import CoreData
+import SwiftUI
 #if canImport(UIKit)
 import UIKit
 #endif
@@ -66,6 +67,16 @@ public enum DarkMode: Int, CaseIterable, Identifiable {
     case system = 0
     case forceLight = 1
     case forceDark = 2
+    public var schemeValue: ColorScheme? {
+        switch self {
+        case .system:
+            return nil
+        case .forceLight:
+            return .light
+        case .forceDark:
+            return .dark
+        }
+    }
 }
 
 internal var isDarkerSystemColorsEnabled: Bool {
@@ -74,4 +85,13 @@ internal var isDarkerSystemColorsEnabled: Bool {
     #else
     return false
     #endif
+}
+
+public struct RespectDarkMode: ViewModifier {
+    @DarkModeProp private var darkMode
+    public init() {}
+    public func body(content: Content) -> some View {
+        content
+            .preferredColorScheme(self.darkMode.schemeValue)
+    }
 }
