@@ -38,7 +38,7 @@ public enum ReminderHours: Int, CaseIterable, Identifiable {
          hour21, hour22, hour23
 }
 
-public enum ControllerKind: RawRepresentable {
+public enum ControllerKind: RawRepresentable, Equatable {
 
     case local
     case sync

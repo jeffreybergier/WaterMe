@@ -99,8 +99,6 @@ internal class CD_Controller: Controller {
         self.kind = kind
         self.container = container
 
-        // Configure maintenance monitor
-        self.maintenance_changeToken = self.maintenance_changeMonitor()
         if case .local = self.kind {
             UserDefaults.standard.didRunWithoutCloudSync = true
         }
@@ -142,7 +140,6 @@ internal class CD_Controller: Controller {
         #endif
     }
 
-    private var maintenance_changeToken: NSObjectProtocol?
     private var maintenance_syncToken: AnyCancellable?
 
     internal let container: NSPersistentContainer
@@ -356,26 +353,15 @@ internal class CD_Controller: Controller {
         cd.raw_iconImageData   = newValue.icon?.dataValue
         return self.container.viewContext.waterme_save()
     }
+
+    deinit {
+        log.verbose()
+    }
 }
 
 // MARK: Maintenance
 
 extension CD_Controller {
-    fileprivate func maintenance_changeMonitor() -> NSObjectProtocol {
-        return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextWillSave,
-                                                      object: nil,
-                                                      queue: nil)
-        { [weak self] notification in
-            guard
-                let context = notification.object as? NSManagedObjectContext,
-                let self = self
-            else {
-                assertionFailure("Core Data Dates Not Updated")
-                return
-            }
-            // TODO: Do any change processing if needed
-        }
-    }
 
     fileprivate func maintenance_massageAllEntries() -> Result<Void, Error> {
         guard UserDefaults.standard.didRunWithoutCloudSync else {
