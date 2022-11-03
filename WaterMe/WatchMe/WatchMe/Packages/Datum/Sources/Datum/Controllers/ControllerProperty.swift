@@ -21,31 +21,32 @@
 import SwiftUI
 import ServerlessLogger
 import Umbrella
+import Settings
 
 @propertyWrapper
 public struct ControllerProperty: DynamicProperty {
-    
+
     public typealias Environment = BlackBox<Controller?>
-    
-    public static func newEnvironment(of kind: ControllerKind) -> (Environment, Error?) {
+
+    public static func newEnvironment(of kind: ControllerKind) -> Result<Controller, Error> {
         do {
             let controller = try CD_Controller(kind: kind)
-            return (BlackBox(controller, isObservingValue: false), nil)
+            return .success(controller)
         } catch {
             error.log(as: .emergency)
-            return (BlackBox(nil, isObservingValue: false), .load)
+            return .failure(.load)
         }
     }
-    
+
     @EnvironmentObject private var controller: BlackBox<Controller?>
     internal var cdController: CD_Controller {
         return self.controller.value as! CD_Controller
     }
-    
+
     public init() { }
-    
+
     public var wrappedValue: Controller {
         self.controller.value!
     }
-    
+
 }

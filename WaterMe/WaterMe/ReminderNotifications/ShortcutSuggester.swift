@@ -21,7 +21,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Datum
+import DatumL
 import Intents
 import Calculate
 
@@ -46,7 +46,7 @@ class ShortcutSuggester: ShortcutSuggesterProtocol {
                 NSUserActivity.uniqueString(for: .viewReminder,
                                             and: [reminder.uuid]),
                 NSUserActivity.uniqueString(for: .performReminder,
-                                            and: [reminder.uuid])
+                                            and: [reminder.uuid]),
             ]
         }
         NSUserActivity.deleteSavedUserActivities(withPersistentIdentifiers: ids,

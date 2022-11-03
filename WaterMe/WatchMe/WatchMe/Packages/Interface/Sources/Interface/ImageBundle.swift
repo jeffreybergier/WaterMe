@@ -24,16 +24,16 @@ import Umbrella
 import Model
 
 internal class ImageBundle: EnvironmentBundleProtocol {
-    
+
     internal let bundle: Bundle = Bundle.module
-    
+
     internal var camera: Image { self.image(named: Raw.camera)! }
     internal var reminderPaused: Image { Image(systemName: Raw.speakerZ) }
     internal var videoPortrait: URL { self.url(name: Raw.wateringPortrait, extension: "mov")! }
     internal var videoLandscape: URL { self.url(name: Raw.wateringLandscape, extension: "mov")! }
-    
+
     internal init() {}
-    
+
     internal func `for`(_ kind: Model.ReminderKind) -> Image {
         switch kind {
         case .water:

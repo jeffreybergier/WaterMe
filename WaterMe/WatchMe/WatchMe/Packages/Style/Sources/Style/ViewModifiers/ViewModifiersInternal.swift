@@ -21,24 +21,24 @@
 import SwiftUI
 
 public struct PaddingModifier: ViewModifier {
-    
+
     internal var padding: SizePadding
     internal var size: Size
-    
+
     public func body(content: Content) -> some View {
         content
             .padding(self.padding[self.size].0,
                      self.padding[self.size].1)
     }
-    
+
 }
 
 public struct TextModifier: ViewModifier {
-    
+
     internal var color: ThemeColor
     internal var font: Font
     internal var theme: Theme
-    
+
     public func body(content: Content) -> some View {
         content
             .font(self.font)
@@ -47,12 +47,12 @@ public struct TextModifier: ViewModifier {
 }
 
 public struct ColorModifier: ViewModifier {
-    
+
     internal var tint: ThemeColor?
     internal var foreground: ThemeColor?
     internal var background: ThemeColor?
     internal var theme: Theme
-    
+
     public func body(content: Content) -> some View {
         content
             .tint(self.tint?[self.theme])
@@ -62,13 +62,13 @@ public struct ColorModifier: ViewModifier {
 }
 
 public struct CircleModifier: ViewModifier {
-    
+
     internal var radius: SizePoint
     internal var stroke: SizePoint
     internal var color: ThemeColor
     internal var theme: Theme
     internal var size: Size
-    
+
     public func body(content: Content) -> some View {
         content
             .frame(width: self.radius[self.size],
@@ -83,11 +83,11 @@ public struct CircleModifier: ViewModifier {
 }
 
 public struct HeaderModifier: ViewModifier {
-    
+
     internal var theme: Theme
     internal var size: Size
     @Environment(\.sectionNumber) private var section
-    
+
     public func body(content: Content) -> some View {
         ZStack(alignment: .bottomLeading) {
             XPVisualEffectView(
@@ -107,7 +107,7 @@ public struct HeaderModifier: ViewModifier {
 }
 
 public struct PopoverSizeModifier: ViewModifier {
-    
+
     internal var size: CGSize
     // TODO: HACK workaround where this was breaking display in WatchOS
     internal var _size: CGSize? {
@@ -117,7 +117,7 @@ public struct PopoverSizeModifier: ViewModifier {
         return self.size
         #endif
     }
-    
+
     public func body(content: Content) -> some View {
         content
             .frame(minWidth: _size?.width, minHeight: _size?.height)
@@ -125,10 +125,10 @@ public struct PopoverSizeModifier: ViewModifier {
 }
 
 public struct MinHeightModifier: ViewModifier {
-    
+
     internal var size: Size
     internal var height: SizePoint
-    
+
     public func body(content: Content) -> some View {
         content
             .frame(minHeight: self.height[self.size], alignment: .topLeading)
@@ -136,10 +136,10 @@ public struct MinHeightModifier: ViewModifier {
 }
 
 public struct MaxHeightModifier: ViewModifier {
-    
+
     internal var size: Size
     internal var height: SizePoint
-    
+
     public func body(content: Content) -> some View {
         content
             .frame(maxHeight: self.height[self.size], alignment: .topLeading)

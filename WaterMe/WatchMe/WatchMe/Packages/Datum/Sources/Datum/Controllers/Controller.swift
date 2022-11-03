@@ -19,10 +19,13 @@
 //
 
 import CoreData
+import Umbrella
+import Settings
 import Model
 
 public protocol Controller {
     var kind: ControllerKind { get }
+    var syncProgress: CloudKitContainerContinuousProgress? { get }
     // HACK: Needed so the context can be placed into the SwiftUI environment
     var __ENVONLY__managedObjectContext: NSManagedObjectContext { get }
     func newVessel() -> Result<Vessel.アイディ, Error>
@@ -30,27 +33,4 @@ public protocol Controller {
     func appendNewPerformToReminders(with ids: [Reminder.アイディ]) -> Result<Void, Error>
     func delete(_: Vessel.アイディ) -> Result<Void, Error>
     func delete(_: Reminder.アイディ) -> Result<Void, Error>
-}
-
-public enum ControllerKind: RawRepresentable {
-
-    case local
-    case sync
-    case __testing_inMemory
-    case __testing_withClass(NSPersistentContainer.Type)
-
-    public var rawValue: Bool {
-        switch self {
-        case .local:
-            return false
-        case .sync:
-            return true
-        case .__testing_inMemory, .__testing_withClass:
-            fatalError("RawValue unsupported while testing")
-        }
-    }
-
-    public init(rawValue: Bool) {
-        self = rawValue ? .sync : .local
-    }
 }

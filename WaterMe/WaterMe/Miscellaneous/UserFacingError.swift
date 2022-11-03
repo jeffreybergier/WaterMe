@@ -22,7 +22,7 @@
 //
 
 import Calculate
-import Datum
+import DatumL
 
 extension DatumError: UserFacingError {
 

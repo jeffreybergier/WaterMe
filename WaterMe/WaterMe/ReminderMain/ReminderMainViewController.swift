@@ -21,7 +21,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Datum
+import DatumL
 import UIKit
 
 // swiftlint:disable file_length
@@ -85,7 +85,7 @@ class ReminderMainViewController: StandardViewController, HasProController, HasB
             self.toolbarItems = [
                 UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                 UIBarButtonItem(customView: progressView),
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             ]
         }
 

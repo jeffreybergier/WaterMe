@@ -27,11 +27,11 @@ import Style
 import Localize
 
 internal struct ReminderList: View {
-    
+
     internal struct Presentation: ViewModifier {
-        
+
         @NavReminderList private var nav
-        
+
         internal func body(content: Content) -> some View {
             content
                 .modifier(Alert(self.$nav.isError))
@@ -51,9 +51,12 @@ internal struct ReminderList: View {
                     VesselEdit(id: input.id)
                         .modifier(VesselEdit.Presentation())
                 }
+                .sheet(isPresented: self.$nav.isSettings) {
+                    Settings()
+                }
         }
     }
-    
+
     @UFErrorQ private var errorQ
     @NavReminderList private var nav
     @Localize.ReminderList private var loc
@@ -68,6 +71,13 @@ internal struct ReminderList: View {
             .navigationTitle(self.loc(\.title))
             .modifier(ForceNavigationBarTitleDisplayModeInline())
             .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        self.nav.isSettings = true
+                    } label: {
+                        Text(self.loc(\.buttonSettings))
+                    }
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         switch self.controller.newVessel() {

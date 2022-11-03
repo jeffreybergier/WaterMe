@@ -27,7 +27,7 @@ import Errors
 import Localize
 
 struct VesselIconMenu: ViewModifier {
-    
+
     @Localize.VesselIcon private var text
     @NavVesselEdit private var nav
     @UFErrorQ private var errorQ
@@ -49,7 +49,7 @@ struct VesselIconMenu: ViewModifier {
             }
         )
     }
-    
+
     private func camera(_ input: VesselInput) -> Button<Text> {
         switch Permission.camera {
         case .allowed:
@@ -66,7 +66,7 @@ struct VesselIconMenu: ViewModifier {
                               label: { Text(self.text(\.buttonChooseCameraIssue)) }
         }
     }
-    
+
     private func library(_ input: VesselInput) -> Button<Text> {
         switch Permission.libraryImplicit {
         case true:

@@ -63,7 +63,7 @@ extension UIImage {
 
         // This is the rect that we've calculated out and this is what is actually used below
         let rect = CGRect(origin: .zero, size: newSize)
-        
+
         #if os(iOS)
         // Actually do the resizing to the rect using the ImageContext stuff
         let format = UIGraphicsImageRendererFormat()

@@ -26,19 +26,19 @@ public enum Size: CaseIterable {
 
 @propertyWrapper
 public struct SizeClass: DynamicProperty {
-    
+
     public struct Value {
         public var horizontal: Size
         public var vertical: Size
     }
-    
+
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var system_hClass
     @Environment(\.verticalSizeClass) private var system_vClass
     #endif
-    
+
     public init() {}
-    
+
     public var wrappedValue: Value {
         #if os(iOS)
         return .init(horizontal: .init(self.system_hClass),

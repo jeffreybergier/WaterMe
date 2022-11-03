@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1320"
+   LastUpgradeVersion = "1340"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7339DE45277DD537008B20DD"
-               BuildableName = "WaterMeW.app"
-               BlueprintName = "WatchMe WatchKit App"
-               ReferencedContainer = "container:WatchMe.xcodeproj">
+               BlueprintIdentifier = "73C3C8BF2840F6C30001BF37"
+               BuildableName = "WaterMe.app"
+               BlueprintName = "WatchMeApp"
+               ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7339DE41277DD537008B20DD"
-               BuildableName = "WaterMeW.app"
-               BlueprintName = "WatchMe"
-               ReferencedContainer = "container:WatchMe.xcodeproj">
+               BlueprintIdentifier = "50BB0F4F1EBFCDE500850FF4"
+               BuildableName = "WaterMe.app"
+               BlueprintName = "WaterMe"
+               ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -59,10 +59,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7339DE45277DD537008B20DD"
-            BuildableName = "WaterMeW.app"
-            BlueprintName = "WatchMe WatchKit App"
-            ReferencedContainer = "container:WatchMe.xcodeproj">
+            BlueprintIdentifier = "73C3C8BF2840F6C30001BF37"
+            BuildableName = "WaterMe.app"
+            BlueprintName = "WatchMeApp"
+            ReferencedContainer = "container:WaterMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -77,10 +77,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7339DE45277DD537008B20DD"
-            BuildableName = "WaterMeW.app"
-            BlueprintName = "WatchMe WatchKit App"
-            ReferencedContainer = "container:WatchMe.xcodeproj">
+            BlueprintIdentifier = "73C3C8BF2840F6C30001BF37"
+            BuildableName = "WaterMe.app"
+            BlueprintName = "WatchMeApp"
+            ReferencedContainer = "container:WaterMe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

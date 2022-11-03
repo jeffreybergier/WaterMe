@@ -29,15 +29,15 @@ internal enum Fonts {
     internal static let subsectionData: Font           = Raw.body
     internal static let reminderListItemTitle: Font    = Raw.headline
     internal static let reminderListItemSubtitle: Font = Raw.subheadline
-    internal static let vesselIconEmoji: SizeFont      = [.small:  Raw.emojiSmall,
+    internal static let vesselIconEmoji: SizeFont      = [.small: Raw.emojiSmall,
                                                           .medium: Raw.emojiMedium,
-                                                          .large:  Raw.emojiLarge]
-    internal static let reminderListGridHeader: Font   = Raw.headline
+                                                          .large: Raw.emojiLarge,]
+    internal static let reminderListGridHeader: Font = Raw.headline
     internal static let button: ButtonFont = [
-        .primary:     Raw.headline,
-        .normal:      Raw.body,
-        .cancel:      Raw.title3,
-        .destructive: Raw.headline
+        .primary: Raw.headline,
+        .normal: Raw.body,
+        .cancel: Raw.title3,
+        .destructive: Raw.headline,
     ]
 }
 

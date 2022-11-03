@@ -31,7 +31,7 @@ public enum CameraPermissionError: Int, CustomNSError, Codable {
     /// The user-info dictionary.
     public var errorUserInfo: [String: Any] {
         return [
-            NSUnderlyingErrorKey: String(reflecting: self)
+            NSUnderlyingErrorKey: String(reflecting: self),
         ]
     }
 
@@ -42,10 +42,10 @@ public enum CameraPermissionError: Int, CustomNSError, Codable {
 }
 
 extension CameraPermissionError: UserFacingError {
-    
+
     public var dismissTitle: String { Localize.CameraPermissionError.dismiss }
     public var isCritical: Bool { false }
-    
+
     public var title: String {
         switch self {
         case .cameraDenied, .cameraRestricted:
@@ -54,7 +54,7 @@ extension CameraPermissionError: UserFacingError {
             return Localize.CameraPermissionError.titleOther
         }
     }
-    
+
     public var message: String {
         switch self {
         case .cameraDenied:

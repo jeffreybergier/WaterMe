@@ -25,16 +25,16 @@ import Umbrella
 import Style
 
 internal struct ReminderKind: View {
-    
+
     internal let kind: Model.ReminderKind
     @Style.ReminderKind private var style
     @EnvironmentBundle<ImageBundle> private var image
-    
+
     internal init(kind: Model.ReminderKind, style: Style.ReminderKind? = nil) {
         _style = style ?? .init()
         self.kind = kind
     }
-    
+
     internal var body: some View {
         self.image.for(self.kind)
             .resizable()

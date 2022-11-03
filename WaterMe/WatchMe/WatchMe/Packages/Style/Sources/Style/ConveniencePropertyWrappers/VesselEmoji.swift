@@ -22,22 +22,22 @@ import SwiftUI
 
 @propertyWrapper
 public struct VesselEmoji: DynamicProperty, ConveniencePropertyWrapper {
-    
+
     public struct Value {
         public var columns: [GridItem]
     }
-    
+
     @SizeClass private var size
     private var sizeOverride: Size?
-    
+
     public init(size: Size? = nil, theme: Theme? = nil) {
         self.sizeOverride = size
     }
-    
+
     public var wrappedValue: Value {
         .init(columns: self.columns)
     }
-    
+
     private var columns: [GridItem] {
         switch self.sizeOverride ?? self.size.horizontal {
         case .small:

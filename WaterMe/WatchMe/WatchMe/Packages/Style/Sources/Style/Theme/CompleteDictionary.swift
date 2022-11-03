@@ -19,7 +19,7 @@
 //
 
 public struct CompleteDictionary<Key: Hashable & CaseIterable, Value>: ExpressibleByDictionaryLiteral {
-    private var data: [Key:Value] = [:]
+    private var data: [Key: Value] = [:]
     public init(_ input: (Key) -> Value) {
         for key in Key.allCases {
             self.data[key] = input(key)

@@ -23,7 +23,7 @@
 
 import XCTest
 import CoreData
-@testable import Datum
+@testable import DatumL
 
 class RealmToCoreDataMigratorBaseTests: XCTestCase {
 

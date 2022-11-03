@@ -228,7 +228,7 @@ class ReminderUserNotificationController {
     }
 }
 
-import Datum
+import DatumL
 
 extension ReminderUserNotificationController.LocalizedString {
     fileprivate static func localizedNotificationBody(from items: [String?]) -> String {

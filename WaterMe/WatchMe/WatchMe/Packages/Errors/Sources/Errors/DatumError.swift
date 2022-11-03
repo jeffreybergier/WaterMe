@@ -23,7 +23,7 @@ import Datum
 import Localize
 
 extension Datum.Error: UserFacingError {
-        
+
     public var title: String {
         switch self {
         case .load, .read, .objectMissing:
@@ -66,7 +66,7 @@ extension Datum.Error: UserFacingError {
         }
         return true
     }
-    
+
     public var options: [RecoveryOption] {
         if case .cannotDeleteLastReminder = self {
             return []

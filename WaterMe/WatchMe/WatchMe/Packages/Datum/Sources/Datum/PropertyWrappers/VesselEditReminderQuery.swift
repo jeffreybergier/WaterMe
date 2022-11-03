@@ -24,41 +24,41 @@ import Model
 
 @propertyWrapper
 public struct VesselEditReminderQuery: DynamicProperty {
-    
+
     @CDListQuery<CD_Reminder, Reminder, Error> private var data: AnyRandomAccessCollection<Reminder>
     @CDObjectQuery<CD_ReminderVessel, Vessel, Error> private var vessel: Vessel?
     @ControllerProperty private var controller
-    
+
     public init(id: Vessel.アイディ) {
         let url = URL(string: id.id)!
-        _vessel = .init(objectIDURL: url) { Vessel(cd:$0) }
+        _vessel = .init(objectIDURL: url) { Vessel(cd: $0) }
         _data = .init(predicate: NSPredicate(value: false),
                       animation: .default)
         { cd in
             Reminder(cd: cd)
         }
     }
-    
+
     public mutating func update() {
         guard
             self._data.onWrite.value == nil,
             let id = self._vessel.object.value?.objectID
         else { return }
-        
+
         // enable saving changes
         self._data.onWrite.value = self._controller.cdController.update(_:with:)
-        
+
         // update the query
         let sort = NSSortDescriptor(keyPath: \CD_Reminder.raw_dateCreated, ascending: true)
         let pred = NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel), id)
         self._data.request.nsSortDescriptors = [sort]
         self._data.request.nsPredicate = pred
     }
-    
+
     public var wrappedValue: AnyRandomAccessCollection<Reminder> {
         self.data
     }
-    
+
     public var projectedValue: AnyRandomAccessCollection<Binding<Reminder>> {
         self.$data
     }

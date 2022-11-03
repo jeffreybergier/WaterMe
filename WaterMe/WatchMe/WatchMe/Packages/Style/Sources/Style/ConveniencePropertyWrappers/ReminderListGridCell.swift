@@ -22,22 +22,22 @@ import SwiftUI
 
 @propertyWrapper
 public struct ReminderListGridCell: DynamicProperty, ConveniencePropertyWrapper {
-    
+
     public struct Value {
         public var vesselDisplayNameText: TextModifier
         public var reminderKindText: TextModifier
     }
-    
+
     @ThemeClass private var theme
     @SizeClass private var size
     private var themeOverride: Theme?
     private var sizeOverride: Size?
-    
+
     public init(size: Size? = nil, theme: Theme? = nil) {
         self.themeOverride = theme
         self.sizeOverride = size
     }
-    
+
     public var wrappedValue: Value {
         return .init(
             vesselDisplayNameText: .init(color: Colors.text_reminderListItemTitle,

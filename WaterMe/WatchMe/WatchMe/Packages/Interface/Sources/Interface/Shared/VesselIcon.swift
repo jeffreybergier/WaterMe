@@ -26,23 +26,23 @@ import Style
 import Localize
 
 internal struct VesselIcon: View {
-    
+
     internal let icon: Model.VesselIcon?
     @Localize.VesselIcon private var text
     @Style.VesselIcon private var style
-    
+
     internal init(icon: Model.VesselIcon?, style: Style.VesselIcon? = nil) {
         _style = style ?? .init()
         self.icon = icon
     }
-    
+
     internal var body: some View {
         self.centerView
             .modifier(self.style.treatment)
             .modifier(self.style.circle)
             .layoutPriority(0.1)
     }
-    
+
     @ViewBuilder private var centerView: some View {
         if let image = self.icon?.imageValue {
             Image(image)

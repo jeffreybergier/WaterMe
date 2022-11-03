@@ -25,7 +25,7 @@ import Model
 
 @propertyWrapper
 public struct ReminderSummary: DynamicProperty {
-    
+
     public struct Value {
         public var title: LocalizationKey = Label.reminder
         public var buttonDismiss: LocalizationKey = Action.dismiss
@@ -46,21 +46,21 @@ public struct ReminderSummary: DynamicProperty {
         public var subsectionDataNever: LocalizationKey = Label.never
         public var subsectionDataNow: LocalizationKey = Label.now
     }
-    
+
     private static let timeAgoFormatter = Formatter.newTimeAgoFormatter
     private static let reminderIntervalFormatter = Formatter.newReminderIntervalFormatter
     private static let dueDateFormatter = Formatter.newDueDateFormatter
-    
+
     @SizeClass private var size
     @EnvironmentBundle<LocalizeBundle> private var bundle
-    
+
     public init() {}
-        
+
     public var wrappedValue: (KeyPath<Value, LocalizationKey>) -> LocalizedString {{
         let value = Value(buttonMarkDone: self.markDone)
         return self.bundle.localized(key: value[keyPath: $0])
     }}
-    
+
     // TODO: Find workaround for this
     // It would be nice if I could somehow do this via `Value`
     public func subsectionDataLastPerformed(_ date: Date?) -> LocalizedString? {

@@ -31,7 +31,7 @@ public struct Reminder: Identifiable, Hashable {
     public var lastPerformDate: Date?
     public var isDeleted: Bool
     public var vesselID: Vessel.アイディ?
-    
+
     public init(id: アイディ,
                 kind: ReminderKind = .water,
                 kindDescription: String? = nil,
@@ -61,6 +61,10 @@ extension Reminder {
         public var id: String
         public init(_ id: String) {
             self.id = id
+        }
+        public static var fake: Reminder.アイディ {
+            // x-coredata://8B8CF780-4286-4B6E-A8CB-17A45BBAB411/CD_Reminder/p3
+            return .init("x-coredata://" + UUID().uuidString + "/CD_Reminder")
         }
     }
 }

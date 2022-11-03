@@ -49,7 +49,7 @@ let rID6 = Reminder.アイディ("RID6")
 let rID7 = Reminder.アイディ("RID7")
 
 class NavigationErrorTests: XCTestCase {
-    
+
     func test_navigationGeneric() {
         var nav = NavigationGeneric()
         XCTAssertNil(nav.isError)
@@ -58,7 +58,7 @@ class NavigationErrorTests: XCTestCase {
         XCTAssertEqual(nav.append(error2) as! CameraPermissionError, error2)
         XCTAssertEqual(nav.isError as! CameraPermissionError, error1)
     }
-    
+
     func test_navigationReminderList() {
         _ = {
             let nav = NavigationReminderList()
@@ -108,7 +108,7 @@ class NavigationErrorTests: XCTestCase {
             XCTAssertNil(nav.isError)
         }()
     }
-    
+
     func test_navigationReminderEdit() {
         var nav = NavigationReminderEdit()
         XCTAssertNil(nav.isError)
@@ -117,7 +117,7 @@ class NavigationErrorTests: XCTestCase {
         XCTAssertEqual(nav.append(error2) as! CameraPermissionError, error2)
         XCTAssertEqual(nav.isError as! CameraPermissionError, error1)
     }
-    
+
     func test_navigationVesselEdit() {
         _ = {
             let nav = NavigationVesselEdit()
@@ -174,7 +174,7 @@ class NavigationErrorTests: XCTestCase {
             XCTAssertNil(nav.isError)
         }()
     }
-    
+
 }
 
 /*

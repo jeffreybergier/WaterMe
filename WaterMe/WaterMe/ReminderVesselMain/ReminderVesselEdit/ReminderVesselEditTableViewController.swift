@@ -21,7 +21,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Datum
+import DatumL
 import UIKit
 import Calculate
 
@@ -50,7 +50,7 @@ class ReminderVesselEditTableViewController: StandardTableViewController {
 
     func reloadPhotoAndName() {
         self.tableView.reloadSections(IndexSet([Section.photo.rawValue,
-                                                Section.name.rawValue]),
+                                                Section.name.rawValue,]),
                                       with: .automatic)
     }
 

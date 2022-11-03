@@ -18,16 +18,19 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Combine
 import CoreData
+import ServerlessLogger
+import Umbrella
+import Settings
 import Model
 
 internal class CD_Controller: Controller {
-    
+
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
-        
         guard
             let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
             let mom = NSManagedObjectModel(contentsOf: url)
@@ -38,14 +41,7 @@ internal class CD_Controller: Controller {
 
         switch kind {
         case .sync:
-            fatalError()
-//            if #available(iOS 14.0, *) {
-//                return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)
-//            } else {
-//                let message = "Attempted to load Sync container from iOS 13 or lower."
-//                message.log(as: .info)
-//                fallthrough
-//            }
+            return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)
         case .local:
             let container = WaterMe_PersistentContainer(name: "WaterMe", managedObjectModel: mom)
             let description = container.persistentStoreDescriptions.first!
@@ -69,8 +65,9 @@ internal class CD_Controller: Controller {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
-        guard let container = CD_Controller.container(kind: kind)
-            else { fatalError() } //DatumError.load }
+        guard let container = CD_Controller.container(kind: kind) else {
+            throw Error.load
+        }
 
         switch kind {
         case .local, .sync:
@@ -90,44 +87,39 @@ internal class CD_Controller: Controller {
         guard error == nil else { throw error! }
         container.viewContext.automaticallyMergesChangesFromParent = true
 
-//        switch kind {
-//        case .local, .sync:
-//            guard #available(iOS 14.0, *), container is NSPersistentCloudKitContainer
-//            else { self._syncProgress = nil; break; }
-//            self._syncProgress = AnyContinousProgress(CloudKitContainerContinuousProgress(container))
-//        case .__testing_inMemory, .__testing_withClass:
-//            self._syncProgress = nil
-//        }
+        switch kind {
+        case .local, .sync:
+            guard container is NSPersistentCloudKitContainer else { self.syncProgress = nil; break; }
+            self.syncProgress = CloudKitContainerContinuousProgress(container)
+        case .__testing_inMemory, .__testing_withClass:
+            self.syncProgress = nil
+        }
 
         // Set properties
         self.kind = kind
         self.container = container
 
-        // Configure maintenance monitor
-//        self.maintenance_changeToken = self.maintenance_changeMonitor()
-//        if case .local = self.kind {
-//            UserDefaults.standard.didRunWithoutCloudSync = true
-//        }
+        if case .local = self.kind {
+            UserDefaults.standard.didRunWithoutCloudSync = true
+        }
 
         // Observe sync changes to perform maintenance
-//        if #available(iOS 14.0, *) {
-//            self.maintenance_syncToken = self.syncProgress?.objectWillChange
-//                .debounce(for: .seconds(3), scheduler: RunLoop.main)
-//                .sink { [weak self] _ in
-//                    guard
-//                        let self = self,
-//                        self.syncProgress?.progress.fractionCompleted == 1
-//                    else { return }
-//                    "Performing post syncing maintenance".log(as: .debug)
-//                    // Perform maintenance and log any errors
-//                    self.maintenance_fixDates()
-//                        .reduce(self.maintenance_deleteOrphanedReminders)
-//                        .reduce(self.maintenance_oneTrueVesselShare)
-//                        .reduce(self.maintenance_fixOrphanedVessels(share:))
-//                        .reduce(self.maintenance_massageAllEntries)
-//                        .error?.log()
-//                }
-//        }
+        self.maintenance_syncToken = self.syncProgress?.objectWillChange
+            .debounce(for: .seconds(3), scheduler: RunLoop.main)
+            .sink { [weak self] _ in
+                guard
+                    let self = self,
+                    self.syncProgress?.progress.fractionCompleted == 1
+                else { return }
+                "Performing post syncing maintenance".log(as: .debug)
+                // Perform maintenance and log any errors
+                self.maintenance_fixDates()
+                    .reduce(self.maintenance_deleteOrphanedReminders)
+                    .reduce(self.maintenance_oneTrueVesselShare)
+                    .reduce(self.maintenance_fixOrphanedVessels(share:))
+                    .reduce(self.maintenance_massageAllEntries)
+                    .error?.log()
+            }
 
         //
         // DEBUG ONLY
@@ -147,15 +139,18 @@ internal class CD_Controller: Controller {
         }
         #endif
     }
-    
+
+    private var maintenance_syncToken: AnyCancellable?
+
     internal let container: NSPersistentContainer
     internal let kind: ControllerKind
+    internal let syncProgress: CloudKitContainerContinuousProgress?
     internal var __ENVONLY__managedObjectContext: NSManagedObjectContext {
         return self.container.viewContext
     }
-    
+
     // MARK: Create
-    
+
     internal func newVessel() -> Result<Vessel.アイディ, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -188,7 +183,7 @@ internal class CD_Controller: Controller {
             Vessel.アイディ(vessel.objectID.uriRepresentation().absoluteString)
         }
     }
-    
+
     internal func newReminder(for vessel: Vessel.アイディ) -> Result<Reminder.アイディ, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
@@ -196,7 +191,7 @@ internal class CD_Controller: Controller {
             // debug only sanity checks
             assert(Thread.isMainThread)
             assert(context === vessel.managedObjectContext!)
-            
+
             let newReminder = CD_Reminder(context: context)
             context.insert(newReminder)
             // core data hooks up the inverse relationship
@@ -205,7 +200,7 @@ internal class CD_Controller: Controller {
                 .map { Reminder.アイディ(newReminder.objectID) }
         }
     }
-    
+
     internal func appendNewPerformToReminders(with ids: [Reminder.アイディ]) -> Result<Void, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -230,7 +225,7 @@ internal class CD_Controller: Controller {
             .reduce(self.maintenance_oneTrueVesselShare)
             .reduce(self.maintenance_fixOrphanedVessels(share:))
     }
-    
+
     // MARK: Delete
 
     internal func delete(_ vessel: Vessel.アイディ) -> Result<Void, Error> {
@@ -268,9 +263,9 @@ internal class CD_Controller: Controller {
             return context.waterme_save()
         }
     }
-    
+
     // MARK: Search
-    
+
     // swiftlint:disable:next function_body_length
     private func __genericSearch<T: CD_Base>(matching uuid: String) -> Result<T, Error> {
         let coordinator = self.container.persistentStoreCoordinator
@@ -330,14 +325,14 @@ internal class CD_Controller: Controller {
             return .failure(.load)
         }
     }
-    
+
     // MARK: Internal for Property Wrappers
-    
+
     internal func updateOpt(_ cd: CD_Reminder?, with newValue: Reminder?) -> Result<Void, Error> {
         // TODO: If nil should I return an error?
         self.update(cd!, with: newValue!)
     }
-    
+
     internal func update(_ cd: CD_Reminder, with newValue: Reminder) -> Result<Void, Error> {
         cd.raw_kindString        = newValue.kind.rawValue
         cd.raw_descriptionString = newValue.kindDescription
@@ -346,11 +341,11 @@ internal class CD_Controller: Controller {
         cd.raw_note              = newValue.note
         return self.container.viewContext.waterme_save()
     }
-    
+
     internal func updateOpt(_ cd: CD_ReminderVessel?, with newValue: Vessel?) -> Result<Void, Error> {
         self.update(cd!, with: newValue!)
     }
-    
+
     internal func update(_ cd: CD_ReminderVessel, with newValue: Vessel) -> Result<Void, Error> {
         cd.raw_displayName     = newValue.displayName
         cd.raw_kindString      = newValue.kind.rawValue
@@ -358,29 +353,18 @@ internal class CD_Controller: Controller {
         cd.raw_iconImageData   = newValue.icon?.dataValue
         return self.container.viewContext.waterme_save()
     }
+
+    deinit {
+        log.verbose()
+    }
 }
 
 // MARK: Maintenance
 
 extension CD_Controller {
-    fileprivate func maintenance_changeMonitor() -> Any {
-        return NotificationCenter.default.addObserver(forName: .NSManagedObjectContextWillSave,
-                                                      object: nil,
-                                                      queue: nil)
-        { [weak self] notification in
-            guard
-                let context = notification.object as? NSManagedObjectContext,
-                let self = self
-            else {
-                assertionFailure("Core Data Dates Not Updated")
-                return
-            }
-            // TODO: Do any change processing if needed
-        }
-    }
 
     fileprivate func maintenance_massageAllEntries() -> Result<Void, Error> {
-        guard UserDefaults.standard != nil else { //.didRunWithoutCloudSync else {
+        guard UserDefaults.standard.didRunWithoutCloudSync else {
             return .success(())
         }
         do {
@@ -389,7 +373,7 @@ extension CD_Controller {
             let data = try context.fetch(fetchRequest)
             data.forEach { $0.raw_bloop.toggle() }
             try context.save()
-            UserDefaults.standard//.didRunWithoutCloudSync = false
+            UserDefaults.standard.didRunWithoutCloudSync = false
             return .success(())
         } catch {
             error.log()
@@ -438,7 +422,7 @@ extension CD_Controller {
                 // 4. Save
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
-                UserDefaults.standard//.didRunWithoutCloudSync = true
+                UserDefaults.standard.didRunWithoutCloudSync = true
                 "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
@@ -455,7 +439,7 @@ extension CD_Controller {
         let fetchRequest = CD_Base.requestBase
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateModified)),
-            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated))
+            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated)),
         ])
 
         do {
@@ -488,6 +472,8 @@ extension CD_Controller {
     }
 
     fileprivate func maintenance_deleteOrphanedReminders() -> Result<Void, Error> {
+        return .success(()) // skip this because a slow sync will cause data loss
+        /*
         let context = self.container.viewContext
         let fetchRequest = CD_Reminder.request
         fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_vessel))
@@ -504,9 +490,12 @@ extension CD_Controller {
             error.log(as: .error)
             return .failure(.maintenanceDeleteOrphanedReminders)
         }
+        */
     }
 
     fileprivate func maintenance_fixOrphanedVessels(share: CD_VesselShare) -> Result<Void, Error> {
+        return .success(()) // skip this because a slow sync will cause data loss
+        /*
         let context = self.container.viewContext
         let fetchRequest = CD_ReminderVessel.request
         fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_ReminderVessel.raw_share))
@@ -524,6 +513,7 @@ extension CD_Controller {
             error.log(as: .error)
             return .failure(.maintenanceFixOrphanedVessels)
         }
+        */
     }
 }
 
@@ -536,7 +526,6 @@ extension CD_Controller {
 
     internal static let storeDirectoryURL: URL = {
         let fm = FileManager.default
-        /*
         if let appGroup = fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.saturdayapps.WaterMe") {
             return appGroup
                 .appendingPathComponent("Library", isDirectory: true)
@@ -544,14 +533,11 @@ extension CD_Controller {
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
         } else {
-         */
             "App group container could not be found".log(as: .emergency)
-            let url = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            return fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
-        return url
-        // file:///Users/jeffberg/Library/Developer/CoreSimulator/Devices/AC661100-4106-4564-80B9-2F1DEB8DB4C5/data/Containers/Data/PluginKitPlugin/025C0612-D021-4DAF-A2C8-0728F236591E/Library/Application%20Support/WaterMe.sqlite)
-//        }
+        }
     }()
 
     private static let dbFileURL1: URL = {
@@ -565,14 +551,14 @@ extension CD_Controller {
             .storeDirectoryURL
             .appendingPathComponent("WaterMe.sqlite-wal", isDirectory: false)
     }()
-    
+
     private static let RLM_legacyStoreDirectoryURL: URL = {
         return FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("WaterMe", isDirectory: true)
             .appendingPathComponent("Free", isDirectory: true)
     }()
-    
+
     private static let RLM_legacyRealmFile: URL = {
         return RLM_legacyStoreDirectoryURL
             .appendingPathComponent("Realm.realm", isDirectory: false)
@@ -583,7 +569,7 @@ extension CD_Controller {
         let exists = fm.fileExists(atPath: self.dbFileURL1.path)
         return exists
     }
-    
+
     internal class var RLM_legacyStoreExists: Bool {
         let fm = FileManager.default
         let exists = fm.fileExists(atPath: self.RLM_legacyRealmFile.path)
@@ -622,7 +608,7 @@ private class WaterMe_PersistentContainer: NSPersistentContainer {
         return CD_Controller.storeDirectoryURL
     }
     deinit {
-        // Loggable.default?.verbose()
+        log.verbose()
     }
 }
 
@@ -632,7 +618,7 @@ private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
         return CD_Controller.storeDirectoryURL
     }
     deinit {
-        // Loggable.default?.verbose()
+        log.verbose()
     }
 }
 

@@ -108,7 +108,7 @@ class PurchaseThanksViewController: StandardViewController {
         self.contentView.addConstraints([
             self.contentView.leadingAnchor.constraint(equalTo: self.cheerView.leadingAnchor, constant: 0),
             self.contentView.trailingAnchor.constraint(equalTo: self.cheerView.trailingAnchor, constant: 0),
-            self.cheerView.heightAnchor.constraint(equalToConstant: 1)
+            self.cheerView.heightAnchor.constraint(equalToConstant: 1),
             ])
         self.configureAttributedText()
     }

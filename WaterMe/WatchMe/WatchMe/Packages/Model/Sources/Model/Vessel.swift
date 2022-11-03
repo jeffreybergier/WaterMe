@@ -18,6 +18,8 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Foundation
+
 public struct Vessel: Identifiable {
     public var id: アイディ
     public var displayName: String?
@@ -28,7 +30,7 @@ public struct Vessel: Identifiable {
     public var shortLabelSafeDisplayName: String? {
         self.displayName?.truncated(to: 20)
     }
-    
+
     public init(id: アイディ,
                 displayName: String? = nil,
                 icon: VesselIcon? = nil,
@@ -48,6 +50,10 @@ extension Vessel {
         public var id: String
         public init(_ id: String) {
             self.id = id
+        }
+        public static var fake: Vessel.アイディ {
+            // x-coredata://8B8CF780-4286-4B6E-A8CB-17A45BBAB411/CD_Reminder/p3
+            return .init("x-coredata://" + UUID().uuidString + "/CD_ReminderVessel")
         }
     }
 }

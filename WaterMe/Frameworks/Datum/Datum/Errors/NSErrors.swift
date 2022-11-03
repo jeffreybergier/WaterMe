@@ -31,7 +31,7 @@ extension NSError {
         let code = 1001
         let message = "Unhandled case for ReminderVessel property changes."
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -40,7 +40,7 @@ extension NSError {
         let code = 1002
         let message = "Reminder change fired after list or parent vessel were set to NIL"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -50,7 +50,7 @@ extension NSError {
         let message = exception.reason ?? "CollectionView Threw Exception During Batch Update"
         var userInfo: [String: Any] = [
             NSLocalizedFailureErrorKey: exception.name,
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         for (_key, value) in exception.userInfo ?? [:] {
             let key = _key as? String ?? _key.description
@@ -74,7 +74,7 @@ extension NSError {
         let code = 1004
         let message = "CollectionView SanityCheck failed for Modifications in Section: \(section), cvCount: \(cvCount), dataCount: \(dataCount), insertions: \(ins), deletions: \(dels)"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -83,7 +83,7 @@ extension NSError {
         let code = 1005
         let message = "CollectionView SanityCheck failed for Unmodified Section: \(section), cvCount: \(cvCount), dataCount: \(dataCount)"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -92,7 +92,7 @@ extension NSError {
         let code = 1006
         let message = "SanityCheck failed for Mismatched CollectionView Section Count: \(cvSectionCount), Data Section Count: \(dataSectionCount)"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -101,7 +101,7 @@ extension NSError {
         let code = 1007
         let message = "No Data was Present when getting numberOfItemsInSection for Section: \(section)"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -110,7 +110,7 @@ extension NSError {
         let code = 1008
         let message = "No Data was Present when getting reminderAtIndexPath for IndexPath: \(String(describing: indexPath))"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -119,7 +119,7 @@ extension NSError {
         let code = 1009
         let message = "Unable to load EmojiFont"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -128,7 +128,7 @@ extension NSError {
         let code = 1010
         let message = "Total number of Sections did not match number of sections of loaded data."
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -137,7 +137,7 @@ extension NSError {
         let code = 1011
         let message = "The underlying REALM object was invalidated and was tried to be used again. This should not happen."
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -146,7 +146,7 @@ extension NSError {
         let code = 1012
         let message = "Data requested out of bounds for IndexPath: \(String(describing: indexPath))"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }
@@ -155,7 +155,7 @@ extension NSError {
         let code = 1013
         let message = "Basic Controller property was set to NIL"
         let userInfo: [String: Any] = [
-            NSLocalizedFailureReasonErrorKey: message
+            NSLocalizedFailureReasonErrorKey: message,
         ]
         self.init(domain: NSError.kDomain, code: code, userInfo: userInfo)
     }

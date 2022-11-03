@@ -21,7 +21,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-@testable import Datum
+@testable import DatumL
 import CoreData
 import XCTest
 

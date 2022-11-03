@@ -22,7 +22,7 @@
 //
 
 import XCTest
-@testable import Datum
+@testable import DatumL
 
 class ReminderVesselCollectionTests: DatumTestsBase {
 

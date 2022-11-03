@@ -26,7 +26,7 @@ import Model
 import Errors
 
 internal struct VesselCamera: View {
-    
+
     internal struct Presentation: ViewModifier {
         @NavGeneric private var nav
         func body(content: Content) -> some View {
@@ -35,16 +35,16 @@ internal struct VesselCamera: View {
                 .modifier(OnAppearErrorHandler())
         }
     }
-    
+
     @State private var uncleanResult: CameraResult?
     @VesselEditQuery private var vessel: Vessel
     @UFErrorQ private var errorQ
     @Environment(\.dismiss) private var dismiss
-    
+
     internal init(id: Vessel.アイディ) {
         _vessel = VesselEditQuery(id: id)
     }
-    
+
     internal var body: some View {
         CameraPicker() { result in
             self.uncleanResult = result

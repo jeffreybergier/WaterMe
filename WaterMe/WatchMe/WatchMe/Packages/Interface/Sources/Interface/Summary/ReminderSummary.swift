@@ -27,7 +27,7 @@ import Style
 import Localize
 
 internal struct ReminderSummary: View {
-    
+
     internal struct Presentation: ViewModifier {
         @NavGeneric private var nav
         func body(content: Content) -> some View {
@@ -36,24 +36,24 @@ internal struct ReminderSummary: View {
                 .modifier(OnAppearErrorHandler())
         }
     }
-    
+
     @ReminderEditQuery private var reminder: Reminder
     @VesselEditQuery private var vessel: Vessel
-    
+
     @SizeClass private var size
     @Style.Form private var style
     @NavReminderList private var nav
     @Localize.ReminderSummary private var text
     @Environment(\.dismiss) private var dismiss
-    
+
     // TODO: Hack due to broken SwiftUI navigation
     @State private var performOnDisappear: (() -> Void)?
-    
+
     internal init(rID: Reminder.アイディ, vID: Vessel.アイディ) {
         _reminder = .init(id: rID)
         _vessel = .init(id: vID)
     }
-    
+
     internal var body: some View {
         List {
             self.actionsUpper()
@@ -74,7 +74,7 @@ internal struct ReminderSummary: View {
         }
         .modifier(self.style.popoverControl)
     }
-    
+
     @ViewBuilder private func sectionVessel() -> some View {
         Section {
             VesselIcon(icon: self.vessel.icon)
@@ -95,7 +95,7 @@ internal struct ReminderSummary: View {
                 .modifier(self.style.sectionTitle)
         }
     }
-    
+
     @ViewBuilder private func sectionReminder() -> some View {
         Section {
             VStack(alignment: .leading,
@@ -157,7 +157,7 @@ internal struct ReminderSummary: View {
                 .modifier(self.style.sectionTitle)
         }
     }
-    
+
     @ViewBuilder private func sectionNote() -> some View {
         if let note = self.reminder.note {
             Section {
@@ -172,7 +172,7 @@ internal struct ReminderSummary: View {
             }
         }
     }
-    
+
     @ViewBuilder private func actionsUpper() -> some View {
         switch self.size.horizontal {
         case .small:
@@ -181,7 +181,7 @@ internal struct ReminderSummary: View {
             EmptyView()
         }
     }
-    
+
     @ViewBuilder private func actionsLower() -> some View {
         switch self.size.horizontal {
         case .small:
@@ -197,7 +197,7 @@ internal struct ReminderSummary: View {
             }
         }
     }
-    
+
     @ViewBuilder private func actionsAll() -> some View {
         Section {
             Button {
@@ -225,12 +225,12 @@ internal struct ReminderSummary: View {
     }
 }
 
-fileprivate struct SizeSpecificNavigation: ViewModifier {
-    
+private struct SizeSpecificNavigation: ViewModifier {
+
     fileprivate var onDismiss: () -> Void
     @SizeClass private var size
     @Localize.ReminderSummary private var text
-    
+
     fileprivate func body(content: Content) -> some View {
         switch self.size.horizontal {
         case .small:
@@ -253,4 +253,3 @@ fileprivate struct SizeSpecificNavigation: ViewModifier {
         }
     }
 }
-

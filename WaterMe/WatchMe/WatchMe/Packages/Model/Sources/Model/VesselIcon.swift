@@ -30,19 +30,19 @@ public protocol VesselIconProtocol {
 }
 
 public enum VesselIcon: VesselIconProtocol {
-    
+
     case emoji(String), image(Data)
-    
+
     public var stringValue: String? {
         guard case .emoji(let string) = self else { return nil }
         return string
     }
-    
+
     public var dataValue: Data? {
         guard case .image(let data) = self else { return nil }
         return data
     }
-    
+
     public init?(cleanData: Data?, cleanString: String?) {
         if let data = cleanData {
             self = .image(data)
@@ -54,7 +54,7 @@ public enum VesselIcon: VesselIconProtocol {
         }
         return nil
     }
-    
+
     public init?(uncleanString: String) {
         return nil
     }

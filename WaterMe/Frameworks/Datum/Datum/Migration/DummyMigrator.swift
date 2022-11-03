@@ -23,6 +23,8 @@
 
 #if DEBUG
 
+import Foundation
+
 internal class DummyMigrator: Migratable {
 
     @discardableResult func start(destination: BasicController,

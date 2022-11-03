@@ -164,7 +164,7 @@ internal class RLM_BasicController: BasicController {
                 NSComparisonPredicate(leftExpression: NSExpression(forKeyPath: #keyPath(RLM_Reminder.nextPerformDate)),
                                       rightExpression: NSExpression(forConstantValue: range.end),
                                       modifier: .direct,
-                                      type: .lessThan)
+                                      type: .lessThan),
                 ])
             if case .late = section {
                 let nilCheck = NSComparisonPredicate(

@@ -35,12 +35,12 @@ internal struct Video: View {
 
 #if os(watchOS)
 import WatchKit
-fileprivate struct Video_native: WKInterfaceObjectRepresentable {
-    
+private struct Video_native: WKInterfaceObjectRepresentable {
+
     @Binding fileprivate var isPlaying: Bool
     fileprivate var videoURL: URL
     fileprivate var onFinish: () -> Void
-    
+
     fileprivate func makeWKInterfaceObject(context: Context) -> WKInterfaceInlineMovie {
         return HACK__WKInterfaceInlineMovie(onFinish: self.onFinish)
     }
@@ -54,12 +54,12 @@ fileprivate struct Video_native: WKInterfaceObjectRepresentable {
     }
 }
 import CoreMedia
-fileprivate class HACK__WKInterfaceInlineMovie: WKInterfaceInlineMovie {
-    
+private class HACK__WKInterfaceInlineMovie: WKInterfaceInlineMovie {
+
     fileprivate var onFinish: () -> Void
     private let name = NSNotification.Name("PlaybackStateDidChange")
     private var cancellable: Set<AnyCancellable> = []
-    
+
     fileprivate init(onFinish: @escaping () -> Void) {
         self.onFinish = onFinish
         super.init()
@@ -79,18 +79,18 @@ fileprivate class HACK__WKInterfaceInlineMovie: WKInterfaceInlineMovie {
     }
 }
 #elseif os(iOS)
-fileprivate struct Video_native: UIViewRepresentable {
-    
+private struct Video_native: UIViewRepresentable {
+
     @Binding fileprivate var isPlaying: Bool
     fileprivate var videoURL: URL
     fileprivate var onFinish: () -> Void
-    
+
     fileprivate func makeUIView(context: Context) -> PlayerView {
         let view = PlayerView()
         view.playerLayer.player = context.coordinator.player
         return view
     }
-    
+
     fileprivate func updateUIView(_ uiView: PlayerView, context: Context) {
         guard self.isPlaying == true else { return }
         context.coordinator.player.play()
@@ -99,7 +99,7 @@ fileprivate struct Video_native: UIViewRepresentable {
         return PlayerMonitor(videoURL: self.videoURL, onFinish: self.onFinish)
     }
 }
-fileprivate class PlayerView: UIView {
+private class PlayerView: UIView {
     fileprivate var playerLayer: AVPlayerLayer {
         return self.layer as! AVPlayerLayer
     }
@@ -109,7 +109,7 @@ fileprivate class PlayerView: UIView {
 }
 
 #elseif os(macOS)
-fileprivate struct Video_native: View {
+private struct Video_native: View {
     @Binding fileprivate var isPlaying: Bool
     fileprivate var videoURL: URL
     fileprivate var onFinish: () -> Void
@@ -119,7 +119,7 @@ fileprivate struct Video_native: View {
 }
 #endif
 
-fileprivate class PlayerMonitor {
+private class PlayerMonitor {
     fileprivate let player: AVPlayer
     private var cancellable: Set<AnyCancellable> = []
     fileprivate init(videoURL: URL, onFinish: @escaping () -> Void) {

@@ -38,7 +38,7 @@ extension Model.ReminderKind {
             return Label.other
         }
     }
-    
+
     internal var localizedLong: LocalizationKey {
         switch self {
         case .water:

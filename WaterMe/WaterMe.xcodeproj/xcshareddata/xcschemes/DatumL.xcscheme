@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5034764224552CFD00C3DAD3"
-               BuildableName = "Datum.framework"
-               BlueprintName = "Datum"
+               BuildableName = "DatumL.framework"
+               BlueprintName = "DatumL"
                ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5034764A24552CFD00C3DAD3"
-               BuildableName = "DatumTests.xctest"
-               BlueprintName = "DatumTests"
+               BuildableName = "DatumLTests.xctest"
+               BlueprintName = "DatumLTests"
                ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,14 +43,12 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5034764A24552CFD00C3DAD3"
-               BuildableName = "DatumTests.xctest"
-               BlueprintName = "DatumTests"
+               BuildableName = "DatumLTests.xctest"
+               BlueprintName = "DatumLTests"
                ReferencedContainer = "container:WaterMe.xcodeproj">
             </BuildableReference>
             <SkippedTests>
@@ -112,8 +110,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5034764224552CFD00C3DAD3"
-            BuildableName = "Datum.framework"
-            BlueprintName = "Datum"
+            BuildableName = "DatumL.framework"
+            BlueprintName = "DatumL"
             ReferencedContainer = "container:WaterMe.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

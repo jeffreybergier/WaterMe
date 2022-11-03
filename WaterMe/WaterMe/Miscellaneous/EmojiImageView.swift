@@ -21,7 +21,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Datum
+import DatumL
 import UIKit
 
 class EmojiImageView: UIView {
@@ -56,7 +56,7 @@ class EmojiImageView: UIView {
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
             self.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0),
-            self.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0)
+            self.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
         ]
         self.addConstraints(constraints)
         label.isHidden = true

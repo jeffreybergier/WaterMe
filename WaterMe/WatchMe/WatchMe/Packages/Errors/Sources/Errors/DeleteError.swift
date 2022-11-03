@@ -29,11 +29,11 @@ import Umbrella
 import Localize
 
 public enum DeleteError: UserFacingError {
-    
+
     public typealias OnConfirmation = () -> Void
-    
+
     case generic(OnConfirmation)
-    
+
     public var title: LocalizationKey {
         switch self {
         case .generic:
@@ -69,5 +69,3 @@ public enum DeleteError: UserFacingError {
         }
     }
 }
-
-

@@ -26,11 +26,11 @@ public enum Theme: CaseIterable {
 
 @propertyWrapper
 internal struct ThemeClass: DynamicProperty {
-    
+
     @Environment(\.colorScheme) private var scheme
-    
+
     internal init() {}
-    
+
     internal var wrappedValue: Theme {
         return .init(self.scheme)
     }

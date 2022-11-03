@@ -32,7 +32,7 @@ public enum DatumError: Int, CustomNSError {
     /// The user-info dictionary.
     public var errorUserInfo: [String: Any] {
         return [
-            NSUnderlyingErrorKey: String(reflecting: self)
+            NSUnderlyingErrorKey: String(reflecting: self),
         ]
     }
 

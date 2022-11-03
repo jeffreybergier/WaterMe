@@ -49,7 +49,7 @@ extension View {
         return self.fullScreenCover(item: item, onDismiss: onDismiss, content: content)
         #endif
     }
-    
+
     internal func xp_popover<I: Identifiable, V: View>(
         item: Binding<I?>,
         @ViewBuilder content: @escaping (I) -> V
@@ -113,13 +113,13 @@ internal struct XPSiriShortcuts: View {
 }
 
 internal struct XPDoneDeleteToolbar: ViewModifier {
-        
+
     internal var onDone: () -> Void
     internal var onDelete: Errors.DeleteError
-    
+
     @UFErrorQ private var errorQ
     @Localize.DoneDeleteToolbar private var text
-    
+
     internal func body(content: Content) -> some View {
         content
             .toolbar {
@@ -132,6 +132,27 @@ internal struct XPDoneDeleteToolbar: ViewModifier {
                     }
                     .modifier(Style.ButtonModifier(role: .destructive))
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        self.onDone()
+                    } label: {
+                        Text(self.text(\.buttonDone))
+                    }
+                    .modifier(Style.ButtonModifier(role: .primary))
+                }
+            }
+    }
+}
+
+internal struct XPDoneToolbar: ViewModifier {
+
+    internal var onDone: () -> Void
+
+    @Localize.DoneDeleteToolbar private var text
+
+    internal func body(content: Content) -> some View {
+        content
+            .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         self.onDone()

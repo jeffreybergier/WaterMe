@@ -25,7 +25,7 @@ import Style
 
 @propertyWrapper
 public struct ReminderEdit: DynamicProperty {
-    
+
     public struct Value {
         public var title: LocalizationKey = Label.editReminder
         public var sectionTitleDetails: LocalizationKey = Label.details
@@ -39,24 +39,24 @@ public struct ReminderEdit: DynamicProperty {
         public var subsectionPlaceholderDescription: LocalizationKey = Label.description
         public var subsectionPlaceholderLastPerformed: LocalizationKey = Label.never
     }
-    
+
     private static let timeAgoFormatter = Formatter.newTimeAgoFormatter
     private static let reminderIntervalFormatter = Formatter.newReminderIntervalFormatter
-    
+
     @SizeClass private var size
     @EnvironmentBundle<LocalizeBundle> private var bundle
-    
+
     public init() {}
-    
+
     public var wrappedValue: (KeyPath<Value, LocalizationKey>) -> LocalizedString {
         let value = Value(
             subsectionTitleKind: _subsectionTitleKind,
             subsectionTitleNotifications: _subsectionTitleNotifications
         )
         return { self.bundle.localized(key: value[keyPath: $0]) }
-        
+
     }
-    
+
     // TODO: Find workaround for this
     // It would be nice if I could somehow do this via `Value`
     public func subsectionDataInterval(_ interval: Int) -> LocalizedString {

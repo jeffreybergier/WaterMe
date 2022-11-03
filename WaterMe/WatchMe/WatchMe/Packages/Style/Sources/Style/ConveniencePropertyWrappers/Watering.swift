@@ -22,21 +22,21 @@ import SwiftUI
 
 @propertyWrapper
 public struct Watering: DynamicProperty, ConveniencePropertyWrapper {
-    
+
     public struct Value {
         public var verticalSize: Size
     }
-    
+
     @ThemeClass private var theme
     @SizeClass private var size
     private var sizeOverride: Size?
     private var themeOverride: Theme?
-    
+
     public init(size: Size? = nil, theme: Theme? = nil) {
         self.sizeOverride = size
         self.themeOverride = theme
     }
-    
+
     public var wrappedValue: Value {
         .init(verticalSize: self.size.vertical)
     }

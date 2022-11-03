@@ -21,6 +21,7 @@
 import SwiftUI
 import ServerlessLogger
 import Umbrella
+import Settings
 import Datum
 import Nav
 import Errors
@@ -33,33 +34,56 @@ public struct Interface: View {
     @NavReminderList private var navReminderList
     @NavReminderEdit private var navReminderEdit
     @UFErrorQ private var errorQ
-    
+    @ControllerKindProp private var controllerKind
+
+    @State private var didAppearOnce = false
     @State private var controllerLoadError: Datum.Error?
-    @StateObject private var controllerEnvironment: ControllerProperty.Environment
+    @StateObject private var controllerEnvironment: ControllerProperty.Environment = .init(nil, isObservingValue: true)
     @ObservedObject private var datumErrorQueue = EnvironmentQueue<Datum.Error>.newEnvirementObject()
-    
+
     // TODO: For debugging error propogation
     private let DEBUG_errorTimer = Timer.publish(every: 7, on: .main, in: .common).autoconnect()
-    
+
     public init() {
         Loggable.configure()
-        let tuple = ControllerProperty.newEnvironment(of: .local)
-        _controllerEnvironment = .init(wrappedValue: tuple.0)
-        _controllerLoadError = .init(wrappedValue: tuple.1)
+        UserDefaults.standard.configure()
     }
-    
+
     public var body: some View {
-        if let error = self.controllerLoadError {
-            Text(error.title)
-            Text(error.message)
-        } else {
+        self._body
+            .modifier(RespectDarkMode())
+            .onChange(of: self.controllerKind) { _ in
+                // TODO: Crashes
+                // *** Terminating app due to uncaught exception 'NSInvalidArgumentException',
+                // reason: 'executeFetchRequest:error: A fetch request must have an entity.'
+                self.resetController()
+            }
+            .onAppear {
+                guard self.didAppearOnce == false else { return }
+                self.didAppearOnce = true
+                self.resetController()
+            }
+    }
+
+    private func resetController() {
+        autoreleasepool {
+            self.controllerEnvironment.value = nil
+            self.controllerLoadError = nil
+        }
+        let result = ControllerProperty.newEnvironment(of: UserDefaults.standard.controllerKind)
+        self.controllerEnvironment.value = result.value
+        self.controllerLoadError = result.error
+    }
+
+    @ViewBuilder private var _body: some View {
+        if let controller = self.controllerEnvironment.value {
             ReminderList()
                 .modifier(ReminderList.Presentation())
                 .environmentObject(self.datumErrorQueue)
                 .environmentObject(self.controllerEnvironment)
                 .environmentObject(LocalizeBundle())
                 .environmentObject(ImageBundle())
-                .environment(\.managedObjectContext, self.controllerEnvironment.value!.__ENVONLY__managedObjectContext)
+                .environment(\.managedObjectContext, controller.__ENVONLY__managedObjectContext)
                 .onReceive(self.datumErrorQueue.objectDidChange) { [datumErrorQueue] in
                     guard datumErrorQueue.value.isEmpty == false else { return }
                     self.errorQ.append(contentsOf: datumErrorQueue.value.map { $0 as UserFacingError })
@@ -75,6 +99,11 @@ public struct Interface: View {
                     self.datumErrorQueue.value.append(.cannotDeleteLastReminder)
                     */
                 }
+        } else if let error = self.controllerLoadError {
+            Text(error.title)
+            Text(error.message)
+        } else {
+            Text("Loading...")
         }
     }
 }

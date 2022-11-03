@@ -33,21 +33,21 @@ public struct SectionNumber: EnvironmentKey {
 
 @propertyWrapper
 public struct ReminderListGrid: DynamicProperty, ConveniencePropertyWrapper {
-    
+
     public struct Value {
         public var columns: [GridItem]
         public var header: HeaderModifier
     }
-    
+
     @ThemeClass private var theme
     @SizeClass private var size
     private var themeOverride: Theme?
     private var sizeOverride: Size?
-    
+
     public init(size: Size? = nil, theme: Theme? = nil) {
         self.sizeOverride = size
     }
-    
+
     public var wrappedValue: Value {
         .init(
             columns: self.columns,
@@ -55,7 +55,7 @@ public struct ReminderListGrid: DynamicProperty, ConveniencePropertyWrapper {
                           size: self.sizeOverride ?? self.size.horizontal)
         )
     }
-    
+
     private var columns: [GridItem] {
         switch self.sizeOverride ?? self.size.horizontal {
         case .small:

@@ -22,23 +22,23 @@ import SwiftUI
 
 @propertyWrapper
 public struct VesselIcon: DynamicProperty, ConveniencePropertyWrapper {
-    
+
     public struct Value {
         public var font: Font
         public var circle: CircleModifier
         public var treatment: ColorModifier
     }
-    
+
     @ThemeClass private var theme
     @SizeClass private var size
     private var sizeOverride: Size?
     private var themeOverride: Theme?
-    
+
     public init(size: Size? = nil, theme: Theme? = nil) {
         self.sizeOverride = size
         self.themeOverride = theme
     }
-    
+
     public var wrappedValue: Value {
         .init(font: Fonts.vesselIconEmoji[self.size.horizontal],
               circle: .init(radius: Points.vesselIconCircleRadius,

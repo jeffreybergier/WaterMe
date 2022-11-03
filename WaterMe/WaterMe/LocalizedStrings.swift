@@ -22,7 +22,7 @@
 //
 
 import Calculate
-import Datum
+import DatumL
 
 // swiftlint:disable file_length
 
@@ -669,7 +669,7 @@ extension UserActivityConfigurator {
                 NSLocalizedString("Green thumb for the win!",
                                   comment: "SiriShortcut: Phrase: Random5"),
                 NSLocalizedString("Live long and prosper.",
-                                  comment: "SiriShortcut: Phrase: Random6")
+                                  comment: "SiriShortcut: Phrase: Random6"),
             ]
             localizedStrings.shuffle()
             let first = localizedStrings.first!

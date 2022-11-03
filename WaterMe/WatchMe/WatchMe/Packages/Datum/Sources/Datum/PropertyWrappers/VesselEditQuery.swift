@@ -25,7 +25,7 @@ import Umbrella
 
 @propertyWrapper
 public struct VesselEditQuery: DynamicProperty {
-    
+
     @CDObjectQuery<CD_ReminderVessel, Vessel, Error> private var vessel: Vessel?
     @ControllerProperty private var controller
 
@@ -35,22 +35,22 @@ public struct VesselEditQuery: DynamicProperty {
             Vessel(cd: $0)
         }
     }
-    
+
     public init(_ reminder: Reminder) {
-        self.init(id: reminder.vesselID!)
+        self.init(id: reminder.vesselID ?? .fake)
     }
-    
+
     public mutating func update() {
         guard self._vessel.onWrite.value == nil else { return }
         self._vessel.onWrite.value = self._controller.cdController.updateOpt(_:with:)
     }
-    
+
     public var wrappedValue: Vessel {
-        get { self.vessel! }
+        get { self.vessel ?? Vessel(id: .fake) }
         nonmutating set { self.vessel = newValue }
     }
-    
+
     public var projectedValue: Binding<Vessel> {
-        self.$vessel!
+        self.$vessel ?? Binding() { self.wrappedValue } set: { _ in }
     }
 }

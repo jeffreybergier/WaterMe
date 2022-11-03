@@ -56,7 +56,7 @@ internal class TipJarProductRequester: NSObject, SKProductsRequestDelegate {
         let request = SKProductsRequest(productIdentifiers: [
             keys.small,
             keys.medium,
-            keys.large
+            keys.large,
             ])
         request.delegate = self
         request.start()

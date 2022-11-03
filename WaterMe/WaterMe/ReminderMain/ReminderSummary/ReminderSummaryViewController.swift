@@ -23,7 +23,7 @@
 
 import UIKit
 import SimpleImageViewer
-import Datum
+import DatumL
 
 class ReminderSummaryViewController: StandardViewController {
 
@@ -247,7 +247,7 @@ extension UIPresentationController {
             "sha",
             "dow",
             "Vi",
-            "ew"
+            "ew",
         ]
         let subterfuge = _subterfuge.reduce("", +)
         guard

@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2021/12/30.
+//  Created by Jeffrey Bergier on 2022/06/04.
 //  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,14 +18,15 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import SwiftUI
-import Interface
+import Foundation
 
-@main
-struct WatchMeApp: App {
-    var body: some Scene {
-        WindowGroup {
-            Interface()
-        }
+extension Date: RawRepresentable {
+    private static let formatter = ISO8601DateFormatter()
+    public var rawValue: String {
+        type(of: self).formatter.string(from: self)
+    }
+    public init?(rawValue: String) {
+        guard let date = Self.formatter.date(from: rawValue) else { return nil }
+        self = date
     }
 }

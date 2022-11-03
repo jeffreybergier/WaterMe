@@ -29,7 +29,7 @@ public enum Error: Int, CustomNSError, Codable {
     /// The user-info dictionary.
     public var errorUserInfo: [String: Any] {
         return [
-            NSUnderlyingErrorKey: String(reflecting: self)
+            NSUnderlyingErrorKey: String(reflecting: self),
         ]
     }
 

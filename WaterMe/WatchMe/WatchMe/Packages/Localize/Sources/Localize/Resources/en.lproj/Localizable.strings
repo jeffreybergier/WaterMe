@@ -153,6 +153,79 @@ other static items in the UI
 /* Displayed when there was an error while saving something */
 "Label.Error Saving" = "Error Saving";
 
+/* Displayed when the user is on the Settings screen. */
+"Label.Settings" = "Settings";
+
+/* Title of the setting that allows the user to change whether WaterMe checks the app store for application updates. */
+"Label.Check for Updates" = "Check for Updates";
+
+/* Title of the setting that allows the user to change how many days they get reminded for */
+"Label.Remind for" = "Remind for";
+
+/* Hour values for that notification setting */
+"Label.7 Days" = "7 Days";
+"Label.8 Days" = "8 Days";
+"Label.9 Days" = "9 Days";
+"Label.10 Days" = "10 Days";
+"Label.11 Days" = "11 Days";
+"Label.12 Days" = "12 Days";
+"Label.13 Days" = "13 Days";
+"Label.14 Days" = "14 Days";
+"Label.15 Days" = "15 Days";
+"Label.16 Days" = "16 Days";
+"Label.17 Days" = "17 Days";
+"Label.18 Days" = "18 Days";
+"Label.19 Days" = "19 Days";
+"Label.20 Days" = "20 Days";
+"Label.21 Days" = "21 Days";
+
+/* Title of the setting that allows the user to set which hour in the day they want notifications to trigger */
+"Label.Remind at" = "Remind at";
+
+/* Hour values for that notification setting */
+"Label.4 am" = "4 am";
+"Label.5 am" = "5 am";
+"Label.6 am" = "6 am";
+"Label.7 am" = "7 am";
+"Label.8 am" = "8 am";
+"Label.9 am" = "9 am";
+"Label.10 am" = "10 am";
+"Label.11 am" = "11 am";
+"Label.Noon" = "Noon";
+"Label.1 pm" = "1 pm";
+"Label.2 pm" = "2 pm";
+"Label.3 pm" = "3 pm";
+"Label.4 pm" = "4 pm";
+"Label.5 pm" = "5 pm";
+"Label.6 pm" = "6 pm";
+"Label.7 pm" = "7 pm";
+"Label.8 pm" = "8 pm";
+"Label.9 pm" = "9 pm";
+"Label.10 pm" = "10 pm";
+"Label.11 pm" = "11 pm";
+
+/* Enable and disable iCloud syncing */
+"Label.Sync via iCloud" = "Sync via iCloud";
+
+/* text that informs the user that notifications should be enabled. If on and notifications permissions are disabled, then the app will tell the user that we can't send notifications. If off, the app won't tell users that nofications won't work */
+"Label.Ask for Notifications" = "Ask for Notifications";
+
+/* text that informs the user they can reduce the amount of pink color in the app */
+"Label.Increase Contrast" = "Reduce Pink";
+
+/* dark mode setting name */
+"Label.Dark Mode" = "Dark Mode";
+
+/* dark mode use system setting */
+"Label.Change with System" = "Change with System";
+
+/* dark mode force light mode setting */
+"Label.Always Light" = "Always Light";
+
+/* dark mode force dark mode setting */
+"Label.Always Dark" = "Always Dark";
+
+
 /*
  
               _   _
@@ -226,6 +299,9 @@ other buttons in the UI
 
 /* Button that allows the user to open the settings app on the device */
 "Action.Open Settings" = "Open Settings";
+
+/* Button title that opens both the in-app settings screen and the iOS settings screen for WaterMe. */
+"Action.Settings" = "Settings";
 
 /* When the user is being asked to confirm to delete an item, this button lets them not delete it. */
 "Action.Don't Delete" = "Don’t Delete";
@@ -475,9 +551,6 @@ Used for explanations and other sentences
 
 /* Alert: New Permission: Button Title: Send Notifications: Title of the button that will result in the user being presented the system dialog to grant notification permissions. */
 "Send Notifications" = "Send Notifications";
-
-/* Button title that opens both the in-app settings screen and the iOS settings screen for WaterMe. */
-"Settings" = "Settings";
 
 /* Alert Title: Generic Siri Shortcuts Error */
 "Shortcut Error" = "Shortcut Error";

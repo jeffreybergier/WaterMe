@@ -52,7 +52,7 @@ extension CD_ReminderVessel: ModelCompleteCheckable {
         let issues: [RecoveryAction] = [
             self.icon == nil ? .reminderVesselMissingIcon : nil,
             self.raw_displayName == nil ? .reminderVesselMissingName : nil,
-            (self.raw_reminders?.count ?? 0) <= 0 ? .reminderVesselMissingReminder : nil
+            (self.raw_reminders?.count ?? 0) <= 0 ? .reminderVesselMissingReminder : nil,
             ].compactMap({ $0 })
         if issues.isEmpty {
             return nil
@@ -98,7 +98,7 @@ extension RLM_ReminderVessel: ModelCompleteCheckable {
         let issues: [RecoveryAction] = [
             self.icon == nil ? .reminderVesselMissingIcon : nil,
             self.displayName == nil ? .reminderVesselMissingName : nil,
-            self.reminders.isEmpty ? .reminderVesselMissingReminder : nil
+            self.reminders.isEmpty ? .reminderVesselMissingReminder : nil,
             ].compactMap({ $0 })
         if issues.isEmpty {
             return nil

@@ -309,7 +309,7 @@ internal class CD_BasicController: BasicController {
             return NSCompoundPredicate(andPredicateWithSubpredicates: [
                 enabledPredicate,
                 NSPredicate(format: "%K >= %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.start as NSDate)),
-                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate))
+                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate)),
             ])
         }
 
@@ -322,11 +322,11 @@ internal class CD_BasicController: BasicController {
         case .late:
             let neverPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
                 enabledPredicate,
-                NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate))
+                NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate)),
             ])
             predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
                 normalPredicate(section.dateInterval),
-                neverPredicate
+                neverPredicate,
             ])
         }
 
@@ -667,7 +667,7 @@ extension CD_BasicController {
         let fetchRequest = CD_Base.requestBase
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateModified)),
-            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated))
+            NSPredicate(format: "%K == nil", #keyPath(CD_Base.raw_dateCreated)),
         ])
 
         do {
@@ -700,6 +700,8 @@ extension CD_BasicController {
     }
 
     fileprivate func maintenance_deleteOrphanedReminders() -> Result<Void, DatumError> {
+        return .success(()) // skip this because a slow sync will cause data loss
+        /*
         let context = self.container.viewContext
         let fetchRequest = CD_Reminder.request
         fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_vessel))
@@ -716,9 +718,12 @@ extension CD_BasicController {
             error.log(as: .error)
             return .failure(.maintenanceDeleteOrphanedReminders)
         }
+        */
     }
 
     fileprivate func maintenance_fixOrphanedVessels(share: CD_VesselShare) -> Result<Void, DatumError> {
+        return .success(()) // skip this because a slow sync will cause data loss
+        /*
         let context = self.container.viewContext
         let fetchRequest = CD_ReminderVessel.request
         fetchRequest.predicate = NSPredicate(format: "%K == nil", #keyPath(CD_ReminderVessel.raw_share))
@@ -736,6 +741,7 @@ extension CD_BasicController {
             error.log(as: .error)
             return .failure(.maintenanceFixOrphanedVessels)
         }
+        */
     }
 }
 

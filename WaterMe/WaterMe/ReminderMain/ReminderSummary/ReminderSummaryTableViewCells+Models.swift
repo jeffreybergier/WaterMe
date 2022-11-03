@@ -21,7 +21,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Datum
+import DatumL
 
 extension ButtonTableViewCell {
     func configure(for action: ReminderSummaryTableViewController.ActionRows) {

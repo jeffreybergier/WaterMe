@@ -27,17 +27,17 @@ import Localize
 
 extension ReminderList.Grid {
     internal struct Cell: View {
-        
+
         private var reminder: Reminder
         @VesselEditQuery private var vessel: Vessel
         @Localize.ReminderList private var text
         @Style.ReminderListGridCell private var style
-        
+
         internal init(reminder: Reminder) {
             self.reminder = reminder
             _vessel = VesselEditQuery(reminder)
         }
-        
+
         internal var body: some View {
             VStack {
                 ZStack(alignment: .bottomTrailing) {

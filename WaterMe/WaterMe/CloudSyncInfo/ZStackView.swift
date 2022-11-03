@@ -39,7 +39,7 @@ public class ZStackView: UIView {
             view.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             view.topAnchor.constraint(equalTo: self.topAnchor),
-            view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            view.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
         self.bringSubviewToFront(view)
         self.arrangedSubviews = [view] + self.arrangedSubviews

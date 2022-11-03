@@ -22,7 +22,7 @@ import SwiftUI
 import Umbrella
 
 internal struct Action {
-    
+
     internal static let addGeneric: LocalizationKey = "Action.Add Generic"
     internal static let addPlant: LocalizationKey = "Action.Add Plant"
     internal static let addReminder: LocalizationKey = "Action.Add Reminder"
@@ -44,4 +44,5 @@ internal struct Action {
     internal static let pauseNotifications: LocalizationKey = "Action.Pause Notifications"
     internal static let pause: LocalizationKey = "Action.Pause"
     internal static let openSettings: LocalizationKey = "Action.Open Settings"
+    internal static let settings: LocalizationKey = "Action.Settings"
 }
