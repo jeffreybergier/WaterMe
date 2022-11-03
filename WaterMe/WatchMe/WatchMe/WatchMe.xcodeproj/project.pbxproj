@@ -7,28 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7345459527817AAC0001EC2E /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 7345459427817AAC0001EC2E /* Interface */; };
 		738F06AB27817A5900579B01 /* iPhoneMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F06AA27817A5900579B01 /* iPhoneMeApp.swift */; };
 		738F06AF27817A5A00579B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738F06AE27817A5A00579B01 /* Assets.xcassets */; };
 		738F06B227817A5A00579B01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 738F06B127817A5A00579B01 /* Preview Assets.xcassets */; };
+		73BEAFD02913C23600DE9656 /* V3Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73BEAFCF2913C23600DE9656 /* V3Interface */; };
 		73D78C81284CA30400E6F69E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D78C80284CA30400E6F69E /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7339DE6F277DD76A008B20DD /* Datum */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Datum; path = Packages/Datum; sourceTree = "<group>"; };
-		7339DE71277DD805008B20DD /* Style */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Style; path = Packages/Style; sourceTree = "<group>"; };
-		7345459627818E360001EC2E /* Model */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Model; path = Packages/Model; sourceTree = "<group>"; };
-		734545972781943D0001EC2E /* Nav */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Nav; path = Packages/Nav; sourceTree = "<group>"; };
-		7354DAAD277E749C007AC8FB /* Interface */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Interface; path = Packages/Interface; sourceTree = "<group>"; };
+		7339DE6F277DD76A008B20DD /* V3Datum */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Datum; path = Packages/V3Datum; sourceTree = "<group>"; };
+		7339DE71277DD805008B20DD /* V3Style */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Style; path = Packages/V3Style; sourceTree = "<group>"; };
+		7345459627818E360001EC2E /* V3Model */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Model; path = Packages/V3Model; sourceTree = "<group>"; };
+		734545972781943D0001EC2E /* V3Nav */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Nav; path = Packages/V3Nav; sourceTree = "<group>"; };
+		7354DAAD277E749C007AC8FB /* V3Interface */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Interface; path = Packages/V3Interface; sourceTree = "<group>"; };
 		738F06A827817A5900579B01 /* WaterMeiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMeiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		738F06AA27817A5900579B01 /* iPhoneMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPhoneMeApp.swift; sourceTree = "<group>"; };
 		738F06AE27817A5A00579B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		738F06B127817A5A00579B01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		73C3C8E92841BD0D0001BF37 /* Settings */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Settings; path = Packages/Settings; sourceTree = "<group>"; };
+		73C3C8E92841BD0D0001BF37 /* V3Settings */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Settings; path = Packages/V3Settings; sourceTree = "<group>"; };
 		73D78C7F284CA30100E6F69E /* iPhoneMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iPhoneMe.entitlements; sourceTree = "<group>"; };
 		73D78C80284CA30400E6F69E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		73D8E24927AE20E90044EE47 /* Errors */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Errors; path = Packages/Errors; sourceTree = "<group>"; };
-		73E8B81227C1E8B000A4B4E4 /* Localize */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Localize; path = Packages/Localize; sourceTree = "<group>"; };
+		73D8E24927AE20E90044EE47 /* V3Error */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Error; path = Packages/V3Error; sourceTree = "<group>"; };
+		73E8B81227C1E8B000A4B4E4 /* V3Localize */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Localize; path = Packages/V3Localize; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,8 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7345459527817AAC0001EC2E /* Interface in Frameworks */,
 				73D78C81284CA30400E6F69E /* CloudKit.framework in Frameworks */,
+				73BEAFD02913C23600DE9656 /* V3Interface in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,14 +47,14 @@
 		7339DE3B277DD537008B20DD = {
 			isa = PBXGroup;
 			children = (
-				7354DAAD277E749C007AC8FB /* Interface */,
-				734545972781943D0001EC2E /* Nav */,
-				73D8E24927AE20E90044EE47 /* Errors */,
-				7339DE6F277DD76A008B20DD /* Datum */,
-				73E8B81227C1E8B000A4B4E4 /* Localize */,
-				7339DE71277DD805008B20DD /* Style */,
-				7345459627818E360001EC2E /* Model */,
-				73C3C8E92841BD0D0001BF37 /* Settings */,
+				7354DAAD277E749C007AC8FB /* V3Interface */,
+				734545972781943D0001EC2E /* V3Nav */,
+				73D8E24927AE20E90044EE47 /* V3Error */,
+				7339DE6F277DD76A008B20DD /* V3Datum */,
+				73E8B81227C1E8B000A4B4E4 /* V3Localize */,
+				7339DE71277DD805008B20DD /* V3Style */,
+				7345459627818E360001EC2E /* V3Model */,
+				73C3C8E92841BD0D0001BF37 /* V3Settings */,
 				738F06A927817A5900579B01 /* iPhoneMe */,
 				7339DE43277DD537008B20DD /* Products */,
 				7339DE72277DD85C008B20DD /* Frameworks */,
@@ -113,7 +113,7 @@
 			);
 			name = iPhoneMe;
 			packageProductDependencies = (
-				7345459427817AAC0001EC2E /* Interface */,
+				73BEAFCF2913C23600DE9656 /* V3Interface */,
 			);
 			productName = iPhoneMe;
 			productReference = 738F06A827817A5900579B01 /* WaterMeiOS.app */;
@@ -308,7 +308,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,7 +340,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -378,9 +378,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7345459427817AAC0001EC2E /* Interface */ = {
+		73BEAFCF2913C23600DE9656 /* V3Interface */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Interface;
+			productName = V3Interface;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

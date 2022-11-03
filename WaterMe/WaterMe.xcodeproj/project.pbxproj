@@ -223,9 +223,9 @@
 		7334FE1D26429286004381A0 /* CloudSyncErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334FE1C26429286004381A0 /* CloudSyncErrors.swift */; };
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
+		73BEAFCE2913C1A100DE9656 /* V3Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73BEAFCD2913C1A100DE9656 /* V3Interface */; };
 		73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMe.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		73C3C8E62840F8180001BF37 /* Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73C3C8E52840F8180001BF37 /* Interface */; };
 		73C3C8E72840FA870001BF37 /* WatchMeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WatchMeMain.swift */; };
 		73C3C8E82840FA8B0001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733A726B2840D0310040640B /* Assets.xcassets */; };
 		73C3C92D284344980001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C3C92C284344980001BF37 /* Assets.xcassets */; };
@@ -656,7 +656,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73C3C8E62840F8180001BF37 /* Interface in Frameworks */,
+				73BEAFCE2913C1A100DE9656 /* V3Interface in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1467,7 +1467,7 @@
 			);
 			name = WatchMeExt;
 			packageProductDependencies = (
-				73C3C8E52840F8180001BF37 /* Interface */,
+				73BEAFCD2913C1A100DE9656 /* V3Interface */,
 			);
 			productName = "WaterMeW WatchKit Extension";
 			productReference = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */;
@@ -2580,7 +2580,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
 		};
@@ -2620,7 +2620,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;
 		};
@@ -2651,7 +2651,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
 		};
@@ -2681,7 +2681,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;
 		};
@@ -2867,9 +2867,9 @@
 			package = 73730856260E2F22000B99DB /* XCRemoteSwiftPackageReference "SimpleImageViewer" */;
 			productName = SimpleImageViewer;
 		};
-		73C3C8E52840F8180001BF37 /* Interface */ = {
+		73BEAFCD2913C1A100DE9656 /* V3Interface */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Interface;
+			productName = V3Interface;
 		};
 /* End XCSwiftPackageProductDependency section */
 

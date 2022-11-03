@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Interface
+import V3Interface
 
 @main
 struct iPhoneMeApp: App {
