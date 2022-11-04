@@ -20,12 +20,11 @@
 
 import Combine
 import CoreData
-import ServerlessLogger
 import Umbrella
-import Settings
-import Model
+import V3Settings
+import V3Model
 
-internal class CD_Controller: Controller {
+internal class CD_Controller: ControllerProtocol {
 
     private class func container(kind: ControllerKind) -> NSPersistentContainer? {
         // debug only sanity checks
@@ -35,7 +34,7 @@ internal class CD_Controller: Controller {
             let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
             let mom = NSManagedObjectModel(contentsOf: url)
         else {
-            "Unable to load MOM from application bundle".log(as: .emergency)
+            NSLog("Unable to load MOM from application bundle")
             return nil
         }
 
@@ -86,13 +85,12 @@ internal class CD_Controller: Controller {
 
         guard error == nil else { throw error! }
         container.viewContext.automaticallyMergesChangesFromParent = true
-
-        switch kind {
-        case .local, .sync:
-            guard container is NSPersistentCloudKitContainer else { self.syncProgress = nil; break; }
-            self.syncProgress = CloudKitContainerContinuousProgress(container)
-        case .__testing_inMemory, .__testing_withClass:
-            self.syncProgress = nil
+        
+        if case .sync = kind, let container = container as? NSPersistentCloudKitContainer {
+            self.syncProgress = .init(CloudKitContainerContinuousProgress(container))
+        } else {
+            fatalError()
+            // self.syncProgress = .init(NoContinousProgress())
         }
 
         // Set properties
@@ -104,33 +102,33 @@ internal class CD_Controller: Controller {
         }
 
         // Observe sync changes to perform maintenance
-        self.maintenance_syncToken = self.syncProgress?.objectWillChange
+        self.maintenance_syncToken = self.syncProgress.objectWillChange
             .debounce(for: .seconds(3), scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 guard
                     let self = self,
-                    self.syncProgress?.progress.fractionCompleted == 1
+                    self.syncProgress.progress.fractionCompleted == 1
                 else { return }
-                "Performing post syncing maintenance".log(as: .debug)
+                NSLog("Performing post syncing maintenance")
                 // Perform maintenance and log any errors
-                self.maintenance_fixDates()
+                let error = self.maintenance_fixDates()
                     .reduce(self.maintenance_deleteOrphanedReminders)
                     .reduce(self.maintenance_oneTrueVesselShare)
                     .reduce(self.maintenance_fixOrphanedVessels(share:))
                     .reduce(self.maintenance_massageAllEntries)
-                    .error?.log()
+                    .error
+                guard let e = error else { return }
+                NSLog(String(describing: e))
             }
 
+        
         //
         // DEBUG ONLY
         // initialize the CloudKit schema
         // only do this once per change to CD MOM
         //
         #if DEBUG
-        guard
-            #available(iOS 14.0, *),
-            let container = container as? NSPersistentCloudKitContainer
-        else { return }
+        guard let container = container as? NSPersistentCloudKitContainer else { return }
         let configureCKSchema = false
         if configureCKSchema {
             // swiftlint:disable:next force_try
@@ -144,8 +142,8 @@ internal class CD_Controller: Controller {
 
     internal let container: NSPersistentContainer
     internal let kind: ControllerKind
-    internal let syncProgress: CloudKitContainerContinuousProgress?
-    internal var __ENVONLY__managedObjectContext: NSManagedObjectContext {
+    internal let syncProgress: AnyContinousProgress<CPError>
+    internal var context: NSManagedObjectContext {
         return self.container.viewContext
     }
 
@@ -533,7 +531,7 @@ extension CD_Controller {
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
         } else {
-            "App group container could not be found".log(as: .emergency)
+            NSLog("App group container could not be found")
             return fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
@@ -564,7 +562,7 @@ extension CD_Controller {
             .appendingPathComponent("Realm.realm", isDirectory: false)
     }()
 
-    internal class var storeExists: Bool {
+    internal static var storeExists: Bool {
         let fm = FileManager.default
         let exists = fm.fileExists(atPath: self.dbFileURL1.path)
         return exists

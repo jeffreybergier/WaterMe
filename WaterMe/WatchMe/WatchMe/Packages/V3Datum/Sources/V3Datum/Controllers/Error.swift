@@ -20,18 +20,10 @@
 
 import Foundation
 
-public enum Error: Int, CustomNSError, Codable {
+public enum Error: Int, CustomNSError {
 
-    /// The domain of the error.
-    static public var errorDomain: String { "com.saturdayapps.waterme.datum" }
-    /// The error code within the given domain.
+    static public var errorDomain = "com.saturdayapps.Hipstapaper.V3Store"
     public var errorCode: Int { return self.rawValue }
-    /// The user-info dictionary.
-    public var errorUserInfo: [String: Any] {
-        return [
-            NSUnderlyingErrorKey: String(reflecting: self),
-        ]
-    }
 
     case load
     case write
