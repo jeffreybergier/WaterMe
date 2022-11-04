@@ -39,14 +39,18 @@ public struct CheckForUpdatesOnLaunch: DynamicProperty {
 @propertyWrapper
 public struct LastRequestedReviewDate: DynamicProperty {
     @AppStorage(UserDefaults.Constants.kRequestReviewDate, store: store)
-    private var value: Date?
+    private var value: DateRep?
     public init() {}
     public var wrappedValue: Date? {
-        get { self.value }
-        nonmutating set { self.value = newValue }
+        get { self.value?.value }
+        nonmutating set { self.value = .init(newValue) }
     }
     public var projectedValue: Binding<Date?> {
-        self.$value
+        Binding {
+            self.wrappedValue
+        } set: {
+            self.wrappedValue = $0
+        }
     }
 }
 

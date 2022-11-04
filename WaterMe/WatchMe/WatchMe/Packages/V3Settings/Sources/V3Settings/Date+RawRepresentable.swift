@@ -20,13 +20,24 @@
 
 import Foundation
 
-extension Date: RawRepresentable {
-    private static let formatter = ISO8601DateFormatter()
-    public var rawValue: String {
-        type(of: self).formatter.string(from: self)
+internal struct DateRep {
+    internal var value: Date
+    internal init(_ date: Date) {
+        self.value = date
     }
-    public init?(rawValue: String) {
+    internal init?(_ date: Date?) {
+        guard let date = date else { return nil }
+        self.value = date
+    }
+}
+
+extension DateRep: RawRepresentable {
+    private static let formatter = ISO8601DateFormatter()
+    internal var rawValue: String {
+        type(of: self).formatter.string(from: self.value)
+    }
+    internal init?(rawValue: String) {
         guard let date = Self.formatter.date(from: rawValue) else { return nil }
-        self = date
+        self.value = date
     }
 }
