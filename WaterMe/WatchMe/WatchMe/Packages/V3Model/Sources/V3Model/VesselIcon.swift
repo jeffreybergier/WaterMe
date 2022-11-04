@@ -19,11 +19,12 @@
 //
 
 import Foundation
+import Umbrella
 
 public protocol VesselIconProtocol {
     var stringValue: String? { get }
     var dataValue: Data? { get }
-    var imageValue: XPImage? { get }
+    var imageValue: JSBImage? { get }
     init?(cleanData: Data?, cleanString: String?)
     init?(uncleanData: Data)
     init?(uncleanString: String)
@@ -59,11 +60,3 @@ public enum VesselIcon: VesselIconProtocol {
         return nil
     }
 }
-
-#if canImport(UIKit)
-import UIKit
-public typealias XPImage = UIImage
-#elseif canImport(AppKit)
-import AppKit
-public typealias XPImage = NSImage
-#endif

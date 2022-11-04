@@ -20,10 +20,11 @@
 
 #if canImport(UIKit)
 import UIKit
+import Umbrella
 
 extension VesselIcon {
 
-    public var imageValue: XPImage? {
+    public var imageValue: JSBImage? {
         guard case .image(let data) = self else { return nil }
         return UIImage(data: data)
     }
