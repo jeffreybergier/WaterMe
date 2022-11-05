@@ -21,16 +21,7 @@
 import Foundation
 import Umbrella
 
-public protocol VesselIconProtocol {
-    var stringValue: String? { get }
-    var dataValue: Data? { get }
-    var imageValue: JSBImage? { get }
-    init?(cleanData: Data?, cleanString: String?)
-    init?(uncleanData: Data)
-    init?(uncleanString: String)
-}
-
-public enum VesselIcon: VesselIconProtocol {
+public enum VesselIcon: Equatable, Hashable {
 
     case emoji(String), image(Data)
 

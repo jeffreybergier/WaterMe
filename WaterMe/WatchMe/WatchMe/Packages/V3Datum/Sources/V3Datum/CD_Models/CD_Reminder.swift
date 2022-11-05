@@ -88,7 +88,6 @@ internal class CD_ReminderPerform: CD_Base {
     }
 }
 
-/* TODO: 
 extension CD_Reminder {
     static func sortDescriptor(for sortOrder: ReminderSortOrder,
                                ascending: Bool) -> NSSortDescriptor
@@ -105,4 +104,26 @@ extension CD_Reminder {
         }
     }
 }
-*/
+
+extension Reminder.Identifier {
+    internal init(_ id: NSManagedObjectID) {
+        self.init(rawValue: id.uriRepresentation().absoluteString)
+    }
+}
+
+extension Reminder {
+    internal init(_ cd: CD_Reminder) {
+        self.init(
+            id: .init(cd.objectID),
+            kind: .init(rawValue: cd.raw_kindString ?? ""),
+            kindDescription: cd.raw_descriptionString,
+            interval: Int(cd.raw_interval),
+            isEnabled: cd.raw_isEnabled,
+            note: cd.raw_note,
+            nextPerformDate: cd.raw_nextPerformDate,
+            lastPerformDate: cd.raw_lastPerformDate,
+            isDeleted: cd.isDeleted,
+            vesselID: .init(cd.raw_vessel?.objectID)
+        )
+    }
+}

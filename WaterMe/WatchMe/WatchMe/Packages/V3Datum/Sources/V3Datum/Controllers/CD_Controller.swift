@@ -149,7 +149,7 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Create
 
-    internal func newVessel() -> Result<Vessel.アイディ, Error> {
+    internal func newVessel() -> Result<Vessel.Identifier, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
@@ -178,14 +178,14 @@ internal class CD_Controller: ControllerProtocol {
 
         // save
         return context.waterme_save().map {
-            Vessel.アイディ(vessel.objectID.uriRepresentation().absoluteString)
+            Vessel.Identifier(vessel.objectID)
         }
     }
 
-    internal func newReminder(for vessel: Vessel.アイディ) -> Result<Reminder.アイディ, Error> {
+    internal func newReminder(for vessel: Vessel.Identifier) -> Result<Reminder.Identifier, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
-        { (vessel: CD_ReminderVessel) -> Result<Reminder.アイディ, Error> in
+        { (vessel: CD_ReminderVessel) -> Result<Reminder.Identifier, Error> in
             // debug only sanity checks
             assert(Thread.isMainThread)
             assert(context === vessel.managedObjectContext!)
@@ -195,11 +195,11 @@ internal class CD_Controller: ControllerProtocol {
             // core data hooks up the inverse relationship
             newReminder.raw_vessel = vessel
             return context.waterme_save()
-                .map { Reminder.アイディ(newReminder.objectID) }
+                .map { Reminder.Identifier(newReminder.objectID) }
         }
     }
 
-    internal func appendNewPerformToReminders(with ids: [Reminder.アイディ]) -> Result<Void, Error> {
+    internal func appendNewPerformToReminders(with ids: [Reminder.Identifier]) -> Result<Void, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
@@ -226,7 +226,7 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Delete
 
-    internal func delete(_ vessel: Vessel.アイディ) -> Result<Void, Error> {
+    internal func delete(_ vessel: Vessel.Identifier) -> Result<Void, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
         { (vessel: CD_ReminderVessel) -> Result<Void, Error> in
@@ -239,7 +239,7 @@ internal class CD_Controller: ControllerProtocol {
         }
     }
 
-    internal func delete(_ reminder: Reminder.アイディ) -> Result<Void, Error> {
+    internal func delete(_ reminder: Reminder.Identifier) -> Result<Void, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: reminder.id).flatMap
         { (reminder: CD_Reminder) -> Result<Void, Error> in
@@ -282,7 +282,7 @@ internal class CD_Controller: ControllerProtocol {
                 guard let object = _object as? T else {
                     let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
-                    e.log()
+                    NSLog(e)
                     return .failure(.objectMissing)
                 }
                 return .success(object)
@@ -300,26 +300,26 @@ internal class CD_Controller: ControllerProtocol {
                     let e = ("\(T.self), id: \(uuid), count: \(count): "
                            + "There should only be 1 match")
                     assertionFailure(e)
-                    e.log()
+                    NSLog(e)
                 }
                 // if the object is the wrong type, log this as an error
                 let _object = results[0]
                 guard let object = _object as? T else {
                     let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
-                    e.log()
+                    NSLog(e)
                     return .failure(.objectMissing)
                 }
                 return .success(object)
             } else {
                 let e = "\(uuid): does not appear to be Core Data or Realm identifier"
                 assertionFailure(e)
-                e.log()
+                NSLog(e)
                 return .failure(.objectMissing)
             }
         } catch {
             assertionFailure("\(error)")
-            error.log()
+            NSLog(String(describing: error))
             return .failure(.load)
         }
     }
@@ -353,7 +353,7 @@ internal class CD_Controller: ControllerProtocol {
     }
 
     deinit {
-        log.verbose()
+        NSLog("DEINIT: CD_Controller")
     }
 }
 
@@ -374,7 +374,7 @@ extension CD_Controller {
             UserDefaults.standard.didRunWithoutCloudSync = false
             return .success(())
         } catch {
-            error.log()
+            NSLog(String(describing: error))
             return .failure(.maintenanceMassageAllEntries)
         }
     }
@@ -397,7 +397,7 @@ extension CD_Controller {
                 let share = CD_VesselShare(context: context)
                 context.insert(share)
                 try context.save()
-                "0 VesselShares present, but was able to create".log(as: .notice)
+                NSLog("0 VesselShares present, but was able to create")
                 return .success(share)
             case 1:
                 let originalVesselShare = fetchResult[0]
@@ -421,12 +421,12 @@ extension CD_Controller {
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
                 UserDefaults.standard.didRunWithoutCloudSync = true
-                "2+ VesselShares present, but was able to clean.".log(as: .notice)
+                NSLog("2+ VesselShares present, but was able to clean.")
                 return .success(willKeepShare)
             }
         } catch {
             assertionFailure(String(describing: error))
-            error.log(as: .error)
+            NSLog(String(describing: error))
             return .failure(.maintenanceOneTrueVesselShare)
         }
     }
@@ -449,22 +449,23 @@ extension CD_Controller {
                 if $0.raw_dateCreated == nil {
                     let message = "DateCreated missing: \($0)"
                     assertionFailure(message)
-                    message.log(as: .error)
+                    NSLog(message)
                     $0.raw_dateCreated = now
                 }
                 if $0.raw_dateModified == nil {
                     let message = "DateModified missing: \($0)"
                     assertionFailure(message)
-                    message.log(as: .error)
+                    NSLog(message)
                     $0.raw_dateModified = now
                 }
             }
             try context.save()
-            "NIL Dates found: \(count)".log(as: .error)
+            NSLog("NIL Dates found: \(count)")
             return .success(())
         } catch {
-            assertionFailure(String(describing: error))
-            error.log(as: .error)
+            let message = String(describing: error)
+            assertionFailure(message)
+            NSLog(message)
             return .failure(.maintenanceFixDates)
         }
     }
@@ -583,8 +584,7 @@ extension CD_Controller {
             let sampleDB1URL = self.sampleDB1URL,
             let sampleDB2URL = self.sampleDB2URL
         else {
-            let e = "Unable to find sample DB files in bundle"
-            e.log(as: .warning)
+            NSLog("Unable to find sample DB files in bundle")
             return
         }
         let fm = FileManager.default
@@ -595,7 +595,7 @@ extension CD_Controller {
             try fm.copyItem(at: sampleDB1URL, to: self.dbFileURL1)
             try fm.copyItem(at: sampleDB2URL, to: self.dbFileURL2)
         } catch {
-            error.log()
+            NSLog(String(describing: error))
             try? fm.removeItem(at: self.storeDirectoryURL)
         }
     }
@@ -606,7 +606,7 @@ private class WaterMe_PersistentContainer: NSPersistentContainer {
         return CD_Controller.storeDirectoryURL
     }
     deinit {
-        log.verbose()
+        NSLog("DEINIT: WaterMe_PersistentContainer")
     }
 }
 
@@ -616,7 +616,7 @@ private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
         return CD_Controller.storeDirectoryURL
     }
     deinit {
-        log.verbose()
+        NSLog("DEINIT: WaterMe_PersistentSyncContainer")
     }
 }
 
@@ -635,7 +635,7 @@ extension NSManagedObjectContext {
                 // we need to rollback the context
                 self.rollback()
             }
-            error.log()
+            NSLog(String(describing: error))
             return .failure(.write)
         }
     }

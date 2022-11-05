@@ -20,8 +20,17 @@
 
 import Foundation
 
-public struct Reminder: Identifiable, Hashable {
-    public var id: アイディ
+public struct Reminder: Identifiable, Hashable, Equatable {
+
+    public struct Identifier: Hashable, Equatable, Codable, RawRepresentable, Identifiable {
+        public var id: String { self.rawValue }
+        public var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+
+    public var id: Identifier
     public var kind: ReminderKind
     public var kindDescription: String?
     public var interval: Int
@@ -30,10 +39,10 @@ public struct Reminder: Identifiable, Hashable {
     public var nextPerformDate: Date?
     public var lastPerformDate: Date?
     public var isDeleted: Bool
-    public var vesselID: Vessel.アイディ?
+    public var vesselID: Vessel.Identifier?
 
-    public init(id: アイディ,
-                kind: ReminderKind = .water,
+    public init(id: Identifier,
+                kind: ReminderKind? = nil,
                 kindDescription: String? = nil,
                 interval: Int,
                 isEnabled: Bool = true,
@@ -41,10 +50,10 @@ public struct Reminder: Identifiable, Hashable {
                 nextPerformDate: Date? = nil,
                 lastPerformDate: Date? = nil,
                 isDeleted: Bool = false,
-                vesselID: Vessel.アイディ? = nil)
+                vesselID: Vessel.Identifier? = nil)
     {
         self.id = id
-        self.kind = kind
+        self.kind = kind ?? .water
         self.kindDescription = kindDescription
         self.interval = interval
         self.isEnabled = isEnabled
@@ -53,18 +62,5 @@ public struct Reminder: Identifiable, Hashable {
         self.lastPerformDate = lastPerformDate
         self.isDeleted = isDeleted
         self.vesselID = vesselID
-    }
-}
-
-extension Reminder {
-    public struct アイディ: Codable, Identifiable, Hashable {
-        public var id: String
-        public init(_ id: String) {
-            self.id = id
-        }
-        public static var fake: Reminder.アイディ {
-            // x-coredata://8B8CF780-4286-4B6E-A8CB-17A45BBAB411/CD_Reminder/p3
-            return .init("x-coredata://" + UUID().uuidString + "/CD_Reminder")
-        }
     }
 }

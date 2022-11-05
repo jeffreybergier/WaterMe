@@ -63,3 +63,26 @@ extension CD_ReminderVessel {
         }
     }
 }
+
+extension Vessel.Identifier {
+    internal init(_ id: NSManagedObjectID) {
+        self.init(rawValue: id.uriRepresentation().absoluteString)
+    }
+    internal init?(_ id: NSManagedObjectID?) {
+        guard let id else { return nil }
+        self.init(rawValue: id.uriRepresentation().absoluteString)
+    }
+}
+
+extension Vessel {
+    internal init(_ cd: CD_ReminderVessel) {
+        self.init(
+            id: .init(cd.objectID),
+            displayName: cd.raw_displayName,
+            icon: .init(cleanData: cd.raw_iconImageData,
+                        cleanString: cd.raw_iconEmojiString),
+            kind: .init(rawValue: cd.raw_kindString ?? ""),
+            isDeleted: cd.isDeleted
+        )
+    }
+}

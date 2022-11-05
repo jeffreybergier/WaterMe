@@ -33,6 +33,5 @@ public struct Temporary {
         _ = V3Error.Temporary()
         _ = V3Style.Temporary()
         _ = V3Localize.Temporary()
-        _ = V3Settings.Temporary()
     }
 }

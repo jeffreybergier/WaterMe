@@ -20,8 +20,19 @@
 
 import Foundation
 
-public struct Vessel: Identifiable {
-    public var id: アイディ
+public struct Vessel: Identifiable, Hashable, Equatable {
+
+    public typealias Selection = Set<Vessel.Identifier>
+
+    public struct Identifier: Hashable, Equatable, Codable, RawRepresentable, Identifiable {
+        public var id: String { self.rawValue }
+        public var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+    
+    public var id: Identifier
     public var displayName: String?
     public var icon: VesselIcon?
     public var kind: VesselKind
@@ -31,29 +42,16 @@ public struct Vessel: Identifiable {
         self.displayName?.truncated(to: 20)
     }
 
-    public init(id: アイディ,
+    public init(id: Identifier,
                 displayName: String? = nil,
                 icon: VesselIcon? = nil,
-                kind: VesselKind = .plant,
+                kind: VesselKind? = nil,
                 isDeleted: Bool = false)
     {
         self.id = id
         self.displayName = displayName
         self.icon = icon
-        self.kind = kind
+        self.kind = kind ?? .plant
         self.isDeleted = isDeleted
-    }
-}
-
-extension Vessel {
-    public struct アイディ: Codable, Identifiable, Hashable {
-        public var id: String
-        public init(_ id: String) {
-            self.id = id
-        }
-        public static var fake: Vessel.アイディ {
-            // x-coredata://8B8CF780-4286-4B6E-A8CB-17A45BBAB411/CD_Reminder/p3
-            return .init("x-coredata://" + UUID().uuidString + "/CD_ReminderVessel")
-        }
     }
 }
