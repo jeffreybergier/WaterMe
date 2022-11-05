@@ -59,7 +59,7 @@ internal class CD_Controller: ControllerProtocol {
         }
     }
 
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
+    // swiftlint:disable:next function_body_length
     public init(kind: ControllerKind) throws {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -89,8 +89,7 @@ internal class CD_Controller: ControllerProtocol {
         if case .sync = kind, let container = container as? NSPersistentCloudKitContainer {
             self.syncProgress = .init(CloudKitContainerContinuousProgress(container))
         } else {
-            fatalError()
-            // self.syncProgress = .init(NoContinousProgress())
+            self.syncProgress = .init(NoContinousProgress())
         }
 
         // Set properties
@@ -121,7 +120,6 @@ internal class CD_Controller: ControllerProtocol {
                 NSLog(String(describing: e))
             }
 
-        
         //
         // DEBUG ONLY
         // initialize the CloudKit schema

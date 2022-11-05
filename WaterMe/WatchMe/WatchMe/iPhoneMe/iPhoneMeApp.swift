@@ -11,8 +11,6 @@ import V3Interface
 @main
 struct iPhoneMeApp: App {
     var body: some Scene {
-        WindowGroup {
-            Interface()
-        }
+        Interface()
     }
 }

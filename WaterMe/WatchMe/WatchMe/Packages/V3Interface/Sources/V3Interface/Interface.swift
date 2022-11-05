@@ -19,14 +19,25 @@
 //
 
 import SwiftUI
+import V3Datum
 
-public struct Interface: View {
+public struct Interface: Scene {
     
+    @StateObject private var controller = Controller.newEnvironment()
+
 	public init() {
        _ = Temporary()
     }
-    
-    public var body: some View {
-        Text("V3Interface")
+
+    public var body: some Scene {
+        WindowGroup {
+            switch self.controller.value {
+            case .success(let controller):
+                MainWindow()
+                    .environment(\.managedObjectContext, controller.context)
+            case .failure(let error):
+                Text(String(describing: error))
+            }
+        }
     }
 }

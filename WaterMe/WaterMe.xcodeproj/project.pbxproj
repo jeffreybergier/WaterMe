@@ -2561,7 +2561,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaterMe/WatchMe/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2602,7 +2602,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaterMe/WatchMe/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = WaterMeW_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
