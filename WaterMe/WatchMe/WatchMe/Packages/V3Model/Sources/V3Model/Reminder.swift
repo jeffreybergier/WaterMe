@@ -21,6 +21,8 @@
 import Foundation
 
 public struct Reminder: Identifiable, Hashable, Equatable {
+    
+    public typealias Selection = Set<Reminder.Identifier>
 
     public struct Identifier: Hashable, Equatable, Codable, RawRepresentable, Identifiable {
         public var id: String { self.rawValue }

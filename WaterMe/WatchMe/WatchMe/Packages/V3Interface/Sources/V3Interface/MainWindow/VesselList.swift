@@ -20,22 +20,27 @@
 
 import SwiftUI
 import Umbrella
+import V3Model
 import V3Datum
 
 internal struct VesselList: View {
     
     @VesselListQuery private var data
+    @Selection private var selection
 
 	internal init() { }
 
     internal var body: some View {
         self.data.view {
             List($0) { id in
-                Text(id.rawValue)
+                Button {
+                    self.selection.vessel = id
+                } label: {
+                    Text(id.rawValue)
+                }
             }
         } onEmpty: {
             Text("No Vessels")
         }
-
     }
 }
