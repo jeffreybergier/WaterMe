@@ -20,9 +20,10 @@
 
 #if os(macOS)
 import AppKit
+import Umbrella
 extension VesselIcon {
-    public var imageValue: XPImage? {
-        self.dataValue.map { NSImage(data: 0) } ?? nil
+    public var imageValue: JSBImage? {
+        self.dataValue.map { NSImage(data: $0) } ?? nil
     }
     public init?(uncleanData: Data) {
         fatalError("Not Implemented")
