@@ -26,10 +26,9 @@ import V3Model
 @propertyWrapper
 public struct VesselListQuery: DynamicProperty {
 
-    // Basics
     @Controller private var controller
     @CDListQuery<CD_ReminderVessel, Vessel.Identifier, Error>(
-        predicate: .init(value: false),
+        predicate: .init(value: true),
         onRead: { .init($0.objectID) }
     ) private var data
     @Environment(\.managedObjectContext) private var context

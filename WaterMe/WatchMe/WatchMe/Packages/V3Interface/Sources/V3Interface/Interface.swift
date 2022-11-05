@@ -19,14 +19,18 @@
 //
 
 import SwiftUI
+import Umbrella
 import V3Datum
+import V3Settings
 
 public struct Interface: Scene {
     
-    @StateObject private var controller = Controller.newEnvironment()
+    @StateObject private var controller = Controller.newEnvironment(.local)
+    @StateObject private var launchConfiguration = SecretBox<(() -> Void)?>(UserDefaults.standard.configure)
 
-	public init() {
-       _ = Temporary()
+    public init() {
+        self.launchConfiguration.value?()
+        self.launchConfiguration.value = nil
     }
 
     public var body: some Scene {

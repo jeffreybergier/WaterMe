@@ -21,6 +21,7 @@
 
 import SwiftUI
 import Umbrella
+import V3Settings
 
 @propertyWrapper
 public struct Controller: DynamicProperty {
@@ -44,10 +45,10 @@ public struct Controller: DynamicProperty {
 }
 
 extension Controller {
-    public static func newEnvironment() -> Environment {
+    public static func newEnvironment(_ kind: ControllerKind) -> Environment {
         // TODO: Change to not be inMemory
         do {
-            let controller = try CD_Controller(kind: .__testing_inMemory)
+            let controller = try CD_Controller(kind: kind)
             return .init(.success(controller))
         } catch let error as Error {
             return .init(.failure(error))
