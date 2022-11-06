@@ -22,7 +22,7 @@
 import UIKit
 import Umbrella
 
-extension VesselIcon {
+extension Vessel.Icon {
 
     public var imageValue: JSBImage? {
         guard case .image(let data) = self else { return nil }

@@ -26,9 +26,9 @@ import V3Datum
 
 internal struct ReminderGrid: View {
     
-    private let id: Vessel.Identifier
+    private let id: Share.Identifier
     
-    internal init(_ id: Vessel.Identifier) {
+    internal init(_ id: Share.Identifier) {
         self.id = id
     }
     

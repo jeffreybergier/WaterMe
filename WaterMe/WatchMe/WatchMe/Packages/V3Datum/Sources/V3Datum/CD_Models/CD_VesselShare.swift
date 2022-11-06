@@ -22,12 +22,26 @@
 //
 
 import CoreData
+import V3Model
 
 @objc(CD_VesselShare)
 internal class CD_VesselShare: CD_Base {
-
     override class var entityName: String { "CD_VesselShare" }
     class var request: NSFetchRequest<CD_VesselShare> {
         NSFetchRequest<CD_VesselShare>(entityName: self.entityName)
+    }
+}
+
+extension Share.Identifier {
+    internal init(_ id: NSManagedObjectID) {
+        self.init(rawValue: id.uriRepresentation().absoluteString)
+    }
+}
+
+extension Share {
+    internal init(_ cd: CD_VesselShare) {
+        self.init(id: .init(cd.objectID),
+                  dateCreated: cd.raw_dateCreated,
+                  dateModified: cd.raw_dateModified)
     }
 }

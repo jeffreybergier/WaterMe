@@ -1,6 +1,6 @@
 //
-//  Created by Jeffrey Bergier on 2022/02/04.
-//  Copyright © 2022 Saturday Apps.
+//  Created by Jeffrey Bergier on 2022/11/06.
+//  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -18,15 +18,30 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#if os(macOS)
-import AppKit
+import SwiftUI
 import Umbrella
-extension VesselIcon {
-    public var imageValue: JSBImage? {
-        self.dataValue.map { NSImage(data: $0) } ?? nil
-    }
-    public init?(uncleanData: Data) {
-        fatalError("Not Implemented")
+import V3Model
+import V3Datum
+
+internal struct ShareList: View {
+    
+    @Nav private var nav
+    @ShareListQuery private var data
+    
+    internal init() { }
+    
+    internal var body: some View {
+        self.data.view {
+            List($0) { id in
+                Button {
+                    self.nav.list(id)
+                } label: {
+                    Row(id)
+                }
+            }
+        } onEmpty: {
+            Text("No Libraries Found")
+        }
+        .navigationTitle("Libraries")
     }
 }
-#endif

@@ -34,6 +34,9 @@ internal struct Nav: DynamicProperty {
         internal mutating func pop() {
             self.path.removeLast()
         }
+        internal mutating func list(_ vessel: Share.Identifier) {
+            self.path.append(vessel)
+        }
         internal mutating func list(_ vessel: Vessel.Identifier) {
             self.path.append(vessel)
         }

@@ -20,9 +20,9 @@
 
 import Foundation
 
-public struct Reminder: Identifiable, Hashable, Equatable {
-    
-    public typealias Selection = Set<Reminder.Identifier>
+public struct Vessel: Identifiable, Hashable, Equatable {
+
+    public typealias Selection = Set<Vessel.Identifier>
 
     public struct Identifier: Hashable, Equatable, Codable, RawRepresentable, Identifiable {
         public var id: String { self.rawValue }
@@ -31,38 +31,34 @@ public struct Reminder: Identifiable, Hashable, Equatable {
             self.rawValue = rawValue
         }
     }
-
+    
     public var id: Identifier
-    public var kind: ReminderKind
-    public var kindDescription: String?
-    public var interval: Int
-    public var isEnabled: Bool
-    public var note: String?
-    public var nextPerformDate: Date?
-    public var lastPerformDate: Date?
+    public var displayName: String?
+    public var icon: Icon?
+    public var kind: Kind
     public var isDeleted: Bool
-    public var vesselID: Vessel.Identifier?
+//  public var isModelComplete: ModelCompleteError?
+    public var dateCreated: Date
+    public var dateModified: Date
+    
+    public var shortLabelSafeDisplayName: String? {
+        self.displayName?.truncated(to: 20)
+    }
 
     public init(id: Identifier,
-                kind: ReminderKind? = nil,
-                kindDescription: String? = nil,
-                interval: Int,
-                isEnabled: Bool = true,
-                note: String? = nil,
-                nextPerformDate: Date? = nil,
-                lastPerformDate: Date? = nil,
-                isDeleted: Bool = false,
-                vesselID: Vessel.Identifier? = nil)
+                displayName: String?,
+                icon: Icon?,
+                kind: Kind?,
+                isDeleted: Bool,
+                dateCreated: Date?,
+                dateModified: Date?)
     {
         self.id = id
-        self.kind = kind ?? .water
-        self.kindDescription = kindDescription
-        self.interval = interval
-        self.isEnabled = isEnabled
-        self.note = note
-        self.nextPerformDate = nextPerformDate
-        self.lastPerformDate = lastPerformDate
+        self.displayName = displayName
+        self.icon = icon
+        self.kind = kind ?? .plant
         self.isDeleted = isDeleted
-        self.vesselID = vesselID
+        self.dateCreated = dateCreated ?? .now
+        self.dateModified = dateModified ?? .now
     }
 }

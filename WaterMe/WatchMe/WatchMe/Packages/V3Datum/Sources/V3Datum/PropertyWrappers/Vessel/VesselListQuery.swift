@@ -28,7 +28,7 @@ public struct VesselListQuery: DynamicProperty {
 
     @Controller private var controller
     @CDListQuery<CD_ReminderVessel, Vessel.Identifier, Error>(
-        predicate: .init(value: true),
+        predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data
     @Environment(\.managedObjectContext) private var context
@@ -52,7 +52,12 @@ public struct VesselListQuery: DynamicProperty {
     }
     
     // TODO: Create enum here  .none, .all, .reminder
-    // @State private var filter: Filter = .none
-    // public func setFilter(_ newValue: Filter)
-    private func updateCoreData() { }
+    @State private var filter: Vessel.Filter = .none
+    public func setFilter(_ newValue: Vessel.Filter) {
+        self.filter = newValue
+        self.updateCoreData()
+    }
+    private func updateCoreData() {
+        _data.setPredicate(self.filter.cd_predicate)
+    }
 }

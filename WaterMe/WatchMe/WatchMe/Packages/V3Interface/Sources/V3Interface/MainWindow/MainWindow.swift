@@ -29,8 +29,8 @@ internal struct MainWindow: View {
     
     internal var body: some View {
         NavigationStack(path: self.$nav.path) {
-            VesselList()
-                .navigationDestination(for: Vessel.Identifier.self) {
+            ShareList()
+                .navigationDestination(for: Share.Identifier.self) {
                     ReminderGrid($0)
                 }
         }

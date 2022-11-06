@@ -28,7 +28,11 @@ internal struct VesselList: View {
     @Nav private var nav
     @VesselListQuery private var data
     
-    internal init() { }
+    private let id: Share.Identifier
+    
+    internal init(_ id: Share.Identifier) {
+        self.id = id
+    }
     
     internal var body: some View {
         self.data.view {
@@ -43,5 +47,8 @@ internal struct VesselList: View {
             Text("No Vessels")
         }
         .navigationTitle("Vessels")
+        .onLoadChange(of: self.id) {
+            _data.setFilter(.share($0))
+        }
     }
 }

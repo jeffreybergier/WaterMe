@@ -1,6 +1,7 @@
 //
-//  Created by Jeffrey Bergier on 2022/02/04.
-//  Copyright © 2022 Saturday Apps.
+//  Created by Jeffrey Bergier on 2022/11/06.
+//
+//  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -18,36 +19,23 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Foundation
+import SwiftUI
 import Umbrella
+import V3Model
+import V3Datum
 
-public enum VesselIcon: Equatable, Hashable {
-
-    case emoji(String), image(Data)
-
-    public var stringValue: String? {
-        guard case .emoji(let string) = self else { return nil }
-        return string
-    }
-
-    public var dataValue: Data? {
-        guard case .image(let data) = self else { return nil }
-        return data
-    }
-
-    public init?(cleanData: Data?, cleanString: String?) {
-        if let data = cleanData {
-            self = .image(data)
-            return
+extension ShareList {
+    internal struct Row: View {
+        
+        // @ShareQuery private var item
+        private let id: Share.Identifier
+        
+        internal init(_ id: Share.Identifier) {
+            self.id = id
         }
-        if let string = cleanString {
-            self = .emoji(string)
-            return
+        
+        internal var body: some View {
+            Text(String(describing: self.id.rawValue))
         }
-        return nil
-    }
-
-    public init?(uncleanString: String) {
-        return nil
     }
 }

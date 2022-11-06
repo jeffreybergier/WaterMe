@@ -82,7 +82,23 @@ extension Vessel {
             icon: .init(cleanData: cd.raw_iconImageData,
                         cleanString: cd.raw_iconEmojiString),
             kind: .init(rawValue: cd.raw_kindString ?? ""),
-            isDeleted: cd.isDeleted
+            isDeleted: cd.isDeleted,
+            dateCreated: cd.raw_dateCreated,
+            dateModified: cd.raw_dateModified
         )
+    }
+}
+
+extension Vessel.Filter {
+    internal var cd_predicate: NSPredicate {
+        switch self {
+        case .none:
+            return .init(value: false)
+        case .all:
+            return .init(value: true)
+        case .share(let id):
+            // TODO: Fix
+            return .init(value: true)
+        }
     }
 }

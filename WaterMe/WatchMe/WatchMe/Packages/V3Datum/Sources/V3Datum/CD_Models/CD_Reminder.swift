@@ -89,7 +89,7 @@ internal class CD_ReminderPerform: CD_Base {
 }
 
 extension CD_Reminder {
-    static func sortDescriptor(for sortOrder: ReminderSortOrder,
+    static func sortDescriptor(for sortOrder: Reminder.Sort,
                                ascending: Bool) -> NSSortDescriptor
     {
         switch sortOrder {
@@ -123,7 +123,9 @@ extension Reminder {
             nextPerformDate: cd.raw_nextPerformDate,
             lastPerformDate: cd.raw_lastPerformDate,
             isDeleted: cd.isDeleted,
-            vesselID: .init(cd.raw_vessel?.objectID)
+            vesselID: .init(cd.raw_vessel?.objectID),
+            dateCreated: cd.raw_dateCreated,
+            dateModified: cd.raw_dateModified
         )
     }
 }

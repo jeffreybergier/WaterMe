@@ -1,9 +1,6 @@
 //
-//  ReminderKind.swift
-//  Datum
-//
-//  Created by Jeffrey Bergier on 2020/05/21.
-//  Copyright © 2020 Saturday Apps.
+//  Created by Jeffrey Bergier on 2022/02/04.
+//  Copyright © 2022 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -21,20 +18,15 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public enum ReminderSortOrder {
-    case nextPerformDate, interval, kind, note
+#if os(macOS)
+import AppKit
+import Umbrella
+extension Vessel.Icon {
+    public var imageValue: JSBImage? {
+        self.dataValue.map { NSImage(data: $0) } ?? nil
+    }
+    public init?(uncleanData: Data) {
+        fatalError("Not Implemented")
+    }
 }
-
-public enum VesselKind: String {
-    case plant
-}
-
-public enum ReminderKind: String, Codable, Hashable, CaseIterable, Identifiable {
-    case water     = "kReminderKindCaseWaterValue"
-    case fertilize = "kReminderKindCaseFertilizeValue"
-    case trim      = "kReminderKindCaseTrimValue"
-    case mist      = "kReminderKindCaseMistValue"
-    case move      = "kReminderKindCaseMoveValue"
-    case other     = "kReminderKindCaseOtherValue"
-    public var id: String { self.rawValue }
-}
+#endif
