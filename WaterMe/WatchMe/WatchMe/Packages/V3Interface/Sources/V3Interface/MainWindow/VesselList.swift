@@ -25,16 +25,16 @@ import V3Datum
 
 internal struct VesselList: View {
     
+    @Nav private var nav
     @VesselListQuery private var data
-    @Selection private var selection
-
-	internal init() { }
-
+    
+    internal init() { }
+    
     internal var body: some View {
         self.data.view {
             List($0) { id in
                 Button {
-                    self.selection.vessel = id
+                    self.nav.list(id)
                 } label: {
                     Text(id.rawValue)
                 }

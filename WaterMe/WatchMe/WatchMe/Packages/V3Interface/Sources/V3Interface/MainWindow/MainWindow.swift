@@ -19,12 +19,22 @@
 //
 
 import SwiftUI
+import V3Model
 
 internal struct MainWindow: View {
-
-	internal init() { }
-
+    
+    @Nav private var nav
+    
+    internal init() { }
+    
     internal var body: some View {
-        VesselList()
+        NavigationStack(path: self.$nav.path) {
+            VesselList()
+                .navigationTitle("Vessels")
+                .navigationDestination(for: Vessel.Identifier.self) {
+                    Text(String(describing: $0))
+                        .navigationTitle("Reminders")
+                }
+        }
     }
 }

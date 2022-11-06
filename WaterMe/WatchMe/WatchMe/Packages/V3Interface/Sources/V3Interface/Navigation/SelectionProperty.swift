@@ -22,6 +22,8 @@ import SwiftUI
 import Umbrella
 import V3Model
 
+// TODO: Can probably remove because WatchOS does not support Selection in Lists
+@available(*, deprecated, message:"Is this used?")
 @propertyWrapper
 internal struct Selection: DynamicProperty {
     
@@ -30,7 +32,7 @@ internal struct Selection: DynamicProperty {
         internal var reminders: Reminder.Selection = []
     }
     
-    @JSBSceneStorage("com.hipstapaper.selection") private var storage = Value()
+    @JSBSceneStorage("com.saturdayapps.waterme.selection") private var storage = Value()
     
     internal var wrappedValue: Value {
         get { self.storage }
