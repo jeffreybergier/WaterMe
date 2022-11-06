@@ -18,6 +18,8 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Foundation
+
 extension Reminder {
     
     public enum Sort: String, Codable, Hashable, CaseIterable, Identifiable {
@@ -33,5 +35,31 @@ extension Reminder {
         case move      = "kReminderKindCaseMoveValue"
         case other     = "kReminderKindCaseOtherValue"
         public var id: String { self.rawValue }
+    }
+    
+    public enum Filter: Codable, Hashable {
+        case none, all, share(Share.Identifier)
+    }
+    
+    public enum Section: Int, Codable, Hashable, CaseIterable, Identifiable {
+        case late, today, tomorrow, thisWeek, later, disabled
+        public var id: Int { self.rawValue }
+        
+        public var dateInterval: DateInterval {
+            switch self {
+            case .late:
+                return ReminderDateCalculator.late()
+            case .today:
+                return ReminderDateCalculator.today()
+            case .tomorrow:
+                return ReminderDateCalculator.tomorrow()
+            case .thisWeek:
+                return ReminderDateCalculator.thisWeek()
+            case .later:
+                return ReminderDateCalculator.later()
+            case .disabled:
+                fatalError("DISABLED does not have a date range")
+            }
+        }
     }
 }

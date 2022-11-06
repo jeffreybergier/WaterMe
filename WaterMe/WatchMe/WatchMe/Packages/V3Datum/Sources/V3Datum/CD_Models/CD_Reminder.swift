@@ -40,7 +40,7 @@ internal class CD_Reminder: CD_Base {
 
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        self.raw_kindString = "" // TODO: ReminderKind.water.rawValue
+        self.raw_kindString = Reminder.Kind.water.rawValue
         self.raw_interval = Int32(ReminderConstants.defaultInterval)
         self.raw_isEnabled = true
     }
@@ -53,7 +53,7 @@ internal class CD_Reminder: CD_Base {
         }
         if let lastPerformDate = self.raw_lastPerformDate {
             let cal = Calendar.current
-            self.raw_nextPerformDate = .now // TODO: cal.dateByAddingNumberOfDays(Int(self.raw_interval), to: lastPerformDate)
+            self.raw_nextPerformDate = cal.dateByAddingNumberOfDays(Int(self.raw_interval), to: lastPerformDate)
         } else {
             self.raw_nextPerformDate = nil
         }
@@ -61,7 +61,6 @@ internal class CD_Reminder: CD_Base {
 
     override func willSave() {
         super.willSave()
-        /* TODO:
         if let descriptionString = self.raw_descriptionString,
            descriptionString.nonEmptyString == nil
         {
@@ -70,7 +69,6 @@ internal class CD_Reminder: CD_Base {
         if let note = self.raw_note, note.nonEmptyString == nil {
             self.raw_note = nil
         }
-         */
     }
 }
 
@@ -127,5 +125,53 @@ extension Reminder {
             dateCreated: cd.raw_dateCreated,
             dateModified: cd.raw_dateModified
         )
+    }
+}
+
+extension Reminder.Filter {
+    internal var cd_predicate: NSPredicate {
+        switch self {
+        case .none:
+            return .init(value: false)
+        case .all:
+            return .init(value: true)
+        case .share(let id):
+            // TODO: Fix
+            return .init(value: true)
+        }
+    }
+}
+
+extension Reminder.Section {
+    internal var cd_predicate: NSPredicate {
+        let enabledPredicate = NSPredicate(format: "%K == YES", #keyPath(CD_Reminder.raw_isEnabled))
+        let disabledPredicate = NSPredicate(format: "%K == NO", #keyPath(CD_Reminder.raw_isEnabled))
+        let normalPredicate: (DateInterval) -> NSPredicate = { range in
+            return NSCompoundPredicate(andPredicateWithSubpredicates: [
+                enabledPredicate,
+                NSPredicate(format: "%K >= %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.start as NSDate)),
+                NSPredicate(format: "%K < %@", #keyPath(CD_Reminder.raw_nextPerformDate), (range.end as NSDate)),
+            ])
+        }
+
+        let predicate: NSPredicate
+        switch self {
+        case .disabled:
+            predicate = disabledPredicate
+        case .later, .thisWeek, .today, .tomorrow:
+            predicate = normalPredicate(self.dateInterval)
+        case .late:
+            let neverPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+                enabledPredicate,
+                NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate)),
+            ])
+            predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+                normalPredicate(self.dateInterval),
+                neverPredicate,
+            ])
+        }
+        // TODO: use sort later
+        // let sort = [CD_Reminder.sortDescriptor(for: .nextPerformDate, ascending: true)]
+        return predicate
     }
 }
