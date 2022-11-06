@@ -30,10 +30,8 @@ internal struct MainWindow: View {
     internal var body: some View {
         NavigationStack(path: self.$nav.path) {
             VesselList()
-                .navigationTitle("Vessels")
                 .navigationDestination(for: Vessel.Identifier.self) {
-                    Text(String(describing: $0))
-                        .navigationTitle("Reminders")
+                    ReminderGrid($0)
                 }
         }
     }

@@ -1,5 +1,6 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/05.
+//  Created by Jeffrey Bergier on 2022/11/06.
+//
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -23,24 +24,17 @@ import Umbrella
 import V3Model
 import V3Datum
 
-internal struct VesselList: View {
-    
-    @Nav private var nav
-    @VesselListQuery private var data
-    
-    internal init() { }
-    
-    internal var body: some View {
-        self.data.view {
-            List($0) { id in
-                Button {
-                    self.nav.list(id)
-                } label: {
-                    Text(id.rawValue)
-                }
-            }
-        } onEmpty: {
-            Text("No Vessels")
+extension VesselList {
+    internal struct Row: View {
+        
+        private let id: Vessel.Identifier
+        
+        internal init(_ id: Vessel.Identifier) {
+            self.id = id
+        }
+        
+        internal var body: some View {
+            Text(String(describing: self.id))
         }
     }
 }
