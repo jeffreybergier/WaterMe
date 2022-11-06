@@ -26,6 +26,7 @@ import V3Datum
 
 internal struct ReminderGrid: View {
     
+    @ReminderGridQuery private var sections
     private let id: Share.Identifier
     
     internal init(_ id: Share.Identifier) {
@@ -33,6 +34,15 @@ internal struct ReminderGrid: View {
     }
     
     internal var body: some View {
+        List {
+            ForEach(self.sections) { section in
+                Section(String(describing: section.section)) {
+                    ForEach(section.data) { id in
+                        Text(String(describing: id.rawValue))
+                    }
+                }
+            }
+        }
         Text(String(describing: self.id))
             .navigationTitle("Reminders")
     }
