@@ -27,6 +27,7 @@ import V3Datum
 extension VesselList {
     internal struct Row: View {
         
+        @VesselQuery private var item
         private let id: Vessel.Identifier
         
         internal init(_ id: Vessel.Identifier) {
@@ -34,7 +35,14 @@ extension VesselList {
         }
         
         internal var body: some View {
-            Text(String(describing: self.id))
+            self.item.view { item in
+                Text(item.kind.rawValue)
+            } onNIL: {
+                Text("Loading...") // TODO: Create empty states
+            }
+            .onLoadChange(of: self.id) {
+                _item.setIdentifier($0)
+            }
         }
     }
 }

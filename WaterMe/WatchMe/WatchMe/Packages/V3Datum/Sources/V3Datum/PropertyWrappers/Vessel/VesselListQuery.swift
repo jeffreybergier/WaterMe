@@ -1,7 +1,7 @@
 //
 //  Created by Jeffrey Bergier on 2022/06/20.
 //
-//  Copyright © 2021 Saturday Apps.
+//  Copyright © 2022 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -33,7 +33,7 @@ public struct VesselListQuery: DynamicProperty {
     ) private var data
     @Environment(\.managedObjectContext) private var context
     @Environment(\.codableErrorResponder) private var errorResponder
-
+    
     public init() { }
 
     private let needsUpdate = SecretBox(true)
@@ -44,9 +44,15 @@ public struct VesselListQuery: DynamicProperty {
             NSLog(String(describing: error))
             self.errorResponder(.init(error))
         }
+        self.updateCoreData()
     }
 
     public var wrappedValue: some RandomAccessCollection<Vessel.Identifier> {
         self.data
     }
+    
+    // TODO: Create enum here  .none, .all, .reminder
+    // @State private var filter: Filter = .none
+    // public func setFilter(_ newValue: Filter)
+    private func updateCoreData() { }
 }

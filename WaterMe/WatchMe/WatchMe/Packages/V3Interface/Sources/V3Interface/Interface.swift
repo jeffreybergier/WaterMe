@@ -38,6 +38,7 @@ public struct Interface: Scene {
             switch self.controller.value {
             case .success(let controller):
                 MainWindow()
+                    .environmentObject(self.controller)
                     .environment(\.managedObjectContext, controller.context)
             case .failure(let error):
                 Text(String(describing: error))
