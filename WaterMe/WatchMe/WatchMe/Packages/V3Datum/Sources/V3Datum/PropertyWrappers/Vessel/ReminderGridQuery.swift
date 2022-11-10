@@ -26,9 +26,19 @@ import V3Model
 @propertyWrapper
 public struct ReminderGridQuery: DynamicProperty {
     
-    public struct Section<C: RandomAccessCollection> {
-        public var section: Reminder.Section
-        public var data: C
+    public struct Sections<C1, C2, C3, C4, C5, C6> {
+        public var section1: Reminder.Section
+        public var section1Data: C1
+        public var section2: Reminder.Section
+        public var section2Data: C2
+        public var section3: Reminder.Section
+        public var section3Data: C3
+        public var section4: Reminder.Section
+        public var section4Data: C4
+        public var section5: Reminder.Section
+        public var section5Data: C5
+        public var section6: Reminder.Section
+        public var section6Data: C6
     }
     
     @ReminderSectionQuery(.late)     private var late
@@ -46,18 +56,36 @@ public struct ReminderGridQuery: DynamicProperty {
     public func update() {
         guard self.needsUpdate.value else { return }
         self.needsUpdate.value = false
-        // TODO: Set Error Handlers on SectionQueries
+        self.updateCoreData()
     }
+    
+    /*
+     // TODO: Do it like this when the compiler allows
+     public struct Section<C: RandomAccessCollection>: Identifiable {
+         public var section: Reminder.Section
+         public var data: C
+         public var id: Int { self.section.id }
+     }
+     public var wrappedValue: [Section<some RandomAccessCollection<Reminder.Identifier>>] {
+     */
 
-    public var wrappedValue: [Section<some RandomAccessCollection>] {
-        [
-            .init(section: .disabled, data: self.late),
-            .init(section: .today,    data: self.today),
-            .init(section: .tomorrow, data: self.tomorrow),
-            .init(section: .thisWeek, data: self.thisWeek),
-            .init(section: .later,    data: self.later),
-            .init(section: .disabled, data: self.disabled),
-        ]
+    public var wrappedValue: Sections<some RandomAccessCollection<Reminder.Identifier>,
+                                      some RandomAccessCollection<Reminder.Identifier>,
+                                      some RandomAccessCollection<Reminder.Identifier>,
+                                      some RandomAccessCollection<Reminder.Identifier>,
+                                      some RandomAccessCollection<Reminder.Identifier>,
+                                      some RandomAccessCollection<Reminder.Identifier>>
+    {
+        .init(
+            section1: .disabled, section1Data: self.late,
+            // swiftlint:disable:next comma
+            section2: .today,    section2Data: self.today,
+            section3: .tomorrow, section3Data: self.tomorrow,
+            section4: .thisWeek, section4Data: self.thisWeek,
+            // swiftlint:disable:next comma
+            section5: .later,    section5Data: self.later,
+            section6: .disabled, section6Data: self.disabled
+        )
     }
     
     // TODO: Create enum here  .none, .all, .reminder
@@ -65,5 +93,15 @@ public struct ReminderGridQuery: DynamicProperty {
     public func setFilter(_ newValue: Reminder.Filter) {
         // TODO: Hook this up
         self.filter = newValue
+        self.updateCoreData()
+    }
+    
+    private func updateCoreData() {
+        _late.setFilter(self.filter)
+        _today.setFilter(self.filter)
+        _tomorrow.setFilter(self.filter)
+        _thisWeek.setFilter(self.filter)
+        _later.setFilter(self.filter)
+        _disabled.setFilter(self.filter)
     }
 }

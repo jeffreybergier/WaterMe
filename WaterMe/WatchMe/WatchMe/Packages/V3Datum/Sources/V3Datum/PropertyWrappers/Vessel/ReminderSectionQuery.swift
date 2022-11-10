@@ -34,7 +34,7 @@ internal struct ReminderSectionQuery: DynamicProperty {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.codableErrorResponder) private var errorResponder
     
-    private let section: Reminder.Section
+    public let section: Reminder.Section
     
     internal init(_ section: Reminder.Section) {
         self.section = section
