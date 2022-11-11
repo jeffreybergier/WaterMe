@@ -79,5 +79,8 @@ internal struct ReminderGrid: View {
             }
         }
         .navigationTitle("Reminders")
+        .onLoadChange(of: self.id) {
+            _sections.setFilter(.share($0))
+        }
     }
 }

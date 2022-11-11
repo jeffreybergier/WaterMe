@@ -34,6 +34,7 @@ internal struct ReminderSectionQuery: DynamicProperty {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.codableErrorResponder) private var errorResponder
     
+    @State private var filter: Reminder.Filter = .none
     public let section: Reminder.Section
     
     internal init(_ section: Reminder.Section) {
@@ -55,13 +56,30 @@ internal struct ReminderSectionQuery: DynamicProperty {
         self.data
     }
     
-    // TODO: Create enum here  .none, .all, .reminder
-    @State private var filter: Reminder.Filter = .none
     internal func setFilter(_ newValue: Reminder.Filter) {
         self.filter = newValue
         self.updateCoreData()
     }
     private func updateCoreData() {
-        _data.setPredicate(self.section.cd_predicate)
+        var predicate = NSPredicate(value: false)
+        switch self.filter {
+        case .all:
+            predicate = self.section.cd_predicate
+        case .none:
+            predicate = .init(value: false)
+        case .share(let id):
+            // TODO: Put this code somewhere? Controller?
+            let context = self.context
+            guard
+                let url = URL(string: id.rawValue),
+                let psc = context.persistentStoreCoordinator,
+                let objectID = psc.managedObjectID(forURIRepresentation: url),
+                let share = context.object(with: objectID) as? CD_VesselShare
+            else { assertionFailure(); break }
+            let pred1 = NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel.raw_share), share)
+            let pred2 = self.section.cd_predicate
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [pred1, pred2])
+        }
+        _data.setPredicate(predicate)
     }
 }

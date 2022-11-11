@@ -50,6 +50,8 @@ public struct ReminderGridQuery: DynamicProperty {
 
     @Environment(\.codableErrorResponder) private var errorResponder
     
+    @State private var filter: Reminder.Filter = .none
+    
     public init() { }
 
     private let needsUpdate = SecretBox(true)
@@ -86,10 +88,7 @@ public struct ReminderGridQuery: DynamicProperty {
         )
     }
     
-    // TODO: Create enum here  .none, .all, .reminder
-    @State private var filter: Reminder.Filter = .none
     public func setFilter(_ newValue: Reminder.Filter) {
-        // TODO: Hook this up
         self.filter = newValue
         self.updateCoreData()
     }
