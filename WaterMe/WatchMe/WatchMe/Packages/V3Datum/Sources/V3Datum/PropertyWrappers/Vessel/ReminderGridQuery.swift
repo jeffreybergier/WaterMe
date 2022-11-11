@@ -41,12 +41,12 @@ public struct ReminderGridQuery: DynamicProperty {
         public var section6Data: C6
     }
     
-    @ReminderSectionQuery(.late)     private var late
-    @ReminderSectionQuery(.today)    private var today
-    @ReminderSectionQuery(.tomorrow) private var tomorrow
-    @ReminderSectionQuery(.thisWeek) private var thisWeek
-    @ReminderSectionQuery(.later)    private var later
-    @ReminderSectionQuery(.disabled) private var disabled
+    @ReminderListQuery(.late)     private var late
+    @ReminderListQuery(.today)    private var today
+    @ReminderListQuery(.tomorrow) private var tomorrow
+    @ReminderListQuery(.thisWeek) private var thisWeek
+    @ReminderListQuery(.later)    private var later
+    @ReminderListQuery(.disabled) private var disabled
 
     @Environment(\.codableErrorResponder) private var errorResponder
     

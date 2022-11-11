@@ -24,7 +24,7 @@ import Umbrella
 import V3Model
 
 @propertyWrapper
-internal struct ReminderSectionQuery: DynamicProperty {
+internal struct ReminderListQuery: DynamicProperty {
 
     @Controller private var controller
     @CDListQuery<CD_Reminder, Reminder.Identifier, Error>(
@@ -35,9 +35,9 @@ internal struct ReminderSectionQuery: DynamicProperty {
     @Environment(\.codableErrorResponder) private var errorResponder
     
     @State private var filter: Reminder.Filter = .none
-    public let section: Reminder.Section
+    public let section: Reminder.Section?
     
-    internal init(_ section: Reminder.Section) {
+    internal init(_ section: Reminder.Section? = nil) {
         self.section = section
     }
 
@@ -61,10 +61,10 @@ internal struct ReminderSectionQuery: DynamicProperty {
         self.updateCoreData()
     }
     private func updateCoreData() {
-        var predicate = NSPredicate(value: false)
+        var predicate = self.section?.cd_predicate ?? .init(value: true)
         switch self.filter {
         case .all:
-            predicate = self.section.cd_predicate
+            break
         case .none:
             predicate = .init(value: false)
         case .share(let id):
@@ -77,8 +77,7 @@ internal struct ReminderSectionQuery: DynamicProperty {
                 let share = context.object(with: objectID) as? CD_VesselShare
             else { assertionFailure(); break }
             let pred1 = NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel.raw_share), share)
-            let pred2 = self.section.cd_predicate
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [pred1, pred2])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [pred1, predicate])
         }
         _data.setPredicate(predicate)
     }
