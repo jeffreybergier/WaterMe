@@ -30,8 +30,20 @@ internal struct MainWindow: View {
     internal var body: some View {
         NavigationStack(path: self.$nav.path) {
             ShareList()
-                .navigationDestination(for: Share.Identifier.self) {
-                    ReminderGrid($0)
+                .navigationDestination(for: Nav.List<Share.Identifier>.self) {
+                    ReminderGrid($0.id)
+                }
+                .navigationDestination(for: Nav.List<Vessel.Identifier>.self) { _ in
+                    fatalError()
+                }
+                .navigationDestination(for: Nav.View<Reminder.Identifier>.self) { _ in
+                    fatalError()
+                }
+                .navigationDestination(for: Nav.Edit<Vessel.Identifier>.self) { _ in
+                    fatalError()
+                }
+                .navigationDestination(for: Nav.Edit<Reminder.Identifier>.self) { _ in
+                    fatalError()
                 }
         }
     }

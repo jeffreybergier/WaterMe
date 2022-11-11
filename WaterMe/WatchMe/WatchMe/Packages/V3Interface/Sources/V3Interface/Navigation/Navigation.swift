@@ -34,20 +34,41 @@ internal struct Nav: DynamicProperty {
         internal mutating func pop() {
             self.path.removeLast()
         }
-        internal mutating func list(_ vessel: Share.Identifier) {
-            self.path.append(vessel)
+        internal mutating func list(_ share: Share.Identifier) {
+            self.path.append(List(share))
         }
         internal mutating func list(_ vessel: Vessel.Identifier) {
-            self.path.append(vessel)
+            self.path.append(List(vessel))
         }
         internal mutating func view(_ reminder: Reminder.Identifier) {
-            self.path.append(reminder)
+            self.path.append(View(reminder))
         }
         internal mutating func edit(_ vessel: Vessel.Identifier) {
-            self.path.append(vessel)
+            self.path.append(Edit(vessel))
         }
         internal mutating func edit(_ reminder: Reminder.Identifier) {
-            self.path.append(reminder)
+            self.path.append(Edit(reminder))
+        }
+    }
+    
+    internal struct List<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
+        }
+    }
+    
+    internal struct View<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
+        }
+    }
+    
+    internal struct Edit<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
         }
     }
     
