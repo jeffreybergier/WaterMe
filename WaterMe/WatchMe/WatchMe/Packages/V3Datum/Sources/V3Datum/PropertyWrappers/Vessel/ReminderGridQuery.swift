@@ -78,11 +78,9 @@ public struct ReminderGridQuery: DynamicProperty {
     {
         .init(
             section1: .disabled, section1Data: self.late,
-            // swiftlint:disable:next comma
             section2: .today,    section2Data: self.today,
             section3: .tomorrow, section3Data: self.tomorrow,
             section4: .thisWeek, section4Data: self.thisWeek,
-            // swiftlint:disable:next comma
             section5: .later,    section5Data: self.later,
             section6: .disabled, section6Data: self.disabled
         )
