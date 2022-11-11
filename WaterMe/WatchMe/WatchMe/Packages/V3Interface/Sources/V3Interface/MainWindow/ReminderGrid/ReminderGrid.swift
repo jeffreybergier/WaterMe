@@ -37,32 +37,32 @@ internal struct ReminderGrid: View {
         List {
             Section(String(describing: self.sections.section1)) {
                 ForEach(self.sections.section1Data) { id in
-                    Text(String(describing: id.rawValue))
+                    Cell(id)
                 }
             }
             Section(String(describing: self.sections.section2)) {
                 ForEach(self.sections.section2Data) { id in
-                    Text(String(describing: id.rawValue))
+                    Cell(id)
                 }
             }
             Section(String(describing: self.sections.section3)) {
                 ForEach(self.sections.section3Data) { id in
-                    Text(String(describing: id.rawValue))
+                    Cell(id)
                 }
             }
             Section(String(describing: self.sections.section4)) {
                 ForEach(self.sections.section4Data) { id in
-                    Text(String(describing: id.rawValue))
+                    Cell(id)
                 }
             }
             Section(String(describing: self.sections.section5)) {
                 ForEach(self.sections.section5Data) { id in
-                    Text(String(describing: id.rawValue))
+                    Cell(id)
                 }
             }
             Section(String(describing: self.sections.section6)) {
                 ForEach(self.sections.section6Data) { id in
-                    Text(String(describing: id.rawValue))
+                    Cell(id)
                 }
             }
         }

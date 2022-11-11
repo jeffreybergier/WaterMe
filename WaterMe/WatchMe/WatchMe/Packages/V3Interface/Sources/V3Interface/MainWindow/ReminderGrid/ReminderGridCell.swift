@@ -27,6 +27,8 @@ import V3Datum
 extension ReminderGrid {
     internal struct Cell: View {
         
+        @ReminderQuery private var reminder
+        
         private let id: Reminder.Identifier
         
         internal init(_ id: Reminder.Identifier) {
@@ -34,7 +36,14 @@ extension ReminderGrid {
         }
         
         internal var body: some View {
-            Text(String(describing: self.id))
+            self.reminder.view { item in
+                Text(String(describing: item.kind))
+            } onNIL: {
+                Text("Loading...")
+            }
+            .onLoadChange(of: self.id) {
+                _reminder.setIdentifier($0)
+            }
         }
     }
 }
