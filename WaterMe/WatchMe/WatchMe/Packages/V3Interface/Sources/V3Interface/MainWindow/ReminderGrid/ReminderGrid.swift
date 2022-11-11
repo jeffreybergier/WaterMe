@@ -35,38 +35,49 @@ internal struct ReminderGrid: View {
     
     internal var body: some View {
         List {
-            Section(String(describing: self.sections.section1)) {
+            Section {
                 ForEach(self.sections.section1Data) { id in
                     Cell(id)
                 }
+            } header: {
+                Header(self.sections.section1)
             }
-            Section(String(describing: self.sections.section2)) {
+            Section {
                 ForEach(self.sections.section2Data) { id in
                     Cell(id)
                 }
+            } header: {
+                Header(self.sections.section2)
             }
-            Section(String(describing: self.sections.section3)) {
+            Section {
                 ForEach(self.sections.section3Data) { id in
                     Cell(id)
                 }
+            } header: {
+                Header(self.sections.section3)
             }
-            Section(String(describing: self.sections.section4)) {
+            Section {
                 ForEach(self.sections.section4Data) { id in
                     Cell(id)
                 }
+            } header: {
+                Header(self.sections.section4)
             }
-            Section(String(describing: self.sections.section5)) {
+            Section {
                 ForEach(self.sections.section5Data) { id in
                     Cell(id)
                 }
+            } header: {
+                Header(self.sections.section5)
             }
-            Section(String(describing: self.sections.section6)) {
+            Section {
                 ForEach(self.sections.section6Data) { id in
                     Cell(id)
                 }
+            } header: {
+                Header(self.sections.section6)
             }
         }
-        Text(String(describing: self.id))
-            .navigationTitle("Reminders")
+        .navigationTitle("Reminders")
     }
 }
