@@ -31,7 +31,6 @@ internal struct ReminderListQuery: DynamicProperty {
         predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data
-    @Environment(\.managedObjectContext) private var context
     @Environment(\.codableErrorResponder) private var errorResponder
     
     @State private var filter: Reminder.Filter = .none
@@ -61,26 +60,28 @@ internal struct ReminderListQuery: DynamicProperty {
         self.updateCoreData()
     }
     private func updateCoreData() {
-        // If filter is none, nothing should load ever
-        if case .none = self.filter {
-            _data.setPredicate(.init(value: false))
-            return
-        }
-        // AND the other two predicates for the complete search
+        // 0) Make sure we always complete our mission
+        var predicate = NSPredicate(value: false)
+        defer { _data.setPredicate(predicate) }
+        
+        // 1) If filter is none, nothing should load ever
+        if case .none = self.filter { return }
+        
+        // 2) Try to obtain the other two predicates
         let section = self.section?.cd_predicate ?? .init(value: true)
-        let filter = self.filter.cd_predicate { id in
-            let context = self.context
-            guard
-                let url = URL(string: id.rawValue),
-                let psc = context.persistentStoreCoordinator,
-                let objectID = psc.managedObjectID(forURIRepresentation: url)
-            else { return nil }
-            return context.object(with: objectID) as? CD_VesselShare
+        let filterResult = self.filter.cd_predicate(_controller.cd.cd_search)
+        
+        switch filterResult {
+        case .success(let filter):
+            // 3) AND the other two predicates for the complete search
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+                section,
+                filter,
+            ])
+        case .failure(let error):
+            // 4) Present error to UI
+            // TODO: Do something with this error
+            NSLog(String(describing: error))
         }
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-            section,
-            filter,
-        ])
-        _data.setPredicate(predicate)
     }
 }

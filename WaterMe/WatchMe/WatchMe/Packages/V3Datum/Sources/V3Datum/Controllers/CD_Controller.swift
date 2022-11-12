@@ -330,6 +330,18 @@ internal class CD_Controller: ControllerProtocol {
         cd.raw_iconImageData   = newValue.icon?.dataValue
         return self.container.viewContext.waterme_save()
     }
+    
+    internal func cd_search(_ id: Share.Identifier) -> Result<CD_VesselShare, Error> {
+        return __genericSearch(matching: id.rawValue)
+    }
+    
+    internal func cd_search(_ id: Vessel.Identifier) -> Result<CD_ReminderVessel, Error> {
+        return __genericSearch(matching: id.rawValue)
+    }
+    
+    internal func cd_search(_ id: Reminder.Identifier) -> Result<CD_Reminder, Error> {
+        return __genericSearch(matching: id.rawValue)
+    }
 
     deinit {
         NSLog("DEINIT: CD_Controller")

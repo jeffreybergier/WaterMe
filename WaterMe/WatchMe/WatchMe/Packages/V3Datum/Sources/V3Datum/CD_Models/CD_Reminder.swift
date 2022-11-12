@@ -129,18 +129,19 @@ extension Reminder {
 }
 
 extension Reminder.Filter {
-    internal func cd_predicate(_ heavyCompute: (Share.Identifier) -> CD_VesselShare?) -> NSPredicate {
+    internal func cd_predicate(
+        _ heavyCompute: (Share.Identifier) -> Result<CD_VesselShare, Error>
+    ) -> Result<NSPredicate, Error>
+    {
         switch self {
         case .none:
-            return .init(value: false)
+            return .success(.init(value: false))
         case .all:
-            return .init(value: true)
+            return .success(.init(value: true))
         case .share(let id):
-            guard let share = heavyCompute(id) else {
-                assertionFailure()
-                return .init(value: false)
+            return heavyCompute(id).map {
+                NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel.raw_share), $0)
             }
-            return NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel.raw_share), share)
         }
     }
 }
