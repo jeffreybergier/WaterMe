@@ -26,15 +26,18 @@ import V3Model
 @propertyWrapper
 public struct ShareListQuery: DynamicProperty {
 
-    @Controller private var controller
     @CDListQuery<CD_VesselShare, Share.Identifier, Error>(
         predicate: .init(value: true),
         onRead: { .init($0.objectID) }
     ) private var data
-    @Environment(\.managedObjectContext) private var context
+    
     @Environment(\.codableErrorResponder) private var errorResponder
     
     public init() { }
+    
+    public var wrappedValue: some RandomAccessCollection<Share.Identifier> {
+        self.data
+    }
 
     private let needsUpdate = SecretBox(true)
     public func update() {
@@ -44,15 +47,5 @@ public struct ShareListQuery: DynamicProperty {
             NSLog(String(describing: error))
             self.errorResponder(.init(error))
         }
-        self.updateCoreData()
     }
-
-    public var wrappedValue: some RandomAccessCollection<Share.Identifier> {
-        self.data
-    }
-    
-    // TODO: Create enum here  .none, .all, .reminder
-    // @State private var filter: Filter = .none
-    // public func setFilter(_ newValue: Filter)
-    private func updateCoreData() { }
 }
