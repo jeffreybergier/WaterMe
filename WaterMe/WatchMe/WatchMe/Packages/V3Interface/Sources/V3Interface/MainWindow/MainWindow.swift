@@ -33,8 +33,8 @@ internal struct MainWindow: View {
                 .navigationDestination(for: Nav.List<Share.Identifier>.self) {
                     ReminderGrid($0.id)
                 }
-                .navigationDestination(for: Nav.List<Vessel.Identifier>.self) { _ in
-                    fatalError()
+                .navigationDestination(for: Nav.List<Share.Identifier>.self) {
+                    VesselGrid($0.id)
                 }
                 .navigationDestination(for: Nav.View<Reminder.Identifier>.self) {
                     ReminderSummary($0.id)
