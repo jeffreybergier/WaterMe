@@ -61,24 +61,26 @@ internal struct ReminderListQuery: DynamicProperty {
         self.updateCoreData()
     }
     private func updateCoreData() {
-        var predicate = self.section?.cd_predicate ?? .init(value: true)
-        switch self.filter {
-        case .all:
-            break
-        case .none:
-            predicate = .init(value: false)
-        case .share(let id):
-            // TODO: Put this code somewhere? Controller?
+        // If filter is none, nothing should load ever
+        if case .none = self.filter {
+            _data.setPredicate(.init(value: false))
+            return
+        }
+        // AND the other two predicates for the complete search
+        let section = self.section?.cd_predicate ?? .init(value: true)
+        let filter = self.filter.cd_predicate { id in
             let context = self.context
             guard
                 let url = URL(string: id.rawValue),
                 let psc = context.persistentStoreCoordinator,
-                let objectID = psc.managedObjectID(forURIRepresentation: url),
-                let share = context.object(with: objectID) as? CD_VesselShare
-            else { assertionFailure(); break }
-            let pred1 = NSPredicate(format: "%K == %@", #keyPath(CD_Reminder.raw_vessel.raw_share), share)
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [pred1, predicate])
+                let objectID = psc.managedObjectID(forURIRepresentation: url)
+            else { return nil }
+            return context.object(with: objectID) as? CD_VesselShare
         }
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            section,
+            filter,
+        ])
         _data.setPredicate(predicate)
     }
 }
