@@ -23,28 +23,10 @@ import V3Model
 
 internal struct MainWindow: View {
     
-    @Nav private var nav
-    
     internal init() { }
     
     internal var body: some View {
-        NavigationStack(path: self.$nav.path) {
-            ShareList()
-                .navigationDestination(for: Nav.List<Share.Identifier>.self) {
-                    ReminderGrid($0.id)
-                }
-                .navigationDestination(for: Nav.List<Share.Identifier>.self) {
-                    VesselGrid($0.id)
-                }
-                .navigationDestination(for: Nav.View<Reminder.Identifier>.self) {
-                    ReminderSummary($0.id)
-                }
-                .navigationDestination(for: Nav.Edit<Vessel.Identifier>.self) {
-                    VesselEdit($0.id)
-                }
-                .navigationDestination(for: Nav.Edit<Reminder.Identifier>.self) {
-                    ReminderEdit($0.id)
-                }
-        }
+        ShareList()
+            .modifier(NavigationRouter())
     }
 }
