@@ -26,6 +26,7 @@ import V3Datum
 
 internal struct ReminderSummary: View {
     
+    @Nav private var nav
     @ReminderQuery private var reminder
     private let id: Reminder.Identifier
     
@@ -36,7 +37,21 @@ internal struct ReminderSummary: View {
     internal var body: some View {
         self.reminder.view { item in
             List {
-                
+                Button {
+                    // TODO: Mark as Done
+                } label: {
+                    Text("Mark Reminder as Done")
+                }
+                Button {
+                    self.nav.edit(item.id)
+                } label: {
+                    Text("Edit Reminder")
+                }
+                Button {
+                    item.vesselID.map { self.nav.edit($0) }
+                } label: {
+                    Text("Edit Plant")
+                }
             }
         } onNIL: {
             Text("Loading...")

@@ -27,6 +27,7 @@ import V3Datum
 extension ReminderGrid {
     internal struct Cell: View {
         
+        @Nav private var nav
         @ReminderQuery private var reminder
         
         private let id: Reminder.Identifier
@@ -37,7 +38,11 @@ extension ReminderGrid {
         
         internal var body: some View {
             self.reminder.view { item in
-                Text(String(describing: item.kind))
+                Button {
+                    self.nav.view(item.id)
+                } label: {
+                    Text(String(describing: item.kind))
+                }
             } onNIL: {
                 Text("Loading...")
             }
