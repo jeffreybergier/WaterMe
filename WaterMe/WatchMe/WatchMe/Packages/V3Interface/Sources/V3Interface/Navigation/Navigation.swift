@@ -23,9 +23,7 @@ import SwiftUI
 import Umbrella
 import V3Model
 
-@propertyWrapper
-internal struct Nav: DynamicProperty {
-    
+extension Nav {
     internal struct Value {
         internal var path: NavigationPath
         internal init() {
@@ -50,27 +48,10 @@ internal struct Nav: DynamicProperty {
             self.path.append(Edit(reminder))
         }
     }
-    
-    internal struct List<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
-            self.id = id
-        }
-    }
-    
-    internal struct View<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
-            self.id = id
-        }
-    }
-    
-    internal struct Edit<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
-            self.id = id
-        }
-    }
+}
+
+@propertyWrapper
+internal struct Nav: DynamicProperty {
     
     @JSBSceneStorage("com.saturdayapps.waterme.navigation")
     private var storage: Value = .init()
@@ -94,6 +75,29 @@ internal struct Nav: DynamicProperty {
             self.wrappedValue
         } set: {
             self.wrappedValue = $0
+        }
+    }
+}
+
+extension Nav {
+    internal struct List<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
+        }
+    }
+    
+    internal struct View<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
+        }
+    }
+    
+    internal struct Edit<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
         }
     }
 }
