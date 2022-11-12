@@ -58,7 +58,7 @@ public struct ReminderQuery: DynamicProperty {
     public func update() {
         guard self.needsUpdate.value else { return }
         self.needsUpdate.value = false
-        _object.setOnWrite(_controller.cd.updateOpt(_:with:))
+        _object.setOnWrite(_controller.cd.cd_updateOpt(_:with:))
         _object.setOnError { error in
             NSLog(String(describing: error))
             self.errorResponder(.init(error))

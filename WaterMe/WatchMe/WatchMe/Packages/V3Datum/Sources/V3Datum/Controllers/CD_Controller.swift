@@ -26,39 +26,8 @@ import V3Model
 
 internal class CD_Controller: ControllerProtocol {
 
-    private class func container(kind: ControllerKind) -> NSPersistentContainer? {
-        // debug only sanity checks
-        assert(Thread.isMainThread)
-
-        guard
-            let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
-            let mom = NSManagedObjectModel(contentsOf: url)
-        else {
-            NSLog("Unable to load MOM from application bundle")
-            return nil
-        }
-
-        switch kind {
-        case .sync:
-            return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)
-        case .local:
-            let container = WaterMe_PersistentContainer(name: "WaterMe", managedObjectModel: mom)
-            let description = container.persistentStoreDescriptions.first!
-            description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
-            return container
-        case .__testing_inMemory:
-            // when testing make in-memory container
-            let randomName = String(Int.random(in: 100_000...1_000_000))
-            let container = WaterMe_PersistentContainer(name: randomName, managedObjectModel: mom)
-            let description = NSPersistentStoreDescription()
-            description.type = NSInMemoryStoreType
-            container.persistentStoreDescriptions = [description]
-            return container
-        case .__testing_withClass(let _type):
-            return _type.init(name: "WaterMe", managedObjectModel: mom)
-        }
-    }
-
+    // MARK: Init
+    
     // swiftlint:disable:next function_body_length
     public init(kind: ControllerKind) throws {
         // debug only sanity checks
@@ -138,6 +107,8 @@ internal class CD_Controller: ControllerProtocol {
 
     private var maintenance_syncToken: AnyCancellable?
 
+    // MARK: Protocol Conformance
+    
     internal let container: NSPersistentContainer
     internal let kind: ControllerKind
     internal let syncProgress: AnyContinousProgress<CPError>
@@ -147,6 +118,7 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Create
 
+    /* TODO: Restore later
     internal func newVessel() -> Result<Vessel.Identifier, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -179,7 +151,9 @@ internal class CD_Controller: ControllerProtocol {
             Vessel.Identifier(vessel.objectID)
         }
     }
+     */
 
+    /* TODO: Restore later
     internal func newReminder(for vessel: Vessel.Identifier) -> Result<Reminder.Identifier, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
@@ -196,7 +170,9 @@ internal class CD_Controller: ControllerProtocol {
                 .map { Reminder.Identifier(newReminder.objectID) }
         }
     }
+     */
 
+    /* TODO: Restore later
     internal func appendNewPerformToReminders(with ids: [Reminder.Identifier]) -> Result<Void, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
@@ -221,9 +197,11 @@ internal class CD_Controller: ControllerProtocol {
             .reduce(self.maintenance_oneTrueVesselShare)
             .reduce(self.maintenance_fixOrphanedVessels(share:))
     }
+     */
 
     // MARK: Delete
 
+    /* TODO: Restore later
     internal func delete(_ vessel: Vessel.Identifier) -> Result<Void, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
@@ -236,7 +214,9 @@ internal class CD_Controller: ControllerProtocol {
             return context.waterme_save()
         }
     }
+     */
 
+    /* TODO: Restore later
     internal func delete(_ reminder: Reminder.Identifier) -> Result<Void, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: reminder.id).flatMap
@@ -259,6 +239,7 @@ internal class CD_Controller: ControllerProtocol {
             return context.waterme_save()
         }
     }
+     */
 
     // MARK: Search
 
@@ -324,12 +305,12 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Internal for Property Wrappers
 
-    internal func updateOpt(_ cd: CD_Reminder?, with newValue: Reminder?) -> Result<Void, Error> {
+    internal func cd_updateOpt(_ cd: CD_Reminder?, with newValue: Reminder?) -> Result<Void, Error> {
         // TODO: If nil should I return an error?
-        self.update(cd!, with: newValue!)
+        self.cd_update(cd!, with: newValue!)
     }
 
-    internal func update(_ cd: CD_Reminder, with newValue: Reminder) -> Result<Void, Error> {
+    internal func cd_update(_ cd: CD_Reminder, with newValue: Reminder) -> Result<Void, Error> {
         cd.raw_kindString        = newValue.kind.rawValue
         cd.raw_descriptionString = newValue.kindDescription
         cd.raw_interval          = Int32(newValue.interval)
@@ -338,11 +319,11 @@ internal class CD_Controller: ControllerProtocol {
         return self.container.viewContext.waterme_save()
     }
 
-    internal func updateOpt(_ cd: CD_ReminderVessel?, with newValue: Vessel?) -> Result<Void, Error> {
-        self.update(cd!, with: newValue!)
+    internal func cd_updateOpt(_ cd: CD_ReminderVessel?, with newValue: Vessel?) -> Result<Void, Error> {
+        self.cd_update(cd!, with: newValue!)
     }
 
-    internal func update(_ cd: CD_ReminderVessel, with newValue: Vessel) -> Result<Void, Error> {
+    internal func cd_update(_ cd: CD_ReminderVessel, with newValue: Vessel) -> Result<Void, Error> {
         cd.raw_displayName     = newValue.displayName
         cd.raw_kindString      = newValue.kind.rawValue
         cd.raw_iconEmojiString = newValue.icon?.stringValue
@@ -514,14 +495,66 @@ extension CD_Controller {
     }
 }
 
+
+// MARK: Custom storage
+
+private class WaterMe_PersistentContainer: NSPersistentContainer {
+    override class func defaultDirectoryURL() -> URL {
+        return CD_Controller.storeDirectoryURL
+    }
+    deinit {
+        NSLog("DEINIT: WaterMe_PersistentContainer")
+    }
+}
+
+@available(iOS 14.0, *)
+private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
+    override class func defaultDirectoryURL() -> URL {
+        return CD_Controller.storeDirectoryURL
+    }
+    deinit {
+        NSLog("DEINIT: WaterMe_PersistentSyncContainer")
+    }
+}
+
+extension CD_Controller {
+    private class func container(kind: ControllerKind) -> NSPersistentContainer? {
+        // debug only sanity checks
+        assert(Thread.isMainThread)
+        guard
+            let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
+            let mom = NSManagedObjectModel(contentsOf: url)
+        else {
+            NSLog("Unable to load MOM from application bundle")
+            return nil
+        }
+        switch kind {
+        case .sync:
+            return WaterMe_PersistentSyncContainer(name: "WaterMe", managedObjectModel: mom)
+        case .local:
+            let container = WaterMe_PersistentContainer(name: "WaterMe", managedObjectModel: mom)
+            let description = container.persistentStoreDescriptions.first!
+            description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+            return container
+        case .__testing_inMemory:
+            // when testing make in-memory container
+            let randomName = String(Int.random(in: 100_000...1_000_000))
+            let container = WaterMe_PersistentContainer(name: randomName, managedObjectModel: mom)
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
+            container.persistentStoreDescriptions = [description]
+            return container
+        case .__testing_withClass(let _type):
+            return _type.init(name: "WaterMe", managedObjectModel: mom)
+        }
+    }
+}
+
 // MARK: First Launch
 
 extension CD_Controller {
-
-    private static let sampleDB1URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite")
-    private static let sampleDB2URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite-wal")
-
-    internal static let storeDirectoryURL: URL = {
+    
+    fileprivate static let storeDirectoryURL: URL = {
         let fm = FileManager.default
         if let appGroup = fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.saturdayapps.WaterMe") {
             return appGroup
@@ -536,6 +569,15 @@ extension CD_Controller {
                 .appendingPathComponent("CoreData", isDirectory: true)
         }
     }()
+    
+    fileprivate static var storeExists: Bool {
+        let fm = FileManager.default
+        let exists = fm.fileExists(atPath: self.dbFileURL1.path)
+        return exists
+    }
+
+    private static let sampleDB1URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite")
+    private static let sampleDB2URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite-wal")
 
     private static let dbFileURL1: URL = {
         return CD_Controller
@@ -560,12 +602,6 @@ extension CD_Controller {
         return RLM_legacyStoreDirectoryURL
             .appendingPathComponent("Realm.realm", isDirectory: false)
     }()
-
-    internal static var storeExists: Bool {
-        let fm = FileManager.default
-        let exists = fm.fileExists(atPath: self.dbFileURL1.path)
-        return exists
-    }
 
     internal class var RLM_legacyStoreExists: Bool {
         let fm = FileManager.default
@@ -599,27 +635,10 @@ extension CD_Controller {
     }
 }
 
-private class WaterMe_PersistentContainer: NSPersistentContainer {
-    override class func defaultDirectoryURL() -> URL {
-        return CD_Controller.storeDirectoryURL
-    }
-    deinit {
-        NSLog("DEINIT: WaterMe_PersistentContainer")
-    }
-}
-
-@available(iOS 14.0, *)
-private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
-    override class func defaultDirectoryURL() -> URL {
-        return CD_Controller.storeDirectoryURL
-    }
-    deinit {
-        NSLog("DEINIT: WaterMe_PersistentSyncContainer")
-    }
-}
+// MARK: Context Save
 
 extension NSManagedObjectContext {
-    internal func waterme_save() -> Result<Void, Error> {
+    fileprivate func waterme_save() -> Result<Void, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
 

@@ -30,9 +30,6 @@ import Umbrella
 import V3Model
 
 public protocol ControllerProtocol {
-
-    static var storeDirectoryURL: URL { get }
-    static var storeExists: Bool { get }
     
     var context: NSManagedObjectContext { get }
     
