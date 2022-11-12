@@ -79,7 +79,7 @@ public struct ReminderGridQuery: DynamicProperty {
                                       some RandomAccessCollection<Reminder.Identifier>>
     {
         .init(
-            section1: .disabled, section1Data: self.late,
+            section1: .late,     section1Data: self.late,
             section2: .today,    section2Data: self.today,
             section3: .tomorrow, section3Data: self.tomorrow,
             section4: .thisWeek, section4Data: self.thisWeek,

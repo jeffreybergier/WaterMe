@@ -38,12 +38,49 @@ internal struct ReminderEdit: View {
     }
     
     internal var body: some View {
-        self.reminder.view { item in
-            List {
+        self.$reminder.view { item in
+            Form {
                 Section {
-                    
+                    Picker(selection: item.kind) {
+                        ForEach(Reminder.Kind.allCases) {
+                            Text(String(describing: $0))
+                                .tag($0)
+                        }
+                    } label: {
+                        Text("Kind of Reminder")
+                    }
                 } header: {
-                    
+                    Text("Kind of Reminder")
+                }
+                Section {
+                    Picker(selection: item.interval) {
+                        ForEach(kIntervalRange) {
+                            Text(String(describing: $0))
+                                .tag($0)
+                        }
+                    } label: {
+                        Text("Remind Every")
+                    }
+                } header: {
+                    Text("Remind Every")
+                }
+                Section {
+                    Toggle(isOn: item.isEnabled.flipped) {
+                        Text("Pause Notifications")
+                    }
+                } header: {
+                    Text("Notifications")
+                }
+                Section {
+                    TextField(text: item.note.compactMap(), prompt: nil, label: {})
+                } header: {
+                    Text("Notes")
+                }
+                // TODO: Add Siri Shortcuts Here
+                Section {
+                    Text(String(describing: item.lastPerformDate.wrappedValue))
+                } header: {
+                    Text("Last Performed")
                 }
             }
         } onNIL: {
@@ -58,3 +95,5 @@ internal struct ReminderEdit: View {
         }
     }
 }
+
+private let kIntervalRange: Range<Int> = Reminder.Constants.minimumInterval ..< Reminder.Constants.maximumInterval + 1

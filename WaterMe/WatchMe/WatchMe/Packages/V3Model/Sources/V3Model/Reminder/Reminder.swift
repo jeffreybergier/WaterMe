@@ -31,6 +31,12 @@ public struct Reminder: Identifiable, Hashable, Equatable {
             self.rawValue = rawValue
         }
     }
+    
+    public enum Constants {
+        public static let minimumInterval: Int = 1
+        public static let maximumInterval: Int = 365
+        public static let defaultInterval: Int = 7
+    }
 
     public var id: Identifier
     public var kind: Kind

@@ -24,12 +24,6 @@
 import CoreData
 import V3Model
 
-public enum ReminderConstants {
-    public static let minimumInterval: Int = 1
-    public static let maximumInterval: Int = 365
-    public static let defaultInterval: Int = 7
-}
-
 @objc(CD_Reminder)
 internal class CD_Reminder: CD_Base {
 
@@ -41,7 +35,7 @@ internal class CD_Reminder: CD_Base {
     override func awakeFromInsert() {
         super.awakeFromInsert()
         self.raw_kindString = Reminder.Kind.water.rawValue
-        self.raw_interval = Int32(ReminderConstants.defaultInterval)
+        self.raw_interval = Int32(Reminder.Constants.defaultInterval)
         self.raw_isEnabled = true
     }
 
