@@ -38,7 +38,7 @@ extension Reminder {
     }
     
     public enum Filter: Codable, Hashable {
-        case none, all, share(Share.Identifier)
+        case none, all, share(Share.Identifier), vessel(Vessel.Identifier)
     }
     
     public enum Section: Int, Codable, Hashable, CaseIterable, Identifiable {

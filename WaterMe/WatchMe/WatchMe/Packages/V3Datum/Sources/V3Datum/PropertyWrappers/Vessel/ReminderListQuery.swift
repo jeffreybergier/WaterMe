@@ -24,7 +24,7 @@ import Umbrella
 import V3Model
 
 @propertyWrapper
-internal struct ReminderListQuery: DynamicProperty {
+public struct ReminderListQuery: DynamicProperty {
 
     @Controller private var controller
     @CDListQuery<CD_Reminder, Reminder.Identifier, Error>(
@@ -36,12 +36,12 @@ internal struct ReminderListQuery: DynamicProperty {
     @State private var filter: Reminder.Filter = .none
     public let section: Reminder.Section?
     
-    internal init(_ section: Reminder.Section? = nil) {
+    public init(_ section: Reminder.Section? = nil) {
         self.section = section
     }
 
     private let needsUpdate = SecretBox(true)
-    internal func update() {
+    public func update() {
         guard self.needsUpdate.value else { return }
         self.needsUpdate.value = false
         _data.setOnError { error in
@@ -51,14 +51,15 @@ internal struct ReminderListQuery: DynamicProperty {
         self.updateCoreData()
     }
 
-    internal var wrappedValue: some RandomAccessCollection<Reminder.Identifier> {
+    public var wrappedValue: some RandomAccessCollection<Reminder.Identifier> {
         self.data
     }
     
-    internal func setFilter(_ newValue: Reminder.Filter) {
+    public func setFilter(_ newValue: Reminder.Filter) {
         self.filter = newValue
         self.updateCoreData()
     }
+    
     private func updateCoreData() {
         // 0) Make sure we always complete our mission
         var predicate = NSPredicate(value: false)
@@ -69,7 +70,10 @@ internal struct ReminderListQuery: DynamicProperty {
         
         // 2) Try to obtain the other two predicates
         let section = self.section?.cd_predicate ?? .init(value: true)
-        let filterResult = self.filter.cd_predicate(_controller.cd.cd_search)
+        let filterResult = self.filter.cd_predicate(
+            share:  _controller.cd.cd_search,
+            vessel: _controller.cd.cd_search
+        )
         
         switch filterResult {
         case .success(let filter):

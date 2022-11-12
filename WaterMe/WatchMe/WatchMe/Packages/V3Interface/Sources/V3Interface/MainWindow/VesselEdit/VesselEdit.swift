@@ -29,6 +29,7 @@ internal struct VesselEdit: View {
     @Nav private var nav
     
     @VesselQuery private var vessel
+    @ReminderListQuery private var reminders
     
     private let id: Vessel.Identifier
     
@@ -37,13 +38,40 @@ internal struct VesselEdit: View {
     }
     
     internal var body: some View {
-        self.vessel.view { item in
-            List {
+        self.$vessel.view { vessel in
+            Form {
                 Section {
-                    
+                    if let image = vessel.wrappedValue.icon?.imageValue {
+                        Image(jsbImage: image)
+                    } else {
+                        Text(String(describing: vessel.wrappedValue.icon?.stringValue))
+                    }
                 } header: {
-                    
+                    Text("Photo")
                 }
+                Section {
+                    TextField(text: vessel.displayName.compactMap(), prompt: nil) {
+                        Text("Name")
+                    }
+                } header: {
+                    Text("Name")
+                }
+                Section {
+                    self.reminders.view { reminders in
+                        ForEach(reminders) { id in
+                            Button {
+                                self.nav.edit(id)
+                            } label: {
+                                Text(String(describing: id))
+                            }
+                        }
+                    } onEmpty: {
+                        Text("Loading...")
+                    }
+                } header: {
+                    Text("Reminders")
+                }
+                // TODO: Add Siri Shortcuts Here
             }
         } onNIL: {
             Text("Loading...")
@@ -51,6 +79,7 @@ internal struct VesselEdit: View {
         .navigationTitle("Edit Plant")
         .onLoadChange(of: self.id) {
             _vessel.setIdentifier($0)
+            _reminders.setFilter(.vessel($0))
         }
     }
 }

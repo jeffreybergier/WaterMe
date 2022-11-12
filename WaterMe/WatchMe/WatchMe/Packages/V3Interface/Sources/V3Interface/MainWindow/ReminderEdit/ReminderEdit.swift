@@ -72,7 +72,9 @@ internal struct ReminderEdit: View {
                     Text("Notifications")
                 }
                 Section {
-                    TextField(text: item.note.compactMap(), prompt: nil, label: {})
+                    TextField(text: item.note.compactMap(), prompt: nil) {
+                        Text("Notes")
+                    }
                 } header: {
                     Text("Notes")
                 }
