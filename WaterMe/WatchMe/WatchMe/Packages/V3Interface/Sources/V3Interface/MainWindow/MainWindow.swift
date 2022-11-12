@@ -39,11 +39,11 @@ internal struct MainWindow: View {
                 .navigationDestination(for: Nav.View<Reminder.Identifier>.self) {
                     ReminderSummary($0.id)
                 }
-                .navigationDestination(for: Nav.Edit<Vessel.Identifier>.self) { _ in
-                    fatalError()
+                .navigationDestination(for: Nav.Edit<Vessel.Identifier>.self) {
+                    VesselEdit($0.id)
                 }
-                .navigationDestination(for: Nav.Edit<Reminder.Identifier>.self) { _ in
-                    fatalError()
+                .navigationDestination(for: Nav.Edit<Reminder.Identifier>.self) {
+                    ReminderEdit($0.id)
                 }
         }
     }
