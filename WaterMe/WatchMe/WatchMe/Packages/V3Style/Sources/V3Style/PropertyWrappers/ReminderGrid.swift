@@ -28,6 +28,7 @@ public struct ReminderGrid: DynamicProperty {
     
     public struct Value {
         public var fallback: some ActionStyle = ActionStyleFakeDisabled
+        public var iconCircle: some ViewModifier = VesselIconModifier()
     }
     
     public var wrappedValue: Value {

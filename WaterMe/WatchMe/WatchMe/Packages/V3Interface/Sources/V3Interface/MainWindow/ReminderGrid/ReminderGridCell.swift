@@ -33,6 +33,7 @@ extension ReminderGrid {
         @V3Style.ReminderGrid private var style
         @V3Localize.ReminderGrid private var text
 
+        @VesselQuery private var vessel
         @ReminderQuery private var reminder
         
         private let id: Reminder.Identifier
@@ -42,11 +43,16 @@ extension ReminderGrid {
         }
         
         internal var body: some View {
-            self.reminder.view { item in
+            self.onDataLoaded { reminder, vessel in
                 Button {
-                    self.nav.view(item.id)
+                    self.nav.view(reminder.id)
                 } label: {
-                    Text(String(describing: item.kind))
+                    VStack {
+                        self.icon(vessel)
+                            .modifier(self.style.iconCircle)
+                        JSBText("My Plant", text: vessel.displayName)
+                        self.kind(reminder.kind)
+                    }
                 }
             } onNIL: {
                 self.style.fallback
@@ -56,6 +62,43 @@ extension ReminderGrid {
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)
             }
+            .onLoadChange(of: self.reminder?.vesselID) {
+                _vessel.setIdentifier($0)
+            }
+        }
+        
+        @ViewBuilder private func onDataLoaded(
+            @ViewBuilder content: (Reminder, Vessel) -> some View,
+            @ViewBuilder onNIL: () -> some View
+        ) -> some View {
+            if let reminder, let vessel {
+                content(reminder, vessel)
+            } else {
+                onNIL()
+            }
+        }
+        
+        @ViewBuilder private func icon(_ item: Vessel) -> some View {
+            if let image = item.icon?.imageValue {
+                Image(jsbImage: image)
+            } else if let emoji = item.icon?.stringValue {
+                Text(emoji)
+            } else {
+                Text("🌸")
+            }
+        }
+        
+        @ViewBuilder private func kind(_ kind: Reminder.Kind) -> some View {
+            Text(String(describing: kind))
+            /*
+            switch kind {
+            case .water:
+            case .fertilize:
+            case .mist:
+            case .trim:
+            case .other:
+            }
+             */
         }
     }
 }
