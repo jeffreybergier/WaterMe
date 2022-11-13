@@ -26,6 +26,7 @@ import V3Datum
 internal struct ShareList: View {
     
     @Nav private var nav
+    
     @ShareListQuery private var data
     
     internal init() { }

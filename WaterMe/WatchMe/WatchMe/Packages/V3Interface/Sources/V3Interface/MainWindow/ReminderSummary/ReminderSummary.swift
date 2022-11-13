@@ -38,7 +38,7 @@ internal struct ReminderSummary: View {
     }
     
     internal var body: some View {
-        self.reminder.view { item in
+        self.reminder.view(self.vessel) { reminder, vessel in
             List {
                 Section {
                     Button {
@@ -47,12 +47,12 @@ internal struct ReminderSummary: View {
                         Text("Mark Reminder as Done")
                     }
                     Button {
-                        self.nav.edit(item.id)
+                        self.nav.edit(reminder.id)
                     } label: {
                         Text("Edit Reminder")
                     }
                     Button {
-                        item.vesselID.map { self.nav.edit($0) }
+                        self.nav.edit(vessel.id)
                     } label: {
                         Text("Edit Plant")
                     }
@@ -60,23 +60,18 @@ internal struct ReminderSummary: View {
                     Text("Actions")
                 }
                 Section {
-                    Text(String(describing: item.kind))
-                    Text(String(describing: item.nextPerformDate))
-                    Text(String(describing: item.lastPerformDate))
-                    Text(String(describing: item.interval))
+                    Text(String(describing: reminder.kind))
+                    Text(String(describing: reminder.nextPerformDate))
+                    Text(String(describing: reminder.lastPerformDate))
+                    Text(String(describing: reminder.interval))
                 } header: {
                     Text("Reminder")
                 }
                 Section {
-                    self.vessel.view { item in
-                        if let image = item.icon?.imageValue {
-                            Image(jsbImage: image)
-                        }
-                        Text(String(describing: item.displayName))
-                        
-                    } onNIL: {
-                        Text("Loading...")
+                    if let image = vessel.icon?.imageValue {
+                        Image(jsbImage: image)
                     }
+                    Text(String(describing: vessel.displayName))
                 } header: {
                     Text("Plant")
                 }

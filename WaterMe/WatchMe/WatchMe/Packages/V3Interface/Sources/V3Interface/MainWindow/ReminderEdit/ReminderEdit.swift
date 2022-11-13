@@ -31,7 +31,6 @@ internal struct ReminderEdit: View {
     @V3Localize.ReminderEdit private var text
     
     @ReminderQuery private var reminder
-    @VesselQuery private var vessel
     
     private let id: Reminder.Identifier
     
@@ -93,9 +92,6 @@ internal struct ReminderEdit: View {
         .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
             _reminder.setIdentifier($0)
-        }
-        .onLoadChange(of: self.reminder?.vesselID) {
-            _vessel.setIdentifier($0)
         }
     }
     

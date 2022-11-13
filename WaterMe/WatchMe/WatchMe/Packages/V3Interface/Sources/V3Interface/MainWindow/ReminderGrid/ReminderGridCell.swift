@@ -43,7 +43,7 @@ extension ReminderGrid {
         }
         
         internal var body: some View {
-            self.onDataLoaded { reminder, vessel in
+            self.reminder.view(self.vessel) { reminder, vessel in
                 Button {
                     self.nav.view(reminder.id)
                 } label: {
@@ -64,17 +64,6 @@ extension ReminderGrid {
             }
             .onLoadChange(of: self.reminder?.vesselID) {
                 _vessel.setIdentifier($0)
-            }
-        }
-        
-        @ViewBuilder private func onDataLoaded(
-            @ViewBuilder content: (Reminder, Vessel) -> some View,
-            @ViewBuilder onNIL: () -> some View
-        ) -> some View {
-            if let reminder, let vessel {
-                content(reminder, vessel)
-            } else {
-                onNIL()
             }
         }
         
