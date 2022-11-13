@@ -23,8 +23,8 @@ import Umbrella
 
 internal struct ReminderGridCellModifier: ViewModifier {
     
-    internal enum Portion {
-        case icon, bigText, smallText
+    internal enum Portion { // 部分
+        case icon, bigText, smallText, button
     }
     
     private let portion: Portion
@@ -45,6 +45,9 @@ internal struct ReminderGridCellModifier: ViewModifier {
         case .smallText:
             content
                 .font(.small)
+        case .button:
+            content
+                .buttonBorderShape(.roundedRectangle)
         }
     }
 }

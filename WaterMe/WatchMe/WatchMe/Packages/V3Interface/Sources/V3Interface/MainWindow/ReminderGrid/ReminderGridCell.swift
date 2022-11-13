@@ -56,6 +56,7 @@ extension ReminderGrid {
                             .modifier(self.style.kind)
                     }
                 }
+                .modifier(self.style.button)
             } onNIL: {
                 self.style.fallback
                           .action(text: self.text.noContent)

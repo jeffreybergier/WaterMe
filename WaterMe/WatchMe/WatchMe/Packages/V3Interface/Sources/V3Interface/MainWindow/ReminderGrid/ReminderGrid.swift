@@ -24,9 +24,11 @@ import Umbrella
 import V3Model
 import V3Datum
 import V3Localize
+import V3Style
 
 internal struct ReminderGrid: View {
     
+    @V3Style.ReminderGrid private var style
     @V3Localize.ReminderGrid private var text
     
     @ReminderGridQuery private var sections
@@ -38,48 +40,60 @@ internal struct ReminderGrid: View {
     }
     
     internal var body: some View {
-        List {
-            Section {
-                ForEach(self.sections.section1Data) { id in
-                    Cell(id)
+        self.style.grid {
+            self.sections.late.view { data in
+                Section {
+                    ForEach(data) { id in
+                        Cell(id)
+                    }
+                } header: {
+                    Header(.late)
                 }
-            } header: {
-                Header(self.sections.section1)
             }
-            Section {
-                ForEach(self.sections.section2Data) { id in
-                    Cell(id)
+            self.sections.today.view { data in
+                Section {
+                    ForEach(data) { id in
+                        Cell(id)
+                    }
+                } header: {
+                    Header(.today)
                 }
-            } header: {
-                Header(self.sections.section2)
             }
-            Section {
-                ForEach(self.sections.section3Data) { id in
-                    Cell(id)
+            self.sections.tomorrow.view { data in
+                Section {
+                    ForEach(data) { id in
+                        Cell(id)
+                    }
+                } header: {
+                    Header(.tomorrow)
                 }
-            } header: {
-                Header(self.sections.section3)
             }
-            Section {
-                ForEach(self.sections.section4Data) { id in
-                    Cell(id)
+            self.sections.thisWeek.view { data in
+                Section {
+                    ForEach(data) { id in
+                        Cell(id)
+                    }
+                } header: {
+                    Header(.thisWeek)
                 }
-            } header: {
-                Header(self.sections.section4)
             }
-            Section {
-                ForEach(self.sections.section5Data) { id in
-                    Cell(id)
+            self.sections.later.view { data in
+                Section {
+                    ForEach(data) { id in
+                        Cell(id)
+                    }
+                } header: {
+                    Header(.later)
                 }
-            } header: {
-                Header(self.sections.section5)
             }
-            Section {
-                ForEach(self.sections.section6Data) { id in
-                    Cell(id)
+            self.sections.disabled.view { data in
+                Section {
+                    ForEach(data) { id in
+                        Cell(id)
+                    }
+                } header: {
+                    Header(.disabled)
                 }
-            } header: {
-                Header(self.sections.section6)
             }
         }
         .modifier(self.toolbar)

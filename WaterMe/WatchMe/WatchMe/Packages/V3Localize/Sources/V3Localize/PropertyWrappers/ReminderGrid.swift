@@ -38,10 +38,10 @@ public struct ReminderGrid: DynamicProperty {
         public var kindTrim:             LocalizedString
         public var kindMove:             LocalizedString
         public var kindOther:            LocalizedString
-        public var addPlant:             ActionLocalization
         public var noContent:            ActionLocalization
+        public var addPlant:             ActionLocalization
         
-        internal init(_ b: LocalizeBundle) {
+        internal init(_ b: LocalizeBundle, sizeH: JSBSizeClass.Value) {
             self.title                = b.localized(key: Noun.appTitle.rawValue)
             self.sectionTitleLate     = b.localized(key: Noun.late.rawValue)
             self.sectionTitleToday    = b.localized(key: Noun.today.rawValue)
@@ -55,16 +55,19 @@ public struct ReminderGrid: DynamicProperty {
             self.kindTrim             = b.localized(key: Noun.trimShort.rawValue)
             self.kindMove             = b.localized(key: Noun.moveShort.rawValue)
             self.kindOther            = b.localized(key: Noun.other.rawValue)
-            self.addPlant             = Action.addPlant.localized(b)
             self.noContent            = Action.noContent.localized(b)
+            self.addPlant             = sizeH == .tiny
+                                        ? Action.addPlantShort.localized(b)
+                                        : Action.addPlantLong.localized(b)
         }
     }
     
     @Localize private var bundle
+    @JSBSizeClass private var size
     
     public init() {}
     
     public var wrappedValue: Value {
-        Value(self.bundle)
+        Value(self.bundle, sizeH: self.size.horizontal)
     }
 }

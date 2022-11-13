@@ -159,8 +159,10 @@ extension DarkMode {
 */
 
 internal enum Action {
+    
     case delete
-    case addPlant
+    case addPlantLong
+    case addPlantShort
     case noContent
     
     internal func localized(_ bundle: LocalizeBundle) -> ActionLocalization {
@@ -174,8 +176,10 @@ internal enum Action {
         switch self {
         case .delete:
             return Action.raw_delete
-        case .addPlant:
-            return Action.raw_addPlant
+        case .addPlantLong:
+            return Action.raw_addPlantLong
+        case .addPlantShort:
+            return Action.raw_addPlantShort
         case .noContent:
             return Action.raw_noContent
         }
@@ -188,8 +192,13 @@ extension Action {
               hint:  nil,
               image: nil)
     }()
-    private static let raw_addPlant: ActionLocalization = {
+    private static let raw_addPlantLong: ActionLocalization = {
         .init(title: Verb.addPlant.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_addPlantShort: ActionLocalization = {
+        .init(title: Verb.addGeneric.rawValue,
               hint:  nil,
               image: nil)
     }()

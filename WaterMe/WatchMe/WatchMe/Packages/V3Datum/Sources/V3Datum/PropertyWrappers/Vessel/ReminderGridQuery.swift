@@ -26,19 +26,28 @@ import V3Model
 @propertyWrapper
 public struct ReminderGridQuery: DynamicProperty {
     
-    public struct Sections<C1, C2, C3, C4, C5, C6> {
-        public var section1: Reminder.Section
-        public var section1Data: C1
-        public var section2: Reminder.Section
-        public var section2Data: C2
-        public var section3: Reminder.Section
-        public var section3Data: C3
-        public var section4: Reminder.Section
-        public var section4Data: C4
-        public var section5: Reminder.Section
-        public var section5Data: C5
-        public var section6: Reminder.Section
-        public var section6Data: C6
+    public struct Value<C1, C2, C3, C4, C5, C6> {
+        public var late: C1
+        public var today: C2
+        public var tomorrow: C3
+        public var thisWeek: C4
+        public var later: C5
+        public var disabled: C6
+        
+        internal init(late: C1,
+                      today: C2,
+                      tomorrow: C3,
+                      thisWeek: C4,
+                      later: C5,
+                      disabled: C6)
+        {
+            self.late = late
+            self.today = today
+            self.tomorrow = tomorrow
+            self.thisWeek = thisWeek
+            self.later = later
+            self.disabled = disabled
+        }
     }
     
     @ReminderListQuery(.late)     private var late
@@ -71,21 +80,19 @@ public struct ReminderGridQuery: DynamicProperty {
      public var wrappedValue: [Section<some RandomAccessCollection<Reminder.Identifier>>] {
      */
 
-    public var wrappedValue: Sections<some RandomAccessCollection<Reminder.Identifier>,
-                                      some RandomAccessCollection<Reminder.Identifier>,
-                                      some RandomAccessCollection<Reminder.Identifier>,
-                                      some RandomAccessCollection<Reminder.Identifier>,
-                                      some RandomAccessCollection<Reminder.Identifier>,
-                                      some RandomAccessCollection<Reminder.Identifier>>
+    public var wrappedValue: Value<some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>>
     {
-        .init(
-            section1: .late,     section1Data: self.late,
-            section2: .today,    section2Data: self.today,
-            section3: .tomorrow, section3Data: self.tomorrow,
-            section4: .thisWeek, section4Data: self.thisWeek,
-            section5: .later,    section5Data: self.later,
-            section6: .disabled, section6Data: self.disabled
-        )
+        .init(late:     self.late,
+              today:    self.today,
+              tomorrow: self.tomorrow,
+              thisWeek: self.thisWeek,
+              later:    self.later,
+              disabled: self.disabled)
     }
     
     public func setFilter(_ newValue: Reminder.Filter) {

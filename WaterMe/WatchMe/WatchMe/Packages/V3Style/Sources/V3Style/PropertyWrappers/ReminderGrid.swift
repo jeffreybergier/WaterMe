@@ -24,14 +24,24 @@ import Umbrella
 @propertyWrapper
 public struct ReminderGrid: DynamicProperty {
     
-    public init() {}
-    
     public struct Value {
         public var icon:        some ViewModifier = ReminderGridCellModifier(.icon)
         public var kind:        some ViewModifier = ReminderGridCellModifier(.smallText)
+        public var button:      some ViewModifier = ReminderGridCellModifier(.button)
         public var displayName: some ViewModifier = ReminderGridCellModifier(.bigText)
         public var fallback:    some ActionStyle = ActionStyleFakeDisabled
+        
+        // TODO: Make number of columns sensitive to size class
+        public func grid(@ViewBuilder content: () -> some View) -> some View {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                    content()
+                }
+            }
+        }
     }
+    
+    public init() {}
     
     public var wrappedValue: Value {
         Value()
