@@ -27,7 +27,7 @@ public struct ReminderGrid: DynamicProperty {
     public init() {}
     
     public struct Value {
-        public var done:      some ActionStyle = JSBToolbarButtonStyleDone
+        public var fallback: some ActionStyle = ActionStyleFakeDisabled
     }
     
     public var wrappedValue: Value {

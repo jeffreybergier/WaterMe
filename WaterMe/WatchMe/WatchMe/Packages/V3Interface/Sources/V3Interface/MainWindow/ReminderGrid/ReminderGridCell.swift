@@ -24,11 +24,13 @@ import Umbrella
 import V3Model
 import V3Datum
 import V3Localize
+import V3Style
 
 extension ReminderGrid {
     internal struct Cell: View {
         
         @Nav private var nav
+        @V3Style.ReminderGrid private var style
         @V3Localize.ReminderGrid private var text
 
         @ReminderQuery private var reminder
@@ -47,8 +49,9 @@ extension ReminderGrid {
                     Text(String(describing: item.kind))
                 }
             } onNIL: {
-                // TODO: Add Style
-                self.text.noContent.image!.image
+                self.style.fallback
+                          .action(text: self.text.noContent)
+                          .label
             }
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)

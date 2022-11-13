@@ -225,6 +225,8 @@ other static items in the UI
 /* dark mode force dark mode setting */
 "Label.Always Dark" = "Always Dark";
 
+/* no selection or couldn't find item */
+"Label.No Selection" = "No Selection";
 
 /*
  

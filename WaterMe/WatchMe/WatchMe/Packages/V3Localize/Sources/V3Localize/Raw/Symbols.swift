@@ -22,5 +22,5 @@ import SwiftUI
 import Umbrella
 
 internal enum Symbol: String {
-    case noContent = "rectangle.on.rectangle.slash"
+    case noContent = "circle.slash"
 }

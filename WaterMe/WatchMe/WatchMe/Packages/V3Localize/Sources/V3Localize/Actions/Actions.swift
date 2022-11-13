@@ -194,7 +194,7 @@ extension Action {
               image: nil)
     }()
     private static let raw_noContent: ActionLocalization = {
-        .init(title: Noun.emptyString.rawValue,
+        .init(title: Noun.noSelection.rawValue,
               hint:  nil,
               image: .system(Symbol.noContent.rawValue))
     }()

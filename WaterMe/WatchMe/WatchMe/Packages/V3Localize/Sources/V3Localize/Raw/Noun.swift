@@ -116,4 +116,5 @@ internal enum Noun: LocalizationKey {
     case changeWithSystem    = "Label.Change with System"
     case alwaysLight         = "Label.Always Light"
     case alwaysDark          = "Label.Always Dark"
+    case noSelection         = "Label.No Selection"
 }

@@ -37,6 +37,18 @@ extension CGFloat {
 }
 
 extension Color {
+    internal static func grayLight(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 0.9, green: 0.9, blue: 0.9)
+                       : Color(red: 0.25, green: 0.25, blue: 0.25)
+    }
+    internal static func grayMedium(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 0.8, green: 0.8, blue: 0.8)
+                       : Color(red: 0.35, green: 0.35, blue: 0.35)
+    }
+    internal static func grayDark(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 0.7, green: 0.7, blue: 0.7)
+                       : Color(red: 0.25, green: 0.25, blue: 0.25)
+    }
     internal static func text(_ scheme: ColorScheme) -> Color {
         scheme.isLight ? Color.black
                        : Color.white

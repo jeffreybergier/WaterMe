@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/03.
+//  Created by Jeffrey Bergier on 2022/11/13.
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,6 +18,22 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct Temporary {
-	public init() {}
+import SwiftUI
+import Umbrella
+
+internal let ActionStyleDefault:      some ActionStyle = ActionStyleImp()
+/// Fake appearance style for use on Labels where there is no "real" disabled state
+internal let ActionStyleFakeDisabled: some ActionStyle = ActionStyleImp(outerModifier: ModifierDisabledFake())
+
+// TODO: Make these internal
+// for some reason there is a build error
+// when building for release when they are internal
+
+public struct ModifierDisabledFake: ViewModifier {
+    @Environment(\.colorScheme) private var scheme
+    public func body(content: Content) -> some View {
+        content
+            .tint(Color.grayDark(self.scheme))
+            .foregroundColor(Color.grayDark(self.scheme))
+    }
 }
