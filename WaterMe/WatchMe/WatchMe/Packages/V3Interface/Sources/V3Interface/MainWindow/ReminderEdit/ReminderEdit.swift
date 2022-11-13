@@ -88,13 +88,24 @@ internal struct ReminderEdit: View {
         } onNIL: {
             Text("Loading...")
         }
-        .navigationTitle("Edit Reminder")
+        .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
             _reminder.setIdentifier($0)
         }
         .onLoadChange(of: self.reminder?.vesselID) {
             _vessel.setIdentifier($0)
         }
+    }
+    
+    private var toolbar: JSBToolbar {
+        return JSBToolbar(
+            title: "Edit Reminder",
+            delete: .init(title: "Delete"),
+            deleteAction: {
+                // TODO: Hookup error
+                NSLog("Delete Me")
+            }
+        )
     }
 }
 

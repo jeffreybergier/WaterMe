@@ -78,9 +78,20 @@ internal struct ReminderGrid: View {
                 Header(self.sections.section6)
             }
         }
-        .navigationTitle("Reminders")
+        .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
             _sections.setFilter(.share($0))
         }
+    }
+    
+    private var toolbar: JSBToolbar {
+        return JSBToolbar(
+            title: "WaterMe",
+            done: .init(title: "Add"),
+            doneAction: {
+                // TODO: Hookup error
+                NSLog("Add Me")
+            }
+        )
     }
 }

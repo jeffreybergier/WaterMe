@@ -76,10 +76,21 @@ internal struct VesselEdit: View {
         } onNIL: {
             Text("Loading...")
         }
-        .navigationTitle("Edit Plant")
+        .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
         }
+    }
+    
+    private var toolbar: JSBToolbar {
+        return JSBToolbar(
+            title: "Edit Plant",
+            delete: .init(title: "Delete"),
+            deleteAction: {
+                // TODO: Hookup error
+                NSLog("Delete Me")
+            }
+        )
     }
 }
