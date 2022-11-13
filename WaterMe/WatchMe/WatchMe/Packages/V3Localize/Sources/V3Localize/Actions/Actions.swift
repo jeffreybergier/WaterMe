@@ -104,27 +104,6 @@ import Umbrella
          }
      }
  }
-
-
- extension V3Model.Reminder.Section {
-     internal var localized: LocalizationKey {
-         switch self {
-         case .late:
-             return Label.late
-         case .today:
-             return Label.today
-         case .tomorrow:
-             return Label.tomorrow
-         case .thisWeek:
-             return Label.thisWeek
-         case .later:
-             return Label.later
-         case .disabled:
-             return Label.paused
-         }
-     }
- }
-
  
 extension ReminderDays {
     internal var localized: LocalizationKey {
@@ -182,6 +161,7 @@ extension DarkMode {
 internal enum Action {
     case delete
     case addPlant
+    case noContent
     
     internal func localized(_ bundle: LocalizeBundle) -> ActionLocalization {
         var output = self.raw
@@ -196,6 +176,8 @@ internal enum Action {
             return Action.raw_delete
         case .addPlant:
             return Action.raw_addPlant
+        case .noContent:
+            return Action.raw_noContent
         }
     }
 }
@@ -210,5 +192,10 @@ extension Action {
         .init(title: Verb.addPlant,
               hint:  nil,
               image: nil)
+    }()
+    private static let raw_noContent: ActionLocalization = {
+        .init(title: Noun.emptyString,
+              hint:  nil,
+              image: .system(Symbol.noContent))
     }()
 }

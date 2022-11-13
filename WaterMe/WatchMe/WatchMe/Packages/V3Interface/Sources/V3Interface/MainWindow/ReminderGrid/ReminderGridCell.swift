@@ -23,11 +23,14 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Localize
 
 extension ReminderGrid {
     internal struct Cell: View {
         
         @Nav private var nav
+        @V3Localize.ReminderGrid private var text
+
         @ReminderQuery private var reminder
         
         private let id: Reminder.Identifier
@@ -44,7 +47,8 @@ extension ReminderGrid {
                     Text(String(describing: item.kind))
                 }
             } onNIL: {
-                Text("Loading...")
+                // TODO: Add Style
+                self.text.noContent.image!.image
             }
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)

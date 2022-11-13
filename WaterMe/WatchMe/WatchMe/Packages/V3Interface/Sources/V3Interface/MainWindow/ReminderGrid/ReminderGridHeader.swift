@@ -23,9 +23,12 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Localize
 
 extension ReminderGrid {
     internal struct Header: View {
+        
+        @V3Localize.ReminderGrid private var text
                 
         private let section: Reminder.Section
         
@@ -33,8 +36,15 @@ extension ReminderGrid {
             self.section = section
         }
         
-        internal var body: some View {
-            Text(String(describing: section))
+        @ViewBuilder internal var body: some View {
+            switch self.section {
+            case .late:     Text(self.text.sectionTitleLate)
+            case .today:    Text(self.text.sectionTitleToday)
+            case .tomorrow: Text(self.text.sectionTitleTomorrow)
+            case .thisWeek: Text(self.text.sectionTitleThisWeek)
+            case .later:    Text(self.text.sectionTitleLater)
+            case .disabled: Text(self.text.sectionTitleDisabled)
+            }
         }
     }
 }

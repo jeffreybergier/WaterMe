@@ -23,10 +23,14 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Localize
 
 internal struct ReminderGrid: View {
     
+    @V3Localize.ReminderGrid private var text
+    
     @ReminderGridQuery private var sections
+    
     private let id: Share.Identifier
     
     internal init(_ id: Share.Identifier) {
@@ -86,8 +90,8 @@ internal struct ReminderGrid: View {
     
     private var toolbar: JSBToolbar {
         return JSBToolbar(
-            title: "WaterMe",
-            done: .init(title: "Add"),
+            title: self.text.title,
+            done: self.text.addPlant,
             doneAction: {
                 // TODO: Hookup error
                 NSLog("Add Me")
