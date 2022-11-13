@@ -184,18 +184,18 @@ internal enum Action {
 
 extension Action {
     private static let raw_delete: ActionLocalization = {
-        .init(title: Verb.delete,
+        .init(title: Verb.delete.rawValue,
               hint:  nil,
               image: nil)
     }()
     private static let raw_addPlant: ActionLocalization = {
-        .init(title: Verb.addPlant,
+        .init(title: Verb.addPlant.rawValue,
               hint:  nil,
               image: nil)
     }()
     private static let raw_noContent: ActionLocalization = {
-        .init(title: Noun.emptyString,
+        .init(title: Noun.emptyString.rawValue,
               hint:  nil,
-              image: .system(Symbol.noContent))
+              image: .system(Symbol.noContent.rawValue))
     }()
 }

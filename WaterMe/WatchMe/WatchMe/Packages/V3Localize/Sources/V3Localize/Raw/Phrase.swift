@@ -21,23 +21,23 @@
 import SwiftUI
 import Umbrella
 
-internal struct Phrase {
+internal enum Phrase: LocalizationKey {
 
-    internal static let placeholderTrim: LocalizationKey = "Trim the leaves and throw out the clippings."
-    internal static let placeholderMove: LocalizationKey = "Other side of the yard."
-    internal static let chooseIconMenuTitle: LocalizationKey = "View the current photo or choose a new photo or emoji for your plant."
-    internal static let chooseAnEmoji: LocalizationKey = "Choose an Emoji"
-    internal static let errorPhotoSave: LocalizationKey = "Error saving photo"
-    internal static let errorPhotoChosen: LocalizationKey = "The selected photo couldn’t be saved. Please take a different photo or choose an emoji."
-    internal static let cameraAccessRestricted: LocalizationKey = "WaterMe cannot access your camera. This feature has been restricted by this device’s administrator."
-    internal static let cameraAccessDenied: LocalizationKey = "WaterMe cannot access your camera. You can grant access in Settings"
-    internal static let deviceCameraNone: LocalizationKey = "This device does not have a camera."
-    internal static let notImplementedWatchLibrary: LocalizationKey = "The Apple Watch version of WaterMe does not support choosing from Photo Library yet."
-    internal static let errorSaving: LocalizationKey = "Error saving changes. Check to make sure there is free space available on this device."
-    internal static let errorLoading: LocalizationKey = "Error loading save file. Check to make sure there is free space available on this device."
-    internal static let errorDeleteLastReminder: LocalizationKey = "Unable to delete this reminder because its the only reminder for this plant. Each plant must have at least one reminder."
-    internal static let errorMaintenance: LocalizationKey = "Error performing maintenance. Check to make sure there is free space available on this device."
-    internal static let errorAlreadyDeleted: LocalizationKey = "Unable to save changes because the item was deleted. Possibly from another device."
-    internal static let confirmDelete: LocalizationKey = "Are you sure you want to delete this?"
+    case placeholderTrim            = "Trim the leaves and throw out the clippings."
+    case placeholderMove            = "Other side of the yard."
+    case chooseIconMenuTitle        = "View the current photo or choose a new photo or emoji for your plant."
+    case chooseAnEmoji              = "Choose an Emoji"
+    case errorPhotoSave             = "Error saving photo"
+    case errorPhotoChosen           = "The selected photo couldn’t be saved. Please take a different photo or choose an emoji."
+    case cameraAccessRestricted     = "WaterMe cannot access your camera. This feature has been restricted by this device’s administrator."
+    case cameraAccessDenied         = "WaterMe cannot access your camera. You can grant access in Settings"
+    case deviceCameraNone           = "This device does not have a camera."
+    case notImplementedWatchLibrary = "The Apple Watch version of WaterMe does not support choosing from Photo Library yet."
+    case errorSaving                = "Error saving changes. Check to make sure there is free space available on this device."
+    case errorLoading               = "Error loading save file. Check to make sure there is free space available on this device."
+    case errorDeleteLastReminder    = "Unable to delete this reminder because its the only reminder for this plant. Each plant must have at least one reminder."
+    case errorMaintenance           = "Error performing maintenance. Check to make sure there is free space available on this device."
+    case errorAlreadyDeleted        = "Unable to save changes because the item was deleted. Possibly from another device."
+    case confirmDelete              = "Are you sure you want to delete this?"
 
 }

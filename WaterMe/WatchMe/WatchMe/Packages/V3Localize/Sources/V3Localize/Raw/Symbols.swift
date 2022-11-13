@@ -21,6 +21,6 @@
 import SwiftUI
 import Umbrella
 
-internal struct Symbol {
-    internal static let noContent: String = "rectangle.on.rectangle.slash"
+internal enum Symbol: String {
+    case noContent = "rectangle.on.rectangle.slash"
 }

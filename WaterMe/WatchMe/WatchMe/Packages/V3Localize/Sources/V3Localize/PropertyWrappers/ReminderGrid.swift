@@ -36,14 +36,14 @@ public struct ReminderGrid: DynamicProperty {
         public var noContent:            ActionLocalization
         
         internal init(_ b: LocalizeBundle) {
-            self.title                = b.localized(key: Noun.appTitle)
-            self.sectionTitleLate     = b.localized(key: Noun.late)
-            self.sectionTitleToday    = b.localized(key: Noun.today)
-            self.sectionTitleTomorrow = b.localized(key: Noun.tomorrow)
-            self.sectionTitleThisWeek = b.localized(key: Noun.thisWeek)
-            self.sectionTitleLater    = b.localized(key: Noun.later)
-            self.sectionTitleDisabled = b.localized(key: Noun.paused)
-            self.addPlant             = Action.delete.localized(b)
+            self.title                = b.localized(key: Noun.appTitle.rawValue)
+            self.sectionTitleLate     = b.localized(key: Noun.late.rawValue)
+            self.sectionTitleToday    = b.localized(key: Noun.today.rawValue)
+            self.sectionTitleTomorrow = b.localized(key: Noun.tomorrow.rawValue)
+            self.sectionTitleThisWeek = b.localized(key: Noun.thisWeek.rawValue)
+            self.sectionTitleLater    = b.localized(key: Noun.later.rawValue)
+            self.sectionTitleDisabled = b.localized(key: Noun.paused.rawValue)
+            self.addPlant             = Action.addPlant.localized(b)
             self.noContent            = Action.noContent.localized(b)
         }
     }
