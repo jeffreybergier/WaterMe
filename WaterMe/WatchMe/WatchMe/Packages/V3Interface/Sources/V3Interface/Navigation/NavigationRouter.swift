@@ -31,7 +31,7 @@ internal struct NavigationRouter: ViewModifier {
     internal func body(content: Content) -> some View {
         NavigationStack(path: self.$nav.path) {
             content
-                .navigationDestination(for: Nav.List<Share.Identifier>.self) {
+                .navigationDestination(for: Nav.Special<Share.Identifier>.self) {
                     ReminderGrid($0.id)
                 }
                 .navigationDestination(for: Nav.List<Share.Identifier>.self) {

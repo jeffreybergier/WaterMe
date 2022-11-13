@@ -32,6 +32,9 @@ extension Nav {
         internal mutating func pop() {
             self.path.removeLast()
         }
+        internal mutating func main(_ share: Share.Identifier) {
+            self.path.append(Special(share))
+        }
         internal mutating func list(_ share: Share.Identifier) {
             self.path.append(List(share))
         }
@@ -80,6 +83,13 @@ internal struct Nav: DynamicProperty {
 }
 
 extension Nav {
+    internal struct Special<T: Codable & Hashable>: Codable, Hashable {
+        internal var id: T
+        internal init(_ id: T) {
+            self.id = id
+        }
+    }
+    
     internal struct List<T: Codable & Hashable>: Codable, Hashable {
         internal var id: T
         internal init(_ id: T) {
