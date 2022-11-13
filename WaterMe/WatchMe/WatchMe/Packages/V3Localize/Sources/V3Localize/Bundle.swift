@@ -1,6 +1,6 @@
 //
-//  Created by Jeffrey Bergier on 2022/06/04.
-//  Copyright © 2021 Saturday Apps.
+//  Created by Jeffrey Bergier on 2022/02/20.
+//  Copyright © 2018 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -18,18 +18,12 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Settings
+import Foundation
 import Umbrella
 
-extension DarkMode {
-    internal var localized: LocalizationKey {
-        switch self {
-        case .system:
-            return Label.changeWithSystem
-        case .forceLight:
-            return Label.alwaysLight
-        case .forceDark:
-            return Label.alwaysDark
-        }
-    }
+public class LocalizeBundle: EnvironmentBundleProtocol {
+    public let bundle: Bundle = Bundle.module
+    public init() {}
 }
+
+public typealias Localize = EnvironmentBundle<LocalizeBundle>

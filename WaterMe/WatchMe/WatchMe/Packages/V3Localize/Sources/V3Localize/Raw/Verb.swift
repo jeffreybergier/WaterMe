@@ -21,8 +21,7 @@
 import SwiftUI
 import Umbrella
 
-internal struct Action {
-
+internal struct Verb {
     internal static let addGeneric: LocalizationKey = "Action.Add Generic"
     internal static let addPlant: LocalizationKey = "Action.Add Plant"
     internal static let addReminder: LocalizationKey = "Action.Add Reminder"

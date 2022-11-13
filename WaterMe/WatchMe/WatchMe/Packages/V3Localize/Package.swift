@@ -26,6 +26,7 @@ let PKGNAME = "V3Localize"
 
 let package = Package(
     name: PKGNAME,
+    defaultLocalization: "en",
     platforms: [.iOS(.v16), .macOS(.v13), .watchOS(.v9)],
     products: [
         .library(

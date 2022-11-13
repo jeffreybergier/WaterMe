@@ -23,10 +23,12 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Localize
 
 internal struct ReminderEdit: View {
     
     @Nav private var nav
+    @V3Localize.ReminderEdit private var text
     
     @ReminderQuery private var reminder
     @VesselQuery private var vessel
@@ -99,8 +101,8 @@ internal struct ReminderEdit: View {
     
     private var toolbar: JSBToolbar {
         return JSBToolbar(
-            title: "Edit Reminder",
-            delete: .init(title: "Delete"),
+            title: self.text.title,
+            delete: self.text.delete,
             deleteAction: {
                 // TODO: Hookup error
                 NSLog("Delete Me")

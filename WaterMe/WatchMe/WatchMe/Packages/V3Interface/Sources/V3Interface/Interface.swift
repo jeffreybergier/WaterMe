@@ -22,10 +22,12 @@ import SwiftUI
 import Umbrella
 import V3Datum
 import V3Settings
+import V3Localize
 
 public struct Interface: Scene {
     
     @StateObject private var controller = Controller.newEnvironment(.local)
+    @StateObject private var localizeBundle = LocalizeBundle()
     @StateObject private var launchConfiguration = SecretBox<(() -> Void)?>(UserDefaults.standard.configure)
 
     public init() {
@@ -39,6 +41,7 @@ public struct Interface: Scene {
             case .success(let controller):
                 MainWindow()
                     .environmentObject(self.controller)
+                    .environmentObject(self.localizeBundle)
                     .environment(\.managedObjectContext, controller.context)
             case .failure(let error):
                 Text(String(describing: error))
