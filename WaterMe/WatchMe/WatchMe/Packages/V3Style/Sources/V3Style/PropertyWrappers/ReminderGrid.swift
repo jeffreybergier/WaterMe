@@ -27,8 +27,10 @@ public struct ReminderGrid: DynamicProperty {
     public init() {}
     
     public struct Value {
-        public var fallback: some ActionStyle = ActionStyleFakeDisabled
-        public var iconCircle: some ViewModifier = VesselIconModifier()
+        public var icon:        some ViewModifier = ReminderGridCellModifier(.icon)
+        public var kind:        some ViewModifier = ReminderGridCellModifier(.smallText)
+        public var displayName: some ViewModifier = ReminderGridCellModifier(.bigText)
+        public var fallback:    some ActionStyle = ActionStyleFakeDisabled
     }
     
     public var wrappedValue: Value {

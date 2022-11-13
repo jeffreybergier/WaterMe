@@ -32,6 +32,12 @@ public struct ReminderGrid: DynamicProperty {
         public var sectionTitleThisWeek: LocalizedString
         public var sectionTitleLater:    LocalizedString
         public var sectionTitleDisabled: LocalizedString
+        public var kindWater:            LocalizedString
+        public var kindFertilize:        LocalizedString
+        public var kindMist:             LocalizedString
+        public var kindTrim:             LocalizedString
+        public var kindMove:             LocalizedString
+        public var kindOther:            LocalizedString
         public var addPlant:             ActionLocalization
         public var noContent:            ActionLocalization
         
@@ -43,6 +49,12 @@ public struct ReminderGrid: DynamicProperty {
             self.sectionTitleThisWeek = b.localized(key: Noun.thisWeek.rawValue)
             self.sectionTitleLater    = b.localized(key: Noun.later.rawValue)
             self.sectionTitleDisabled = b.localized(key: Noun.paused.rawValue)
+            self.kindWater            = b.localized(key: Noun.waterShort.rawValue)
+            self.kindFertilize        = b.localized(key: Noun.fertilizeShort.rawValue)
+            self.kindMist             = b.localized(key: Noun.mistShort.rawValue)
+            self.kindTrim             = b.localized(key: Noun.trimShort.rawValue)
+            self.kindMove             = b.localized(key: Noun.moveShort.rawValue)
+            self.kindOther            = b.localized(key: Noun.other.rawValue)
             self.addPlant             = Action.addPlant.localized(b)
             self.noContent            = Action.noContent.localized(b)
         }

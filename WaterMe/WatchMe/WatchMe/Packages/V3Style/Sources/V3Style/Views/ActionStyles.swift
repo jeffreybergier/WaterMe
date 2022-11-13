@@ -29,9 +29,9 @@ internal let ActionStyleFakeDisabled: some ActionStyle = ActionStyleImp(outerMod
 // for some reason there is a build error
 // when building for release when they are internal
 
-public struct ModifierDisabledFake: ViewModifier {
+internal struct ModifierDisabledFake: ViewModifier {
     @Environment(\.colorScheme) private var scheme
-    public func body(content: Content) -> some View {
+    internal func body(content: Content) -> some View {
         content
             .tint(Color.grayDark(self.scheme))
             .foregroundColor(Color.grayDark(self.scheme))

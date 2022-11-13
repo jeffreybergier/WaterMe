@@ -49,9 +49,11 @@ extension ReminderGrid {
                 } label: {
                     VStack {
                         self.icon(vessel)
-                            .modifier(self.style.iconCircle)
+                            .modifier(self.style.icon)
                         JSBText("My Plant", text: vessel.displayName)
+                            .modifier(self.style.displayName)
                         self.kind(reminder.kind)
+                            .modifier(self.style.kind)
                     }
                 }
             } onNIL: {
@@ -78,16 +80,20 @@ extension ReminderGrid {
         }
         
         @ViewBuilder private func kind(_ kind: Reminder.Kind) -> some View {
-            Text(String(describing: kind))
-            /*
             switch kind {
             case .water:
+                Text(self.text.kindWater)
             case .fertilize:
+                Text(self.text.kindFertilize)
             case .mist:
+                Text(self.text.kindMist)
             case .trim:
+                Text(self.text.kindTrim)
+            case .move:
+                Text(self.text.kindMove)
             case .other:
+                Text(self.text.kindOther)
             }
-             */
         }
     }
 }

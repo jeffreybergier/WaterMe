@@ -21,17 +21,30 @@
 import SwiftUI
 import Umbrella
 
-internal struct VesselIconModifier: ViewModifier {
+internal struct ReminderGridCellModifier: ViewModifier {
     
-    @Environment(\.tintColor) private var tintColor
+    internal enum Portion {
+        case icon, bigText, smallText
+    }
     
-    internal init() {}
-    internal func body(content: Content) -> some View {
-        content
-            .font(.title)
-            .clipShape(Circle())
-            .overlay(
-                Circle().stroke(self.tintColor, lineWidth: 2)
-            )
+    private let portion: Portion
+    
+    internal init(_ portion: Portion) {
+        self.portion = portion
+    }
+    
+    @ViewBuilder internal func body(content: Content) -> some View {
+        switch self.portion {
+        case .icon:
+            content
+                .font(.emojiSmall)
+                .modifier(CircleModifier(strokeWidth: 2))
+        case .bigText:
+            content
+                .font(.prominent)
+        case .smallText:
+            content
+                .font(.small)
+        }
     }
 }
