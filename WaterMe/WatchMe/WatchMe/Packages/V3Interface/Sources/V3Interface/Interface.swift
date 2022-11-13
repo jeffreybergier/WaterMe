@@ -31,6 +31,8 @@ public struct Interface: Scene {
     @StateObject private var launchConfiguration = SecretBox<(() -> Void)?>(UserDefaults.standard.configure)
 
     public init() {
+        // TODO: this needs to be moved to somewhere that runs once
+        // Accessing StateObject's object without being installed on a View. This will create a new instance each time.
         self.launchConfiguration.value?()
         self.launchConfiguration.value = nil
     }
