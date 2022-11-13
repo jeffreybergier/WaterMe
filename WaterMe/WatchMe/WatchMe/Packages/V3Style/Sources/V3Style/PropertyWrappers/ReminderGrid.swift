@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/03.
+//  Created by Jeffrey Bergier on 2022/11/13.
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,6 +18,19 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct Temporary {
-	public init() {}
+import SwiftUI
+import Umbrella
+
+@propertyWrapper
+public struct ReminderGrid: DynamicProperty {
+    
+    public init() {}
+    
+    public struct Value {
+        public var done:      some ActionStyle = JSBToolbarButtonStyleDone
+    }
+    
+    public var wrappedValue: Value {
+        Value()
+    }
 }
