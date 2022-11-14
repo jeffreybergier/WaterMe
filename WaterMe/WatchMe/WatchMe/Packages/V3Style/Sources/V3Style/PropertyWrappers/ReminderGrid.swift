@@ -29,16 +29,8 @@ public struct ReminderGrid: DynamicProperty {
         public var kind:        some ViewModifier = ReminderGridCellModifier(.smallText)
         public var button:      some ViewModifier = ReminderGridCellModifier(.button)
         public var displayName: some ViewModifier = ReminderGridCellModifier(.bigText)
-        public var fallback:    some ActionStyle = ActionStyleFakeDisabled
-        
-        // TODO: Make number of columns sensitive to size class
-        public func grid(@ViewBuilder content: () -> some View) -> some View {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                    content()
-                }
-            }
-        }
+        public var fallback:    some ActionStyle  = ActionStyleFakeDisabled
+        public var columns:          [GridItem]   = GridItem.reminderGridSmall
     }
     
     public init() {}

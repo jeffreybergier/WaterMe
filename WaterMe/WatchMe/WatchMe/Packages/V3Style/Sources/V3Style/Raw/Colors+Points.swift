@@ -20,6 +20,10 @@
 
 import SwiftUI
 
+extension GridItem {
+    internal static let reminderGridSmall = [GridItem(.flexible()), GridItem(.flexible())]
+}
+
 extension TimeInterval {
     internal static let syncIndicatorTimer: TimeInterval = 3
 }

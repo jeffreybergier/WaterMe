@@ -40,59 +40,61 @@ internal struct ReminderGrid: View {
     }
     
     internal var body: some View {
-        self.style.grid {
-            self.sections.late.view { data in
-                Section {
-                    ForEach(data) { id in
-                        Cell(id)
+        ScrollView {
+            LazyVGrid(columns: self.style.columns) {
+                self.sections.late.view { data in
+                    Section {
+                        ForEach(data) { id in
+                            Cell(id)
+                        }
+                    } header: {
+                        Header(.late)
                     }
-                } header: {
-                    Header(.late)
                 }
-            }
-            self.sections.today.view { data in
-                Section {
-                    ForEach(data) { id in
-                        Cell(id)
+                self.sections.today.view { data in
+                    Section {
+                        ForEach(data) { id in
+                            Cell(id)
+                        }
+                    } header: {
+                        Header(.today)
                     }
-                } header: {
-                    Header(.today)
                 }
-            }
-            self.sections.tomorrow.view { data in
-                Section {
-                    ForEach(data) { id in
-                        Cell(id)
+                self.sections.tomorrow.view { data in
+                    Section {
+                        ForEach(data) { id in
+                            Cell(id)
+                        }
+                    } header: {
+                        Header(.tomorrow)
                     }
-                } header: {
-                    Header(.tomorrow)
                 }
-            }
-            self.sections.thisWeek.view { data in
-                Section {
-                    ForEach(data) { id in
-                        Cell(id)
+                self.sections.thisWeek.view { data in
+                    Section {
+                        ForEach(data) { id in
+                            Cell(id)
+                        }
+                    } header: {
+                        Header(.thisWeek)
                     }
-                } header: {
-                    Header(.thisWeek)
                 }
-            }
-            self.sections.later.view { data in
-                Section {
-                    ForEach(data) { id in
-                        Cell(id)
+                self.sections.later.view { data in
+                    Section {
+                        ForEach(data) { id in
+                            Cell(id)
+                        }
+                    } header: {
+                        Header(.later)
                     }
-                } header: {
-                    Header(.later)
                 }
-            }
-            self.sections.disabled.view { data in
-                Section {
-                    ForEach(data) { id in
-                        Cell(id)
+                self.sections.disabled.view { data in
+                    Section {
+                        ForEach(data) { id in
+                            Cell(id)
+                        }
+                    } header: {
+                        Header(.disabled)
                     }
-                } header: {
-                    Header(.disabled)
                 }
             }
         }
