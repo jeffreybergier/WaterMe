@@ -33,7 +33,7 @@ public struct ReminderListQuery: DynamicProperty {
     ) private var data
     @Environment(\.codableErrorResponder) private var errorResponder
     
-    @State private var filter: Reminder.Filter = .none
+    @StateObject private var filter: SecretBox<Reminder.Filter> = .init(.none)
     public let section: Reminder.Section?
     
     public init(_ section: Reminder.Section? = nil) {
@@ -56,7 +56,7 @@ public struct ReminderListQuery: DynamicProperty {
     }
     
     public func setFilter(_ newValue: Reminder.Filter) {
-        self.filter = newValue
+        self.filter.value = newValue
         self.updateCoreData()
     }
     
@@ -66,11 +66,11 @@ public struct ReminderListQuery: DynamicProperty {
         defer { _data.setPredicate(predicate) }
         
         // 1) If filter is none, nothing should load ever
-        if case .none = self.filter { return }
+        if case .none = self.filter.value { return }
         
         // 2) Try to obtain the other two predicates
         let section = self.section?.cd_predicate ?? .init(value: true)
-        let filterResult = self.filter.cd_predicate(
+        let filterResult = self.filter.value.cd_predicate(
             share:  _controller.cd.cd_search,
             vessel: _controller.cd.cd_search
         )
