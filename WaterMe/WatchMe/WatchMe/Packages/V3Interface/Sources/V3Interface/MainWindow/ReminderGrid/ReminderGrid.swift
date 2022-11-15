@@ -28,8 +28,13 @@ import V3Style
 
 internal struct ReminderGrid: View {
     
+    @Nav private var nav
+    @Controller private var controller
+    
     @V3Style.ReminderGrid private var style
     @V3Localize.ReminderGrid private var text
+    
+    @Environment(\.codableErrorResponder) private var errorResponder
     
     @ReminderGridQuery private var sections
     
@@ -109,8 +114,13 @@ internal struct ReminderGrid: View {
             title: self.text.title,
             done: self.text.addPlant,
             doneAction: {
-                // TODO: Hookup error
-                NSLog("Add Me")
+                switch self.controller.createVessel() {
+                case .success(let id):
+                    self.nav.edit(id)
+                case .failure(let error):
+                    break
+                    // self.errorResponder(error)
+                }
             }
         )
     }

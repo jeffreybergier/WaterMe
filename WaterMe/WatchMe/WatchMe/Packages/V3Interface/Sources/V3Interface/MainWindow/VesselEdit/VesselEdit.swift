@@ -27,6 +27,9 @@ import V3Datum
 internal struct VesselEdit: View {
     
     @Nav private var nav
+    @Controller private var controller
+    
+    @Environment(\.codableErrorResponder) private var errorResponder
     
     @VesselQuery private var vessel
     @ReminderListQuery private var reminders
@@ -73,23 +76,32 @@ internal struct VesselEdit: View {
                 }
                 // TODO: Add Siri Shortcuts Here
             }
+            .modifier(self.toolbar(vessel.id))
         } onNIL: {
             Text("Loading...")
         }
-        .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
         }
     }
     
-    private var toolbar: JSBToolbar {
+    private func toolbar(_ id: Vessel.Identifier) -> JSBToolbar {
         return JSBToolbar(
             title: "Edit Plant",
             delete: .init(title: "Delete"),
             deleteAction: {
-                // TODO: Hookup error
-                NSLog("Delete Me")
+                // TODO: Change this to confirmation error
+                switch self.controller.delete(id) {
+                case .success:
+                    break
+                    // TODO: Figure out how to make this POP properly
+                    // TODO: Figure out why after deletion the vessel still loads
+                    // self.nav.pop()
+                case .failure(let error):
+                    break
+                    // self.errorResponder(error)
+                }
             }
         )
     }

@@ -27,10 +27,12 @@ import V3Datum
 internal struct ReminderSummary: View {
     
     @Nav private var nav
+    @Controller private var controller
+    
+    @Environment(\.codableErrorResponder) private var errorResponder
     
     @ReminderQuery private var reminder
     @VesselQuery private var vessel
-    
     private let id: Reminder.Identifier
     
     internal init(_ id: Reminder.Identifier) {
@@ -42,7 +44,13 @@ internal struct ReminderSummary: View {
             List {
                 Section {
                     Button {
-                        // TODO: Mark as Done
+                        switch self.controller.appendNewPerformToReminders(with: [reminder.id]) {
+                        case .success:
+                            self.nav.pop()
+                        case .failure(let erorr):
+                            break
+                            // self.errorResponder(error)
+                        }
                     } label: {
                         Text("Mark Reminder as Done")
                     }

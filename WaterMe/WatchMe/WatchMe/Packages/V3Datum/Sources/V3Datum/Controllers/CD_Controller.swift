@@ -115,11 +115,10 @@ internal class CD_Controller: ControllerProtocol {
     internal var context: NSManagedObjectContext {
         return self.container.viewContext
     }
-
+    
     // MARK: Create
-
-    /* TODO: Restore later
-    internal func newVessel() -> Result<Vessel.Identifier, Error> {
+    
+    internal func createVessel() -> Result<Vessel.Selection.Element, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
@@ -151,8 +150,7 @@ internal class CD_Controller: ControllerProtocol {
             Vessel.Identifier(vessel.objectID)
         }
     }
-     */
-
+    
     /* TODO: Restore later
     internal func newReminder(for vessel: Vessel.Identifier) -> Result<Reminder.Identifier, Error> {
         let context = self.container.viewContext
@@ -172,8 +170,7 @@ internal class CD_Controller: ControllerProtocol {
     }
      */
 
-    /* TODO: Restore later
-    internal func appendNewPerformToReminders(with ids: [Reminder.Identifier]) -> Result<Void, Error> {
+    internal func appendNewPerformToReminders(with ids: Reminder.Selection) -> Result<Void, Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
 
@@ -197,12 +194,10 @@ internal class CD_Controller: ControllerProtocol {
             .reduce(self.maintenance_oneTrueVesselShare)
             .reduce(self.maintenance_fixOrphanedVessels(share:))
     }
-     */
 
     // MARK: Delete
 
-    /* TODO: Restore later
-    internal func delete(_ vessel: Vessel.Identifier) -> Result<Void, Error> {
+    internal func delete(_ vessel: Vessel.Selection.Element) -> Result<Void, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
         { (vessel: CD_ReminderVessel) -> Result<Void, Error> in
@@ -214,7 +209,6 @@ internal class CD_Controller: ControllerProtocol {
             return context.waterme_save()
         }
     }
-     */
 
     /* TODO: Restore later
     internal func delete(_ reminder: Reminder.Identifier) -> Result<Void, Error> {

@@ -36,14 +36,8 @@ public protocol ControllerProtocol {
     // MARK: Sync
     var syncProgress: AnyContinousProgress<CPError> { get }
 
-    /* TODO: Update for WaterMe
     // MARK: Websites CRUD
-    func createWebsite(originalURL: URL?) -> Result<Website.Selection.Element, Error>
-    func createWebsite() -> Result<Website.Selection.Element, Error>
-    func delete(_: Website.Selection) -> Result<Void, Error>
-
-    // MARK: Tags CRUD
-    func createTag() -> Result<Tag.Selection.Element, Error>
-    func delete(_: Tag.Selection) -> Result<Void, Error>
-    */
+    func createVessel() -> Result<Vessel.Selection.Element, Error>
+    func delete(_ vessel: Vessel.Selection.Element) -> Result<Void, Error>
+    func appendNewPerformToReminders(with ids: Reminder.Selection) -> Result<Void, Error>
 }
