@@ -94,5 +94,9 @@ internal struct ReminderSummary: View {
         .onLoadChange(of: self.reminder?.vesselID) {
             _vessel.setIdentifier($0)
         }
+        .onChange(of: self.reminder?.isDeleted) {
+            guard $0 == true else { return }
+            self.nav.pop()
+        }
     }
 }

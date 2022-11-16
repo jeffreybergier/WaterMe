@@ -93,6 +93,10 @@ internal struct ReminderEdit: View {
         .onLoadChange(of: self.id) {
             _reminder.setIdentifier($0)
         }
+        .onChange(of: self.reminder?.isDeleted) {
+            guard $0 == true else { return }
+            self.nav.pop()
+        }
     }
     
     private var toolbar: JSBToolbar {

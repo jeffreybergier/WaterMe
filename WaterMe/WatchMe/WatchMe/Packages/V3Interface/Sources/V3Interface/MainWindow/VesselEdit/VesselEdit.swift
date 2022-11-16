@@ -84,6 +84,10 @@ internal struct VesselEdit: View {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
         }
+        .onChange(of: self.vessel?.isDeleted) {
+            guard $0 == true else { return }
+            self.nav.pop()
+        }
     }
     
     private func toolbar(_ id: Vessel.Identifier) -> JSBToolbar {
@@ -92,16 +96,9 @@ internal struct VesselEdit: View {
             delete: .init(title: "Delete"),
             deleteAction: {
                 // TODO: Change this to confirmation error
-                switch self.controller.delete(id) {
-                case .success:
-                    break
-                    // TODO: Figure out how to make this POP properly
-                    // TODO: Figure out why after deletion the vessel still loads
-                    // self.nav.pop()
-                case .failure(let error):
-                    break
-                    // self.errorResponder(error)
-                }
+                self.controller.delete(id)
+                    .error
+                    .map { error in /* self.errorResponder(error) */ }
             }
         )
     }
