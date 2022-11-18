@@ -23,11 +23,15 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Style
+import V3Localize
 
 internal struct ReminderSummary: View {
     
     @Nav private var nav
     @Controller private var controller
+    @V3Style.ReminderSummary private var style
+    @V3Localize.ReminderSummary private var text
     
     @Environment(\.codableErrorResponder) private var errorResponder
     
@@ -47,7 +51,7 @@ internal struct ReminderSummary: View {
                         switch self.controller.appendNewPerformToReminders(with: [reminder.id]) {
                         case .success:
                             self.nav.pop()
-                        case .failure(let erorr):
+                        case .failure(let error):
                             break
                             // self.errorResponder(error)
                         }
@@ -85,7 +89,9 @@ internal struct ReminderSummary: View {
                 }
             }
         } onNIL: {
-            Text("Loading...")
+            self.style.fallback
+                      .action(text: self.text.itemNotFound)
+                      .label
         }
         .navigationTitle("Summary")
         .onLoadChange(of: self.id) {
@@ -93,10 +99,6 @@ internal struct ReminderSummary: View {
         }
         .onLoadChange(of: self.reminder?.vesselID) {
             _vessel.setIdentifier($0)
-        }
-        .onChange(of: self.reminder?.isDeleted) {
-            guard $0 == true else { return }
-            self.nav.pop()
         }
     }
 }

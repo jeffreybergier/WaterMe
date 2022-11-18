@@ -59,7 +59,7 @@ extension ReminderGrid {
                 .modifier(self.style.button)
             } onNIL: {
                 self.style.fallback
-                          .action(text: self.text.noContent)
+                          .action(text: self.text.itemNotFound)
                           .label
             }
             .onLoadChange(of: self.id) {

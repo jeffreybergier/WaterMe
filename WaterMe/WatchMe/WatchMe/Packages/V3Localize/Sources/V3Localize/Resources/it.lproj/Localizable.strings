@@ -228,6 +228,9 @@ other static items in the UI
 /* no selection or couldn't find item */
 "Label.No Selection" = "Nessuna selezione";
 
+/* There is a selection but the item could not be found. It was probably deleted. */
+"Label.Item Not Found" = "Non trovato";
+
 /*
  
               _   _

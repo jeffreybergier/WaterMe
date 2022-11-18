@@ -23,11 +23,13 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Style
 import V3Localize
 
 internal struct ReminderEdit: View {
     
     @Nav private var nav
+    @V3Style.ReminderEdit private var style
     @V3Localize.ReminderEdit private var text
     
     @ReminderQuery private var reminder
@@ -87,15 +89,13 @@ internal struct ReminderEdit: View {
                 }
             }
         } onNIL: {
-            Text("Loading...")
+            self.style.fallback
+                      .action(text: self.text.itemNotFound)
+                      .label
         }
         .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
             _reminder.setIdentifier($0)
-        }
-        .onChange(of: self.reminder?.isDeleted) {
-            guard $0 == true else { return }
-            self.nav.pop()
         }
     }
     

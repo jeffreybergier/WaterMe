@@ -23,11 +23,15 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Style
+import V3Localize
 
 internal struct VesselEdit: View {
     
     @Nav private var nav
     @Controller private var controller
+    @V3Style.VesselEdit private var style
+    @V3Localize.VesselEdit private var text
     
     @Environment(\.codableErrorResponder) private var errorResponder
     
@@ -78,22 +82,20 @@ internal struct VesselEdit: View {
             }
             .modifier(self.toolbar(vessel.id))
         } onNIL: {
-            Text("Loading...")
+            self.style.fallback
+                      .action(text: self.text.itemNotFound)
+                      .label
         }
         .onLoadChange(of: self.id) {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
-        }
-        .onChange(of: self.vessel?.isDeleted) {
-            guard $0 == true else { return }
-            self.nav.pop()
         }
     }
     
     private func toolbar(_ id: Vessel.Identifier) -> JSBToolbar {
         return JSBToolbar(
             title: "Edit Plant",
-            delete: .init(title: "Delete"),
+            delete: self.text.delete,
             deleteAction: {
                 // TODO: Change this to confirmation error
                 self.controller.delete(id)

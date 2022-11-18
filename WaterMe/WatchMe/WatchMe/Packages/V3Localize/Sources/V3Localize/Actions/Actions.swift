@@ -163,7 +163,7 @@ internal enum Action {
     case delete
     case addPlantLong
     case addPlantShort
-    case noContent
+    case itemNotFound
     
     internal func localized(_ bundle: LocalizeBundle) -> ActionLocalization {
         var output = self.raw
@@ -180,8 +180,8 @@ internal enum Action {
             return Action.raw_addPlantLong
         case .addPlantShort:
             return Action.raw_addPlantShort
-        case .noContent:
-            return Action.raw_noContent
+        case .itemNotFound:
+            return Action.raw_itemNotFound
         }
     }
 }
@@ -202,8 +202,8 @@ extension Action {
               hint:  nil,
               image: nil)
     }()
-    private static let raw_noContent: ActionLocalization = {
-        .init(title: Noun.noSelection.rawValue,
+    private static let raw_itemNotFound: ActionLocalization = {
+        .init(title: Noun.itemNotFound.rawValue,
               hint:  nil,
               image: .system(Symbol.noContent.rawValue))
     }()

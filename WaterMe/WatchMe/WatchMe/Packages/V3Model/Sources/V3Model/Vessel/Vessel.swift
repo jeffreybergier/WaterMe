@@ -36,6 +36,7 @@ public struct Vessel: Identifiable, Hashable, Equatable {
     public var displayName: String?
     public var icon: Icon?
     public var kind: Kind
+    // TODO: Remove this as we returning NIL when deleted
     public var isDeleted: Bool
 //  public var isModelComplete: ModelCompleteError?
     public var dateCreated: Date

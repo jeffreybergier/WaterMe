@@ -27,10 +27,12 @@ public struct ReminderEdit: DynamicProperty {
     public struct Value {
         public var title:  LocalizedString
         public var delete: ActionLocalization
+        public var itemNotFound: ActionLocalization
         
         internal init(_ b: LocalizeBundle) {
             self.title  = b.localized(key: Noun.editReminder.rawValue)
             self.delete = Action.delete.localized(b)
+            self.itemNotFound = Action.itemNotFound.localized(b)
         }
     }
     
