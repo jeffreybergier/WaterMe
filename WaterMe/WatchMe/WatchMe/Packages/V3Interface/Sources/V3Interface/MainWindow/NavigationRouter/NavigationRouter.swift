@@ -22,6 +22,7 @@
 import SwiftUI
 import V3Model
 import V3Nav
+import V3Error
 
 internal struct NavigationRouter: ViewModifier {
     
@@ -30,7 +31,9 @@ internal struct NavigationRouter: ViewModifier {
     internal init() {}
     
     internal func body(content: Content) -> some View {
-        NavigationStack(path: self.$nav.path) {
+        // TODO: Make it so Views never touch Nav directly...
+        // or rather they only says "Do List of this", "Edit this", "pop to this", etc
+        NavigationStack(path: self.$nav.stack.path) {
             content
                 .navigationDestination(for: Nav.Special<Share.Identifier>.self) {
                     ReminderGrid($0.id)
@@ -48,5 +51,7 @@ internal struct NavigationRouter: ViewModifier {
                     ReminderEdit($0.id)
                 }
         }
+        .modifier(CatcherMoverPresenter(isAlreadyPresenting: self.nav.modal.isAlreadyPresenting,
+                                        isPresenting: self.$nav.modal.isError))
     }
 }

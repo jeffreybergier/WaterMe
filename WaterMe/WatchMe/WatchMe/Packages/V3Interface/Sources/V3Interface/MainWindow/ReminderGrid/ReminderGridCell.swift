@@ -46,7 +46,7 @@ extension ReminderGrid {
         internal var body: some View {
             self.reminder.view(self.vessel) { reminder, vessel in
                 Button {
-                    self.nav.view(reminder.id)
+                    self.nav.stack.view(reminder.id)
                 } label: {
                     VStack {
                         self.icon(vessel)

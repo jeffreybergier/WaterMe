@@ -51,7 +51,7 @@ internal struct ReminderSummary: View {
                     Button {
                         switch self.controller.appendNewPerformToReminders(with: [reminder.id]) {
                         case .success:
-                            self.nav.pop()
+                            self.nav.stack.pop()
                         case .failure(let error):
                             break
                             // self.errorResponder(error)
@@ -60,12 +60,12 @@ internal struct ReminderSummary: View {
                         Text("Mark Reminder as Done")
                     }
                     Button {
-                        self.nav.edit(reminder.id)
+                        self.nav.stack.edit(reminder.id)
                     } label: {
                         Text("Edit Reminder")
                     }
                     Button {
-                        self.nav.edit(vessel.id)
+                        self.nav.stack.edit(vessel.id)
                     } label: {
                         Text("Edit Plant")
                     }

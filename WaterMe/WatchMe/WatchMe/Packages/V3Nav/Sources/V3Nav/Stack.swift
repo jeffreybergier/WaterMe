@@ -23,61 +23,39 @@ import SwiftUI
 import Umbrella
 import V3Model
 
-extension Nav {
-    public struct Value {
-        public var path: NavigationPath
-        internal init() {
-            self.path = .init()
-        }
+extension Nav.Value {
+    public struct Stack {
+        
+        public var path: NavigationPath = .init()
+        
+        internal init() {}
+        
         public mutating func pop() {
             self.path.removeLast()
         }
+        
         public mutating func main(_ share: Share.Identifier) {
-            self.path.append(Special(share))
+            self.path.append(Nav.Special(share))
         }
+        
         public mutating func list(_ share: Share.Identifier) {
-            self.path.append(List(share))
+            self.path.append(Nav.List(share))
         }
+        
         public mutating func list(_ vessel: Vessel.Identifier) {
-            self.path.append(List(vessel))
+            self.path.append(Nav.List(vessel))
         }
+        
         public mutating func view(_ reminder: Reminder.Identifier) {
-            self.path.append(View(reminder))
+            self.path.append(Nav.View(reminder))
         }
+        
         public mutating func edit(_ vessel: Vessel.Identifier) {
-            self.path.append(Edit(vessel))
+            self.path.append(Nav.Edit(vessel))
         }
+        
         public mutating func edit(_ reminder: Reminder.Identifier) {
-            self.path.append(Edit(reminder))
-        }
-    }
-}
-
-@propertyWrapper
-public struct Nav: DynamicProperty {
-    
-    @JSBSceneStorage("com.saturdayapps.waterme.navigation")
-    private var storage: Value = .init()
-    
-    public init() {}
-    
-    public var wrappedValue: Value {
-        get {
-            self.storage
-        }
-        nonmutating set {
-            self.storage = newValue
-            #if DEBUG // TODO: Remove this
-            dump(newValue.path)
-            #endif
-        }
-    }
-    
-    public var projectedValue: Binding<Value> {
-        Binding {
-            self.wrappedValue
-        } set: {
-            self.wrappedValue = $0
+            self.path.append(Nav.Edit(reminder))
         }
     }
 }
@@ -112,7 +90,7 @@ extension Nav {
     }
 }
 
-extension Nav.Value: Codable {
+extension Nav.Value.Stack: Codable {
     public enum CodingKeys: String, CodingKey {
         case path
     }

@@ -68,7 +68,7 @@ internal struct VesselEdit: View {
                     self.reminders.view { reminders in
                         ForEach(reminders) { id in
                             Button {
-                                self.nav.edit(id)
+                                self.nav.stack.edit(id)
                             } label: {
                                 Text(String(describing: id))
                             }

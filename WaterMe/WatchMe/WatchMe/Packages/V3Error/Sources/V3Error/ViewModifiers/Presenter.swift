@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/03.
+//  Created by Jeffrey Bergier on 2022/11/18.
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,6 +18,25 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public struct Temporary {
-	public init() {}
+import SwiftUI
+import Umbrella
+
+public struct Presenter: ViewModifier {
+    
+    @Errors private var errors
+    @Binding private var isPresenting: CodableError?
+    private let isAlreadyPresenting: Bool
+    
+    public init(isAlreadyPresenting: Bool, isPresenting: Binding<CodableError?>) {
+        _isPresenting = isPresenting
+        self.isAlreadyPresenting = isAlreadyPresenting
+    }
+    
+    public func body(content: Content) -> some View {
+        content
+            .modifier(JSBAlert(item: self.$isPresenting,
+                               titleKey: "Error",
+                               message: { Text(String(describing: $0)) },
+                               actions: { _ in }))
+    }
 }

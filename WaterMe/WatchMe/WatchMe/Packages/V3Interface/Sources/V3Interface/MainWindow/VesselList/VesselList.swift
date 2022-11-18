@@ -40,7 +40,7 @@ internal struct VesselList: View {
         self.data.view {
             List($0) { id in
                 Button {
-                    self.nav.list(id)
+                    self.nav.stack.list(id)
                 } label: {
                     Row(id)
                 }
