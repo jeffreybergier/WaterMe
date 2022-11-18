@@ -24,44 +24,44 @@ import Umbrella
 import V3Model
 
 extension Nav {
-    internal struct Value {
-        internal var path: NavigationPath
+    public struct Value {
+        public var path: NavigationPath
         internal init() {
             self.path = .init()
         }
-        internal mutating func pop() {
+        public mutating func pop() {
             self.path.removeLast()
         }
-        internal mutating func main(_ share: Share.Identifier) {
+        public mutating func main(_ share: Share.Identifier) {
             self.path.append(Special(share))
         }
-        internal mutating func list(_ share: Share.Identifier) {
+        public mutating func list(_ share: Share.Identifier) {
             self.path.append(List(share))
         }
-        internal mutating func list(_ vessel: Vessel.Identifier) {
+        public mutating func list(_ vessel: Vessel.Identifier) {
             self.path.append(List(vessel))
         }
-        internal mutating func view(_ reminder: Reminder.Identifier) {
+        public mutating func view(_ reminder: Reminder.Identifier) {
             self.path.append(View(reminder))
         }
-        internal mutating func edit(_ vessel: Vessel.Identifier) {
+        public mutating func edit(_ vessel: Vessel.Identifier) {
             self.path.append(Edit(vessel))
         }
-        internal mutating func edit(_ reminder: Reminder.Identifier) {
+        public mutating func edit(_ reminder: Reminder.Identifier) {
             self.path.append(Edit(reminder))
         }
     }
 }
 
 @propertyWrapper
-internal struct Nav: DynamicProperty {
+public struct Nav: DynamicProperty {
     
     @JSBSceneStorage("com.saturdayapps.waterme.navigation")
     private var storage: Value = .init()
     
-    internal init() {}
+    public init() {}
     
-    internal var wrappedValue: Value {
+    public var wrappedValue: Value {
         get {
             self.storage
         }
@@ -73,7 +73,7 @@ internal struct Nav: DynamicProperty {
         }
     }
     
-    internal var projectedValue: Binding<Value> {
+    public var projectedValue: Binding<Value> {
         Binding {
             self.wrappedValue
         } set: {
@@ -83,44 +83,44 @@ internal struct Nav: DynamicProperty {
 }
 
 extension Nav {
-    internal struct Special<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
+    public struct Special<T: Codable & Hashable>: Codable, Hashable {
+        public var id: T
+        public init(_ id: T) {
             self.id = id
         }
     }
     
-    internal struct List<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
+    public struct List<T: Codable & Hashable>: Codable, Hashable {
+        public var id: T
+        public init(_ id: T) {
             self.id = id
         }
     }
     
-    internal struct View<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
+    public struct View<T: Codable & Hashable>: Codable, Hashable {
+        public var id: T
+        public init(_ id: T) {
             self.id = id
         }
     }
     
-    internal struct Edit<T: Codable & Hashable>: Codable, Hashable {
-        internal var id: T
-        internal init(_ id: T) {
+    public struct Edit<T: Codable & Hashable>: Codable, Hashable {
+        public var id: T
+        public init(_ id: T) {
             self.id = id
         }
     }
 }
 
 extension Nav.Value: Codable {
-    internal enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case path
     }
-    internal func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.path.codable, forKey: .path)
     }
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         guard let rep = try? values.decode(
             NavigationPath.CodableRepresentation.self,

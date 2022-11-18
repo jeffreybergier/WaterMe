@@ -34,12 +34,14 @@ let package = Package(
          ),
     ],
     dependencies: [
+        .package(path: "../V3Model"),
         .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "waterme3"),
     ],
     targets: [
         .target(
             name: PKGNAME,
             dependencies: [
+                .byNameItem(name: "V3Model", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
             ]
          ),

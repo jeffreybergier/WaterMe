@@ -21,6 +21,7 @@
 
 import SwiftUI
 import V3Model
+import V3Nav
 
 internal struct NavigationRouter: ViewModifier {
     
