@@ -104,7 +104,8 @@ extension Reminder.Identifier {
 }
 
 extension Reminder {
-    internal init(_ cd: CD_Reminder) {
+    internal init?(_ cd: CD_Reminder) {
+        if cd.isDeleted_noReally_noLikeSeriously { return nil }
         self.init(
             id: .init(cd.objectID),
             kind: .init(rawValue: cd.raw_kindString ?? ""),

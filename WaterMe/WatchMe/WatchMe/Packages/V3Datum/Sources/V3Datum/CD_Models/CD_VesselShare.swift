@@ -39,7 +39,8 @@ extension Share.Identifier {
 }
 
 extension Share {
-    internal init(_ cd: CD_VesselShare) {
+    internal init?(_ cd: CD_VesselShare) {
+        if cd.isDeleted_noReally_noLikeSeriously { return nil }
         self.init(id: .init(cd.objectID),
                   dateCreated: cd.raw_dateCreated,
                   dateModified: cd.raw_dateModified)

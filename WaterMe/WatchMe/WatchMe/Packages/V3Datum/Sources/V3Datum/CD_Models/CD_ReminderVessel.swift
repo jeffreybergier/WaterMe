@@ -75,7 +75,8 @@ extension Vessel.Identifier {
 }
 
 extension Vessel {
-    internal init(_ cd: CD_ReminderVessel) {
+    internal init?(_ cd: CD_ReminderVessel) {
+        if cd.isDeleted_noReally_noLikeSeriously { return nil }
         self.init(
             id: .init(cd.objectID),
             displayName: cd.raw_displayName,
