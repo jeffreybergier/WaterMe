@@ -22,7 +22,7 @@ import Foundation
 
 public enum Error: Int, CustomNSError {
 
-    static public var errorDomain = "com.saturdayapps.Hipstapaper.V3Store"
+    static public var errorDomain = "com.saturdayapps.WaterMe.datum"
     public var errorCode: Int { return self.rawValue }
 
     case load

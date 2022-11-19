@@ -27,7 +27,8 @@ public struct Errors: DynamicProperty {
 
     public typealias Value = Deque<CodableError>
     
-    @JSBAppStorage  ("com.saturdayapps.waterme.errors") private var appStorage = Value()
+    @JSBAppStorage("com.saturdayapps.waterme.errors")
+    private var appStorage = Value()
     
     public init() { }
     

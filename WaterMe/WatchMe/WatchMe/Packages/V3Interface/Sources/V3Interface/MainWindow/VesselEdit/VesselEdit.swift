@@ -30,7 +30,6 @@ import V3Localize
 internal struct VesselEdit: View {
     
     @Nav private var nav
-    @Controller private var controller
     @V3Style.VesselEdit private var style
     @V3Localize.VesselEdit private var text
     
@@ -98,10 +97,9 @@ internal struct VesselEdit: View {
             title: "Edit Plant",
             delete: self.text.delete,
             deleteAction: {
-                // TODO: Change this to confirmation error
-                self.controller.delete(id)
-                    .error
-                    .map { error in /* self.errorResponder(error) */ }
+                // TODO: Catch this error and perform deletion
+                let error = DeleteConfirmationError.vessel(id)
+                self.errorResponder(error.encode)
             }
         )
     }

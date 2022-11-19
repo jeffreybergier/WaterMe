@@ -31,13 +31,11 @@ internal struct ReminderGrid: View {
     
     @Nav private var nav
     @Controller private var controller
-    
     @V3Style.ReminderGrid private var style
     @V3Localize.ReminderGrid private var text
     
-    @Environment(\.codableErrorResponder) private var errorResponder
-    
     @ReminderGridQuery private var sections
+    @Environment(\.codableErrorResponder) private var errorResponder
     
     private let id: Share.Identifier
     
@@ -119,8 +117,7 @@ internal struct ReminderGrid: View {
                 case .success(let id):
                     self.nav.stack.edit(id)
                 case .failure(let error):
-                    break
-                    // self.errorResponder(error)
+                    self.errorResponder(error.encode)
                 }
             }
         )
