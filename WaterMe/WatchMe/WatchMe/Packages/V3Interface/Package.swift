@@ -36,7 +36,6 @@ let package = Package(
     dependencies: [
         .package(path: "../V3Datum"),
         .package(path: "../V3Nav"),
-        .package(path: "../V3Error"),
         .package(path: "../V3Style"),
         .package(path: "../V3Model"),
         .package(path: "../V3Localize"),
@@ -49,7 +48,6 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "V3Datum", condition: nil),
                 .byNameItem(name: "V3Nav", condition: nil),
-                .byNameItem(name: "V3Error", condition: nil),
                 .byNameItem(name: "V3Style", condition: nil),
                 .byNameItem(name: "V3Model", condition: nil),
                 .byNameItem(name: "V3Localize", condition: nil),

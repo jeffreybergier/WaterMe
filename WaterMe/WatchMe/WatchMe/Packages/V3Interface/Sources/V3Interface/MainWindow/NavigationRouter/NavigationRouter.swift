@@ -22,7 +22,7 @@
 import SwiftUI
 import V3Model
 import V3Nav
-import V3Error
+import V3Localize
 
 internal struct NavigationRouter: ViewModifier {
     

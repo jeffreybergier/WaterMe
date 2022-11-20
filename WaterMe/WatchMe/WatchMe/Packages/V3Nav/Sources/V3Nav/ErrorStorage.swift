@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/20.
+//  Created by Jeffrey Bergier on 2022/11/18.
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,20 +18,30 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import SwiftUI
+import Collections
 import Umbrella
-import V3Error
-import V3Datum
 
-extension CodableError {
-    var decode: any UserFacingError {
-        switch self.errorDomain {
-        case V3Datum.Error.errorDomain:
-            // TODO: Create unknownError to resolve !
-            return V3Datum.Error(decode: self)!
-        default:
-            assertionFailure("Unhandled: \(self.errorDomain)")
-            // TODO: Create unknownError to resolve fatalError()
-            fatalError()
+@propertyWrapper
+public struct ErrorStorage: DynamicProperty {
+
+    public typealias Value = Deque<CodableError>
+    
+    @JSBAppStorage("com.saturdayapps.waterme.errors")
+    private var appStorage = Value()
+    
+    public init() { }
+    
+    public var wrappedValue: Value {
+        get { self.appStorage }
+        nonmutating set { self.appStorage = newValue }
+    }
+    
+    public var projectedValue: Binding<Value> {
+        Binding {
+            self.wrappedValue
+        } set: {
+            self.wrappedValue = $0
         }
     }
 }

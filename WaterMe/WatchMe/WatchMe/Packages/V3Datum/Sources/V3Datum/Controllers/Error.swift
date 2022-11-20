@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import Umbrella
 
 public enum Error: Int, CustomNSError {
 
@@ -36,4 +37,14 @@ public enum Error: Int, CustomNSError {
     case maintenanceDeleteOrphanedReminders
     case maintenanceFixOrphanedVessels
     case maintenanceContextMismatch
+}
+
+extension Error: CodableErrorProtocol {
+    public init?(decode: CodableError) {
+        guard decode.errorDomain == V3Datum.Error.errorDomain else { return nil }
+        self.init(rawValue: decode.errorCode)
+    }
+    public var encode: CodableError {
+        .init(self)
+    }
 }

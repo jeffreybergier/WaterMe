@@ -27,7 +27,6 @@
 		73C3C8E92841BD0D0001BF37 /* V3Settings */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Settings; path = Packages/V3Settings; sourceTree = "<group>"; };
 		73D78C7F284CA30100E6F69E /* iPhoneMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iPhoneMe.entitlements; sourceTree = "<group>"; };
 		73D78C80284CA30400E6F69E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		73D8E24927AE20E90044EE47 /* V3Error */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Error; path = Packages/V3Error; sourceTree = "<group>"; };
 		73E8B81227C1E8B000A4B4E4 /* V3Localize */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Localize; path = Packages/V3Localize; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,9 +48,8 @@
 			children = (
 				7354DAAD277E749C007AC8FB /* V3Interface */,
 				734545972781943D0001EC2E /* V3Nav */,
-				73D8E24927AE20E90044EE47 /* V3Error */,
-				7339DE6F277DD76A008B20DD /* V3Datum */,
 				73E8B81227C1E8B000A4B4E4 /* V3Localize */,
+				7339DE6F277DD76A008B20DD /* V3Datum */,
 				7339DE71277DD805008B20DD /* V3Style */,
 				7345459627818E360001EC2E /* V3Model */,
 				73C3C8E92841BD0D0001BF37 /* V3Settings */,
