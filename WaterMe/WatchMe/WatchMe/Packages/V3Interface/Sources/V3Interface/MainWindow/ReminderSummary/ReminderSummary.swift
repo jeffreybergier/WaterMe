@@ -34,8 +34,8 @@ internal struct ReminderSummary: View {
     @V3Style.ReminderSummary private var style
     @V3Localize.ReminderSummary private var text
     
-    @Environment(\.codableErrorResponder) private var errorResponder
-    
+    @Environment(\.errorResponder) private var errorResponder
+
     @ReminderQuery private var reminder
     @VesselQuery private var vessel
     private let id: Reminder.Identifier
@@ -53,8 +53,7 @@ internal struct ReminderSummary: View {
                         case .success:
                             self.nav.stack.pop()
                         case .failure(let error):
-                            break
-                            // self.errorResponder(error)
+                            self.errorResponder(error)
                         }
                     } label: {
                         Text("Mark Reminder as Done")

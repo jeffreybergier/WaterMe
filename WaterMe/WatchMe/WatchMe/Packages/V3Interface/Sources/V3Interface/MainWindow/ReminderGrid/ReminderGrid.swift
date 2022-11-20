@@ -35,8 +35,8 @@ internal struct ReminderGrid: View {
     @V3Localize.ReminderGrid private var text
     
     @ReminderGridQuery private var sections
-    @Environment(\.codableErrorResponder) private var errorResponder
-    
+    @Environment(\.errorResponder) private var errorResponder
+
     private let id: Share.Identifier
     
     internal init(_ id: Share.Identifier) {
@@ -117,7 +117,7 @@ internal struct ReminderGrid: View {
                 case .success(let id):
                     self.nav.stack.edit(id)
                 case .failure(let error):
-                    self.errorResponder(error.encode)
+                    self.errorResponder(error)
                 }
             }
         )

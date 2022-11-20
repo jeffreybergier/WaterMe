@@ -33,7 +33,7 @@ internal struct VesselEdit: View {
     @V3Style.VesselEdit private var style
     @V3Localize.VesselEdit private var text
     
-    @Environment(\.codableErrorResponder) private var errorResponder
+    @Environment(\.errorResponder) private var errorResponder
     
     @VesselQuery private var vessel
     @ReminderListQuery private var reminders
@@ -99,7 +99,7 @@ internal struct VesselEdit: View {
             deleteAction: {
                 // TODO: Catch this error and perform deletion
                 let error = DeleteConfirmationError.vessel(id)
-                self.errorResponder(error.encode)
+                self.errorResponder(error)
             }
         )
     }
