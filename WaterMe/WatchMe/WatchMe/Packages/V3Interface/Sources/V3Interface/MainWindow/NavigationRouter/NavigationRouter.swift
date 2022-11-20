@@ -53,5 +53,6 @@ internal struct NavigationRouter: ViewModifier {
         }
         .modifier(ErrorCatcher())
         .modifier(ErrorMover())
+        .modifier(ErrorPresenter())
     }
 }

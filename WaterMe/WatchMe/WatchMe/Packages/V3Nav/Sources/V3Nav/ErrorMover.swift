@@ -29,7 +29,7 @@ public struct ErrorMover: ViewModifier {
     public init() { }
     
     public func body(content: Content) -> some View {
-        content.onChange(of: self.store.first) { _ in
+        content.onChange(of: self.store) { _ in
             guard self.nav.modal.isAlreadyPresenting == false else { return }
             self.nav.modal.isError = self.store.popFirst()
         }
