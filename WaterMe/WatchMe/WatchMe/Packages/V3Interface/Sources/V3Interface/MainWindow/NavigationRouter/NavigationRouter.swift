@@ -51,11 +51,7 @@ internal struct NavigationRouter: ViewModifier {
                     ReminderEdit($0.id)
                 }
         }
-//        .modifier(
-//            CatcherMoverPresenter(
-//                isAlreadyPresenting: self.nav.modal.isAlreadyPresenting,
-//                       isPresenting: self.$nav.modal.isError
-//            )
-//        )
+        .modifier(ErrorCatcher())
+        .modifier(ErrorMover())
     }
 }

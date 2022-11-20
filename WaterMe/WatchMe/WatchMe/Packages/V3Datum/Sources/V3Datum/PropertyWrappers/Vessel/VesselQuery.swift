@@ -30,7 +30,7 @@ public struct VesselQuery: DynamicProperty {
     @CDObjectQuery<CD_ReminderVessel, Vessel, Error>(onRead: Vessel.init(_:))
         private var object: Vessel?
     
-    @Environment(\.codableErrorResponder) private var errorResponder
+    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
     
@@ -61,7 +61,7 @@ public struct VesselQuery: DynamicProperty {
         _object.setOnWrite(_controller.cd.cd_updateOpt(_:with:))
         _object.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(.init(error))
+            self.errorResponder(error)
         }
     }
 }

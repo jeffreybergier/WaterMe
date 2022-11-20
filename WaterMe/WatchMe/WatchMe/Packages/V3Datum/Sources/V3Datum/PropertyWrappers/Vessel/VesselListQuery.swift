@@ -32,7 +32,7 @@ public struct VesselListQuery: DynamicProperty {
         onRead: { .init($0.objectID) }
     ) private var data
     @Environment(\.managedObjectContext) private var context
-    @Environment(\.codableErrorResponder) private var errorResponder
+    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
 
@@ -42,7 +42,7 @@ public struct VesselListQuery: DynamicProperty {
         self.needsUpdate.value = false
         _data.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(.init(error))
+            self.errorResponder(error)
         }
         self.updateCoreData()
     }

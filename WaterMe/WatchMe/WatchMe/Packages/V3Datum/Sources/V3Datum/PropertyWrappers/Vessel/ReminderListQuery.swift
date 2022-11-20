@@ -31,7 +31,7 @@ public struct ReminderListQuery: DynamicProperty {
         predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data
-    @Environment(\.codableErrorResponder) private var errorResponder
+    @Environment(\.errorResponder) private var errorResponder
     
     @StateObject private var filter: SecretBox<Reminder.Filter> = .init(.none)
     public let section: Reminder.Section?
@@ -46,7 +46,7 @@ public struct ReminderListQuery: DynamicProperty {
         self.needsUpdate.value = false
         _data.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(.init(error))
+            self.errorResponder(error)
         }
         self.updateCoreData()
     }

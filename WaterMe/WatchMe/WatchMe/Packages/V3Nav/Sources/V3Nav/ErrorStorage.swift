@@ -23,21 +23,21 @@ import Collections
 import Umbrella
 
 @propertyWrapper
-public struct ErrorStorage: DynamicProperty {
+internal struct ErrorStorage: DynamicProperty {
 
-    public typealias Value = Deque<CodableError>
+    internal typealias Value = Deque<CodableError>
     
     @JSBAppStorage("com.saturdayapps.waterme.errors")
     private var appStorage = Value()
     
-    public init() { }
+    internal init() { }
     
-    public var wrappedValue: Value {
+    internal var wrappedValue: Value {
         get { self.appStorage }
         nonmutating set { self.appStorage = newValue }
     }
     
-    public var projectedValue: Binding<Value> {
+    internal var projectedValue: Binding<Value> {
         Binding {
             self.wrappedValue
         } set: {

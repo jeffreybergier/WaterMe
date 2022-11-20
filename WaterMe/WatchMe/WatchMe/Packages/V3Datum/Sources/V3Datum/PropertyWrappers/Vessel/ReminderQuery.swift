@@ -30,7 +30,7 @@ public struct ReminderQuery: DynamicProperty {
     @CDObjectQuery<CD_Reminder, Reminder, Error>(onRead: Reminder.init(_:))
         private var object: Reminder?
     
-    @Environment(\.codableErrorResponder) private var errorResponder
+    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
     
@@ -61,7 +61,7 @@ public struct ReminderQuery: DynamicProperty {
         _object.setOnWrite(_controller.cd.cd_updateOpt(_:with:))
         _object.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(.init(error))
+            self.errorResponder(error)
         }
     }
 }

@@ -57,7 +57,7 @@ public struct ReminderGridQuery: DynamicProperty {
     @ReminderListQuery(.later)    private var later
     @ReminderListQuery(.disabled) private var disabled
 
-    @Environment(\.codableErrorResponder) private var errorResponder
+    @Environment(\.errorResponder) private var errorResponder
     
     @State private var filter: Reminder.Filter = .none
     
