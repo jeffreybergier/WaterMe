@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/19.
+//  Created by Jeffrey Bergier on 2022/11/20.
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -18,12 +18,28 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Foundation
 import Umbrella
+import V3Model
 
-public enum DeleteConfirmationError: CustomNSError, Codable {
-    static public var errorDomain = "com.saturdayapps.WaterMe.model"
-    public var errorCode: Int { -1 }
-    case vessel(Vessel.Identifier)
-    case reminder(Reminder.Identifier)
+extension DeleteConfirmationError: UserFacingError {
+    // TODO: Complete this
+    public var title: Umbrella.LocalizationKey {
+        "Delete?"
+    }
+    public var message: Umbrella.LocalizationKey {
+        "For Real?"
+    }
+    public var dismissTitle: Umbrella.LocalizationKey {
+        "Fuck off"
+    }
+    public var isCritical: Bool {
+        false
+    }
+    public var options: [Umbrella.RecoveryOption] {
+        return [
+            .init(title: "SERIOUS!",
+                  isDestructive: true,
+                  perform: { self.onConfirmation(self.request) })
+        ]
+    }
 }

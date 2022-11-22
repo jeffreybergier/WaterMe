@@ -21,13 +21,18 @@
 
 import SwiftUI
 import Umbrella
-import V3Localize
 import V3Nav
+import V3Model
+import V3Datum
+import V3Localize
 
 internal struct ErrorPresenter: ViewModifier {
     
     @Nav private var nav
     @Localize private var bundle
+    @Controller private var controller
+    
+    @Environment(\.errorResponder) private var errorResponder
     
     internal init() {}
     
@@ -41,10 +46,29 @@ internal struct ErrorPresenter: ViewModifier {
     // TODO: Consider making typed properties for the UserFacingErrors
     private var isError: Binding<UserFacingError?> {
         Binding {
-            self.nav.modal.isError?.userFacingError
+            guard let error = self.nav.modal.isError else { return nil }
+            return self.router(error)
         } set: {
             guard $0 == nil else { return }
             self.nav.modal.isError = nil
+        }
+    }
+    
+    private func router(_ input: CodableError) -> any UserFacingError {
+        switch input.errorDomain {
+        case V3Datum.Error.errorDomain:
+            return V3Datum.Error(decode: input)!
+        case V3Model.DeleteRequestError.errorDomain:
+            let request = DeleteRequestError(decode: input)!
+            return V3Model.DeleteConfirmationError(request: request) {
+                $0.vesselID.map { self.controller.delete($0) }?
+                     .error.map { self.errorResponder($0) }
+                $0.reminderID.map { self.controller.delete($0) }?
+                       .error.map { self.errorResponder($0) }
+            }
+        default:
+            // TODO: Create Unknown Error to handle default
+            fatalError()
         }
     }
 }

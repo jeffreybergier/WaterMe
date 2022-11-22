@@ -78,7 +78,6 @@ internal struct ReminderSummary: View {
                     Text(String(describing: reminder.interval))
                 } header: {
                     Text("Reminder")
-                        .modifier(DEBUG_FakeErrorsModifier())
                 }
                 Section {
                     if let image = vessel.icon?.imageValue {

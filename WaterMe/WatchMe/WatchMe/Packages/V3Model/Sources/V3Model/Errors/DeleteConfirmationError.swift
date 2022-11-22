@@ -1,7 +1,6 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/20.
-//
-//  Copyright © 2022 Saturday Apps.
+//  Created by Jeffrey Bergier on 2022/11/22.
+//  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -19,19 +18,19 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Foundation
 import Umbrella
-import V3Localize
-import V3Datum
 
-extension CodableError {
-    internal var userFacingError: any UserFacingError {
-        switch self.errorDomain {
-        case V3Datum.Error.errorDomain:
-            // TODO: Create Unknown Error to handle NIL
-            return V3Datum.Error(decode: self)!
-        default:
-            // TODO: Create Unknown Error to handle default
-            fatalError()
-        }
+public struct DeleteConfirmationError: CustomNSError {
+    
+    static public var errorDomain = "com.saturdayapps.WaterMe.model"
+    public var errorCode: Int { 1002 }
+    
+    public var request: DeleteRequestError
+    public var onConfirmation: (DeleteRequestError) -> Void
+    
+    public init(request: DeleteRequestError, onConfirmation: @escaping (DeleteRequestError) -> Void) {
+        self.request = request
+        self.onConfirmation = onConfirmation
     }
 }

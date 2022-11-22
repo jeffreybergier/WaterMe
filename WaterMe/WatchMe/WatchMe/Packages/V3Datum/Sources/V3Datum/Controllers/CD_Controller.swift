@@ -210,8 +210,7 @@ internal class CD_Controller: ControllerProtocol {
         }
     }
 
-    /* TODO: Restore later
-    internal func delete(_ reminder: Reminder.Identifier) -> Result<Void, Error> {
+    internal func delete(_ reminder: Reminder.Selection.Element) -> Result<Void, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: reminder.id).flatMap
         { (reminder: CD_Reminder) -> Result<Void, Error> in
@@ -233,7 +232,6 @@ internal class CD_Controller: ControllerProtocol {
             return context.waterme_save()
         }
     }
-     */
 
     // MARK: Search
 
@@ -252,12 +250,7 @@ internal class CD_Controller: ControllerProtocol {
                     else { return .failure(.objectMissing) }
                 let _object = try context.existingObject(with: id)
                 // if the object is the wrong type, log as an error
-                guard let object = _object as? T else {
-                    let e = "found: \(type(of: _object)) != expected: \(T.self))"
-                    assertionFailure(e)
-                    NSLog(e)
-                    return .failure(.objectMissing)
-                }
+                guard let object = _object as? T else { return .failure(.objectMissing) }
                 return .success(object)
             } else if UUID(uuidString: uuid) != nil {
                 // Migrated Legacy Realm Reference
@@ -291,9 +284,7 @@ internal class CD_Controller: ControllerProtocol {
                 return .failure(.objectMissing)
             }
         } catch {
-            assertionFailure("\(error)")
-            NSLog(String(describing: error))
-            return .failure(.load)
+            return .failure(.objectMissing)
         }
     }
 

@@ -33,6 +33,8 @@ internal struct ReminderEdit: View {
     @V3Style.ReminderEdit private var style
     @V3Localize.ReminderEdit private var text
     
+    @Environment(\.errorResponder) private var errorResponder
+    
     @ReminderQuery private var reminder
     
     private let id: Reminder.Identifier
@@ -105,8 +107,7 @@ internal struct ReminderEdit: View {
             title: self.text.title,
             delete: self.text.delete,
             deleteAction: {
-                // TODO: Hookup error
-                NSLog("Delete Me")
+                self.errorResponder(DeleteRequestError.reminder(id))
             }
         )
     }

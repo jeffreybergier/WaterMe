@@ -51,8 +51,8 @@ internal struct NavigationRouter: ViewModifier {
                     ReminderEdit($0.id)
                 }
         }
+        .modifier(ErrorPresenter())
         .modifier(ErrorCatcher())
         .modifier(ErrorMover())
-        .modifier(ErrorPresenter())
     }
 }

@@ -97,9 +97,7 @@ internal struct VesselEdit: View {
             title: "Edit Plant",
             delete: self.text.delete,
             deleteAction: {
-                // TODO: Catch this error and perform deletion
-                let error = DeleteConfirmationError.vessel(id)
-                self.errorResponder(error)
+                self.errorResponder(DeleteRequestError.vessel(id))
             }
         )
     }
