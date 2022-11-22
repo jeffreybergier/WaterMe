@@ -43,7 +43,6 @@ internal struct ErrorPresenter: ViewModifier {
                    onDismiss: { _ in })
     }
     
-    // TODO: Consider making typed properties for the UserFacingErrors
     private var isError: Binding<UserFacingError?> {
         Binding {
             guard let error = self.nav.modal.isError else { return nil }
@@ -55,20 +54,24 @@ internal struct ErrorPresenter: ViewModifier {
     }
     
     private func router(_ input: CodableError) -> any UserFacingError {
+        var output: UserFacingError?
+        
         switch input.errorDomain {
         case V3Datum.Error.errorDomain:
-            return V3Datum.Error(decode: input)!
+            output = V3Datum.Error(decode: input)
         case V3Model.DeleteRequestError.errorDomain:
-            let request = DeleteRequestError(decode: input)!
-            return V3Model.DeleteConfirmationError(request: request) {
-                $0.vesselID.map { self.controller.delete($0) }?
-                     .error.map { self.errorResponder($0) }
-                $0.reminderID.map { self.controller.delete($0) }?
-                       .error.map { self.errorResponder($0) }
+            output = DeleteRequestError(decode: input).map {
+                DeleteConfirmationError(request: $0) {
+                    $0.vesselID.map { self.controller.delete($0) }?
+                         .error.map { self.errorResponder($0) }
+                    $0.reminderID.map { self.controller.delete($0) }?
+                           .error.map { self.errorResponder($0) }
+                }
             }
         default:
-            // TODO: Create Unknown Error to handle default
-            fatalError()
+            break
         }
+        
+        return output ?? UnknownError()
     }
 }
