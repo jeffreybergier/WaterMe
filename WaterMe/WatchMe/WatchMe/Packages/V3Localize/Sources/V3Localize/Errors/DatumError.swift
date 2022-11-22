@@ -24,13 +24,13 @@ import V3Datum
 extension V3Datum.Error: UserFacingError {
     // TODO: Complete this
     public var title: Umbrella.LocalizationKey {
-        ""
+        "Database Error"
     }
     public var message: Umbrella.LocalizationKey {
-        ""
+        "🕺"
     }
     public var dismissTitle: Umbrella.LocalizationKey {
-        ""
+        "Bye"
     }
     public var isCritical: Bool {
         false

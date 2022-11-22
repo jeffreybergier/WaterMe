@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/20.
+//  Created by Jeffrey Bergier on 2022/11/22.
 //  Copyright © 2020 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -39,7 +39,7 @@ extension DeleteConfirmationError: UserFacingError {
         return [
             .init(title: "SERIOUS!",
                   isDestructive: true,
-                  perform: { self.onConfirmation(self.request) })
+                  perform: { self.onConfirmation(self.request) }),
         ]
     }
 }

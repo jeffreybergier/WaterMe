@@ -30,6 +30,8 @@ public struct Reminder: Identifiable, Hashable, Equatable {
         public init(rawValue: String) {
             self.rawValue = rawValue
         }
+        // Hack for Codable so it restores the correct type when dealing with identifiers
+        private var hack_one: Int = Int.random(in: 1...1000)
     }
     
     public enum Constants {
