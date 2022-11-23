@@ -22,6 +22,19 @@ import SwiftUI
 import Umbrella
 
 internal enum Symbol: String {
-    case noContent = "circle.slash"
-    case plus      = "plus"
+    case noContent   = "circle.slash"
+    case camera      = "Camera"
+    case plus        = "PlusIcon"
+    case shovel      = "ReminderKindFertilize"
+    case sprayer     = "ReminderKindMist"
+    case wheelBarrow = "ReminderKindMove"
+    case boxOpen     = "ReminderKindOther"
+    case scissors    = "ReminderKindTrim"
+    case waterCan    = "ReminderKindWater"
+    case present     = "TipJar"
+    case appIcon     = "WaterMeIcon"
+    
+    internal var catalog: JSBImage {
+        JSBImage.image(named: self.rawValue, in: Bundle.module)!
+    }
 }

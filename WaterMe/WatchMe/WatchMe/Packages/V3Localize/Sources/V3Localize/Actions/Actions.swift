@@ -217,7 +217,7 @@ extension Action {
     private static let raw_addReminder: ActionLocalization = {
         .init(title: Verb.addReminder.rawValue,
               hint:  nil,
-              image: .system(Symbol.plus.rawValue))
+              image: .image(Symbol.plus.catalog))
     }()
     private static let raw_itemNotFound: ActionLocalization = {
         .init(title: Noun.itemNotFound.rawValue,
