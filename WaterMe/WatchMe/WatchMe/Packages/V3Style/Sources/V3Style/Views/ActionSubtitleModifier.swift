@@ -21,28 +21,20 @@
 import SwiftUI
 import Umbrella
 
-internal struct VesselEditReminderRow: View {
+internal struct ActionSubtitleModifier: ViewModifier {
     
-    private let image:    JSBImage
-    private let title:    LocalizedString
     private let subtitle: LocalizedString
     
-    public init(image: JSBImage,
-                title: LocalizedString,
-                subtitle: LocalizedString)
-    {
-        self.image = image
-        self.title = title
+    internal init(subtitle: LocalizedString) {
         self.subtitle = subtitle
     }
     
-    public var body: some View {
-        HStack {
-            Image(jsbImage: self.image)
-            VStack {
-                Text(self.title)
-                Text(self.subtitle)
-            }
+    internal func body(content: Content) -> some View {
+        VStack(alignment: .leading) {
+            content
+                .font(Font.normal)
+            Text(self.subtitle)
+                .font(Font.small)
         }
     }
 }

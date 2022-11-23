@@ -62,7 +62,7 @@ public struct ReminderEdit: DynamicProperty {
             self.lastPerformed = Action.lastPerformed.localized(b)
         }
         
-        public func intervalString(_ count: Int) -> ActionLocalization {
+        public func interval(_ count: Int) -> ActionLocalization {
             .init(title: Formatter.reminderInterval.string(forDayInterval: count))
         }
         

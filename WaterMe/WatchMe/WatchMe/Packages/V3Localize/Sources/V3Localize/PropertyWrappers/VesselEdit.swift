@@ -25,22 +25,38 @@ import Umbrella
 public struct VesselEdit: DynamicProperty {
     
     public struct Value {
-        public var title:       LocalizedString
-        public var delete:      ActionLocalization
-        public var notFound:    ActionLocalization
-        public var addReminder: ActionLocalization
-        public var reminders:   ActionLocalization
-        public var name:        ActionLocalization
-        public var photo:       ActionLocalization
+        public var title:         LocalizedString
+        public var delete:        ActionLocalization
+        public var notFound:      ActionLocalization
+        public var addReminder:   ActionLocalization
+        public var reminders:     ActionLocalization
+        public var name:          ActionLocalization
+        public var photo:         ActionLocalization
+        public var kindWater:     ActionLocalization
+        public var kindFertilize: ActionLocalization
+        public var kindTrim:      ActionLocalization
+        public var kindMist:      ActionLocalization
+        public var kindMove:      ActionLocalization
+        public var kindOther:     ActionLocalization
         
         internal init(_ b: LocalizeBundle) {
-            self.title       = b.localized(key: Noun.editPlant.rawValue)
-            self.delete      = Action.delete.localized(b)
-            self.notFound    = Action.itemNotFound.localized(b)
-            self.addReminder = Action.addReminder.localized(b)
-            self.reminders   = Action.reminders.localized(b)
-            self.name        = Action.name.localized(b)
-            self.photo       = Action.photo.localized(b)
+            self.title         = b.localized(key: Noun.editPlant.rawValue)
+            self.delete        = Action.delete.localized(b)
+            self.notFound      = Action.itemNotFound.localized(b)
+            self.addReminder   = Action.addReminder.localized(b)
+            self.reminders     = Action.reminders.localized(b)
+            self.name          = Action.name.localized(b)
+            self.photo         = Action.photo.localized(b)
+            self.kindWater     = Action.reminderKindWater.localized(b)
+            self.kindFertilize = Action.reminderKindFertilize.localized(b)
+            self.kindTrim      = Action.reminderKindTrim.localized(b)
+            self.kindMist      = Action.reminderKindMist.localized(b)
+            self.kindMove      = Action.reminderKindMove.localized(b)
+            self.kindOther     = Action.reminderKindOther.localized(b)
+        }
+        
+        public func interval(_ count: Int) -> LocalizedString {
+            Formatter.reminderInterval.string(forDayInterval: count)
         }
     }
     

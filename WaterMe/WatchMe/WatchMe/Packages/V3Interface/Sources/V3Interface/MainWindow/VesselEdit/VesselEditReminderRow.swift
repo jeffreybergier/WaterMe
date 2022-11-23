@@ -30,14 +30,10 @@ import V3Localize
 extension VesselEdit {
     internal struct ReminderRow: View {
         
-        @Nav private var nav
         @V3Style.VesselEdit private var style
         @V3Localize.VesselEdit private var text
-        
-        @Environment(\.errorResponder) private var errorResponder
-        
+                
         @ReminderQuery private var reminder
-        
         private let id: Reminder.Identifier
         
         internal init(_ id: Reminder.Identifier) {
@@ -46,9 +42,9 @@ extension VesselEdit {
         
         internal var body: some View {
             self.reminder.view { reminder in
-                self.style.row(image: JSBImage(systemName: "plus")!,
-                               title: reminder.kind.rawValue,
-                               subtitle: String(describing: reminder.interval))
+                self.style.row(subtitle: self.text.interval(reminder.interval))
+                    .action(text: self.text(for: reminder.kind))
+                    .label
             } onNIL: {
                 self.style.fallback
                     .action(text: self.text.notFound)
@@ -56,6 +52,23 @@ extension VesselEdit {
             }
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)
+            }
+        }
+        
+        private func text(for kind: Reminder.Kind) -> ActionLocalization {
+            switch kind {
+            case .water:
+                return self.text.kindWater
+            case .fertilize:
+                return self.text.kindFertilize
+            case .trim:
+                return self.text.kindTrim
+            case .mist:
+                return self.text.kindMist
+            case .move:
+                return self.text.kindMove
+            case .other:
+                return self.text.kindOther
             }
         }
     }

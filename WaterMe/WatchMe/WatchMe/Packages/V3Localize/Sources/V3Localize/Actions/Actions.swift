@@ -233,32 +233,32 @@ extension Action {
     private static let raw_reminderKindWater: ActionLocalization = {
         .init(title: Noun.waterShort.rawValue,
               hint:  nil,
-              image: nil)
+              image: .image(Symbol.waterCan.catalog))
     }()
     private static let raw_reminderKindFertilize: ActionLocalization = {
         .init(title: Noun.fertilizeShort.rawValue,
               hint:  nil,
-              image: nil)
+              image: .image(Symbol.shovel.catalog))
     }()
     private static let raw_reminderKindTrim: ActionLocalization = {
         .init(title: Noun.trimShort.rawValue,
               hint:  nil,
-              image: nil)
+              image: .image(Symbol.scissors.catalog))
     }()
     private static let raw_reminderKindMist: ActionLocalization = {
         .init(title: Noun.mistShort.rawValue,
               hint:  nil,
-              image: nil)
+              image: .image(Symbol.sprayer.catalog))
     }()
     private static let raw_reminderKindMove: ActionLocalization = {
         .init(title: Noun.moveShort.rawValue,
               hint:  nil,
-              image: nil)
+              image: .image(Symbol.wheelBarrow.catalog))
     }()
     private static let raw_reminderKindOther: ActionLocalization = {
         .init(title: Noun.other.rawValue,
               hint:  nil,
-              image: nil)
+              image: .image(Symbol.boxOpen.catalog))
     }()
     private static let raw_reminderInterval: ActionLocalization = {
         .init(title: Noun.remindEvery.rawValue,

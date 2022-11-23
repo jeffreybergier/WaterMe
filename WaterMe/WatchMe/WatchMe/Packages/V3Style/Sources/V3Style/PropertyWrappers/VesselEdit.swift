@@ -26,18 +26,10 @@ public struct VesselEdit: DynamicProperty {
     
     public struct Value {
         public var button:        some ActionStyle = ActionStyleDefault
-        public var contentLabel:  some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
         public var fallback:      some ActionStyle = ActionStyleFakeDisabled
-        
-        public func row(image: JSBImage,
-                        title: LocalizedString,
-                        subtitle: LocalizedString)
-                     -> some View
-        {
-            VesselEditReminderRow(image: image,
-                                  title: title,
-                                  subtitle: subtitle)
+        public func row(subtitle: LocalizedString) -> some ActionStyle {
+            ActionStyleImp(innerModifier: ActionSubtitleModifier(subtitle: subtitle))
         }
     }
     

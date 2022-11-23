@@ -64,7 +64,7 @@ internal struct ReminderEdit: View {
                     Picker(selection: item.interval) {
                         ForEach(ReminderEdit.kIntervalRange) {
                             self.style.picker
-                                .action(text: self.text.intervalString($0))
+                                .action(text: self.text.interval($0))
                                 .label
                                 .tag($0)
                         }
