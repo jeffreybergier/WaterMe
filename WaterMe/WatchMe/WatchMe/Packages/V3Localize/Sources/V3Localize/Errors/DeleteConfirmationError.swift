@@ -22,22 +22,21 @@ import Umbrella
 import V3Model
 
 extension DeleteConfirmationError: UserFacingError {
-    // TODO: Complete this
     public var title: Umbrella.LocalizationKey {
-        "Delete?"
+        "" // Do we need a title? Should I set this to nillable?
     }
     public var message: Umbrella.LocalizationKey {
-        "For Real?"
+        Phrase.confirmDelete.rawValue
     }
     public var dismissTitle: Umbrella.LocalizationKey {
-        "Fuck off"
+        Verb.dontDelete.rawValue
     }
     public var isCritical: Bool {
         false
     }
     public var options: [Umbrella.RecoveryOption] {
         return [
-            .init(title: "SERIOUS!",
+            .init(title: Verb.delete.rawValue,
                   isDestructive: true,
                   perform: { self.onConfirmation(self.request) }),
         ]

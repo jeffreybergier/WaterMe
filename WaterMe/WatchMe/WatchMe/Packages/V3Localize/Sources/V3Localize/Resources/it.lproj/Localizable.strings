@@ -366,6 +366,9 @@ Used for explanations and other sentences
 /* Error when trying to make changes to an item that has been deleted */
 "Unable to save changes because the item was deleted. Possibly from another device." = "Impossibile salvare le modifiche perché l'elemento è stato eliminato. Forse da un altro dispositivo.";
 
+/* When an error is presented that doesn't have a more specific description */
+"An unknown error occurred." = "Si è verificato un errore sconosciuto.";
+
 /* When there was an error capturing the image from the camera */
 "The selected photo couldn’t be saved. Please take a different photo or choose an emoji." = "La foto selezionata non ha potuto essere salvata. Si prega di scattare una foto diversa o di scegliere un emoji.";
 

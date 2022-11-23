@@ -38,6 +38,6 @@ internal enum Phrase: LocalizationKey {
     case errorDeleteLastReminder    = "Unable to delete this reminder because its the only reminder for this plant. Each plant must have at least one reminder."
     case errorMaintenance           = "Error performing maintenance. Check to make sure there is free space available on this device."
     case errorAlreadyDeleted        = "Unable to save changes because the item was deleted. Possibly from another device."
+    case errorUnknown               = "An unknown error occurred."
     case confirmDelete              = "Are you sure you want to delete this?"
-
 }

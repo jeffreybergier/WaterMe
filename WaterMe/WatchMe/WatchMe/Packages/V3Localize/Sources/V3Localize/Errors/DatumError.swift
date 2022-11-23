@@ -22,20 +22,74 @@ import Umbrella
 import V3Datum
 
 extension V3Datum.Error: UserFacingError {
-    // TODO: Complete this
     public var title: Umbrella.LocalizationKey {
-        "Database Error"
+        switch self {
+        case .load:
+            return Noun.errorLoading.rawValue
+        case .write:
+            return Noun.errorSaving.rawValue
+        case .cannotDeleteLastReminder:
+            return Noun.errorDeleting.rawValue
+        case .read,
+             .objectMissing,
+             .maintenanceOneTrueVesselShare,
+             .maintenanceMassageAllEntries,
+             .maintenanceFixDates,
+             .maintenanceDeleteOrphanedReminders,
+             .maintenanceFixOrphanedVessels,
+             .maintenanceContextMismatch:
+            return Noun.error.rawValue
+        }
     }
     public var message: Umbrella.LocalizationKey {
-        "🕺"
+        switch self {
+        case .load:
+            return Phrase.errorLoading.rawValue
+        case .write:
+            return Phrase.errorSaving.rawValue
+        case .cannotDeleteLastReminder:
+            return Phrase.errorDeleteLastReminder.rawValue
+        case .objectMissing:
+            return Phrase.errorAlreadyDeleted.rawValue
+        case .read:
+            return Phrase.errorUnknown.rawValue // TODO: Replace with better error?
+        case .maintenanceOneTrueVesselShare,
+             .maintenanceMassageAllEntries,
+             .maintenanceFixDates,
+             .maintenanceDeleteOrphanedReminders,
+             .maintenanceFixOrphanedVessels,
+             .maintenanceContextMismatch:
+            return Phrase.errorMaintenance.rawValue
+        }
     }
     public var dismissTitle: Umbrella.LocalizationKey {
-        "Bye"
+        Verb.dismiss.rawValue
     }
     public var isCritical: Bool {
         false
     }
-    public var options: [Umbrella.RecoveryOption] {
-        []
+    public var options: [RecoveryOption] {
+        switch self {
+        case .load,
+             .write,
+             .read,
+             .maintenanceOneTrueVesselShare,
+             .maintenanceMassageAllEntries,
+             .maintenanceFixDates,
+             .maintenanceDeleteOrphanedReminders,
+             .maintenanceFixOrphanedVessels:
+            return [openSettings]
+        case .maintenanceContextMismatch,
+             .objectMissing,
+             .cannotDeleteLastReminder:
+            return []
+        }
     }
 }
+
+internal let openSettings: RecoveryOption = {
+    .init(title: Verb.openSettings.rawValue) {
+        // TODO: Open settings
+        print("Open Settings")
+    }
+}()
