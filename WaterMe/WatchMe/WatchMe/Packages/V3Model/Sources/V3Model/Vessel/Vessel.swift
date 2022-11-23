@@ -31,7 +31,7 @@ public struct Vessel: Identifiable, Hashable, Equatable {
             self.rawValue = rawValue
         }
         // Hack for Codable so it restores the correct type when dealing with identifiers
-        private var hack_two: Int = Int.random(in: 1...1000)
+        private var hack_two: Bool = true
     }
     
     public var id: Identifier
