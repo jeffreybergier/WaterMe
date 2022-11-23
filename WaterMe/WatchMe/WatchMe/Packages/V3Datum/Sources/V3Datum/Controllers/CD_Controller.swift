@@ -299,6 +299,7 @@ internal class CD_Controller: ControllerProtocol {
         cd.raw_interval          = Int32(newValue.interval)
         cd.raw_isEnabled         = newValue.isEnabled
         cd.raw_note              = newValue.note
+        cd.updateDates()
         return self.container.viewContext.waterme_save()
     }
 
