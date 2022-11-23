@@ -151,8 +151,7 @@ internal class CD_Controller: ControllerProtocol {
         }
     }
     
-    /* TODO: Restore later
-    internal func newReminder(for vessel: Vessel.Identifier) -> Result<Reminder.Identifier, Error> {
+    internal func createReminder(in vessel: Vessel.Identifier) -> Result<Reminder.Selection.Element, Error> {
         let context = self.container.viewContext
         return __genericSearch(matching: vessel.id).flatMap
         { (vessel: CD_ReminderVessel) -> Result<Reminder.Identifier, Error> in
@@ -168,7 +167,6 @@ internal class CD_Controller: ControllerProtocol {
                 .map { Reminder.Identifier(newReminder.objectID) }
         }
     }
-     */
 
     internal func appendNewPerformToReminders(with ids: Reminder.Selection) -> Result<Void, Error> {
         // debug only sanity checks

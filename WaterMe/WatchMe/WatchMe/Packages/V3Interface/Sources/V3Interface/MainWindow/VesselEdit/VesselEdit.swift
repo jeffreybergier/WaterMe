@@ -30,6 +30,7 @@ import V3Localize
 internal struct VesselEdit: View {
     
     @Nav private var nav
+    @Controller private var controller
     @V3Style.VesselEdit private var style
     @V3Localize.VesselEdit private var text
     
@@ -81,10 +82,7 @@ internal struct VesselEdit: View {
                     }
                     self.style.button
                         .action(text: self.text.addReminder)
-                        .button
-                    {
-                        // TODO: Connect
-                    }
+                        .button(action: { self.addReminder(in: vessel.id) })
                 } header: {
                     self.style.sectionHeader
                         .action(text: self.text.reminders)
@@ -101,6 +99,15 @@ internal struct VesselEdit: View {
         .onLoadChange(of: self.id) {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
+        }
+    }
+    
+    private func addReminder(in vesselID: Vessel.Identifier) {
+        switch self.controller.createReminder(in: vesselID) {
+        case .success(let reminderID):
+            self.nav.stack.edit(reminderID)
+        case .failure(let error):
+            self.errorResponder(error)
         }
     }
     
