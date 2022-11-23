@@ -25,7 +25,10 @@ import Umbrella
 public struct VesselEdit: DynamicProperty {
     
     public struct Value {
-        public var fallback: some ActionStyle  = ActionStyleFakeDisabled
+        public var button:        some ActionStyle = ActionStyleDefault
+        public var contentLabel:  some ActionStyle = ActionStyleDefault
+        public var sectionHeader: some ActionStyle = ActionStyleDefault
+        public var fallback:      some ActionStyle = ActionStyleFakeDisabled
     }
     
     public init() {}

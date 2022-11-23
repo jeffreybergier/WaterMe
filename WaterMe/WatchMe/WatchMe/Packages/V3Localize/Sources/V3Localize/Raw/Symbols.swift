@@ -23,4 +23,5 @@ import Umbrella
 
 internal enum Symbol: String {
     case noContent = "circle.slash"
+    case plus      = "plus"
 }

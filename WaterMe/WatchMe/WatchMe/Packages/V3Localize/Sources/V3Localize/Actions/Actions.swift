@@ -127,6 +127,7 @@ internal enum Action {
     case delete
     case addPlantLong
     case addPlantShort
+    case addReminder
     case itemNotFound
     case reminderKind
     case reminderKindWater
@@ -138,8 +139,11 @@ internal enum Action {
     case reminderInterval
     case pauseNotifications
     case reminder
+    case reminders
     case notes
     case lastPerformed
+    case name
+    case photo
     
     private var raw: ActionLocalization {
         switch self {
@@ -149,6 +153,8 @@ internal enum Action {
             return Action.raw_addPlantLong
         case .addPlantShort:
             return Action.raw_addPlantShort
+        case .addReminder:
+            return Action.raw_addReminder
         case .itemNotFound:
             return Action.raw_itemNotFound
         case .reminderKind:
@@ -171,10 +177,16 @@ internal enum Action {
             return Action.raw_pauseNotifications
         case .reminder:
             return Action.raw_reminder
+        case .reminders:
+            return Action.raw_reminders
         case .notes:
             return Action.raw_notes
         case .lastPerformed:
             return Action.raw_lastPerformed
+        case .name:
+            return Action.raw_name
+        case .photo:
+            return Action.raw_photo
         }
     }
     
@@ -201,6 +213,11 @@ extension Action {
         .init(title: Verb.addGeneric.rawValue,
               hint:  nil,
               image: nil)
+    }()
+    private static let raw_addReminder: ActionLocalization = {
+        .init(title: Verb.addReminder.rawValue,
+              hint:  nil,
+              image: .system(Symbol.plus.rawValue))
     }()
     private static let raw_itemNotFound: ActionLocalization = {
         .init(title: Noun.itemNotFound.rawValue,
@@ -258,6 +275,11 @@ extension Action {
               hint:  nil,
               image: nil)
     }()
+    private static let raw_reminders: ActionLocalization = {
+        .init(title: Noun.reminders.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
     private static let raw_notes: ActionLocalization = {
         .init(title: Noun.notes.rawValue,
               hint:  nil,
@@ -265,6 +287,16 @@ extension Action {
     }()
     private static let raw_lastPerformed: ActionLocalization = {
         .init(title: Noun.lastPerformed.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_name: ActionLocalization = {
+        .init(title: Noun.name.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_photo: ActionLocalization = {
+        .init(title: Noun.photo.rawValue,
               hint:  nil,
               image: nil)
     }()

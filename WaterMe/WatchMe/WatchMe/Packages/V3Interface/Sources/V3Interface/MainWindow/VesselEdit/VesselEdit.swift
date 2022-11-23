@@ -54,14 +54,16 @@ internal struct VesselEdit: View {
                         Text(String(describing: vessel.wrappedValue.icon?.stringValue))
                     }
                 } header: {
-                    Text("Photo")
+                    self.style.sectionHeader
+                        .action(text: self.text.photo)
+                        .label
                 }
                 Section {
-                    TextField(text: vessel.displayName.compactMap(), prompt: nil) {
-                        Text("Name")
-                    }
+                    TextField(self.text.name.title, text: vessel.displayName.compactMap())
                 } header: {
-                    Text("Name")
+                    self.style.sectionHeader
+                        .action(text: self.text.name)
+                        .label
                 }
                 Section {
                     self.reminders.view { reminders in
@@ -73,17 +75,27 @@ internal struct VesselEdit: View {
                             }
                         }
                     } onEmpty: {
-                        Text("Loading...")
+                        self.style.fallback
+                                  .action(text: self.text.notFound)
+                                  .label
+                    }
+                    self.style.button
+                        .action(text: self.text.addReminder)
+                        .button
+                    {
+                        // TODO: Connect
                     }
                 } header: {
-                    Text("Reminders")
+                    self.style.sectionHeader
+                        .action(text: self.text.reminders)
+                        .label
                 }
                 // TODO: Add Siri Shortcuts Here
             }
             .modifier(self.toolbar(vessel.id))
         } onNIL: {
             self.style.fallback
-                      .action(text: self.text.itemNotFound)
+                      .action(text: self.text.notFound)
                       .label
         }
         .onLoadChange(of: self.id) {
@@ -94,7 +106,7 @@ internal struct VesselEdit: View {
     
     private func toolbar(_ id: Vessel.Identifier) -> JSBToolbar {
         return JSBToolbar(
-            title: "Edit Plant",
+            title: self.text.title,
             delete: self.text.delete,
             deleteAction: {
                 self.errorResponder(DeleteRequestError.vessel(id))
