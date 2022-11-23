@@ -28,15 +28,14 @@ public struct UnknownError: UserFacingError {
     
     public init() {}
     
-    // TODO: Complete this
     public var title: Umbrella.LocalizationKey {
-        "Error?"
+        Noun.error.rawValue
     }
     public var message: Umbrella.LocalizationKey {
-        "An unknown error ocurred"
+        Phrase.errorUnknown.rawValue
     }
     public var dismissTitle: Umbrella.LocalizationKey {
-        "Bye"
+        Verb.dismiss.rawValue
     }
     public var isCritical: Bool {
         false
