@@ -29,6 +29,8 @@ import V3Localize
 
 internal struct ReminderEdit: View {
     
+    private static let kIntervalRange: Range<Int> = Reminder.Constants.minimumInterval ..< Reminder.Constants.maximumInterval + 1
+    
     @Nav private var nav
     @V3Style.ReminderEdit private var style
     @V3Localize.ReminderEdit private var text
@@ -48,52 +50,61 @@ internal struct ReminderEdit: View {
             Form {
                 Section {
                     Picker(selection: item.kind) {
-                        ForEach(Reminder.Kind.allCases) {
-                            Text(String(describing: $0))
-                                .tag($0)
+                        ForEach(self.kinds, id: \.0) { kind, text in
+                            self.style.picker
+                                .action(text: text)
+                                .label
+                                .tag(kind)
                         }
                     } label: {
-                        Text("Kind of Reminder")
+                        self.style.contentLabel
+                            .action(text: self.text.kind)
+                            .label
                     }
-                } header: {
-                    Text("Kind of Reminder")
-                }
-                Section {
                     Picker(selection: item.interval) {
-                        ForEach(kIntervalRange) {
-                            Text(String(describing: $0))
+                        ForEach(ReminderEdit.kIntervalRange) {
+                            self.style.picker
+                                .action(text: self.text.intervalString($0))
+                                .label
                                 .tag($0)
                         }
                     } label: {
-                        Text("Remind Every")
+                        self.style.contentLabel
+                            .action(text: self.text.interval)
+                            .label
                     }
-                } header: {
-                    Text("Remind Every")
-                }
-                Section {
                     Toggle(isOn: item.isEnabled.flipped) {
-                        Text("Pause Notifications")
+                        self.style.contentLabel
+                            .action(text: self.text.pause)
+                            .label
                     }
                 } header: {
-                    Text("Notifications")
+                    self.style.sectionHeader
+                        .action(text: self.text.reminder)
+                        .label
                 }
                 Section {
-                    TextField(text: item.note.compactMap(), prompt: nil) {
-                        Text("Notes")
-                    }
+                    TextField(self.text.notes.title,
+                              text: item.note.compactMap())
                 } header: {
-                    Text("Notes")
+                    self.style.sectionHeader
+                        .action(text: self.text.notes)
+                        .label
                 }
                 // TODO: Add Siri Shortcuts Here
                 Section {
-                    Text(String(describing: item.lastPerformDate.wrappedValue))
+                    self.style.fallback
+                        .action(text: self.text.timeAgo(item.wrappedValue.lastPerformDate))
+                        .label
                 } header: {
-                    Text("Last Performed")
+                    self.style.sectionHeader
+                        .action(text: self.text.lastPerformed)
+                        .label
                 }
             }
         } onNIL: {
             self.style.fallback
-                      .action(text: self.text.itemNotFound)
+                      .action(text: self.text.notFound)
                       .label
         }
         .modifier(self.toolbar)
@@ -107,10 +118,27 @@ internal struct ReminderEdit: View {
             title: self.text.title,
             delete: self.text.delete,
             deleteAction: {
-                self.errorResponder(DeleteRequestError.reminder(id))
+                self.errorResponder(DeleteRequestError.reminder(self.id))
             }
         )
     }
+    
+    private var kinds: [(Reminder.Kind, ActionLocalization)] {
+        return Reminder.Kind.allCases.map { kind in
+            switch kind {
+            case .water:
+                return (kind, self.text.kindWater)
+            case .fertilize:
+                return (kind, self.text.kindFertilize)
+            case .trim:
+                return (kind, self.text.kindTrim)
+            case .mist:
+                return (kind, self.text.kindMist)
+            case .move:
+                return (kind, self.text.kindMove)
+            case .other:
+                return (kind, self.text.kindOther)
+            }
+        }
+    }
 }
-
-private let kIntervalRange: Range<Int> = Reminder.Constants.minimumInterval ..< Reminder.Constants.maximumInterval + 1

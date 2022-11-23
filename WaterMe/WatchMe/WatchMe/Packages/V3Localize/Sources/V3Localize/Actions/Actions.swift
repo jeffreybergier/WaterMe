@@ -69,42 +69,6 @@ import Umbrella
      }
  }
  
- extension V3Model.Reminder.Kind {
-     internal var localizedShort: LocalizationKey {
-         switch self {
-         case .water:
-             return Label.waterShort
-         case .fertilize:
-             return Label.fertilizeShort
-         case .trim:
-             return Label.trimShort
-         case .mist:
-             return Label.mistShort
-         case .move:
-             return Label.moveShort
-         case .other:
-             return Label.other
-         }
-     }
-
-     internal var localizedLong: LocalizationKey {
-         switch self {
-         case .water:
-             return Label.waterLong
-         case .fertilize:
-             return Label.fertilizeLong
-         case .trim:
-             return Label.trimLong
-         case .mist:
-             return Label.mistLong
-         case .move:
-             return Label.moveLong
-         case .other:
-             return Label.other
-         }
-     }
- }
- 
 extension ReminderDays {
     internal var localized: LocalizationKey {
         switch self {
@@ -164,13 +128,18 @@ internal enum Action {
     case addPlantLong
     case addPlantShort
     case itemNotFound
-    
-    internal func localized(_ bundle: LocalizeBundle) -> ActionLocalization {
-        var output = self.raw
-        output.title = bundle.localized(key: raw.title)
-        output.hint = raw.hint.map { bundle.localized(key: $0) }
-        return output
-    }
+    case reminderKind
+    case reminderKindWater
+    case reminderKindFertilize
+    case reminderKindTrim
+    case reminderKindMist
+    case reminderKindMove
+    case reminderKindOther
+    case reminderInterval
+    case pauseNotifications
+    case reminder
+    case notes
+    case lastPerformed
     
     private var raw: ActionLocalization {
         switch self {
@@ -182,7 +151,38 @@ internal enum Action {
             return Action.raw_addPlantShort
         case .itemNotFound:
             return Action.raw_itemNotFound
+        case .reminderKind:
+            return Action.raw_reminderKind
+        case .reminderKindWater:
+            return Action.raw_reminderKindWater
+        case .reminderKindFertilize:
+            return Action.raw_reminderKindFertilize
+        case .reminderKindTrim:
+            return Action.raw_reminderKindTrim
+        case .reminderKindMist:
+            return Action.raw_reminderKindMist
+        case .reminderKindMove:
+            return Action.raw_reminderKindMove
+        case .reminderKindOther:
+            return Action.raw_reminderKindOther
+        case .reminderInterval:
+            return Action.raw_reminderInterval
+        case .pauseNotifications:
+            return Action.raw_pauseNotifications
+        case .reminder:
+            return Action.raw_reminder
+        case .notes:
+            return Action.raw_notes
+        case .lastPerformed:
+            return Action.raw_lastPerformed
         }
+    }
+    
+    internal func localized(_ bundle: LocalizeBundle) -> ActionLocalization {
+        var output = self.raw
+        output.title = bundle.localized(key: raw.title)
+        output.hint = raw.hint.map { bundle.localized(key: $0) }
+        return output
     }
 }
 
@@ -206,5 +206,66 @@ extension Action {
         .init(title: Noun.itemNotFound.rawValue,
               hint:  nil,
               image: .system(Symbol.noContent.rawValue))
+    }()
+    private static let raw_reminderKind: ActionLocalization = {
+        .init(title: Noun.reminderKindShort.rawValue,
+              // TODO: Change to verb
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderKindWater: ActionLocalization = {
+        .init(title: Noun.waterShort.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderKindFertilize: ActionLocalization = {
+        .init(title: Noun.fertilizeShort.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderKindTrim: ActionLocalization = {
+        .init(title: Noun.trimShort.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderKindMist: ActionLocalization = {
+        .init(title: Noun.mistShort.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderKindMove: ActionLocalization = {
+        .init(title: Noun.moveShort.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderKindOther: ActionLocalization = {
+        .init(title: Noun.other.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminderInterval: ActionLocalization = {
+        .init(title: Noun.remindEvery.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_pauseNotifications: ActionLocalization = {
+        .init(title: Verb.pauseNotifications.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_reminder: ActionLocalization = {
+        .init(title: Noun.reminder.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_notes: ActionLocalization = {
+        .init(title: Noun.notes.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_lastPerformed: ActionLocalization = {
+        .init(title: Noun.lastPerformed.rawValue,
+              hint:  nil,
+              image: nil)
     }()
 }

@@ -25,24 +25,52 @@ import Umbrella
 public struct ReminderEdit: DynamicProperty {
     
     public struct Value {
-        public var title:  LocalizedString
-        public var delete: ActionLocalization
-        public var itemNotFound: ActionLocalization
+        
+        private var never:        LocalizedString
+        public var title:         LocalizedString
+        public var delete:        ActionLocalization
+        public var notFound:      ActionLocalization
+        public var kind:          ActionLocalization
+        public var kindWater:     ActionLocalization
+        public var kindFertilize: ActionLocalization
+        public var kindTrim:      ActionLocalization
+        public var kindMist:      ActionLocalization
+        public var kindMove:      ActionLocalization
+        public var kindOther:     ActionLocalization
+        public var interval:      ActionLocalization
+        public var pause:         ActionLocalization
+        public var reminder:      ActionLocalization
+        public var notes:         ActionLocalization
+        public var lastPerformed: ActionLocalization
         
         internal init(_ b: LocalizeBundle) {
-            self.title  = b.localized(key: Noun.editReminder.rawValue)
-            self.delete = Action.delete.localized(b)
-            self.itemNotFound = Action.itemNotFound.localized(b)
+            self.title         = b.localized(key: Noun.editReminder.rawValue)
+            self.never         = b.localized(key: Noun.never.rawValue)
+            self.delete        = Action.delete.localized(b)
+            self.notFound      = Action.itemNotFound.localized(b)
+            self.kind          = Action.reminderKind.localized(b)
+            self.kindWater     = Action.reminderKindWater.localized(b)
+            self.kindFertilize = Action.reminderKindFertilize.localized(b)
+            self.kindTrim      = Action.reminderKindTrim.localized(b)
+            self.kindMist      = Action.reminderKindMist.localized(b)
+            self.kindMove      = Action.reminderKindMove.localized(b)
+            self.kindOther     = Action.reminderKindOther.localized(b)
+            self.interval      = Action.reminderInterval.localized(b)
+            self.pause         = Action.pauseNotifications.localized(b)
+            self.reminder      = Action.reminder.localized(b)
+            self.notes         = Action.notes.localized(b)
+            self.lastPerformed = Action.lastPerformed.localized(b)
+        }
+        
+        public func intervalString(_ count: Int) -> ActionLocalization {
+            .init(title: Formatter.reminderInterval.string(forDayInterval: count))
+        }
+        
+        public func timeAgo(_ date: Date?) -> ActionLocalization {
+            let formatted = date.map { Formatter.timeAgo.timeAgoString(for: $0) }
+            return .init(title: formatted ?? self.never)
         }
     }
-    
-    private static let formatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateStyle = .short
-        df.timeStyle = .none
-        df.doesRelativeDateFormatting = true
-        return df
-    }()
     
     @Localize private var bundle
     
@@ -51,13 +79,4 @@ public struct ReminderEdit: DynamicProperty {
     public var wrappedValue: Value {
         Value(self.bundle)
     }
-    
-    public func dateString(_ date: Date?) -> LocalizedString {
-        // TODO: Fix
-        // let missing = self.bundle.localized(key: Noun.dash.rawValue)
-        let missing = "-"
-        return date.map { type(of: self).formatter.string(from: $0) }
-                 ?? missing
-    }
 }
-

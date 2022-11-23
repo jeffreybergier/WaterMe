@@ -22,40 +22,40 @@
 //
 
 import Foundation
+import Umbrella
 
 extension Formatter {
-    class var newReminderIntervalFormatter: DateComponentsFormatter {
+    internal static let reminderInterval: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
         f.allowedUnits = [.month, .weekOfMonth, .day]
         f.unitsStyle = .full
         return f
-    }
-    class var newTimeAgoFormatter: DateFormatter {
+    }()
+    internal static let timeAgo: DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .full
         f.timeStyle = .none
         f.doesRelativeDateFormatting = true
         return f
-    }
-    class var newDueDateFormatter: DateFormatter {
+    }()
+    internal static let dueDate: DateFormatter = {
         let df = DateFormatter()
         df.dateStyle = .full
         df.timeStyle = .none
         df.doesRelativeDateFormatting = true
         return df
-    }
+    }()
 }
 
 extension DateFormatter {
-    func timeAgoString(for date: Date?) -> String? {
-        guard let date = date else { return nil }
+    internal func timeAgoString(for date: Date) -> LocalizedString {
         let dateString = self.string(from: date)
         return dateString
     }
 }
 
 extension DateComponentsFormatter {
-    func string(forDayInterval interval: Int) -> String {
+    internal func string(forDayInterval interval: Int) -> LocalizedString {
         let time = TimeInterval(interval) * (60 * 60 * 24)
         let string = self.string(from: time)
         assert(string != nil, "Time Interval Formatter Returned NIL for Interval: \(interval)")
