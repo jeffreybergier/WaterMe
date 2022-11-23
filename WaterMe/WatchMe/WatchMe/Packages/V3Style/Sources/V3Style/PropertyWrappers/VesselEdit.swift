@@ -29,6 +29,16 @@ public struct VesselEdit: DynamicProperty {
         public var contentLabel:  some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
         public var fallback:      some ActionStyle = ActionStyleFakeDisabled
+        
+        public func row(image: JSBImage,
+                        title: LocalizedString,
+                        subtitle: LocalizedString)
+                     -> some View
+        {
+            VesselEditReminderRow(image: image,
+                                  title: title,
+                                  subtitle: subtitle)
+        }
     }
     
     public init() {}

@@ -71,7 +71,7 @@ internal struct VesselEdit: View {
                             Button {
                                 self.nav.stack.edit(id)
                             } label: {
-                                Text(String(describing: id))
+                                ReminderRow(id)
                             }
                         }
                     } onEmpty: {
