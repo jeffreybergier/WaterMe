@@ -69,10 +69,8 @@ internal struct VesselEdit: View {
                 Section {
                     self.reminders.view { reminders in
                         ForEach(reminders) { id in
-                            Button {
+                            ReminderRow(id) {
                                 self.nav.stack.edit(id)
-                            } label: {
-                                ReminderRow(id)
                             }
                         }
                     } onEmpty: {

@@ -35,20 +35,22 @@ extension VesselEdit {
                 
         @ReminderQuery private var reminder
         private let id: Reminder.Identifier
+        private let action: () -> Void
         
-        internal init(_ id: Reminder.Identifier) {
+        internal init(_ id: Reminder.Identifier, action: @escaping () -> Void) {
             self.id = id
+            self.action = action
         }
         
         internal var body: some View {
             self.reminder.view { reminder in
                 self.style.row(subtitle: self.text.interval(reminder.interval))
-                    .action(text: self.text(for: reminder.kind))
-                    .label
+                          .action(text: self.text(for: reminder.kind))
+                          .button(action: self.action)
             } onNIL: {
                 self.style.fallback
-                    .action(text: self.text.notFound)
-                    .label
+                          .action(text: self.text.notFound)
+                          .label
             }
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)
