@@ -48,44 +48,54 @@ internal struct ReminderSummary: View {
         self.reminder.view(self.vessel) { reminder, vessel in
             List {
                 Section {
-                    Button {
+                    self.style.button.action(text: self.text.markDone).button {
                         switch self.controller.appendNewPerformToReminders(with: [reminder.id]) {
                         case .success:
                             self.nav.stack.pop()
                         case .failure(let error):
                             self.errorResponder(error)
                         }
-                    } label: {
-                        Text("Mark Reminder as Done")
                     }
-                    Button {
+                    self.style.button.action(text: self.text.editReminder).button {
                         self.nav.stack.edit(reminder.id)
-                    } label: {
-                        Text("Edit Reminder")
                     }
-                    Button {
+                    self.style.button.action(text: self.text.editVessel).button {
                         self.nav.stack.edit(vessel.id)
-                    } label: {
-                        Text("Edit Plant")
                     }
                 } header: {
-                    Text("Actions")
+                    self.style.sectionHeader
+                              .action(text: self.text.actions)
+                              .label
                 }
                 Section {
-                    Text(String(describing: reminder.kind))
-                    Text(String(describing: reminder.nextPerformDate))
-                    Text(String(describing: reminder.lastPerformDate))
-                    Text(String(describing: reminder.interval))
+                    self.style.contentLabel
+                              .action(text: self.localized(kind: reminder.kind))
+                              .label
+                    self.style.contentLabel
+                              .action(text: self.text.due(date: reminder.nextPerformDate))
+                              .label
+                    // TODO: Convert to Labeled Content
+                    // LabeledContent(content: <#T##() -> _#>, label: <#T##() -> _#>)
+                    self.style.contentLabel
+                              .action(text: self.text.timeAgo(reminder.lastPerformDate))
+                              .label
+                    self.style.contentLabel
+                              .action(text: self.text.interval(reminder.interval))
+                              .label
                 } header: {
-                    Text("Reminder")
+                    self.style.sectionHeader
+                              .action(text: self.text.reminder)
+                              .label
                 }
                 Section {
-                    if let image = vessel.icon?.imageValue {
-                        Image(jsbImage: image)
-                    }
-                    Text(String(describing: vessel.displayName))
+                    self.style.icon(image: vessel.icon?.imageValue,
+                                    emoji: vessel.icon?.stringValue)
+                    // TODO: Configure fallback styling
+                    JSBText("My Plant", text: vessel.displayName)
                 } header: {
-                    Text("Plant")
+                    self.style.sectionHeader
+                              .action(text: self.text.plant)
+                              .label
                 }
             }
         } onNIL: {
@@ -93,12 +103,29 @@ internal struct ReminderSummary: View {
                       .action(text: self.text.itemNotFound)
                       .label
         }
-        .navigationTitle("Summary")
+        .navigationTitle(self.text.title)
         .onLoadChange(of: self.id) {
             _reminder.setIdentifier($0)
         }
         .onLoadChange(of: self.reminder?.vesselID) {
             _vessel.setIdentifier($0)
+        }
+    }
+    
+    private func localized(kind: Reminder.Kind) -> ActionLocalization {
+        switch kind {
+        case .water:
+            return self.text.kindWater
+        case .fertilize:
+            return self.text.kindFertilize
+        case .trim:
+            return self.text.kindTrim
+        case .mist:
+            return self.text.kindMist
+        case .move:
+            return self.text.kindMove
+        case .other:
+            return self.text.kindOther
         }
     }
 }
