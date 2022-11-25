@@ -49,8 +49,8 @@ extension ReminderGrid {
                     self.nav.stack.view(reminder.id)
                 } label: {
                     VStack {
-                        self.icon(vessel)
-                            .modifier(self.style.icon)
+                        self.style.icon(image: vessel.icon?.imageValue,
+                                        emoji: vessel.icon?.stringValue)
                         JSBText("My Plant", text: vessel.displayName)
                             .modifier(self.style.displayName)
                         self.kind(reminder.kind)
@@ -68,16 +68,6 @@ extension ReminderGrid {
             }
             .onLoadChange(of: self.reminder?.vesselID) {
                 _vessel.setIdentifier($0)
-            }
-        }
-        
-        @ViewBuilder private func icon(_ item: Vessel) -> some View {
-            if let image = item.icon?.imageValue {
-                Image(jsbImage: image)
-            } else if let emoji = item.icon?.stringValue {
-                Text(emoji)
-            } else {
-                Text("🌸")
             }
         }
         

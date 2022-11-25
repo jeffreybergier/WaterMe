@@ -21,33 +21,31 @@
 import SwiftUI
 import Umbrella
 
-internal struct ReminderGridCellModifier: ViewModifier {
+internal struct VesselIcon: View {
     
-    internal enum Portion { // 部分
-        case icon, bigText, smallText, button
+    private let image: JSBImage?
+    private let emoji: String?
+    
+    internal init(image: JSBImage?, emoji: String?) {
+        self.image = image
+        self.emoji = emoji
     }
     
-    private let portion: Portion
-    
-    internal init(_ portion: Portion) {
-        self.portion = portion
+    internal var body: some View {
+        self.content
+            .modifier(CircleModifier())
     }
     
-    @ViewBuilder internal func body(content: Content) -> some View {
-        switch self.portion {
-        case .icon:
-            content
-                .font(.emojiSmall)
-                .modifier(CircleModifier(strokeWidth: 2))
-        case .bigText:
-            content
-                .font(.prominent)
-        case .smallText:
-            content
-                .font(.small)
-        case .button:
-            content
-                .buttonBorderShape(.roundedRectangle)
+    @ViewBuilder private var content: some View {
+        if let emoji {
+            Text(emoji)
+        } else if let image {
+            Image(jsbImage: image)
+        } else {
+            // TODO: Move to also do the ring?
+            Text("🌸")
+                .modifier(ModifierDisabledFakeAlpha())
         }
     }
+    
 }

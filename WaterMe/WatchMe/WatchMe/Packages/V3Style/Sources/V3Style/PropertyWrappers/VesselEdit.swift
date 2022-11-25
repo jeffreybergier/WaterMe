@@ -31,6 +31,10 @@ public struct VesselEdit: DynamicProperty {
         public func row(subtitle: LocalizedString) -> some ActionStyle {
             ActionStyleImp(innerModifier: ActionSubtitleModifier(subtitle: subtitle))
         }
+        public func icon(image: JSBImage?, emoji: String?) -> some View {
+            VesselIcon(image: image, emoji: emoji)
+                .modifier(FontModifier(.emojiMedium))
+        }
     }
     
     public init() {}

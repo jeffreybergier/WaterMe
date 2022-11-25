@@ -33,6 +33,7 @@ extension Font {
     internal static let normal: Font = .body
     internal static let small: Font = .caption
     internal static let emojiSmall: Font = .custom("Helvetica", size: 36, relativeTo: .title3)
+    internal static let emojiMedium: Font = .custom("Helvetica", size: 47, relativeTo: .title3)
 }
 
 extension CGFloat {

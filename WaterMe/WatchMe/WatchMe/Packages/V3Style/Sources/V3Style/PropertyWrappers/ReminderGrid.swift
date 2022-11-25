@@ -25,12 +25,15 @@ import Umbrella
 public struct ReminderGrid: DynamicProperty {
     
     public struct Value {
-        public var icon:        some ViewModifier = ReminderGridCellModifier(.icon)
-        public var kind:        some ViewModifier = ReminderGridCellModifier(.smallText)
-        public var button:      some ViewModifier = ReminderGridCellModifier(.button)
-        public var displayName: some ViewModifier = ReminderGridCellModifier(.bigText)
+        public var kind:        some ViewModifier = FontModifier(.small)
+        public var button:      some ViewModifier = ButtonBorderShapeModifier(.roundedRectangle)
+        public var displayName: some ViewModifier = FontModifier(.prominent)
         public var fallback:    some ActionStyle  = ActionStyleFakeDisabled
         public var columns:          [GridItem]   = GridItem.reminderGridSmall
+        public func icon(image: JSBImage?, emoji: String?) -> some View {
+            VesselIcon(image: image, emoji: emoji)
+                .modifier(FontModifier(.emojiSmall))
+        }
     }
     
     public init() {}

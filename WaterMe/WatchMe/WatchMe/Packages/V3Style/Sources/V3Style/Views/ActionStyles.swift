@@ -37,3 +37,11 @@ internal struct ModifierDisabledFake: ViewModifier {
             .foregroundColor(Color.grayDark(self.scheme))
     }
 }
+
+internal struct ModifierDisabledFakeAlpha: ViewModifier {
+    @Environment(\.colorScheme) private var scheme
+    internal func body(content: Content) -> some View {
+        content
+            .opacity(0.6)
+    }
+}

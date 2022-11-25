@@ -49,11 +49,8 @@ internal struct VesselEdit: View {
         self.$vessel.view { vessel in
             Form {
                 Section {
-                    if let image = vessel.wrappedValue.icon?.imageValue {
-                        Image(jsbImage: image)
-                    } else {
-                        Text(String(describing: vessel.wrappedValue.icon?.stringValue))
-                    }
+                    self.style.icon(image: vessel.wrappedValue.icon?.imageValue,
+                                    emoji: vessel.wrappedValue.icon?.stringValue)
                 } header: {
                     self.style.sectionHeader
                         .action(text: self.text.photo)

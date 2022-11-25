@@ -37,6 +37,7 @@ internal struct CircleModifier: ViewModifier {
     
     internal func body(content: Content) -> some View {
         content
+            .padding()
             .clipShape(Circle())
             .overlay(
                 Circle().stroke(self.strokeColor ?? self.tintColor,
