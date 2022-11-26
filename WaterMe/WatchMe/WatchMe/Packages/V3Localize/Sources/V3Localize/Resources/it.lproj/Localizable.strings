@@ -260,6 +260,9 @@ other buttons in the UI
 /* Button to open screen to edit plant */
 "Action.Edit Plant" = "Modifica pianta";
 
+/* Button to open screen to edit plant */
+"Action.Edit Photo" = "Modifica foto";
+
 /* Button to open screen to edit reminder */
 "Action.Edit Reminder" = "Modifica promemoria";
 

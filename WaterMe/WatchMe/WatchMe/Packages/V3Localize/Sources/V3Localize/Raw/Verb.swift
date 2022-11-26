@@ -27,6 +27,7 @@ internal enum Verb: LocalizationKey {
     case addReminder        = "Action.Add Reminder"
     case dismiss            = "Action.Dismiss"
     case editPlant          = "Action.Edit Plant"
+    case editPhoto          = "Action.Edit Photo"
     case editReminder       = "Action.Edit Reminder"
     case markDoneGeneric    = "Action.Mark as Done"
     case markDoneReminder   = "Action.Mark Reminder as Done"

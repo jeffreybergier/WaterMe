@@ -149,6 +149,7 @@ internal enum Action {
     case lastPerformed
     case name
     case photo
+    case editPhoto
     
     private var raw: ActionLocalization {
         switch self {
@@ -202,6 +203,8 @@ internal enum Action {
             return Action.raw_name
         case .photo:
             return Action.raw_photo
+        case .editPhoto:
+            return Action.raw_editPhoto
         }
     }
     
@@ -339,5 +342,10 @@ extension Action {
         .init(title: Noun.photo.rawValue,
               hint:  nil,
               image: nil)
+    }()
+    private static let raw_editPhoto: ActionLocalization = {
+        .init(title: Verb.editPhoto.rawValue,
+              hint:  nil,
+              image: .image(Symbol.camera.catalog))
     }()
 }

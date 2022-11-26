@@ -26,6 +26,7 @@ public struct VesselEdit: DynamicProperty {
     
     public struct Value {
         public var button:        some ActionStyle = ActionStyleDefault
+        public var editPhoto:     some ActionStyle = ActionStyleImp(labelStyle: .iconOnly)
         public var content:       some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
         public func row(subtitle: LocalizedString) -> some ActionStyle {

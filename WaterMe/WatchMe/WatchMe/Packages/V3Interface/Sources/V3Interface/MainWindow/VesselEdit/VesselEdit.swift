@@ -49,8 +49,16 @@ internal struct VesselEdit: View {
         self.$vessel.view { vessel in
             Form {
                 Section {
-                    self.style.icon(image: vessel.wrappedValue.icon?.imageValue,
-                                    emoji: vessel.wrappedValue.icon?.stringValue)
+                    ZStack {
+                        self.style.icon(image: vessel.wrappedValue.icon?.imageValue,
+                                        emoji: vessel.wrappedValue.icon?.stringValue)
+                        self.style.editPhoto
+                                  .action(text: self.text.editPhoto)
+                                  .button
+                        {
+                            
+                        }
+                    }
                 } header: {
                     self.style.sectionHeader
                         .action(text: self.text.photo)

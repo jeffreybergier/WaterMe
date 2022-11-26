@@ -38,6 +38,7 @@ public struct VesselEdit: DynamicProperty {
         public var kindMist:      ActionLocalization
         public var kindMove:      ActionLocalization
         public var kindOther:     ActionLocalization
+        public var editPhoto:     ActionLocalization
         
         internal init(_ b: LocalizeBundle) {
             self.title         = b.localized(key: Noun.editPlant.rawValue)
@@ -53,6 +54,7 @@ public struct VesselEdit: DynamicProperty {
             self.kindMist      = Action.reminderKindMist.localized(b)
             self.kindMove      = Action.reminderKindMove.localized(b)
             self.kindOther     = Action.reminderKindOther.localized(b)
+            self.editPhoto     = Action.editPhoto.localized(b)
         }
         
         public func interval(_ count: Int) -> LocalizedString {
