@@ -55,12 +55,6 @@ public struct ReminderValue: Hashable {
         self.kind = reminder.kind
     }
 
-    internal init(reminder: RLM_Reminder) {
-        self.uuid = Identifier(rawValue: reminder.uuid)
-        self.nextPerformDate = reminder.nextPerformDate
-        self.kind = reminder.kind
-    }
-
     internal init?(reminder: CD_Reminder?) {
         guard let reminder = reminder else { return nil }
         self.uuid = Identifier(rawValue: reminder.objectID.uriRepresentation().absoluteString)
@@ -83,12 +77,6 @@ public struct ReminderVesselValue: Hashable {
         self.imageData = (reminderVessel as! HasIconImageData).iconImageData
     }
 
-    internal init(reminderVessel: RLM_ReminderVessel) {
-        self.uuid = Identifier(rawValue: reminderVessel.uuid)
-        self.name = reminderVessel.shortLabelSafeDisplayName
-        self.imageData = reminderVessel.iconImageData
-    }
-
     internal init?(reminderVessel: CD_ReminderVessel?) {
         guard let reminderVessel = reminderVessel else { return nil }
         self.uuid = Identifier(rawValue: reminderVessel.objectID.uriRepresentation().absoluteString)
@@ -99,10 +87,6 @@ public struct ReminderVesselValue: Hashable {
 
 internal protocol HasIconImageData {
     var iconImageData: Data? { get }
-}
-
-extension RLM_ReminderVesselWrapper: HasIconImageData {
-    var iconImageData: Data? { self.wrappedObject.iconImageData }
 }
 
 extension CD_ReminderVesselWrapper: HasIconImageData {

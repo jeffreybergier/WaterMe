@@ -780,10 +780,7 @@ extension CD_BasicController {
     }
 
     private class func copySampleDBIfNeeded() {
-        guard
-            !RLM_BasicController.storeExists,
-            !self.storeExists
-        else { return }
+        guard !self.storeExists else { return }
         guard
             let sampleDB1URL = self.sampleDB1URL,
             let sampleDB2URL = self.sampleDB2URL

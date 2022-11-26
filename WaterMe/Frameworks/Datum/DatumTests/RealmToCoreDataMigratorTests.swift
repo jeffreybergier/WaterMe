@@ -27,16 +27,13 @@ import CoreData
 
 class RealmToCoreDataMigratorBaseTests: XCTestCase {
 
-    let source = try! RLM_BasicController(kind: .__testing_inMemory)
     let destination = try! CD_BasicController(kind: .__testing_inMemory)
     var token: ObservationToken?
 
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        let realmDir = RLM_BasicController.storeDirectoryURL
         let coreDataDir = CD_BasicController.storeDirectoryURL
         let fm = FileManager.default
-        try? fm.removeItem(at: realmDir)
         try? fm.removeItem(at: coreDataDir)
     }
 }

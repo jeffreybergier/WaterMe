@@ -61,33 +61,6 @@ extension CD_ReminderPerformTests {
     }
 }
 
-extension RLM_ReminderPerformTests {
-
-    func test_append() {
-        let reminder = self.newItem() as! RLM_ReminderWrapper
-        let item = reminder.wrappedObject
-        XCTAssertEqual(item.performed.count, 0)
-        try! self.basicController.appendNewPerformToReminders(with: [.init(rawValue: reminder.uuid)]).get()
-        XCTAssertEqual(item.performed.count, 1)
-        try! self.basicController.appendNewPerformToReminders(with: [.init(rawValue: reminder.uuid)]).get()
-        XCTAssertEqual(item.performed.count, 2)
-    }
-
-    func test_perform_dates() {
-        let _item = self.newItem() as! RLM_ReminderWrapper
-        let item = _item.wrappedObject
-        XCTAssertEqual(item.performed.count, 0)
-        let now = Date()
-        let future = Calendar.current.dateByAddingNumberOfDays(_item.interval, to: now)
-        try! self.basicController.appendNewPerformToReminders(with: [.init(rawValue: _item.uuid)]).get()
-        XCTAssertEqual(item.performed.count, 1)
-        let perform = item.performed.first!
-        XCTAssertDatesClose(perform.date, now, within: 1)
-        XCTAssertDatesClose(_item.lastPerformDate!, now, within: 1)
-        XCTAssertDatesClose(_item.nextPerformDate!, future, within: 1)
-    }
-}
-
 public func XCTAssertDatesClose(_ expression1: @autoclosure () throws -> Date,
                                 _ expression2: @autoclosure () throws -> Date,
                                 within interval:  TimeInterval,

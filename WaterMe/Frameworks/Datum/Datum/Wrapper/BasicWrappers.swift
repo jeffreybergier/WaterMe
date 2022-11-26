@@ -21,7 +21,6 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import RealmSwift
 import CoreData
 
 internal let TESTING: Bool = NSClassFromString("XCTestCase") != nil
@@ -74,7 +73,6 @@ public protocol ObservationToken: AnyObject {
     func invalidate()
 }
 
-extension NotificationToken: ObservationToken {}
 extension NSKeyValueObservation: ObservationToken {}
 
 extension Array where Element == ObservationToken {

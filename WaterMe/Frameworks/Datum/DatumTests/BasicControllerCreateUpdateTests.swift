@@ -82,24 +82,6 @@ class BasicControllerCreateUpdateTests: DatumTestsBase {
     
 }
 
-//    func appendNewPerformToReminders(with identifiers: [Identifier]) -> Result<Void, DatumError>
-extension RLM_BasicControllerCreateUpdateTests {
-    func test_reminder_reminder_appendPerform() {
-        let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()
-        let _item1 = try! self.basicController.newReminder(for: vessel).get()
-        let _item2 = try! self.basicController.newReminder(for: vessel).get()
-        let item1 = (_item1 as! RLM_ReminderWrapper).wrappedObject
-        let item2 = (_item2 as! RLM_ReminderWrapper).wrappedObject
-        XCTAssertEqual(item1.performed.count, 0)
-        XCTAssertEqual(item2.performed.count, 0)
-        try! self.basicController.appendNewPerformToReminders(
-            with: [_item1, _item2].map { .init(rawValue: $0.uuid) }
-        ).get()
-        XCTAssertEqual(item1.performed.count, 1)
-        XCTAssertEqual(item2.performed.count, 1)
-    }
-}
-
 extension CD_BasicControllerCreateUpdateTests {
     func test_reminder_reminder_appendPerform() {
         let vessel = try! self.basicController.newReminderVessel(displayName: nil, icon: nil).get()

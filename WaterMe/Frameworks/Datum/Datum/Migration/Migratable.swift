@@ -39,7 +39,5 @@ public var DatumMigrator: Migratable? {
     // return DummyMigrator()
     // return DummyErrorMigrator()
     // return try? FakeDataMigrator()
-    // return nil
-
-    return RealmToCoreDataMigrator()
+    return nil
 }
