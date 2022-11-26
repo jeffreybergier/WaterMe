@@ -104,15 +104,6 @@ public enum ControllerKind: RawRepresentable {
     }
 }
 
-internal func testing_NewRLMBasicController() -> Result<BasicController, DatumError> {
-    do {
-        let bc = try RLM_BasicController(kind: .__testing_inMemory)
-        return .success(bc)
-    } catch {
-        return .failure(.load)
-    }
-}
-
 internal func testing_NewCDBasicController() -> Result<BasicController, DatumError> {
     do {
         let bc = try CD_BasicController(kind: .__testing_inMemory)

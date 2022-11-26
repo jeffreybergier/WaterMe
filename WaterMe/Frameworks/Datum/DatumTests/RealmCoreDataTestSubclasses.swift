@@ -23,21 +23,9 @@
 
 @testable import DatumL
 
-class RLM_ReminderCollectionTests: ReminderCollectionTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
-    }
-}
-
 class CD_ReminderCollectionTests: ReminderCollectionTests {
     override func newBasicController() -> BasicController {
         return try! testing_NewCDBasicController().get()
-    }
-}
-
-class RLM_ReminderVesselCollectionTests: ReminderVesselCollectionTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
     }
 }
 
@@ -47,21 +35,9 @@ class CD_ReminderVesselCollectionTests: ReminderVesselCollectionTests {
     }
 }
 
-class RLM_GroupedReminderCollectionTests: GroupedReminderCollectionTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
-    }
-}
-
 class CD_GroupedReminderCollectionTests: GroupedReminderCollectionTests {
     override func newBasicController() -> BasicController {
         return try! testing_NewCDBasicController().get()
-    }
-}
-
-class RLM_BasicControllerReadTests: BasicControllerReadTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
     }
 }
 
@@ -71,21 +47,9 @@ class CD_BasicControllerReadTests: BasicControllerReadTests {
     }
 }
 
-class RLM_BasicControllerCreateUpdateTests: BasicControllerCreateUpdateTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
-    }
-}
-
 class CD_BasicControllerCreateUpdateTests: BasicControllerCreateUpdateTests {
     override func newBasicController() -> BasicController {
         return try! testing_NewCDBasicController().get()
-    }
-}
-
-class RLM_BasicControllerDeleteTests: BasicControllerDeleteTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
     }
 }
 
@@ -95,21 +59,9 @@ class CD_BasicControllerDeleteTests: BasicControllerDeleteTests {
     }
 }
 
-class RLM_ReminderVesselTests: ReminderVesselTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
-    }
-}
-
 class CD_ReminderVesselTests: ReminderVesselTests {
     override func newBasicController() -> BasicController {
         return try! testing_NewCDBasicController().get()
-    }
-}
-
-class RLM_ReminderTests: ReminderTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
     }
 }
 
@@ -119,21 +71,9 @@ class CD_ReminderTests: ReminderTests {
     }
 }
 
-class RLM_ReminderPerformTests: ReminderPerformTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
-    }
-}
-
 class CD_ReminderPerformTests: ReminderPerformTests {
     override func newBasicController() -> BasicController {
         return try! testing_NewCDBasicController().get()
-    }
-}
-
-class RLM_BasicControllerClosureTests: BasicControllerClosureTests {
-    override func newBasicController() -> BasicController {
-        return try! testing_NewRLMBasicController().get()
     }
 }
 

@@ -21,9 +21,6 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import Foundation
-import RealmSwift
-
 public enum ReminderConstants {
     public static let minimumInterval: Int = 1
     public static let maximumInterval: Int = 365
