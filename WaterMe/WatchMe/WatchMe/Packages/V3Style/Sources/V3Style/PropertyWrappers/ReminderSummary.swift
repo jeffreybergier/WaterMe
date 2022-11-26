@@ -26,13 +26,13 @@ public struct ReminderSummary: DynamicProperty {
     
     public struct Value {
         private var label:        some ActionStyle = ActionStyleDefault
-        private var content:      some ActionStyle = ActionStyleDefault
+        public var content:       some ActionStyle = ActionStyleDefault
         public var button:        some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
-        public var fallback:      some ActionStyle = ActionStyleFakeDisabled
         public func icon(image: JSBImage?, emoji: String?) -> some View {
             VesselIcon(image: image, emoji: emoji)
                 .modifier(FontModifier(.emojiMedium))
+                .modifier(FallbackAlphaModifier())
         }
         public func content(_ content: ActionLocalization,
                             label: ActionLocalization)

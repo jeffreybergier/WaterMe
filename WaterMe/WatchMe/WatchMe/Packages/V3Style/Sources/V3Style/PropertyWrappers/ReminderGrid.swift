@@ -27,12 +27,14 @@ public struct ReminderGrid: DynamicProperty {
     public struct Value {
         public var kind:        some ViewModifier = FontModifier(.small)
         public var button:      some ViewModifier = ButtonBorderShapeModifier(.roundedRectangle)
-        public var displayName: some ViewModifier = FontModifier(.prominent)
-        public var fallback:    some ActionStyle  = ActionStyleFakeDisabled
+        public var fallback:    some ActionStyle  = ActionStyleDefault
+        public var displayName: some ViewModifier = Modifier2(FontModifier(.prominent),
+                                                              FallbackFontModifier()) 
         public var columns:          [GridItem]   = GridItem.reminderGridSmall
         public func icon(image: JSBImage?, emoji: String?) -> some View {
             VesselIcon(image: image, emoji: emoji)
                 .modifier(FontModifier(.emojiSmall))
+                .modifier(FallbackAlphaModifier())
         }
     }
     

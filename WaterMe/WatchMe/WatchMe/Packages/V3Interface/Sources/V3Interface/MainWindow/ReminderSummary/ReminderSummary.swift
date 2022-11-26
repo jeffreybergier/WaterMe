@@ -93,9 +93,10 @@ internal struct ReminderSummary: View {
                 }
             }
         } onNIL: {
-            self.style.fallback
+            self.style.content
                       .action(text: self.text.itemNotFound)
                       .label
+                      .preference(key: isFallbackKey.self, value: true)
         }
         .navigationTitle(self.text.title)
         .onLoadChange(of: self.id) {

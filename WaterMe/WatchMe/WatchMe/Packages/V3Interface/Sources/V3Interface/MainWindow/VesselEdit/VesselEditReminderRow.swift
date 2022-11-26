@@ -48,9 +48,10 @@ extension VesselEdit {
                           .action(text: self.text(for: reminder.kind))
                           .button(action: self.action)
             } onNIL: {
-                self.style.fallback
+                self.style.content
                           .action(text: self.text.notFound)
                           .label
+                          .preference(key: isFallbackKey.self, value: true)
             }
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)

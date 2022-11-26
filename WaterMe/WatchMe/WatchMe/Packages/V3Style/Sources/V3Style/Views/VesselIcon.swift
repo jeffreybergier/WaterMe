@@ -42,9 +42,8 @@ internal struct VesselIcon: View {
         } else if let image {
             Image(jsbImage: image)
         } else {
-            // TODO: Move to also do the ring?
             Text("🌸")
-                .modifier(ModifierDisabledFakeAlpha())
+                .preference(key: isFallbackKey.self, value: true)
         }
     }
     

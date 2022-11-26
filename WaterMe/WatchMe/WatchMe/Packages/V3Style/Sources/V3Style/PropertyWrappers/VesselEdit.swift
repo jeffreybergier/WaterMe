@@ -26,14 +26,15 @@ public struct VesselEdit: DynamicProperty {
     
     public struct Value {
         public var button:        some ActionStyle = ActionStyleDefault
+        public var content:       some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
-        public var fallback:      some ActionStyle = ActionStyleFakeDisabled
         public func row(subtitle: LocalizedString) -> some ActionStyle {
             ActionStyleImp(innerModifier: ActionSubtitleModifier(subtitle: subtitle))
         }
         public func icon(image: JSBImage?, emoji: String?) -> some View {
             VesselIcon(image: image, emoji: emoji)
                 .modifier(FontModifier(.emojiMedium))
+                .modifier(FallbackAlphaModifier())
         }
     }
     

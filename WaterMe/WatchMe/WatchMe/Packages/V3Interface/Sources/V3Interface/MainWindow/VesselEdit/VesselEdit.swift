@@ -71,9 +71,10 @@ internal struct VesselEdit: View {
                             }
                         }
                     } onEmpty: {
-                        self.style.fallback
+                        self.style.content
                                   .action(text: self.text.notFound)
                                   .label
+                                  .preference(key: isFallbackKey.self, value: true)
                     }
                     self.style.button
                         .action(text: self.text.addReminder)
@@ -87,9 +88,10 @@ internal struct VesselEdit: View {
             }
             .modifier(self.toolbar(vessel.id))
         } onNIL: {
-            self.style.fallback
+            self.style.content
                       .action(text: self.text.notFound)
                       .label
+                      .preference(key: isFallbackKey.self, value: true)
         }
         .onLoadChange(of: self.id) {
             _vessel.setIdentifier($0)

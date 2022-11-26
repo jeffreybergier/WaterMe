@@ -21,27 +21,62 @@
 import SwiftUI
 import Umbrella
 
-internal let ActionStyleDefault:      some ActionStyle = ActionStyleImp()
-/// Fake appearance style for use on Labels where there is no "real" disabled state
-internal let ActionStyleFakeDisabled: some ActionStyle = ActionStyleImp(outerModifier: ModifierDisabledFake())
+internal let ActionStyleDefault:      some ActionStyle = ActionStyleImp(outerModifier: FallbackFontModifier())
 
-// TODO: Make these internal
-// for some reason there is a build error
-// when building for release when they are internal
-
-internal struct ModifierDisabledFake: ViewModifier {
-    @Environment(\.colorScheme) private var scheme
+internal struct FallbackAlphaModifier: ViewModifier {
+    
+    @State private var isFallback = false
+    
     internal func body(content: Content) -> some View {
-        content
-            .tint(Color.grayDark(self.scheme))
-            .foregroundColor(Color.grayDark(self.scheme))
+        Group {
+            if self.isFallback {
+                content
+                    .opacity(0.6)
+            } else {
+                content
+            }
+        }
+        .onPreferenceChange(isFallbackKey.self) {
+            self.isFallback = $0
+        }
     }
 }
 
-internal struct ModifierDisabledFakeAlpha: ViewModifier {
+internal struct FallbackFontModifier: ViewModifier {
+    
+    @State private var isFallback = false
     @Environment(\.colorScheme) private var scheme
+    
+    internal func body(content: Content) -> some View {
+        Group {
+            if self.isFallback {
+                content
+                    .tint(Color.grayDark(self.scheme))
+                    .foregroundColor(Color.grayDark(self.scheme))
+                    .italic(true)
+            } else {
+                content
+            }
+        }
+        .onPreferenceChange(isFallbackKey.self) {
+            self.isFallback = $0
+        }
+    }
+}
+
+internal struct Modifier2<M1: ViewModifier, M2: ViewModifier>: ViewModifier {
+    
+    private let m1: M1
+    private let m2: M2
+    
+    internal init(_ m1: M1, _ m2: M2) {
+        self.m1 = m1
+        self.m2 = m2
+    }
+    
     internal func body(content: Content) -> some View {
         content
-            .opacity(0.6)
+            .modifier(self.m1)
+            .modifier(self.m2)
     }
 }

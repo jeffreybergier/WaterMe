@@ -93,19 +93,21 @@ internal struct ReminderEdit: View {
                 }
                 // TODO: Add Siri Shortcuts Here
                 Section {
-                    self.style.fallback
+                    self.style.picker
                         .action(text: self.text.timeAgo(item.wrappedValue.lastPerformDate))
                         .label
                 } header: {
                     self.style.sectionHeader
                         .action(text: self.text.lastPerformed)
                         .label
+                        .preference(key: isFallbackKey.self, value: true)
                 }
             }
         } onNIL: {
-            self.style.fallback
+            self.style.picker
                       .action(text: self.text.notFound)
                       .label
+                      .preference(key: isFallbackKey.self, value: true)
         }
         .modifier(self.toolbar)
         .onLoadChange(of: self.id) {

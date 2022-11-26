@@ -62,6 +62,7 @@ extension ReminderGrid {
                 self.style.fallback
                           .action(text: self.text.itemNotFound)
                           .label
+                          .preference(key: isFallbackKey.self, value: true)
             }
             .onLoadChange(of: self.id) {
                 _reminder.setIdentifier($0)
