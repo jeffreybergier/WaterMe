@@ -1,79 +1,59 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Cheers",
-        "repositoryURL": "https://github.com/onmyway133/Cheers",
-        "state": {
-          "branch": "master",
-          "revision": "361b9820cc54413c87a4d75828b55d5421e34df6",
-          "version": null
-        }
-      },
-      {
-        "package": "ServerlessLogger",
-        "repositoryURL": "https://github.com/jeffreybergier/JSBServerlessLogger.git",
-        "state": {
-          "branch": "master",
-          "revision": "1dbd4243d9c760d577712ad2ca1b540c2f899507",
-          "version": null
-        }
-      },
-      {
-        "package": "Realm",
-        "repositoryURL": "https://github.com/realm/realm-cocoa.git",
-        "state": {
-          "branch": null,
-          "revision": "fa43b8e2909334c79f233ce472332c136ca108da",
-          "version": "4.4.1"
-        }
-      },
-      {
-        "package": "RealmCore",
-        "repositoryURL": "https://github.com/realm/realm-core",
-        "state": {
-          "branch": null,
-          "revision": "35662ff940e340bf630ad1d1d88acfc7af18bee6",
-          "version": "5.23.8"
-        }
-      },
-      {
-        "package": "SimpleImageViewer",
-        "repositoryURL": "https://github.com/jeffreybergier/SimpleImageViewer.git",
-        "state": {
-          "branch": "main",
-          "revision": "b32ff9c5e62b2f12e09f8c5cd29d0e6408790ab9",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-collections",
-        "repositoryURL": "https://github.com/apple/swift-collections.git",
-        "state": {
-          "branch": null,
-          "revision": "9d8719c8bebdc79740b6969c912ac706eb721d7a",
-          "version": "0.0.7"
-        }
-      },
-      {
-        "package": "TOCropViewController",
-        "repositoryURL": "https://github.com/TimOliver/TOCropViewController.git",
-        "state": {
-          "branch": null,
-          "revision": "dad97167bf1be16aeecd109130900995dd01c515",
-          "version": "2.6.0"
-        }
-      },
-      {
-        "package": "XCGLogger",
-        "repositoryURL": "https://github.com/DaveWoodCom/XCGLogger.git",
-        "state": {
-          "branch": null,
-          "revision": "a9c4667b247928a29bdd41be2ec2c8d304215a54",
-          "version": "7.0.1"
-        }
+  "pins" : [
+    {
+      "identity" : "cheers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onmyway133/Cheers",
+      "state" : {
+        "branch" : "master",
+        "revision" : "361b9820cc54413c87a4d75828b55d5421e34df6"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "jsbserverlesslogger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jeffreybergier/JSBServerlessLogger.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1dbd4243d9c760d577712ad2ca1b540c2f899507"
+      }
+    },
+    {
+      "identity" : "simpleimageviewer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jeffreybergier/SimpleImageViewer.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b32ff9c5e62b2f12e09f8c5cd29d0e6408790ab9"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "9d8719c8bebdc79740b6969c912ac706eb721d7a",
+        "version" : "0.0.7"
+      }
+    },
+    {
+      "identity" : "tocropviewcontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimOliver/TOCropViewController.git",
+      "state" : {
+        "revision" : "dad97167bf1be16aeecd109130900995dd01c515",
+        "version" : "2.6.0"
+      }
+    },
+    {
+      "identity" : "xcglogger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DaveWoodCom/XCGLogger.git",
+      "state" : {
+        "revision" : "a9c4667b247928a29bdd41be2ec2c8d304215a54",
+        "version" : "7.0.1"
+      }
+    }
+  ],
+  "version" : 2
 }
