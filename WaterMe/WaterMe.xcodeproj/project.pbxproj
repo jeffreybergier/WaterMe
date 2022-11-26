@@ -48,8 +48,6 @@
 		48F56050247FA9060049F14D /* ReminderVesselCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5604F247FA9060049F14D /* ReminderVesselCollectionTests.swift */; };
 		5002ADE523E6AC5F00CBC2B9 /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 5002ADE423E6AC5F00CBC2B9 /* NSObject+Runtime.m */; };
 		500679AF1F4BF3DB00F8100D /* ReminderMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500679AE1F4BF3DB00F8100D /* ReminderMainViewController.swift */; };
-		500D24072474C1800070162E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 500D24062474C1800070162E /* Realm */; };
-		500D24092474C1800070162E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 500D24082474C1800070162E /* RealmSwift */; };
 		5010C22E213F779F00D1832C /* ReminderSummary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5010C22D213F779F00D1832C /* ReminderSummary.storyboard */; };
 		5010C230213F77B200D1832C /* ReminderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010C22F213F77B200D1832C /* ReminderSummaryViewController.swift */; };
 		5010C232213F806500D1832C /* ReminderSummaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010C231213F806500D1832C /* ReminderSummaryTableViewController.swift */; };
@@ -541,8 +539,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				500D24092474C1800070162E /* RealmSwift in Frameworks */,
-				500D24072474C1800070162E /* Realm in Frameworks */,
 				48A7B1042467FE3800DC0861 /* Calculate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1221,8 +1217,6 @@
 			);
 			name = Datum;
 			packageProductDependencies = (
-				500D24062474C1800070162E /* Realm */,
-				500D24082474C1800070162E /* RealmSwift */,
 			);
 			productName = Datum;
 			productReference = 5034764324552CFD00C3DAD3 /* Datum.framework */;
@@ -1377,7 +1371,6 @@
 			mainGroup = 50BB0F471EBFCDE500850FF4;
 			packageReferences = (
 				5034770024557CB200C3DAD3 /* XCRemoteSwiftPackageReference "Cheers" */,
-				500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				5031FBF924F7ACBE00CBBB2E /* XCRemoteSwiftPackageReference "JSBServerlessLogger" */,
 				7313858C260E15B000CDC138 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				73730856260E2F22000B99DB /* XCRemoteSwiftPackageReference "SimpleImageViewer" */,
@@ -2401,14 +2394,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.1;
-			};
-		};
 		5031FBF924F7ACBE00CBBB2E /* XCRemoteSwiftPackageReference "JSBServerlessLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jeffreybergier/JSBServerlessLogger.git";
@@ -2452,16 +2437,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		500D24062474C1800070162E /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		500D24082474C1800070162E /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 500D24052474C1800070162E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
-		};
 		5031FBFA24F7ACBE00CBBB2E /* ServerlessLogger */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5031FBF924F7ACBE00CBBB2E /* XCRemoteSwiftPackageReference "JSBServerlessLogger" */;
