@@ -23,7 +23,7 @@
 
 import XCTest
 import Calculate
-@testable import Datum
+@testable import DatumL
 
 class ReminderTests: DatumTestsBase {
     

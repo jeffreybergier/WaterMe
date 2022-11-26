@@ -18,24 +18,6 @@
       }
     },
     {
-      "identity" : "realm-cocoa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-cocoa.git",
-      "state" : {
-        "revision" : "fa43b8e2909334c79f233ce472332c136ca108da",
-        "version" : "4.4.1"
-      }
-    },
-    {
-      "identity" : "realm-core",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-core",
-      "state" : {
-        "revision" : "35662ff940e340bf630ad1d1d88acfc7af18bee6",
-        "version" : "5.23.8"
-      }
-    },
-    {
       "identity" : "simpleimageviewer",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jeffreybergier/SimpleImageViewer.git",
