@@ -59,19 +59,17 @@ public struct ReminderSummary: DynamicProperty {
             self.itemNotFound  = Action.itemNotFound.localized(b)
         }
         
-        public func interval(_ count: Int) -> ActionLocalization {
-            .init(title: Formatter.reminderInterval.string(forDayInterval: count))
+        public func interval(_ count: Int) -> LocalizedString {
+            Formatter.reminderInterval.string(forDayInterval: count)
         }
         
-        public func timeAgo(_ date: Date?) -> ActionLocalization {
-            let formatted = date.map { Formatter.timeAgo.timeAgoString(for: $0) }
-            return .init(title: formatted ?? self.never)
+        public func timeAgo(_ date: Date?) -> LocalizedString {
+            date.map { Formatter.timeAgo.timeAgoString(for: $0) } ?? self.never
         }
         
-        public func due(date: Date?) -> ActionLocalization {
-            let formatted = date.map { Formatter.dueDate.string(from: $0) }
+        public func due(date: Date?) -> LocalizedString {
             // TODO: Localize this
-            return .init(title: formatted ?? "Now")
+            date.map { Formatter.dueDate.string(from: $0) } ?? "Now"
         }
     }
     

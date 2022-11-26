@@ -25,13 +25,34 @@ import Umbrella
 public struct ReminderSummary: DynamicProperty {
     
     public struct Value {
+        private var label:        some ActionStyle = ActionStyleDefault
+        private var content:      some ActionStyle = ActionStyleDefault
         public var button:        some ActionStyle = ActionStyleDefault
-        public var contentLabel:  some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
         public var fallback:      some ActionStyle = ActionStyleFakeDisabled
         public func icon(image: JSBImage?, emoji: String?) -> some View {
             VesselIcon(image: image, emoji: emoji)
                 .modifier(FontModifier(.emojiMedium))
+        }
+        public func content(_ content: ActionLocalization,
+                            label: ActionLocalization)
+                         -> some View
+        {
+            LabeledContent {
+                self.content
+                    .action(text: content)
+                    .label
+            } label: {
+                self.label
+                    .action(text: label)
+                    .label
+            }
+        }
+        public func content(_ content: LocalizedString,
+                            label: ActionLocalization)
+                         -> some View
+        {
+            self.content(.init(title: content), label: label)
         }
     }
     

@@ -68,20 +68,14 @@ internal struct ReminderSummary: View {
                               .label
                 }
                 Section {
-                    self.style.contentLabel
-                              .action(text: self.localized(kind: reminder.kind))
-                              .label
-                    self.style.contentLabel
-                              .action(text: self.text.due(date: reminder.nextPerformDate))
-                              .label
-                    // TODO: Convert to Labeled Content
-                    // LabeledContent(content: <#T##() -> _#>, label: <#T##() -> _#>)
-                    self.style.contentLabel
-                              .action(text: self.text.timeAgo(reminder.lastPerformDate))
-                              .label
-                    self.style.contentLabel
-                              .action(text: self.text.interval(reminder.interval))
-                              .label
+                    self.style.content(self.localized(kind: reminder.kind),
+                                       label: .init(title: "Kind"))
+                    self.style.content(self.text.due(date: reminder.nextPerformDate),
+                                       label: .init(title: "Due Date"))
+                    self.style.content(self.text.timeAgo(reminder.lastPerformDate),
+                                       label: .init(title: "Last Performed"))
+                    self.style.content(self.text.interval(reminder.interval),
+                                       label: .init(title: "Remind every"))
                 } header: {
                     self.style.sectionHeader
                               .action(text: self.text.reminder)
