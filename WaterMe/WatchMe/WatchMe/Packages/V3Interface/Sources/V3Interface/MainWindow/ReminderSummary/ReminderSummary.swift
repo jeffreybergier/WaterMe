@@ -69,13 +69,13 @@ internal struct ReminderSummary: View {
                 }
                 Section {
                     self.style.content(self.localized(kind: reminder.kind),
-                                       label: .init(title: "Kind"))
+                                       label: self.text.kind)
                     self.style.content(self.text.due(date: reminder.nextPerformDate),
-                                       label: .init(title: "Due Date"))
+                                       label: self.text.nextPerformDate)
                     self.style.content(self.text.timeAgo(reminder.lastPerformDate),
-                                       label: .init(title: "Last Performed"))
+                                       label: self.text.lastPerformDate)
                     self.style.content(self.text.interval(reminder.interval),
-                                       label: .init(title: "Remind every"))
+                                       label: self.text.interval)
                 } header: {
                     self.style.sectionHeader
                               .action(text: self.text.reminder)
@@ -84,8 +84,8 @@ internal struct ReminderSummary: View {
                 Section {
                     self.style.icon(image: vessel.icon?.imageValue,
                                     emoji: vessel.icon?.stringValue)
-                    // TODO: Configure fallback styling
-                    JSBText("My Plant", text: vessel.displayName)
+                    self.style.name(vessel.displayName,
+                                    fallback: self.text.myPlant)
                 } header: {
                     self.style.sectionHeader
                               .action(text: self.text.plant)

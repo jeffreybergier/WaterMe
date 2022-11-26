@@ -54,6 +54,10 @@ public struct ReminderSummary: DynamicProperty {
         {
             self.content(.init(title: content), label: label)
         }
+        public func name(_ name: String?, fallback: LocalizedString) -> some View {
+            JSBText(fallback, text: name)
+                .modifier(FallbackFontModifier())
+        }
     }
     
     public init() {}

@@ -26,6 +26,7 @@ public struct ReminderGrid: DynamicProperty {
     
     public struct Value {
         public var title:                LocalizedString
+        public var myPlant:              LocalizedString
         public var sectionTitleLate:     LocalizedString
         public var sectionTitleToday:    LocalizedString
         public var sectionTitleTomorrow: LocalizedString
@@ -43,6 +44,7 @@ public struct ReminderGrid: DynamicProperty {
         
         internal init(_ b: LocalizeBundle, sizeH: JSBSizeClass.Value) {
             self.title                = b.localized(key: Noun.appTitle.rawValue)
+            self.myPlant              = b.localized(key: Noun.myPlant.rawValue)
             self.sectionTitleLate     = b.localized(key: Noun.late.rawValue)
             self.sectionTitleToday    = b.localized(key: Noun.today.rawValue)
             self.sectionTitleTomorrow = b.localized(key: Noun.tomorrow.rawValue)

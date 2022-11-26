@@ -145,6 +145,7 @@ internal enum Action {
     case reminder
     case reminders
     case notes
+    case nextPerformDate
     case lastPerformed
     case name
     case photo
@@ -193,6 +194,8 @@ internal enum Action {
             return Action.raw_reminders
         case .notes:
             return Action.raw_notes
+        case .nextPerformDate:
+            return Action.raw_nextPerformDate
         case .lastPerformed:
             return Action.raw_lastPerformed
         case .name:
@@ -314,6 +317,11 @@ extension Action {
     }()
     private static let raw_notes: ActionLocalization = {
         .init(title: Noun.notes.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_nextPerformDate: ActionLocalization = {
+        .init(title: Noun.dueNext.rawValue,
               hint:  nil,
               image: nil)
     }()
