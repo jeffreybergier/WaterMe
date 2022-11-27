@@ -54,26 +54,26 @@ extension VesselEdit {
                     .action(text: self.text.emoji)
                     .button
                 {
-                    
+                    self.nav.stack.picker(kind: .emoji, for: vessel.id)
                 }
                 self.style.button
                     .action(text: self.text.camera)
                     .button
                 {
-                    
+                    self.nav.stack.picker(kind: .camera, for: vessel.id)
                 }
                 self.style.button
                     .action(text: self.text.library)
                     .button
                 {
-                    
+                    self.nav.stack.picker(kind: .emoji, for: vessel.id)
                 }
                 if vessel.icon?.imageValue != nil {
                     self.style.button
                         .action(text: self.text.viewCurrent)
                         .button
                     {
-                        
+                        self.nav.stack.picker(kind: .viewPhoto, for: vessel.id)
                     }
                 }
             } message: { _ in

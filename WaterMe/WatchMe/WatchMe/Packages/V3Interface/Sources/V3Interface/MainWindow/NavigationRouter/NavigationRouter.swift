@@ -50,6 +50,14 @@ internal struct NavigationRouter: ViewModifier {
                 .navigationDestination(for: Nav.Edit<Reminder.Identifier>.self) {
                     ReminderEdit($0.id)
                 }
+                .navigationDestination(for: Nav.Picker<Vessel.Identifier>.self) {
+                    switch $0.kind {
+                    case .emoji: VesselEdit.EmojiPicker(id: $0.id)
+                    case .camera: fatalError()
+                    case .library: fatalError()
+                    case .viewPhoto: fatalError()
+                    }
+                }
         }
         .modifier(ErrorPresenter())
         .modifier(ErrorCatcher())
