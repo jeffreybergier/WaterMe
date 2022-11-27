@@ -150,6 +150,12 @@ internal enum Action {
     case name
     case photo
     case editPhoto
+    case viewPhoto
+    case sourceEmoji
+    case sourceCamera
+    case sourceCameraLock
+    case sourceLibrary
+    case editPhotoMessage
     
     private var raw: ActionLocalization {
         switch self {
@@ -205,6 +211,18 @@ internal enum Action {
             return Action.raw_photo
         case .editPhoto:
             return Action.raw_editPhoto
+        case .viewPhoto:
+            return Action.raw_viewPhoto
+        case .sourceEmoji:
+            return Action.raw_sourceEmoji
+        case .sourceCamera:
+            return Action.raw_sourceCamera
+        case .sourceCameraLock:
+            return Action.raw_sourceCameraLock
+        case .sourceLibrary:
+            return Action.raw_sourceLibrary
+        case .editPhotoMessage:
+            return Action.raw_editPhotoMessage
         }
     }
     
@@ -347,5 +365,35 @@ extension Action {
         .init(title: Verb.editPhoto.rawValue,
               hint:  nil,
               image: .image(Symbol.camera.catalog))
+    }()
+    private static let raw_viewPhoto: ActionLocalization = {
+        .init(title: Verb.viewCurrentPhoto.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_sourceEmoji: ActionLocalization = {
+        .init(title: Verb.emoji.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_sourceCamera: ActionLocalization = {
+        .init(title: Verb.camera.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_sourceCameraLock: ActionLocalization = {
+        .init(title: Verb.cameraLock.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_sourceLibrary: ActionLocalization = {
+        .init(title: Verb.photos.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_editPhotoMessage: ActionLocalization = {
+        .init(title: Phrase.chooseIconMenuTitle.rawValue,
+              hint:  nil,
+              image: nil)
     }()
 }

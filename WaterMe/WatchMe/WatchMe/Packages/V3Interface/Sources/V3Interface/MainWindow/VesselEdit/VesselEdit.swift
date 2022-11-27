@@ -56,7 +56,7 @@ internal struct VesselEdit: View {
                                   .action(text: self.text.editPhoto)
                                   .button
                         {
-                            
+                            self.nav.modal.isEditPhotoChooser = vessel.id
                         }
                     }
                 } header: {
@@ -105,6 +105,7 @@ internal struct VesselEdit: View {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
         }
+        .modifier(EditPhotoPicker())
     }
     
     private func addReminder(in vesselID: Vessel.Identifier) {
