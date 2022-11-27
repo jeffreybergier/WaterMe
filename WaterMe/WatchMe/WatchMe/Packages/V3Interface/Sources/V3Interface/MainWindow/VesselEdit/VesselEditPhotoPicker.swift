@@ -46,7 +46,7 @@ extension VesselEdit {
                     _vessel.setIdentifier($0)
                 }
                 .confirmationDialog(self.text.title,
-                                    isPresented: self.binding.isPresented_Optional(),
+                                    isPresented: self.binding.isPresented(),
                                     titleVisibility: .automatic,
                                     presenting: self.vessel)
             { vessel in
