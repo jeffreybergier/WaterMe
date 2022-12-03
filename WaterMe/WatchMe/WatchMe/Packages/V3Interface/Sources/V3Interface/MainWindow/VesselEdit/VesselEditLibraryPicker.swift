@@ -20,6 +20,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 import Umbrella
 import V3Model
 import V3Datum
@@ -30,6 +31,7 @@ extension VesselEdit {
     internal struct LibraryPicker: View {
         
         @VesselQuery private var vessel
+        @Selection private var selection
         
         @V3Style.VesselEdit.LibraryPicker private var style
         @V3Localize.VesselEdit.LibraryPicker private var text
@@ -41,11 +43,33 @@ extension VesselEdit {
         }
         
         internal var body: some View {
-            Text("Library")
-                .navigationTitle(self.text.title)
-                .onLoadChange(of: self.id) {
-                    _vessel.setIdentifier($0)
+            Group {
+                switch self.selection {
+                case .step1_user_presentLibrary:
+                    PhotosPicker("Open Photo Library",
+                                 selection: self.$selection,
+                                 matching: .images,
+                                 preferredItemEncoding: .compatible)
+                case .step2_system_loadPhoto:
+                    ProgressView()
+                case .step3_user_cropPhoto(let data):
+                    ScrollView([.horizontal, .vertical]) {
+                        Image(data: data)
+                    }
+                case .step4_system_savePhoto(let data):
+                    fatalError()
                 }
+            }
+            .navigationTitle(self.text.title)
+            .onLoadChange(of: self.id) {
+                _vessel.setIdentifier($0)
+            }
+            .onChange(of: self.$selection.wrappedValue) { raw in
+                Task {
+                    guard let data = try? await raw?.loadTransferable(type: Data.self) else { return }
+                    self.selection = .step3_user_cropPhoto(data)
+                }
+            }
         }
     }
 }
