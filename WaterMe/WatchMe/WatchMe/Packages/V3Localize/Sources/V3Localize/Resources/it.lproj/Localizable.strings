@@ -120,6 +120,12 @@ other static items in the UI
 /* Plant Name */
 "Label.Plant Name" = "Nome della pianta"; // TODO: GT
 
+/* Title of screen where user can choose an emoji */
+"Label.Emoji" = "Emoji";
+
+/* Title of screen where user can choose an emoji */
+"Label.Choose an Emoji" = "Scegli emoji";
+
 /* Default icon when no plant icon is chosen */
 "Label.🌸" = "🌸";
 
@@ -335,9 +341,6 @@ Used for explanations and other sentences
 
 /* Title of an Alert that tells the user that they can choose a new photo or emoji for their plant or they can view the current photo for their plant. */
 "View the current photo or choose a new photo or emoji for your plant." = "Visualizza la foto corrente o scegli una nuova foto o emoji per la tua pianta.";
-
-/* Title of screen where user can choose an emoji */
-"Choose an Emoji" = "Scegli emoji";
 
 /* Realm Error: Save Image: Title: Error saving the photo the user took of their plant. User has to take another photo. */
 "Error saving photo" = "Errore salvataggio foto";

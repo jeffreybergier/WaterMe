@@ -27,10 +27,11 @@ extension VesselEdit {
         
         // swiftlint:disable:next nesting
         public struct Value {
-            public var title:       LocalizedString
+            public var title: LocalizedString
+            public var checkmark: some View = Symbol.check.system
             
             internal init(_ b: LocalizeBundle) {
-                self.title       = b.localized(key: Phrase.chooseAnEmoji.rawValue)
+                self.title = b.localized(key: Noun.emoji.rawValue)
             }
         }
         

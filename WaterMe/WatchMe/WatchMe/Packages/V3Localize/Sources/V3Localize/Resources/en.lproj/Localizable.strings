@@ -120,6 +120,12 @@ other static items in the UI
 /* Plant Name */
 "Label.Plant Name" = "Plant Name";
 
+/* Title of screen where user can choose an emoji */
+"Label.Emoji" = "Emoji";
+
+/* Title of screen where user can choose an emoji */
+"Label.Choose an Emoji" = "Choose an Emoji";
+
 /* Default icon when no plant icon is chosen */
 "Label.🌸" = "🌸";
 
@@ -335,9 +341,6 @@ Used for explanations and other sentences
 
 /* Title of an Alert that tells the user that they can choose a new photo or emoji for their plant or they can view the current photo for their plant. */
 "View the current photo or choose a new photo or emoji for your plant." = "View the current photo or choose a new photo or emoji for your plant.";
-
-/* Title of screen where user can choose an emoji */
-"Choose an Emoji" = "Choose an Emoji";
 
 /* When there was an error saving the photo for some reason */
 "Error saving photo" = "Error saving photo";

@@ -26,7 +26,6 @@ internal enum Phrase: LocalizationKey {
     case placeholderTrim            = "Trim the leaves and throw out the clippings."
     case placeholderMove            = "Other side of the yard."
     case chooseIconMenuTitle        = "View the current photo or choose a new photo or emoji for your plant."
-    case chooseAnEmoji              = "Choose an Emoji"
     case errorPhotoSave             = "Error saving photo"
     case errorPhotoChosen           = "The selected photo couldn’t be saved. Please take a different photo or choose an emoji."
     case cameraAccessRestricted     = "WaterMe cannot access your camera. This feature has been restricted by this device’s administrator."

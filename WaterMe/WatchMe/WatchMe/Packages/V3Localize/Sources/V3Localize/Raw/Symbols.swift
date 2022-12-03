@@ -33,8 +33,12 @@ internal enum Symbol: String {
     case waterCan    = "ReminderKindWater"
     case present     = "TipJar"
     case appIcon     = "WaterMeIcon"
+    case check       = "checkmark.circle.fill"
     
     internal var catalog: JSBImage {
         JSBImage.image(named: self.rawValue, in: Bundle.module)!
+    }
+    internal var system: Image {
+        Image(systemName: self.rawValue)
     }
 }

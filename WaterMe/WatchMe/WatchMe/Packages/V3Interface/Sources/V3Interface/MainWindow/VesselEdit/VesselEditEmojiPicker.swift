@@ -21,7 +21,6 @@
 
 import SwiftUI
 import Umbrella
-import V3Nav
 import V3Model
 import V3Datum
 import V3Style
@@ -60,8 +59,7 @@ extension VesselEdit {
         
         @ViewBuilder private func isSelected(_ rhs: String) -> some View {
             if self.vessel?.icon?.stringValue == rhs {
-                // TODO: Replace from Localize framework
-                Image(systemName: "checkmark.circle.fill")
+                self.text.checkmark
             } else {
                 EmptyView()
             }
