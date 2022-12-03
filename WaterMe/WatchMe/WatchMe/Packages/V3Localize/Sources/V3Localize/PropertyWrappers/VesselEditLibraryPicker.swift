@@ -1,5 +1,5 @@
 //
-//  Created by Jeffrey Bergier on 2022/11/27.
+//  Created by Jeffrey Bergier on 2022/12/03.
 //  Copyright © 2021 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
@@ -23,26 +23,13 @@ import Umbrella
 
 extension VesselEdit {
     @propertyWrapper
-    public struct EditPhotoPicker: DynamicProperty {
+    public struct LibraryPicker: DynamicProperty {
         
         // swiftlint:disable:next nesting
         public struct Value {
-            public var title:       LocalizedString
-            public var emoji:       ActionLocalization
-            public var camera:      ActionLocalization
-            public var library:     ActionLocalization
-            public var viewCurrent: ActionLocalization
-            public var message:     ActionLocalization
-            
+            public var title: LocalizedString
             internal init(_ b: LocalizeBundle) {
-                self.title       = b.localized(key: Noun.emptyString.rawValue)
-                self.emoji       = Action.sourceEmoji.localized(b)
-                self.library     = Action.sourceLibrary.localized(b)
-                self.viewCurrent = Action.viewPhoto.localized(b)
-                self.message     = Action.editPhotoMessage.localized(b)
-                // TODO: Replace with real logic based on permissions / device
-                self.camera      = false ? Action.sourceCamera.localized(b)
-                                         : Action.sourceCameraLock.localized(b)
+                self.title = b.localized(key: Noun.photo.rawValue)
             }
         }
         

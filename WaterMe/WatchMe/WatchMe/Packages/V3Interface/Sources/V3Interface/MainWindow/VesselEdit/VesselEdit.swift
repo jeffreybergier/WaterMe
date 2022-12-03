@@ -105,7 +105,7 @@ internal struct VesselEdit: View {
             _vessel.setIdentifier($0)
             _reminders.setFilter(.vessel($0))
         }
-        .modifier(EditPhotoPicker())
+        .modifier(IconMenu())
     }
     
     private func addReminder(in vesselID: Vessel.Identifier) {

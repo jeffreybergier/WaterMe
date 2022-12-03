@@ -28,11 +28,11 @@ import V3Style
 import V3Localize
 
 extension VesselEdit {
-    internal struct EditPhotoPicker: ViewModifier {
+    internal struct IconMenu: ViewModifier {
         
         @Nav private var nav
-        @V3Style.VesselEdit.EditPhotoPicker private var style
-        @V3Localize.VesselEdit.EditPhotoPicker private var text
+        @V3Style.VesselEdit.IconMenu private var style
+        @V3Localize.VesselEdit.IconMenu private var text
         
         @VesselQuery private var vessel
         
@@ -66,7 +66,7 @@ extension VesselEdit {
                     .action(text: self.text.library)
                     .button
                 {
-                    self.nav.stack.picker(kind: .emoji, for: vessel.id)
+                    self.nav.stack.picker(kind: .library, for: vessel.id)
                 }
                 if vessel.icon?.imageValue != nil {
                     self.style.button

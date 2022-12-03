@@ -23,7 +23,7 @@ import Umbrella
 
 extension VesselEdit {
     @propertyWrapper
-    public struct EditPhotoPicker: DynamicProperty {
+    public struct IconMenu: DynamicProperty {
         
         // swiftlint:disable:next nesting
         public struct Value {
