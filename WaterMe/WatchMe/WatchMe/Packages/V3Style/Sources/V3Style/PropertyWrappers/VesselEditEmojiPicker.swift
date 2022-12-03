@@ -27,8 +27,24 @@ extension VesselEdit {
         
         // swiftlint:disable:next nesting
         public struct Value {
-            public var button:  some ActionStyle = ActionStyleDefault
-            public var columns:      [GridItem]  = GridItem.emojiPickerSmall
+            public var columns: [GridItem] = GridItem.emojiPickerSmall
+            
+            public func button(emoji: String,
+                               @ViewBuilder isSelected: (String) -> some View,
+                               action: @escaping (String) -> Void)
+                               -> some View
+            {
+                Button {
+                    action(emoji)
+                } label: {
+                    ZStack {
+                        Text(emoji)
+                            .modifier(FontModifier(.emojiSmall))
+                        isSelected(emoji)
+                    }
+                }
+                .buttonBorderShape(.roundedRectangle)
+            }
         }
         
         public init() {}

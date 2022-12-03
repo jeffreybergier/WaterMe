@@ -30,11 +30,13 @@ import V3Localize
 extension VesselEdit {
     internal struct EmojiPicker: View {
         
+        @VesselQuery private var vessel
+        
         @V3Style.VesselEdit.EmojiPicker private var style
         @V3Localize.VesselEdit.EmojiPicker private var text
         
-        private let id: Vessel.Selection.Element
         private let data = Vessel.emoji
+        private let id: Vessel.Selection.Element
         
         internal init(id: Vessel.Selection.Element) {
             self.id = id
@@ -44,11 +46,25 @@ extension VesselEdit {
             ScrollView {
                 LazyVGrid(columns: self.style.columns) {
                     ForEach(self.data) {
-                        Text($0)
+                        self.style.button(emoji: $0, isSelected: self.isSelected) {
+                            self.vessel?.icon = .emoji($0)
+                        }
                     }
                 }
             }
             .navigationTitle(self.text.title)
+            .onLoadChange(of: self.id) {
+                _vessel.setIdentifier($0)
+            }
+        }
+        
+        @ViewBuilder private func isSelected(_ rhs: String) -> some View {
+            if self.vessel?.icon?.stringValue == rhs {
+                // TODO: Replace from Localize framework
+                Image(systemName: "checkmark.circle.fill")
+            } else {
+                EmptyView()
+            }
         }
     }
 }
