@@ -30,14 +30,25 @@ import V3Localize
 extension VesselEdit {
     internal struct EmojiPicker: View {
         
+        @V3Style.VesselEdit.EmojiPicker private var style
+        @V3Localize.VesselEdit.EmojiPicker private var text
+        
         private let id: Vessel.Selection.Element
+        private let data = Vessel.emoji
         
         internal init(id: Vessel.Selection.Element) {
             self.id = id
         }
         
         internal var body: some View {
-            Text("🌸")
+            ScrollView {
+                LazyVGrid(columns: self.style.columns) {
+                    ForEach(self.data) {
+                        Text($0)
+                    }
+                }
+            }
+            .navigationTitle(self.text.title)
         }
     }
 }

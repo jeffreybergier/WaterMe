@@ -22,6 +22,7 @@ import SwiftUI
 
 extension GridItem {
     internal static let reminderGridSmall = [GridItem(.flexible()), GridItem(.flexible())]
+    internal static let emojiPickerSmall  = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 }
 
 extension TimeInterval {
