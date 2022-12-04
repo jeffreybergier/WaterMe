@@ -36,6 +36,8 @@ extension VesselEdit {
         @V3Style.VesselEdit.LibraryPicker private var style
         @V3Localize.VesselEdit.LibraryPicker private var text
         
+        @State private var temp_cropOutput: Data?
+        
         private let id: Vessel.Selection.Element
         
         internal init(id: Vessel.Selection.Element) {
@@ -53,9 +55,7 @@ extension VesselEdit {
                 case .step2_system_loadPhoto:
                     ProgressView()
                 case .step3_user_cropPhoto(let data):
-                    ScrollView([.horizontal, .vertical]) {
-                        Image(data: data)
-                    }
+                    PhotoCropper(input: data, output: self.$temp_cropOutput)
                 case .step4_system_savePhoto(let data):
                     fatalError()
                 }
@@ -72,4 +72,52 @@ extension VesselEdit {
             }
         }
     }
+}
+
+public struct PhotoCropper: View {
+    
+    private let input: Data
+    @Binding private var output: Data?
+    
+    @State private var offsetX: CGFloat = 0
+    @State private var offsetY: CGFloat = 0
+    @State private var scale:   CGFloat = 1
+    
+    public init(input: Data, output: Binding<Data?>) {
+        self.input = input
+        _output = output
+    }
+    
+    public var body: some View {
+        ZStack {
+            Image(data: self.input)!
+                .layoutPriority(-1)
+                .offset(x: self.offsetX, y: self.offsetY)
+                .scaleEffect(self.scale)
+            Rectangle()
+                .stroke(lineWidth: 4)
+                .foregroundColor(.red)
+                .aspectRatio(1, contentMode: .fit)
+                .padding()
+        }
+        .gesture(self.gestureDrag)
+        .gesture(self.gestureMag)
+    }
+    
+    private var gestureDrag: some Gesture {
+        DragGesture(minimumDistance: 0, coordinateSpace: .local)
+            .onChanged { value in
+                self.offsetX += value.location.x - value.startLocation.x
+                self.offsetY += value.location.y - value.startLocation.y
+            }
+    }
+    
+    private var gestureMag: some Gesture {
+        MagnificationGesture()
+            .onChanged { value in
+                print(value)
+                self.scale = value
+            }
+    }
+    
 }
