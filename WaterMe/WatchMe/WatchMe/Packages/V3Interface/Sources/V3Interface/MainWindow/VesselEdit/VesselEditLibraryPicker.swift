@@ -76,12 +76,11 @@ extension VesselEdit {
 
 public struct PhotoCropper: View {
     
-    private let input: Data
-    @Binding private var output: Data?
+    @State private var offset: CGSize = .zero
+    @State private var scale:  CGFloat = 1
     
-    @State private var offsetX: CGFloat = 0
-    @State private var offsetY: CGFloat = 0
-    @State private var scale:   CGFloat = 1
+    @Binding private var output: Data?
+    private let input: Data
     
     public init(input: Data, output: Binding<Data?>) {
         self.input = input
@@ -89,16 +88,26 @@ public struct PhotoCropper: View {
     }
     
     public var body: some View {
-        ZStack {
-            Image(data: self.input)!
-                .layoutPriority(-1)
-                .offset(x: self.offsetX, y: self.offsetY)
-                .scaleEffect(self.scale)
-            Rectangle()
-                .stroke(lineWidth: 4)
-                .foregroundColor(.red)
-                .aspectRatio(1, contentMode: .fit)
-                .padding()
+        GeometryReader { geo in
+            ZStack {
+                Image(data: self.input)!
+                    .layoutPriority(-1)
+                    .coordinateSpace(name: "Image")
+                    .offset(self.offset)
+                    .scaleEffect(self.scale)
+                Rectangle()
+                    .stroke(lineWidth: 4)
+                    .coordinateSpace(name: "Crop")
+                    .foregroundColor(.red)
+                    .aspectRatio(1, contentMode: .fit)
+                    .padding()
+                VStack {
+                    Text(String(describing: geo.frame(in: .named("Image"))))
+                    Text(String(describing: geo.frame(in: .named("Crop"))))
+                    Text(String(describing: self.offset))
+                    Text(String(describing: self.scale))
+                }
+            }
         }
         .gesture(self.gestureDrag)
         .gesture(self.gestureMag)
@@ -107,8 +116,8 @@ public struct PhotoCropper: View {
     private var gestureDrag: some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onChanged { value in
-                self.offsetX += value.location.x - value.startLocation.x
-                self.offsetY += value.location.y - value.startLocation.y
+                self.offset.width += value.location.x - value.startLocation.x
+                self.offset.height += value.location.y - value.startLocation.y
             }
     }
     
@@ -119,5 +128,4 @@ public struct PhotoCropper: View {
                 self.scale = value
             }
     }
-    
 }
