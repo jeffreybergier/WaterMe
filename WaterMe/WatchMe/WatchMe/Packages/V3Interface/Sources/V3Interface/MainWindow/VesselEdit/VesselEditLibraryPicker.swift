@@ -88,27 +88,33 @@ public struct PhotoCropper: View {
     }
     
     public var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                Image(data: self.input)!
-                    .layoutPriority(-1)
-                    .coordinateSpace(name: "Image")
-                    .offset(self.offset)
-                    .scaleEffect(self.scale)
-                Rectangle()
-                    .stroke(lineWidth: 4)
-                    .coordinateSpace(name: "Crop")
-                    .foregroundColor(.red)
-                    .aspectRatio(1, contentMode: .fit)
-                    .padding()
-                VStack {
-                    Text(String(describing: geo.frame(in: .named("Image"))))
-                    Text(String(describing: geo.frame(in: .named("Crop"))))
-                    Text(String(describing: self.offset))
-                    Text(String(describing: self.scale))
+        ZStack {
+            Color.blue
+            Image(data: self.input)!
+                .layoutPriority(-1)
+                .offset(self.offset)
+                .scaleEffect(self.scale)
+            GeometryReader { geo in
+                self.correctStack {
+                    Spacer()
+                    ZStack {
+                        Rectangle()
+                            .stroke(lineWidth: 4)
+                            .coordinateSpace(name: "Rectangle")
+                            .foregroundColor(.red)
+                            .aspectRatio(1, contentMode: .fit)
+                            .padding()
+                        VStack {
+                            Text(String(describing: geo.frame(in: .named("Rectangle"))))
+                            Text(String(describing: self.offset))
+                            Text(String(describing: self.scale))
+                        }
+                    }
+                    Spacer()
                 }
             }
         }
+        .ignoresSafeArea()
         .gesture(self.gestureDrag)
         .gesture(self.gestureMag)
     }
@@ -127,5 +133,9 @@ public struct PhotoCropper: View {
                 print(value)
                 self.scale = value
             }
+    }
+    
+    private var correctStack: some Layout {
+        VStackLayout()
     }
 }
