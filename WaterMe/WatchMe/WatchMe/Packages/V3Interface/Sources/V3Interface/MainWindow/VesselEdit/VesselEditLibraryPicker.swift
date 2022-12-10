@@ -89,34 +89,51 @@ public struct PhotoCropper: View {
     
     public var body: some View {
         ZStack {
-            Color.blue
-            Image(data: self.input)!
-                .layoutPriority(-1)
-                .offset(self.offset)
-                .scaleEffect(self.scale)
-            GeometryReader { geo in
-                self.correctStack {
-                    Spacer()
-                    ZStack {
-                        Rectangle()
-                            .stroke(lineWidth: 4)
-                            .coordinateSpace(name: "Rectangle")
-                            .foregroundColor(.red)
-                            .aspectRatio(1, contentMode: .fit)
-                            .padding()
-                        VStack {
-                            Text(String(describing: geo.frame(in: .named("Rectangle"))))
-                            Text(String(describing: self.offset))
-                            Text(String(describing: self.scale))
-                        }
+            self.background
+            self.imageToCrop
+            self.cropRect
+            self.zoomButtons
+        }
+        .gesture(self.gestureDrag)
+    }
+    
+    private var background: some View {
+        Color.blue
+            .ignoresSafeArea()
+    }
+    
+    private var imageToCrop: some View {
+        Image(data: self.input)!
+            .ignoresSafeArea()
+            .layoutPriority(-1)
+            .offset(self.offset)
+            .scaleEffect(self.scale)
+    }
+    
+    private var cropRect: some View {
+        GeometryReader { geo in
+            self.cropRectContainer {
+                Spacer()
+                ZStack {
+                    Rectangle()
+                        .stroke(lineWidth: 4)
+                        .coordinateSpace(name: "Rectangle")
+                        .foregroundColor(.red)
+                        .aspectRatio(1, contentMode: .fit)
+                        .padding()
+                    VStack {
+                        Text(String(describing: geo.frame(in: .named("Rectangle"))))
+                        Text(String(describing: self.offset))
+                        Text(String(describing: self.scale))
                     }
-                    Spacer()
                 }
+                Spacer()
             }
         }
-        .ignoresSafeArea()
-        .gesture(self.gestureDrag)
-        .gesture(self.gestureMag)
+    }
+    
+    private var cropRectContainer: some Layout {
+        VStackLayout()
     }
     
     private var gestureDrag: some Gesture {
@@ -127,15 +144,16 @@ public struct PhotoCropper: View {
             }
     }
     
-    private var gestureMag: some Gesture {
-        MagnificationGesture()
-            .onChanged { value in
-                print(value)
-                self.scale = value
+    private var zoomButtons: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button("➖") { self.scale -= 0.1 }
+                Button("➕") { self.scale += 0.1}
+                Spacer()
             }
-    }
-    
-    private var correctStack: some Layout {
-        VStackLayout()
+            .font(.title)
+        }
     }
 }
