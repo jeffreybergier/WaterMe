@@ -30,6 +30,7 @@ public struct PhotoCropper: View {
     
     @State private var offset: CGSize = .zero
     @State private var scale:  CGFloat = 1
+    @StateObject private var processor = PhotoCropperImageProcessor()
     
     @Binding private var output: Data?
     private let input: Data
@@ -47,6 +48,10 @@ public struct PhotoCropper: View {
             self.zoomButtons
         }
         .gesture(self.gestureDrag)
+        .onChange(of: self.offset) {
+            let output = self.processor.process(photo: self.input, offset: $0, zoom: self.scale)!
+            dump(output)
+        }
     }
     
     private var background: some View {
@@ -63,29 +68,20 @@ public struct PhotoCropper: View {
     }
     
     private var cropRect: some View {
-        GeometryReader { geo in
-            self.cropRectContainer {
-                Spacer()
-                ZStack {
-                    Rectangle()
-                        .stroke(lineWidth: 4)
-                        .coordinateSpace(name: "Rectangle")
-                        .foregroundColor(.red)
-                        .aspectRatio(1, contentMode: .fit)
-                        .padding()
-                    VStack {
-                        Text(String(describing: geo.frame(in: .named("Rectangle"))))
-                        Text(String(describing: self.offset))
-                        Text(String(describing: self.scale))
-                    }
+        Rectangle()
+            .stroke(lineWidth: 4)
+            .foregroundColor(.red)
+            .aspectRatio(1, contentMode: .fit)
+            .overlay {
+                GeometryReader { geo in
+                    // -> EmptyView does not work here. Assuming its optimized out
+                    { () -> AnyView in
+                        self.processor.cropRect = geo.frame(in: .global)
+                        return AnyView(EmptyView())
+                    }()
                 }
-                Spacer()
             }
-        }
-    }
-    
-    private var cropRectContainer: some Layout {
-        VStackLayout()
+            .padding()
     }
     
     private var gestureDrag: some Gesture {
@@ -108,4 +104,21 @@ public struct PhotoCropper: View {
             .font(.title)
         }
     }
+}
+
+fileprivate class PhotoCropperImageProcessor: ObservableObject {
+    
+    internal var cropRect: CGRect?
+    
+    fileprivate func process(photo input_data: Data, offset: CGSize, zoom: CGFloat) -> Data? {
+        guard let input_cropRect = self.cropRect else { return nil }
+        let input_ui = UIImage(data: input_data)!
+        let input_cg = input_ui.cgImage!
+        let input_rect = CGRect(origin: input_cropRect.origin, size: CGSize(width: input_cropRect.width + (offset.width * 2), height: input_cropRect.height + (offset.height * 2)))
+        let output_cg = input_cg.cropping(to: input_rect)!
+        let output_ui = UIImage(cgImage: output_cg)
+        let output_data = output_ui.jpegData(compressionQuality: 0.7)!
+        return output_data
+    }
+    
 }
