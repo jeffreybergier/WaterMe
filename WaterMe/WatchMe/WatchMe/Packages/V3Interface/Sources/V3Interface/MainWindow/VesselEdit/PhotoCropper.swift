@@ -28,9 +28,19 @@ import SwiftUI
 
 public struct PhotoCropper: View {
     
-    @State private var offset: CGSize = .zero
-    @State private var scale:  CGFloat = 1
+    public struct Offset: Equatable, Codable {
+        public var offset: CGSize
+        public var scale:  CGFloat
+        public init(offset: CGSize = .zero, scale: CGFloat = 1) {
+            self.offset = offset
+            self.scale = scale
+        }
+    }
+    
+    @State private var offset: Offset = .init()
     @StateObject private var processor = PhotoCropperImageProcessor()
+    
+    @Environment(\.displayScale) private var displayScale
     
     @Binding private var output: Data?
     private let input: Data
@@ -49,8 +59,11 @@ public struct PhotoCropper: View {
         }
         .gesture(self.gestureDrag)
         .onChange(of: self.offset) {
-            let output = self.processor.process(photo: self.input, offset: $0, zoom: self.scale)!
+            let output = self.processor.process(photo: self.input, offset: $0)!
             dump(output)
+        }
+        .onLoadChange(of: self.displayScale) {
+            self.processor.displayScale = $0
         }
     }
     
@@ -63,8 +76,8 @@ public struct PhotoCropper: View {
         Image(data: self.input)!
             .ignoresSafeArea()
             .layoutPriority(-1)
-            .offset(self.offset)
-            .scaleEffect(self.scale)
+            .offset(self.offset.offset)
+            .scaleEffect(self.offset.scale)
     }
     
     private var cropRect: some View {
@@ -87,8 +100,8 @@ public struct PhotoCropper: View {
     private var gestureDrag: some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onChanged { value in
-                self.offset.width += value.location.x - value.startLocation.x
-                self.offset.height += value.location.y - value.startLocation.y
+                self.offset.offset.width += value.location.x - value.startLocation.x
+                self.offset.offset.height += value.location.y - value.startLocation.y
             }
     }
     
@@ -97,8 +110,8 @@ public struct PhotoCropper: View {
             Spacer()
             HStack {
                 Spacer()
-                Button("➖") { self.scale -= 0.1 }
-                Button("➕") { self.scale += 0.1}
+                Button("➖") { self.offset.scale -= 0.1 }
+                Button("➕") { self.offset.scale += 0.1}
                 Spacer()
             }
             .font(.title)
@@ -109,16 +122,31 @@ public struct PhotoCropper: View {
 fileprivate class PhotoCropperImageProcessor: ObservableObject {
     
     internal var cropRect: CGRect?
+    internal var displayScale: CGFloat = 1
     
-    fileprivate func process(photo input_data: Data, offset: CGSize, zoom: CGFloat) -> Data? {
-        guard let input_cropRect = self.cropRect else { return nil }
+    fileprivate func process(photo input_data: Data, offset: PhotoCropper.Offset) -> Data? {
+        guard let adj_cropRect = self.cropRect?.multiply(by: self.displayScale) else { return nil }
+        let adj_offset = offset.offset.multiply(by: self.displayScale)
         let input_ui = UIImage(data: input_data)!
         let input_cg = input_ui.cgImage!
-        let input_rect = CGRect(origin: input_cropRect.origin, size: CGSize(width: input_cropRect.width + (offset.width * 2), height: input_cropRect.height + (offset.height * 2)))
+        let input_rect = CGRect(origin: adj_cropRect.origin, size: CGSize(width: adj_cropRect.width + (adj_offset.width * 2), height: adj_cropRect.height + (adj_offset.height * 2)))
         let output_cg = input_cg.cropping(to: input_rect)!
         let output_ui = UIImage(cgImage: output_cg)
         let output_data = output_ui.jpegData(compressionQuality: 0.7)!
         return output_data
     }
     
+}
+
+extension CGSize {
+    internal func multiply(by factor: CGFloat) -> CGSize {
+        .init(width: self.width * factor, height: self.height * factor)
+    }
+}
+
+extension CGRect {
+    internal func multiply(by factor: CGFloat) -> CGRect {
+        .init(x: self.origin.x * factor, y: self.origin.y * factor,
+              width: self.size.width * factor, height: self.size.height * factor)
+    }
 }
