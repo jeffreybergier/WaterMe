@@ -21,40 +21,13 @@
 import Foundation
 import Umbrella
 
-public enum DeleteRequestError: CustomNSError, CodableErrorConvertible, Codable {
+public enum DeleteRequestError: CustomNSError {
     
     static public var errorDomain = "com.saturdayapps.WaterMe.model"
     public var errorCode: Int { 1001 }
     
     case vessel(Vessel.Identifier)
     case reminder(Reminder.Identifier)
-    
-    public init?(decode: Umbrella.CodableError) {
-        guard let data = decode.arbitraryData else { return nil }
-        // TODO: Uh, figure out why the types don't decode securely
-        if let id = try? PropertyListDecoder().decode(Vessel.Identifier.self, from: data) {
-            self = .vessel(id)
-            return
-        }
-        if let id = try? PropertyListDecoder().decode(Reminder.Identifier.self, from: data) {
-            self = .reminder(id)
-            return
-        }
-        assertionFailure()
-        return nil
-    }
-    
-    public var encode: Umbrella.CodableError {
-        var output = CodableError(self)
-        switch self {
-        case .vessel(let id):
-            output.arbitraryData = try? PropertyListEncoder().encode(id)
-        case .reminder(let id):
-            output.arbitraryData = try? PropertyListEncoder().encode(id)
-        }
-        assert(output.arbitraryData != nil)
-        return output
-    }
     
     public var vesselID: Vessel.Identifier? {
         guard case .vessel(let id) = self else { return nil }

@@ -38,13 +38,3 @@ public enum Error: Int, CustomNSError {
     case maintenanceFixOrphanedVessels
     case maintenanceContextMismatch
 }
-
-extension Error: CodableErrorConvertible {
-    public init?(decode: CodableError) {
-        guard decode.errorDomain == V3Datum.Error.errorDomain else { return nil }
-        self.init(rawValue: decode.errorCode)
-    }
-    public var encode: CodableError {
-        .init(self)
-    }
-}

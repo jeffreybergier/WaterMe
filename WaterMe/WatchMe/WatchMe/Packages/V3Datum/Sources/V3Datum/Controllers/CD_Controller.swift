@@ -653,6 +653,7 @@ extension NSManagedObjectContext {
         }
     }
     
+    // TODO: Switch all saving to this function
     fileprivate func NEW_waterme_save() -> Result<Void, Swift.Error> {
         // debug only sanity checks
         assert(Thread.isMainThread)
