@@ -27,7 +27,7 @@ import V3Model
 public struct ReminderQuery: DynamicProperty {
     
     @Controller private var controller
-    @CDObjectQuery<CD_Reminder, Reminder, Error>(onRead: Reminder.init(_:))
+    @CDObjectQuery<CD_Reminder, Reminder>(onRead: Reminder.init(_:))
         private var object: Reminder?
     
     @Environment(\.errorResponder) private var errorResponder

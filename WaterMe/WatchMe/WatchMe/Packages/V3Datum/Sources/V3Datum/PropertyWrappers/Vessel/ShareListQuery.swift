@@ -26,7 +26,7 @@ import V3Model
 @propertyWrapper
 public struct ShareListQuery: DynamicProperty {
 
-    @CDListQuery<CD_VesselShare, Share.Identifier, Error>(
+    @CDListQuery<CD_VesselShare, Share.Identifier>(
         predicate: .init(value: true),
         onRead: { .init($0.objectID) }
     ) private var data

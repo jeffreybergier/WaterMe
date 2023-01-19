@@ -27,7 +27,7 @@ import V3Model
 public struct VesselQuery: DynamicProperty {
     
     @Controller private var controller
-    @CDObjectQuery<CD_ReminderVessel, Vessel, Error>(onRead: Vessel.init(_:))
+    @CDObjectQuery<CD_ReminderVessel, Vessel>(onRead: Vessel.init(_:))
         private var object: Vessel?
     
     @Environment(\.errorResponder) private var errorResponder

@@ -27,7 +27,7 @@ import V3Model
 public struct VesselListQuery: DynamicProperty {
 
     @Controller private var controller
-    @CDListQuery<CD_ReminderVessel, Vessel.Identifier, Error>(
+    @CDListQuery<CD_ReminderVessel, Vessel.Identifier>(
         predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data

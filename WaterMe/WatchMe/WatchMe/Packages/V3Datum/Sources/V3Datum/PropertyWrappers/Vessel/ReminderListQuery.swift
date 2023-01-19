@@ -27,7 +27,7 @@ import V3Model
 public struct ReminderListQuery: DynamicProperty {
 
     @Controller private var controller
-    @CDListQuery<CD_Reminder, Reminder.Identifier, Error>(
+    @CDListQuery<CD_Reminder, Reminder.Identifier>(
         predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data

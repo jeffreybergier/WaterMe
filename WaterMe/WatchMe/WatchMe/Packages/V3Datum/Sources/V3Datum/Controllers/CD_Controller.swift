@@ -288,31 +288,31 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Internal for Property Wrappers
 
-    internal func cd_updateOpt(_ cd: CD_Reminder?, with newValue: Reminder?) -> Result<Void, Error> {
+    internal func cd_updateOpt(_ cd: CD_Reminder?, with newValue: Reminder?) -> Result<Void, Swift.Error> {
         // TODO: If nil should I return an error?
         self.cd_update(cd!, with: newValue!)
     }
 
-    internal func cd_update(_ cd: CD_Reminder, with newValue: Reminder) -> Result<Void, Error> {
+    internal func cd_update(_ cd: CD_Reminder, with newValue: Reminder) -> Result<Void, Swift.Error> {
         cd.raw_kindString        = newValue.kind.rawValue
         cd.raw_descriptionString = newValue.kindDescription
         cd.raw_interval          = Int32(newValue.interval)
         cd.raw_isEnabled         = newValue.isEnabled
         cd.raw_note              = newValue.note
         cd.updateDates()
-        return self.container.viewContext.waterme_save()
+        return self.container.viewContext.NEW_waterme_save()
     }
 
-    internal func cd_updateOpt(_ cd: CD_ReminderVessel?, with newValue: Vessel?) -> Result<Void, Error> {
+    internal func cd_updateOpt(_ cd: CD_ReminderVessel?, with newValue: Vessel?) -> Result<Void, Swift.Error> {
         self.cd_update(cd!, with: newValue!)
     }
 
-    internal func cd_update(_ cd: CD_ReminderVessel, with newValue: Vessel) -> Result<Void, Error> {
+    internal func cd_update(_ cd: CD_ReminderVessel, with newValue: Vessel) -> Result<Void, Swift.Error> {
         cd.raw_displayName     = newValue.displayName
         cd.raw_kindString      = newValue.kind.rawValue
         cd.raw_iconEmojiString = newValue.icon?.stringValue
         cd.raw_iconImageData   = newValue.icon?.dataValue
-        return self.container.viewContext.waterme_save()
+        return self.container.viewContext.NEW_waterme_save()
     }
     
     internal func cd_search(_ id: Share.Identifier) -> Result<CD_VesselShare, Error> {
@@ -650,6 +650,25 @@ extension NSManagedObjectContext {
             }
             NSLog(String(describing: error))
             return .failure(.write)
+        }
+    }
+    
+    fileprivate func NEW_waterme_save() -> Result<Void, Swift.Error> {
+        // debug only sanity checks
+        assert(Thread.isMainThread)
+
+        do {
+            try self.save()
+            return .success(())
+        } catch let error as NSError {
+            // doing this async stops the tableviews from crashing
+            // TODO: Figure out how to remove this async
+            DispatchQueue.main.async {
+                // we need to rollback the context
+                self.rollback()
+            }
+            NSLog(String(describing: error))
+            return .failure(error)
         }
     }
 }
