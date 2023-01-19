@@ -24,6 +24,9 @@ import V3Localize
 
 // TODO: Fix error router
 internal func errorRouter(_ input: Swift.Error) -> any UserFacingError {
+    if let error = input as? UserFacingError {
+        return error
+    }
     return UnknownError()
     /*
     var output: UserFacingError?
