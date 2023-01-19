@@ -27,11 +27,11 @@ import V3Model
 public struct ReminderListQuery: DynamicProperty {
 
     @Controller private var controller
+    @ErrorStorage private var errors
     @CDListQuery<CD_Reminder, Reminder.Identifier>(
         predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data
-    @Environment(\.errorResponder) private var errorResponder
     
     @StateObject private var filter: SecretBox<Reminder.Filter> = .init(.none)
     public let section: Reminder.Section?
@@ -46,7 +46,7 @@ public struct ReminderListQuery: DynamicProperty {
         self.needsUpdate.value = false
         _data.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(error)
+            self.errors.append(error)
         }
         self.updateCoreData()
     }

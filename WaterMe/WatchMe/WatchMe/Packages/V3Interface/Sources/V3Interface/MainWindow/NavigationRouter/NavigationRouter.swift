@@ -20,6 +20,7 @@
 //
 
 import SwiftUI
+import Umbrella
 import V3Model
 import V3Nav
 import V3Localize
@@ -27,6 +28,7 @@ import V3Localize
 internal struct NavigationRouter: ViewModifier {
     
     @Nav private var nav
+    @ErrorStorage private var store
     
     internal init() {}
     
@@ -59,8 +61,9 @@ internal struct NavigationRouter: ViewModifier {
                     }
                 }
         }
-        .modifier(ErrorPresenter())
-        .modifier(ErrorCatcher())
-        .modifier(ErrorMover())
+        .modifier(ErrorMover(isPresenting: self.nav.modal.isAlreadyPresenting,
+                             toPresent: self.$nav.modal.isError))
+        .modifier(ErrorPresenter<LocalizeBundle>(isError: self.$nav.modal.isError,
+                                                 router: errorRouter(_:)))
     }
 }

@@ -27,10 +27,9 @@ import V3Model
 public struct VesselQuery: DynamicProperty {
     
     @Controller private var controller
+    @ErrorStorage private var errors
     @CDObjectQuery<CD_ReminderVessel, Vessel>(onRead: Vessel.init(_:))
         private var object: Vessel?
-    
-    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
     
@@ -61,7 +60,7 @@ public struct VesselQuery: DynamicProperty {
         _object.setOnWrite(_controller.cd.cd_updateOpt(_:with:))
         _object.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(error)
+            self.errors.append(error)
         }
     }
 }

@@ -31,10 +31,10 @@ internal struct VesselEdit: View {
     
     @Nav private var nav
     @Controller private var controller
+    @ErrorStorage private var errors
+    
     @V3Style.VesselEdit private var style
     @V3Localize.VesselEdit private var text
-    
-    @Environment(\.errorResponder) private var errorResponder
     
     @VesselQuery private var vessel
     @ReminderListQuery private var reminders
@@ -113,7 +113,7 @@ internal struct VesselEdit: View {
         case .success(let reminderID):
             self.nav.stack.edit(reminderID)
         case .failure(let error):
-            self.errorResponder(error)
+            self.errors.append(error)
         }
     }
     
@@ -122,7 +122,7 @@ internal struct VesselEdit: View {
             title: self.text.title,
             delete: self.text.delete,
             deleteAction: {
-                self.errorResponder(DeleteRequestError.vessel(id))
+                self.errors.append(DeleteRequestError.vessel(id))
             }
         )
     }

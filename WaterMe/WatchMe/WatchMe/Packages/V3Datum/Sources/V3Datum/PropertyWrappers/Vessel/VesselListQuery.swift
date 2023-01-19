@@ -27,12 +27,12 @@ import V3Model
 public struct VesselListQuery: DynamicProperty {
 
     @Controller private var controller
+    @ErrorStorage private var errors
     @CDListQuery<CD_ReminderVessel, Vessel.Identifier>(
         predicate: .init(value: false),
         onRead: { .init($0.objectID) }
     ) private var data
     @Environment(\.managedObjectContext) private var context
-    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
 
@@ -42,7 +42,7 @@ public struct VesselListQuery: DynamicProperty {
         self.needsUpdate.value = false
         _data.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(error)
+            self.errors.append(error)
         }
         self.updateCoreData()
     }

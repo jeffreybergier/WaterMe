@@ -1,6 +1,7 @@
 //
 //  Created by Jeffrey Bergier on 2022/11/20.
-//  Copyright © 2020 Saturday Apps.
+//
+//  Copyright © 2022 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -18,25 +19,29 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import SwiftUI
 import Umbrella
+import V3Localize
 
-public struct ErrorCatcher: ViewModifier {
-    
-    @ErrorStorage private var store
-    
-    public init() { }
-    
-    public func body(content: Content) -> some View {
-        content.environment(\.errorResponder) { error in
-            guard let error = error as? CodableErrorConvertible else {
-                assertionFailure("Unsupported Error: \(String(describing: error))")
-                return
+// TODO: Fix error router
+internal func errorRouter(_ input: Swift.Error) -> any UserFacingError {
+    return UnknownError()
+    /*
+    var output: UserFacingError?
+    switch input.errorDomain {
+    case V3Datum.Error.errorDomain:
+        output = V3Datum.Error(decode: input)
+    case V3Model.DeleteRequestError.errorDomain:
+        output = DeleteRequestError(decode: input).map {
+            DeleteConfirmationError(request: $0) {
+                $0.vesselID.map { self.controller.delete($0) }?
+                     .error.map { self.errorResponder($0) }
+                $0.reminderID.map { self.controller.delete($0) }?
+                       .error.map { self.errorResponder($0) }
             }
-            assert(type(of: error) != CodableError.self,
-                   "CodableError: DoubleEncoding: \(String(describing: error))")
-            self.store.append(error.encode)
         }
+    default:
+        break
     }
-    
+    return output ?? UnknownError()
+    */
 }

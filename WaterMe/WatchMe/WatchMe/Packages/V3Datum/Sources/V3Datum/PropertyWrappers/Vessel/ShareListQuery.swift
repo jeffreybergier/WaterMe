@@ -26,12 +26,11 @@ import V3Model
 @propertyWrapper
 public struct ShareListQuery: DynamicProperty {
 
+    @ErrorStorage private var errors
     @CDListQuery<CD_VesselShare, Share.Identifier>(
         predicate: .init(value: true),
         onRead: { .init($0.objectID) }
     ) private var data
-    
-    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
     
@@ -45,7 +44,7 @@ public struct ShareListQuery: DynamicProperty {
         self.needsUpdate.value = false
         _data.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(error)
+            self.errors.append(error)
         }
     }
 }

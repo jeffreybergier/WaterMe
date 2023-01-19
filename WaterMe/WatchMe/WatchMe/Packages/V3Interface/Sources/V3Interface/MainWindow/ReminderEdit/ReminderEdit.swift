@@ -32,10 +32,10 @@ internal struct ReminderEdit: View {
     private static let kIntervalRange: Range<Int> = Reminder.Constants.minimumInterval ..< Reminder.Constants.maximumInterval + 1
     
     @Nav private var nav
+    @ErrorStorage private var errors
+    
     @V3Style.ReminderEdit private var style
     @V3Localize.ReminderEdit private var text
-    
-    @Environment(\.errorResponder) private var errorResponder
     
     @ReminderQuery private var reminder
     
@@ -120,7 +120,7 @@ internal struct ReminderEdit: View {
             title: self.text.title,
             delete: self.text.delete,
             deleteAction: {
-                self.errorResponder(DeleteRequestError.reminder(self.id))
+                self.errors.append(DeleteRequestError.reminder(self.id))
             }
         )
     }

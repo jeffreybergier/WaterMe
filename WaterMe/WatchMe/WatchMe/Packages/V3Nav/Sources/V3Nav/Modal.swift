@@ -25,7 +25,7 @@ import V3Model
 
 extension Nav.Value {
     public struct Modal: Codable {
-        public var isError: CodableError?
+        public var isError: ErrorStorage.Identifier?
         public var isEditPhotoChooser: Vessel.Selection.Element?
         public var isAlreadyPresenting: Bool {
             return self.isError != nil

@@ -27,10 +27,9 @@ import V3Model
 public struct ReminderQuery: DynamicProperty {
     
     @Controller private var controller
+    @ErrorStorage private var errors
     @CDObjectQuery<CD_Reminder, Reminder>(onRead: Reminder.init(_:))
         private var object: Reminder?
-    
-    @Environment(\.errorResponder) private var errorResponder
     
     public init() { }
     
@@ -61,7 +60,7 @@ public struct ReminderQuery: DynamicProperty {
         _object.setOnWrite(_controller.cd.cd_updateOpt(_:with:))
         _object.setOnError { error in
             NSLog(String(describing: error))
-            self.errorResponder(error)
+            self.errors.append(error)
         }
     }
 }

@@ -31,11 +31,11 @@ internal struct ReminderSummary: View {
     
     @Nav private var nav
     @Controller private var controller
+    @ErrorStorage private var errors
+
     @V3Style.ReminderSummary private var style
     @V3Localize.ReminderSummary private var text
     
-    @Environment(\.errorResponder) private var errorResponder
-
     @ReminderQuery private var reminder
     @VesselQuery private var vessel
     private let id: Reminder.Identifier
@@ -53,7 +53,7 @@ internal struct ReminderSummary: View {
                         case .success:
                             self.nav.stack.pop()
                         case .failure(let error):
-                            self.errorResponder(error)
+                            self.errors.append(error)
                         }
                     }
                     self.style.button.action(text: self.text.editReminder).button {
