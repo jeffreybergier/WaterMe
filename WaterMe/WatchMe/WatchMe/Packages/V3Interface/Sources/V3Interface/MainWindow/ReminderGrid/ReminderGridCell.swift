@@ -34,8 +34,8 @@ extension ReminderGrid {
         @V3Style.ReminderGrid private var style
         @V3Localize.ReminderGrid private var text
 
-        @VesselQuery private var vessel
-        @ReminderQuery private var reminder
+        @VesselQuery private var vesselQuery
+        @ReminderQuery private var reminderQuery
         
         private let id: Reminder.Identifier
         
@@ -44,7 +44,8 @@ extension ReminderGrid {
         }
         
         internal var body: some View {
-            self.reminder.view(self.vessel) { reminder, vessel in
+            self.reminderQuery.data.view(self.vesselQuery.data)
+            { reminder, vessel in
                 Button {
                     self.nav.stack.view(reminder.id)
                 } label: {
@@ -65,10 +66,10 @@ extension ReminderGrid {
                           .preference(key: isFallbackKey.self, value: true)
             }
             .onLoadChange(of: self.id) {
-                _reminder.setIdentifier($0)
+                self.reminderQuery.id = $0
             }
-            .onLoadChange(of: self.reminder?.vesselID) {
-                _vessel.setIdentifier($0)
+            .onLoadChange(of: self.reminderQuery.data?.vesselID) {
+                self.vesselQuery.id = $0
             }
         }
         

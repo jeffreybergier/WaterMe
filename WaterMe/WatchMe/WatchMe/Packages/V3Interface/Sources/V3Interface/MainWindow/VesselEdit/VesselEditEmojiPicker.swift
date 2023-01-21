@@ -29,7 +29,7 @@ import V3Localize
 extension VesselEdit {
     internal struct EmojiPicker: View {
         
-        @VesselQuery private var vessel
+        @VesselQuery private var query
         
         @V3Style.VesselEdit.EmojiPicker private var style
         @V3Localize.VesselEdit.EmojiPicker private var text
@@ -46,19 +46,19 @@ extension VesselEdit {
                 LazyVGrid(columns: self.style.columns) {
                     ForEach(self.data) {
                         self.style.button(emoji: $0, isSelected: self.isSelected) {
-                            self.vessel?.icon = .emoji($0)
+                            self.query.data?.icon = .emoji($0)
                         }
                     }
                 }
             }
             .navigationTitle(self.text.title)
             .onLoadChange(of: self.id) {
-                _vessel.setIdentifier($0)
+                self.query.id = $0
             }
         }
         
         @ViewBuilder private func isSelected(_ rhs: String) -> some View {
-            if self.vessel?.icon?.stringValue == rhs {
+            if self.query.data?.icon?.stringValue == rhs {
                 self.text.checkmark
             } else {
                 EmptyView()

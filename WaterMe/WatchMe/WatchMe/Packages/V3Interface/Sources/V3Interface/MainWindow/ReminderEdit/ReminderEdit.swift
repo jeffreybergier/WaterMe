@@ -37,7 +37,7 @@ internal struct ReminderEdit: View {
     @V3Style.ReminderEdit private var style
     @V3Localize.ReminderEdit private var text
     
-    @ReminderQuery private var reminder
+    @ReminderQuery private var query
     
     private let id: Reminder.Identifier
     
@@ -46,7 +46,7 @@ internal struct ReminderEdit: View {
     }
     
     internal var body: some View {
-        self.$reminder.view { item in
+        self.$query.view { item in
             Form {
                 Section {
                     Picker(selection: item.kind) {
@@ -111,7 +111,7 @@ internal struct ReminderEdit: View {
         }
         .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
-            _reminder.setIdentifier($0)
+            self.query.id = $0
         }
     }
     

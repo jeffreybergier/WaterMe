@@ -33,7 +33,7 @@ extension VesselEdit {
         @V3Style.VesselEdit private var style
         @V3Localize.VesselEdit private var text
                 
-        @ReminderQuery private var reminder
+        @ReminderQuery private var query
         private let id: Reminder.Identifier
         private let action: () -> Void
         
@@ -43,7 +43,7 @@ extension VesselEdit {
         }
         
         internal var body: some View {
-            self.reminder.view { reminder in
+            self.query.data.view { reminder in
                 self.style.row(subtitle: self.text.interval(reminder.interval))
                           .action(text: self.text(for: reminder.kind))
                           .button(action: self.action)
@@ -54,7 +54,7 @@ extension VesselEdit {
                           .preference(key: isFallbackKey.self, value: true)
             }
             .onLoadChange(of: self.id) {
-                _reminder.setIdentifier($0)
+                self.query.id = $0
             }
         }
         

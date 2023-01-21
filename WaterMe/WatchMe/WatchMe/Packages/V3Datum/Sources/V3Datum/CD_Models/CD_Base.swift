@@ -22,6 +22,7 @@
 //
 
 import CoreData
+import Umbrella
 
 @objc(CD_Base)
 internal class CD_Base: NSManagedObject {
@@ -40,7 +41,7 @@ internal class CD_Base: NSManagedObject {
 
     override func willSave() {
         super.willSave()
-
+        guard self.isDeleted_noReally == false else { return }
         let now = Date()
         let mod = self.raw_dateModified ?? now
         let interval = abs(mod.timeIntervalSince(now))

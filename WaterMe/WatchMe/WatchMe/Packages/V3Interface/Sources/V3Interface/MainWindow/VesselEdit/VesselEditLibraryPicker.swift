@@ -30,8 +30,8 @@ import V3Localize
 extension VesselEdit {
     internal struct LibraryPicker: View {
         
-        @VesselQuery private var vessel
         @Selection private var selection
+        @VesselQuery private var query
         
         @V3Style.VesselEdit.LibraryPicker private var style
         @V3Localize.VesselEdit.LibraryPicker private var text
@@ -62,7 +62,7 @@ extension VesselEdit {
             }
             .navigationTitle(self.text.title)
             .onLoadChange(of: self.id) {
-                _vessel.setIdentifier($0)
+                self.query.id = $0
             }
             .onChange(of: self.$selection.wrappedValue) { raw in
                 Task {

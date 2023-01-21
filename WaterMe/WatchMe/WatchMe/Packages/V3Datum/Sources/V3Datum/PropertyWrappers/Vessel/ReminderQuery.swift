@@ -26,41 +26,44 @@ import V3Model
 @propertyWrapper
 public struct ReminderQuery: DynamicProperty {
     
-    @Controller private var controller
+    public struct Value {
+        public var data: Reminder?
+        public var id: Reminder.Identifier?
+    }
+    
     @ErrorStorage private var errors
-    @CDObjectQuery<CD_Reminder, Reminder>(onRead: Reminder.init(_:))
-        private var object: Reminder?
+    @Controller private var controller
+    @CDObjectQuery<CD_Reminder, Reminder>(onRead: Reminder.init(_:)) private var query
+    @StateObject private var identifier: SecretBox<Reminder.Identifier?> = .init(nil)
     
     public init() { }
     
-    public func setIdentifier(_ newValue: Reminder.Identifier?) {
-        if
-            let newValue,
-            let url = URL(string: newValue.id)
-        {
-            _object.setObjectIDURL(url)
-        } else {
-            _object.setObjectIDURL(nil)
+    public var wrappedValue: Value {
+        nonmutating set { self.write(newValue) }
+        get {
+            .init(data: self.query.data,
+                  id: self.identifier.value)
         }
-    }
-    
-    public var wrappedValue: Reminder? {
-        get { self.object }
-        nonmutating set { self.object = newValue }
     }
     
     public var projectedValue: Binding<Reminder>? {
-        self.$object
+        self.$query
     }
     
-    private let needsUpdate = SecretBox(true)
-    public func update() {
-        guard self.needsUpdate.value else { return }
-        self.needsUpdate.value = false
-        _object.setOnWrite(_controller.cd.cd_updateOpt(_:with:))
-        _object.setOnError { error in
-            NSLog(String(describing: error))
-            self.errors.append(error)
+    private func write(_ newValue: Value) {
+        var outputValue = self.query
+        if outputValue.onWrite == nil {
+            outputValue.onWrite = _controller.cd.cd_update(_:with:)
         }
+        if outputValue.onError == nil {
+            outputValue.onError = self.errors.append(_:)
+        }
+        if let newID = newValue.id {
+            outputValue.id = URL(string: newID.id)
+        } else {
+            outputValue.id = nil
+        }
+        outputValue.data = newValue.data
+        self.query = outputValue
     }
 }

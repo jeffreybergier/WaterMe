@@ -36,8 +36,8 @@ internal struct ReminderSummary: View {
     @V3Style.ReminderSummary private var style
     @V3Localize.ReminderSummary private var text
     
-    @ReminderQuery private var reminder
-    @VesselQuery private var vessel
+    @VesselQuery private var vesselQuery
+    @ReminderQuery private var reminderQuery
     private let id: Reminder.Identifier
     
     internal init(_ id: Reminder.Identifier) {
@@ -45,7 +45,8 @@ internal struct ReminderSummary: View {
     }
     
     internal var body: some View {
-        self.reminder.view(self.vessel) { reminder, vessel in
+        self.reminderQuery.data.view(self.vesselQuery.data)
+        { reminder, vessel in
             List {
                 Section {
                     self.style.button.action(text: self.text.markDone).button {
@@ -100,10 +101,10 @@ internal struct ReminderSummary: View {
         }
         .navigationTitle(self.text.title)
         .onLoadChange(of: self.id) {
-            _reminder.setIdentifier($0)
+            self.reminderQuery.id = $0
         }
-        .onLoadChange(of: self.reminder?.vesselID) {
-            _vessel.setIdentifier($0)
+        .onLoadChange(of: self.reminderQuery.data?.vesselID) {
+            self.vesselQuery.id = $0
         }
     }
     

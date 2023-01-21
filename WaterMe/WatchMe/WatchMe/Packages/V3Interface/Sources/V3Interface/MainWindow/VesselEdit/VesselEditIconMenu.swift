@@ -34,7 +34,7 @@ extension VesselEdit {
         @V3Style.VesselEdit.IconMenu private var style
         @V3Localize.VesselEdit.IconMenu private var text
         
-        @VesselQuery private var vessel
+        @VesselQuery private var query
         
         private var binding: Binding<Vessel.Selection.Element?> {
             self.$nav.modal.isEditPhotoChooser
@@ -43,12 +43,12 @@ extension VesselEdit {
         internal func body(content: Content) -> some View {
             return content
                 .onLoadChange(of: self.binding.wrappedValue) {
-                    _vessel.setIdentifier($0)
+                    self.query.id = $0
                 }
                 .confirmationDialog(self.text.title,
                                     isPresented: self.binding.mapBool(),
                                     titleVisibility: .automatic,
-                                    presenting: self.vessel)
+                                    presenting: self.query.data)
             { vessel in
                 self.style.button
                     .action(text: self.text.emoji)

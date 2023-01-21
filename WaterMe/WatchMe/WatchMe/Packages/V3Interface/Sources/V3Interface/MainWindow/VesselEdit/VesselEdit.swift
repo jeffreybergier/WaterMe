@@ -36,8 +36,8 @@ internal struct VesselEdit: View {
     @V3Style.VesselEdit private var style
     @V3Localize.VesselEdit private var text
     
-    @VesselQuery private var vessel
-    @ReminderListQuery private var reminders
+    @VesselQuery private var vesselQuery
+    @ReminderListQuery private var remindersQuery
     
     private let id: Vessel.Identifier
     
@@ -46,7 +46,7 @@ internal struct VesselEdit: View {
     }
     
     internal var body: some View {
-        self.$vessel.view { vessel in
+        self.$vesselQuery.view { vessel in
             Form {
                 Section {
                     ZStack {
@@ -72,7 +72,7 @@ internal struct VesselEdit: View {
                         .label
                 }
                 Section {
-                    self.reminders.view { reminders in
+                    self.remindersQuery.view { reminders in
                         ForEach(reminders) { id in
                             ReminderRow(id) {
                                 self.nav.stack.edit(id)
@@ -102,8 +102,8 @@ internal struct VesselEdit: View {
                       .preference(key: isFallbackKey.self, value: true)
         }
         .onLoadChange(of: self.id) {
-            _vessel.setIdentifier($0)
-            _reminders.setFilter(.vessel($0))
+            self.vesselQuery.id = $0
+            _remindersQuery.setFilter(.vessel($0))
         }
         .modifier(IconMenu())
     }
