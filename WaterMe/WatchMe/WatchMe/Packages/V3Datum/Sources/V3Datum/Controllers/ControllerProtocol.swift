@@ -34,7 +34,7 @@ public protocol ControllerProtocol {
     var context: NSManagedObjectContext { get }
     
     // MARK: Sync
-    var syncProgress: AnyContinousProgress<CPError> { get }
+    var syncProgress: ContinousProgress.Environment { get }
 
     // MARK: Websites CRUD
     func createVessel() -> Result<Vessel.Selection.Element, Error>

@@ -56,9 +56,12 @@ internal class CD_Controller: ControllerProtocol {
         container.viewContext.automaticallyMergesChangesFromParent = true
         
         if case .sync = kind, let container = container as? NSPersistentCloudKitContainer {
-            self.syncProgress = .init(CloudKitContainerContinuousProgress(container))
+            let monitor = CDCloudKitSyncMonitor(container)
+            self.syncMonitor = monitor
+            self.syncProgress = monitor.progressBox
         } else {
-            self.syncProgress = .init(NoContinousProgress())
+            self.syncMonitor = nil
+            self.syncProgress = .init(.init())
         }
 
         // Set properties
@@ -75,7 +78,7 @@ internal class CD_Controller: ControllerProtocol {
             .sink { [weak self] _ in
                 guard
                     let self = self,
-                    self.syncProgress.progress.fractionCompleted == 1
+                    self.syncProgress.value.progress.fractionCompleted == 1
                 else { return }
                 NSLog("Performing post syncing maintenance")
                 // Perform maintenance and log any errors
@@ -111,7 +114,8 @@ internal class CD_Controller: ControllerProtocol {
     
     internal let container: NSPersistentContainer
     internal let kind: ControllerKind
-    internal let syncProgress: AnyContinousProgress<CPError>
+    private  let syncMonitor: CDCloudKitSyncMonitor?
+    internal let syncProgress: ContinousProgress.Environment
     internal var context: NSManagedObjectContext {
         return self.container.viewContext
     }
