@@ -27,43 +27,43 @@ import V3Model
 public struct VesselQuery: DynamicProperty {
     
     public struct Value {
-        public var data: Vessel?
-        public var id: Vessel.Identifier?
+        public let data: Vessel?
+        public var identifier: Vessel.Identifier?
     }
     
     @ErrorStorage private var errors
     @Controller private var controller
+    @State private var identifier: Vessel.Identifier?
     @CDObjectQuery<CD_ReminderVessel, Vessel>(onRead: Vessel.init(_:)) private var query
-    @StateObject private var identifier: SecretBox<Vessel.Identifier?> = .init(nil)
     
     public init() { }
     
     public var wrappedValue: Value {
-        nonmutating set { self.write(newValue) }
-        get {
-            .init(data: self.query.data,
-                  id: self.identifier.value)
-        }
+        nonmutating set { self.write(newValue.identifier) }
+        get { .init(data: self.query.data, identifier: self.identifier) }
     }
     
     public var projectedValue: Binding<Vessel>? {
         self.$query
     }
     
-    private func write(_ newValue: Value) {
-        var outputValue = self.query
-        if outputValue.onWrite == nil {
-            outputValue.onWrite = _controller.cd.cd_update(_:with:)
+    private func write(_ newValue: Vessel.Identifier?) {
+        let oldIdentifier = self.identifier
+        self.identifier = newValue
+        guard oldIdentifier != newValue else { return }
+        
+        var configuration = self.query.configuration
+        if configuration.onWrite == nil {
+            configuration.onWrite = _controller.cd.cd_update(_:with:)
         }
-        if outputValue.onError == nil {
-            outputValue.onError = self.errors.append(_:)
+        if configuration.onError == nil {
+            configuration.onError = self.errors.append(_:)
         }
-        if let newID = newValue.id {
-            outputValue.id = URL(string: newID.id)
+        if let newID = newValue {
+            configuration.objectID = URL(string: newID.id)
         } else {
-            outputValue.id = nil
+            configuration.objectID = nil
         }
-        outputValue.data = newValue.data
-        self.query = outputValue
+        self.query.configuration = configuration
     }
 }

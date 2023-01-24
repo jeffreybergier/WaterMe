@@ -25,52 +25,45 @@ import V3Model
 
 @propertyWrapper
 public struct ReminderListQuery: DynamicProperty {
+    
+    public struct Value<C> {
+        public let data: C
+        public var filter: Reminder.Filter
+    }
 
     @Controller private var controller
-    @ErrorStorage private var errors
-    @CDListQuery<CD_Reminder, Reminder.Identifier>(
-        predicate: .init(value: false),
-        onRead: { .init($0.objectID) }
-    ) private var data
+    @State private var filter: Reminder.Filter = .none
+    @CDListQuery<CD_Reminder, Reminder.Identifier>(onRead: { .init($0.objectID) }) private var query
     
-    @StateObject private var filter: SecretBox<Reminder.Filter> = .init(.none)
     public let section: Reminder.Section?
     
     public init(_ section: Reminder.Section? = nil) {
         self.section = section
     }
 
-    private let needsUpdate = SecretBox(true)
-    public func update() {
-        guard self.needsUpdate.value else { return }
-        self.needsUpdate.value = false
-        _data.setOnError { error in
-            NSLog(String(describing: error))
-            self.errors.append(error)
-        }
-        self.updateCoreData()
-    }
-
-    public var wrappedValue: some RandomAccessCollection<Reminder.Identifier> {
-        self.data
+    public var wrappedValue: Value<some RandomAccessCollection<Reminder.Identifier>> {
+        get { .init(data: self.query.data, filter: self.filter) }
+        nonmutating set { self.setFilter(newValue.filter) }
     }
     
-    public func setFilter(_ newValue: Reminder.Filter) {
-        self.filter.value = newValue
+    private func setFilter(_ newValue: Reminder.Filter) {
+        let oldFilter = self.filter
+        self.filter = newValue
+        guard oldFilter != newValue else { return }
         self.updateCoreData()
     }
     
     private func updateCoreData() {
         // 0) Make sure we always complete our mission
         var predicate = NSPredicate(value: false)
-        defer { _data.setPredicate(predicate) }
+        defer { self.query.configuration.predicate = predicate }
         
         // 1) If filter is none, nothing should load ever
-        if case .none = self.filter.value { return }
+        if case .none = self.filter { return }
         
         // 2) Try to obtain the other two predicates
         let section = self.section?.cd_predicate ?? .init(value: true)
-        let filterResult = self.filter.value.cd_predicate(
+        let filterResult = self.filter.cd_predicate(
             share:  _controller.cd.cd_search,
             vessel: _controller.cd.cd_search
         )

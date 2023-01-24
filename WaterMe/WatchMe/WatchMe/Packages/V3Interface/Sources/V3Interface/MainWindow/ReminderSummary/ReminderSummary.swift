@@ -101,10 +101,10 @@ internal struct ReminderSummary: View {
         }
         .navigationTitle(self.text.title)
         .onLoadChange(of: self.id) {
-            self.reminderQuery.id = $0
+            self.reminderQuery.identifier = $0
         }
         .onLoadChange(of: self.reminderQuery.data?.vesselID) {
-            self.vesselQuery.id = $0
+            self.vesselQuery.identifier = $0
         }
     }
     

@@ -111,7 +111,7 @@ internal struct ReminderEdit: View {
         }
         .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
-            self.query.id = $0
+            self.query.identifier = $0
         }
     }
     

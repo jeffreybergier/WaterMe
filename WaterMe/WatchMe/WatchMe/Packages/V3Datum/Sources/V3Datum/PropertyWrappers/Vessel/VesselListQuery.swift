@@ -25,39 +25,27 @@ import V3Model
 
 @propertyWrapper
 public struct VesselListQuery: DynamicProperty {
+    
+    public struct Value<C> {
+        public let data: C
+        public var filter: Vessel.Filter
+    }
 
-    @Controller private var controller
-    @ErrorStorage private var errors
-    @CDListQuery<CD_ReminderVessel, Vessel.Identifier>(
-        predicate: .init(value: false),
-        onRead: { .init($0.objectID) }
-    ) private var data
-    @Environment(\.managedObjectContext) private var context
+    @State private var filter: Vessel.Filter = .none
+    @CDListQuery<CD_ReminderVessel, Vessel.Identifier>(onRead: { .init($0.objectID) }) private var query
     
     public init() { }
 
-    private let needsUpdate = SecretBox(true)
-    public func update() {
-        guard self.needsUpdate.value else { return }
-        self.needsUpdate.value = false
-        _data.setOnError { error in
-            NSLog(String(describing: error))
-            self.errors.append(error)
-        }
-        self.updateCoreData()
-    }
-
-    public var wrappedValue: some RandomAccessCollection<Vessel.Identifier> {
-        self.data
+    public var wrappedValue: Value<some RandomAccessCollection<Vessel.Identifier>> {
+        get { .init(data: self.query.data, filter: self.filter) }
+        nonmutating set { self.setFilter(newValue.filter) }
     }
     
-    // TODO: Create enum here  .none, .all, .reminder
-    @State private var filter: Vessel.Filter = .none
-    public func setFilter(_ newValue: Vessel.Filter) {
+    private func setFilter(_ newValue: Vessel.Filter) {
+        let oldFilter = self.filter
         self.filter = newValue
-        self.updateCoreData()
-    }
-    private func updateCoreData() {
-        _data.setPredicate(self.filter.cd_predicate)
+        guard oldFilter != newValue else { return }
+        
+        self.query.configuration.predicate = self.filter.cd_predicate
     }
 }

@@ -72,7 +72,7 @@ internal struct VesselEdit: View {
                         .label
                 }
                 Section {
-                    self.remindersQuery.view { reminders in
+                    self.remindersQuery.data.view { reminders in
                         ForEach(reminders) { id in
                             ReminderRow(id) {
                                 self.nav.stack.edit(id)
@@ -102,8 +102,8 @@ internal struct VesselEdit: View {
                       .preference(key: isFallbackKey.self, value: true)
         }
         .onLoadChange(of: self.id) {
-            self.vesselQuery.id = $0
-            _remindersQuery.setFilter(.vessel($0))
+            self.vesselQuery.identifier = $0
+            self.remindersQuery.filter = .vessel($0)
         }
         .modifier(IconMenu())
     }

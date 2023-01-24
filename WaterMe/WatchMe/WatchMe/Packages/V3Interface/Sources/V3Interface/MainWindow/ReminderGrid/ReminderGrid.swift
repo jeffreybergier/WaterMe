@@ -47,7 +47,7 @@ internal struct ReminderGrid: View {
     internal var body: some View {
         ScrollView {
             LazyVGrid(columns: self.style.columns) {
-                self.sections.late.view { data in
+                self.sections.dataLate.view { data in
                     Section {
                         ForEach(data) { id in
                             Cell(id)
@@ -56,7 +56,7 @@ internal struct ReminderGrid: View {
                         Header(.late)
                     }
                 }
-                self.sections.today.view { data in
+                self.sections.dataToday.view { data in
                     Section {
                         ForEach(data) { id in
                             Cell(id)
@@ -65,7 +65,7 @@ internal struct ReminderGrid: View {
                         Header(.today)
                     }
                 }
-                self.sections.tomorrow.view { data in
+                self.sections.dataTomorrow.view { data in
                     Section {
                         ForEach(data) { id in
                             Cell(id)
@@ -74,7 +74,7 @@ internal struct ReminderGrid: View {
                         Header(.tomorrow)
                     }
                 }
-                self.sections.thisWeek.view { data in
+                self.sections.dataThisWeek.view { data in
                     Section {
                         ForEach(data) { id in
                             Cell(id)
@@ -83,7 +83,7 @@ internal struct ReminderGrid: View {
                         Header(.thisWeek)
                     }
                 }
-                self.sections.later.view { data in
+                self.sections.dataLater.view { data in
                     Section {
                         ForEach(data) { id in
                             Cell(id)
@@ -92,7 +92,7 @@ internal struct ReminderGrid: View {
                         Header(.later)
                     }
                 }
-                self.sections.disabled.view { data in
+                self.sections.dataDisabled.view { data in
                     Section {
                         ForEach(data) { id in
                             Cell(id)
@@ -105,7 +105,7 @@ internal struct ReminderGrid: View {
         }
         .modifier(self.toolbar)
         .onLoadChange(of: self.id) {
-            _sections.setFilter(.share($0))
+            self.sections.filter = .share($0)
         }
     }
     

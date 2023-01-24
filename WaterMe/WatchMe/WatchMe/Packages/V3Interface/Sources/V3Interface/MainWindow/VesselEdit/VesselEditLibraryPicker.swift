@@ -62,7 +62,7 @@ extension VesselEdit {
             }
             .navigationTitle(self.text.title)
             .onLoadChange(of: self.id) {
-                self.query.id = $0
+                self.query.identifier = $0
             }
             .onChange(of: self.$selection.wrappedValue) { raw in
                 Task {

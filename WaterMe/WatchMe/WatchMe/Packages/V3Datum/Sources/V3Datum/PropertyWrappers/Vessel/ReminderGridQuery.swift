@@ -27,27 +27,13 @@ import V3Model
 public struct ReminderGridQuery: DynamicProperty {
     
     public struct Value<C1, C2, C3, C4, C5, C6> {
-        public var late: C1
-        public var today: C2
-        public var tomorrow: C3
-        public var thisWeek: C4
-        public var later: C5
-        public var disabled: C6
-        
-        internal init(late: C1,
-                      today: C2,
-                      tomorrow: C3,
-                      thisWeek: C4,
-                      later: C5,
-                      disabled: C6)
-        {
-            self.late = late
-            self.today = today
-            self.tomorrow = tomorrow
-            self.thisWeek = thisWeek
-            self.later = later
-            self.disabled = disabled
-        }
+        public let dataLate:     C1
+        public let dataToday:    C2
+        public let dataTomorrow: C3
+        public let dataThisWeek: C4
+        public let dataLater:    C5
+        public let dataDisabled: C6
+        public var filter: Reminder.Filter = .none
     }
     
     @ReminderListQuery(.late)     private var late
@@ -60,13 +46,6 @@ public struct ReminderGridQuery: DynamicProperty {
     @State private var filter: Reminder.Filter = .none
     
     public init() { }
-
-    private let needsUpdate = SecretBox(true)
-    public func update() {
-        guard self.needsUpdate.value else { return }
-        self.needsUpdate.value = false
-        self.updateCoreData()
-    }
     
     /*
      // TODO: Do it like this when the compiler allows
@@ -85,25 +64,28 @@ public struct ReminderGridQuery: DynamicProperty {
                                    some RandomAccessCollection<Reminder.Identifier>,
                                    some RandomAccessCollection<Reminder.Identifier>>
     {
-        .init(late:     self.late,
-              today:    self.today,
-              tomorrow: self.tomorrow,
-              thisWeek: self.thisWeek,
-              later:    self.later,
-              disabled: self.disabled)
+        nonmutating set { self.setFilter(newValue.filter) }
+        get {
+            .init(dataLate:     self.late.data,
+                  dataToday:    self.today.data,
+                  dataTomorrow: self.tomorrow.data,
+                  dataThisWeek: self.thisWeek.data,
+                  dataLater:    self.later.data,
+                  dataDisabled: self.disabled.data,
+                  filter:       self.filter)
+        }
     }
     
-    public func setFilter(_ newValue: Reminder.Filter) {
+    private func setFilter(_ newValue: Reminder.Filter) {
+        let oldFilter = self.filter
         self.filter = newValue
-        self.updateCoreData()
-    }
-    
-    private func updateCoreData() {
-        _late.setFilter(self.filter)
-        _today.setFilter(self.filter)
-        _tomorrow.setFilter(self.filter)
-        _thisWeek.setFilter(self.filter)
-        _later.setFilter(self.filter)
-        _disabled.setFilter(self.filter)
+        guard oldFilter != newValue else { return }
+        
+        self.late.filter     = self.filter
+        self.today.filter    = self.filter
+        self.tomorrow.filter = self.filter
+        self.thisWeek.filter = self.filter
+        self.later.filter    = self.filter
+        self.disabled.filter = self.filter
     }
 }

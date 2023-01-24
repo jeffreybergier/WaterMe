@@ -26,25 +26,11 @@ import V3Model
 @propertyWrapper
 public struct ShareListQuery: DynamicProperty {
 
-    @ErrorStorage private var errors
-    @CDListQuery<CD_VesselShare, Share.Identifier>(
-        predicate: .init(value: true),
-        onRead: { .init($0.objectID) }
-    ) private var data
+    @CDListQuery<CD_VesselShare, Share.Identifier>(predicate: .init(value: true), onRead: { .init($0.objectID) }) private var query
     
     public init() { }
     
     public var wrappedValue: some RandomAccessCollection<Share.Identifier> {
-        self.data
-    }
-
-    private let needsUpdate = SecretBox(true)
-    public func update() {
-        guard self.needsUpdate.value else { return }
-        self.needsUpdate.value = false
-        _data.setOnError { error in
-            NSLog(String(describing: error))
-            self.errors.append(error)
-        }
+        self.query.data
     }
 }

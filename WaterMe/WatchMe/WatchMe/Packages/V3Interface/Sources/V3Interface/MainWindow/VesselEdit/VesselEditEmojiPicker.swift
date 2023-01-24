@@ -46,14 +46,14 @@ extension VesselEdit {
                 LazyVGrid(columns: self.style.columns) {
                     ForEach(self.data) {
                         self.style.button(emoji: $0, isSelected: self.isSelected) {
-                            self.query.data?.icon = .emoji($0)
+                            self.$query?.wrappedValue.icon = .emoji($0)
                         }
                     }
                 }
             }
             .navigationTitle(self.text.title)
             .onLoadChange(of: self.id) {
-                self.query.id = $0
+                self.query.identifier = $0
             }
         }
         

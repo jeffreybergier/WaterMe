@@ -54,7 +54,7 @@ extension VesselEdit {
                           .preference(key: isFallbackKey.self, value: true)
             }
             .onLoadChange(of: self.id) {
-                self.query.id = $0
+                self.query.identifier = $0
             }
         }
         

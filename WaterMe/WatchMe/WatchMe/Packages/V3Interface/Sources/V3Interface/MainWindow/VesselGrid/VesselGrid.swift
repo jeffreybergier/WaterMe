@@ -28,9 +28,7 @@ import V3Datum
 internal struct VesselGrid: View {
     
     @Nav private var nav
-    
-    @VesselListQuery private var data
-    
+    @VesselListQuery private var query
     private let id: Share.Identifier
     
     internal init(_ id: Share.Identifier) {
@@ -38,7 +36,7 @@ internal struct VesselGrid: View {
     }
     
     internal var body: some View {
-        self.data.view { item in
+        self.query.data.view { item in
             List {
                 Section {
                     
@@ -51,7 +49,7 @@ internal struct VesselGrid: View {
         }
         .navigationTitle("Edit Plant")
         .onLoadChange(of: self.id) {
-            _data.setFilter(.share($0))
+            self.query.filter = .share($0)
         }
     }
 }

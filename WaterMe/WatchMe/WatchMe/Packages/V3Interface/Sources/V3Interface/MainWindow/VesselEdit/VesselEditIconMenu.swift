@@ -43,7 +43,7 @@ extension VesselEdit {
         internal func body(content: Content) -> some View {
             return content
                 .onLoadChange(of: self.binding.wrappedValue) {
-                    self.query.id = $0
+                    self.query.identifier = $0
                 }
                 .confirmationDialog(self.text.title,
                                     isPresented: self.binding.mapBool(),
