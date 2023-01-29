@@ -8,6 +8,9 @@ disabled_rules:
   - identifier_name
   - type_name
   - line_length
+  - trailing_whitespace
+  - comma
+  - colon
 
 opt_in_rules:
   - vertical_whitespace

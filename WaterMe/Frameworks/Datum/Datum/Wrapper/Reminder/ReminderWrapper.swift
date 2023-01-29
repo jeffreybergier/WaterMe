@@ -22,7 +22,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 public enum ReminderConstants {
     public static let minimumInterval: Int = 1

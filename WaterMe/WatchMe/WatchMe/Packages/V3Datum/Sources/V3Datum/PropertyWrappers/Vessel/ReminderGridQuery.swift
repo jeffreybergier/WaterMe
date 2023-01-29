@@ -1,0 +1,91 @@
+//
+//  Created by Jeffrey Bergier on 2022/06/20.
+//
+//  Copyright © 2022 Saturday Apps.
+//
+//  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
+//
+//  WaterMe is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  WaterMe is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+import SwiftUI
+import Umbrella
+import V3Model
+
+@propertyWrapper
+public struct ReminderGridQuery: DynamicProperty {
+    
+    public struct Value<C1, C2, C3, C4, C5, C6> {
+        public let dataLate:     C1
+        public let dataToday:    C2
+        public let dataTomorrow: C3
+        public let dataThisWeek: C4
+        public let dataLater:    C5
+        public let dataDisabled: C6
+        public var filter: Reminder.Filter = .none
+    }
+    
+    @ReminderListQuery(.late)     private var late
+    @ReminderListQuery(.today)    private var today
+    @ReminderListQuery(.tomorrow) private var tomorrow
+    @ReminderListQuery(.thisWeek) private var thisWeek
+    @ReminderListQuery(.later)    private var later
+    @ReminderListQuery(.disabled) private var disabled
+    
+    @State private var filter: Reminder.Filter = .none
+    
+    public init() { }
+    
+    /*
+     // TODO: Do it like this when the compiler allows
+     public struct Section<C: RandomAccessCollection>: Identifiable {
+         public var section: Reminder.Section
+         public var data: C
+         public var id: Int { self.section.id }
+     }
+     public var wrappedValue: [Section<some RandomAccessCollection<Reminder.Identifier>>] {
+     */
+
+    public var wrappedValue: Value<some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>,
+                                   some RandomAccessCollection<Reminder.Identifier>>
+    {
+        nonmutating set { self.setFilter(newValue.filter) }
+        get {
+            .init(dataLate:     self.late.data,
+                  dataToday:    self.today.data,
+                  dataTomorrow: self.tomorrow.data,
+                  dataThisWeek: self.thisWeek.data,
+                  dataLater:    self.later.data,
+                  dataDisabled: self.disabled.data,
+                  filter:       self.filter)
+        }
+    }
+    
+    private func setFilter(_ newValue: Reminder.Filter) {
+        let oldFilter = self.filter
+        self.filter = newValue
+        guard oldFilter != newValue else { return }
+        
+        self.late.filter     = self.filter
+        self.today.filter    = self.filter
+        self.tomorrow.filter = self.filter
+        self.thisWeek.filter = self.filter
+        self.later.filter    = self.filter
+        self.disabled.filter = self.filter
+    }
+}

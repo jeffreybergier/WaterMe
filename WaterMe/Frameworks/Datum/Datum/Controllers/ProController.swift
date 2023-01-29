@@ -21,8 +21,6 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import RealmSwift
-
 public protocol HasProController {
     var proRC: ProController? { get set }
 }

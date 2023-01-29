@@ -19,13 +19,26 @@
 //
 
 import SwiftUI
-import Interface
+import ClockKit
+import V3Interface
 
 @main
 struct WatchMeApp: App {
     var body: some Scene {
-        WindowGroup {
-            Interface()
-        }
+        Interface()
+    }
+}
+
+@objc
+class ComplicationController: NSObject, CLKComplicationDataSource {
+    
+    override init() {
+        super.init()
+    }
+    
+    func getCurrentTimelineEntry(for complication: CLKComplication,
+                                 withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void)
+    {
+        handler(nil)
     }
 }

@@ -60,47 +60,6 @@ extension CD_Reminder: ModelCompleteCheckable {
     }
 }
 
-// MARK: Realm
-
-extension RLM_Reminder {
-    internal var vessel: RLM_ReminderVessel? { return self.vessels.first }
-    internal var kind: ReminderKind {
-        get {
-            return .init(rawValue: (self.kindString, self.descriptionString))
-        }
-        set {
-            let raw = newValue.rawValue
-            self.kindString = raw.primary
-            raw.secondary.map { self.descriptionString = $0 }
-        }
-    }
-
-    internal func recalculateNextPerformDate(comparisonPerform: RLM_ReminderPerform? = nil) {
-        if let lastPerform = comparisonPerform ?? self.performed.last {
-            self.nextPerformDate = lastPerform.date + TimeInterval(self.interval * 24 * 60 * 60)
-        } else {
-            self.nextPerformDate = nil
-        }
-    }
-}
-
-extension RLM_Reminder: ModelCompleteCheckable {
-    internal var isModelComplete: ModelCompleteError? {
-        switch self.kind {
-        case .fertilize, .water, .trim, .mist:
-            return nil
-        case .move(let description):
-            return description == nil ?
-                ModelCompleteError(_actions: [.reminderMissingMoveLocation, .cancel, .saveAnyway])
-                : nil
-        case .other(let description):
-            return description == nil ?
-                ModelCompleteError(_actions: [.reminderMissingOtherDescription, .cancel, .saveAnyway])
-                : nil
-        }
-    }
-}
-
 public enum ReminderSection: Int, CaseIterable {
     case late, today, tomorrow, thisWeek, later, disabled
     internal var dateInterval: DateInterval {

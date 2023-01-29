@@ -71,10 +71,8 @@ class DatumTestsBase: XCTestCase {
         self.basicController = nil
         self.token?.invalidate()
         self.token = nil
-        let realmDir = RLM_BasicController.storeDirectoryURL
         let coreDataDir = CD_BasicController.storeDirectoryURL
         let fm = FileManager.default
-        try? fm.removeItem(at: realmDir)
         try? fm.removeItem(at: coreDataDir)
     }
 }
