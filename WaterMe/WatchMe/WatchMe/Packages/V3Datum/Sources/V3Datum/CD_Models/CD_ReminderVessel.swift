@@ -38,16 +38,14 @@ internal class CD_ReminderVessel: CD_Base {
 
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        self.raw_kindString = "" // TODO: VesselKind.plant.rawValue
+        self.raw_kindString = Vessel.Kind.plant.rawValue
     }
 
     override func willSave() {
         super.willSave()
-        /* TODO:
         if let displayName = self.raw_displayName, displayName.nonEmptyString == nil {
             self.raw_displayName = nil
         }
-         */
     }
 }
 
