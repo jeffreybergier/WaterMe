@@ -53,6 +53,7 @@ extension Controller {
         } catch let error as Error {
             return .init(.failure(error))
         } catch {
+            // TODO: Improve
             NSLog("Whoa")
             fatalError()
         }
