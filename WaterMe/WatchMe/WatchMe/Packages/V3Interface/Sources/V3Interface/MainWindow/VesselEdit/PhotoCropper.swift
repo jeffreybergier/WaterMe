@@ -26,6 +26,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "// TODO: Put on back-burner. Finish later")
 public struct PhotoCropper: View {
     
     public struct Offset: Equatable, Codable {
