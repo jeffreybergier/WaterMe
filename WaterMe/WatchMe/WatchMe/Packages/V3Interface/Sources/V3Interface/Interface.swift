@@ -33,7 +33,8 @@ public struct Interface: Scene {
     
     @StateObject private var controller     = Controller.newEnvironment(.local)
     @StateObject private var errorStorage   = ErrorStorage.newEnvironment()
-    @StateObject private var localizeBundle = LocalizeBundle()
+    
+    private let localizeBundle = LocalizeBundle
 
     public init() {
         _ = Interface.launchConfiguration
@@ -45,8 +46,8 @@ public struct Interface: Scene {
             case .success(let controller):
                 MainWindow()
                     .environmentObject(self.controller)
-                    .environmentObject(self.localizeBundle)
                     .environmentObject(self.errorStorage)
+                    .environment(\.bundle, self.localizeBundle)
                     .environment(\.managedObjectContext, controller.context)
             case .failure(let error):
                 Text(String(describing: error))

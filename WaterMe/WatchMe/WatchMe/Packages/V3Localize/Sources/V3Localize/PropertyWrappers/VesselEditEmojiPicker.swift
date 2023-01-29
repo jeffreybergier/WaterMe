@@ -30,12 +30,12 @@ extension VesselEdit {
             public var title: LocalizedString
             public var checkmark: some View = Symbol.check.system
             
-            internal init(_ b: LocalizeBundle) {
+            internal init(_ b: Bundle) {
                 self.title = b.localized(key: Noun.emoji.rawValue)
             }
         }
         
-        @Localize private var bundle
+        @Environment(\.bundle) private var bundle
         
         public init() {}
         

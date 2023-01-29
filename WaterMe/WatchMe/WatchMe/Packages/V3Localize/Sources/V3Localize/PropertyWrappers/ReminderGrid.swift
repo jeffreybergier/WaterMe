@@ -42,7 +42,7 @@ public struct ReminderGrid: DynamicProperty {
         public var itemNotFound:         ActionLocalization
         public var addPlant:             ActionLocalization
         
-        internal init(_ b: LocalizeBundle, sizeH: JSBSizeClass.Value) {
+        internal init(_ b: Bundle, sizeH: JSBSizeClass.Value) {
             self.title                = b.localized(key: Noun.appTitle.rawValue)
             self.myPlant              = b.localized(key: Noun.myPlant.rawValue)
             self.sectionTitleLate     = b.localized(key: Noun.late.rawValue)
@@ -64,8 +64,8 @@ public struct ReminderGrid: DynamicProperty {
         }
     }
     
-    @Localize private var bundle
     @JSBSizeClass private var size
+    @Environment(\.bundle) private var bundle
     
     public init() {}
     

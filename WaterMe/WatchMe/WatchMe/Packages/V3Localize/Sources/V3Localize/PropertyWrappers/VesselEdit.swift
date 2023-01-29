@@ -40,7 +40,7 @@ public struct VesselEdit: DynamicProperty {
         public var kindOther:     ActionLocalization
         public var editPhoto:     ActionLocalization
         
-        internal init(_ b: LocalizeBundle) {
+        internal init(_ b: Bundle) {
             self.title         = b.localized(key: Noun.editPlant.rawValue)
             self.delete        = Action.delete.localized(b)
             self.notFound      = Action.itemNotFound.localized(b)
@@ -62,7 +62,7 @@ public struct VesselEdit: DynamicProperty {
         }
     }
     
-    @Localize private var bundle
+    @Environment(\.bundle) private var bundle
     
     public init() {}
     

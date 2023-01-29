@@ -18,6 +18,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Foundation
 import Umbrella
 
 /*
@@ -226,7 +227,7 @@ internal enum Action {
         }
     }
     
-    internal func localized(_ bundle: LocalizeBundle) -> ActionLocalization {
+    internal func localized(_ bundle: Bundle) -> ActionLocalization {
         var output = self.raw
         output.title = bundle.localized(key: raw.title)
         output.hint = raw.hint.map { bundle.localized(key: $0) }

@@ -28,13 +28,13 @@ extension VesselEdit {
         // swiftlint:disable:next nesting
         public struct Value {
             public var title: LocalizedString
-            internal init(_ b: LocalizeBundle) {
+            internal init(_ b: Bundle) {
                 self.title = b.localized(key: Noun.photo.rawValue)
             }
         }
         
-        @Localize private var bundle
-        
+        @Environment(\.bundle) private var bundle
+
         public init() {}
         
         public var wrappedValue: Value {

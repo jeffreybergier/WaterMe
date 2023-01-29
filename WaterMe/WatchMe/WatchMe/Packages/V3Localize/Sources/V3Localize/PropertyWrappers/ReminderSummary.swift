@@ -47,7 +47,7 @@ public struct ReminderSummary: DynamicProperty {
         public var lastPerformDate: ActionLocalization
         public var interval:        ActionLocalization
         
-        internal init(_ b: LocalizeBundle) {
+        internal init(_ b: Bundle) {
             self.now             = b.localized(key: Noun.now.rawValue)
             self.never           = b.localized(key: Noun.never.rawValue)
             self.title           = b.localized(key: Noun.reminder.rawValue)
@@ -84,8 +84,8 @@ public struct ReminderSummary: DynamicProperty {
         }
     }
     
-    @Localize private var bundle
-    
+    @Environment(\.bundle) private var bundle
+
     public init() {}
     
     public var wrappedValue: Value {

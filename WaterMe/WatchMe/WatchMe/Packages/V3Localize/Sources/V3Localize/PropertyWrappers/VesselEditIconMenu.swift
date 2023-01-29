@@ -34,7 +34,7 @@ extension VesselEdit {
             public var viewCurrent: ActionLocalization
             public var message:     ActionLocalization
             
-            internal init(_ b: LocalizeBundle) {
+            internal init(_ b: Bundle) {
                 self.title       = b.localized(key: Noun.emptyString.rawValue)
                 self.emoji       = Action.sourceEmoji.localized(b)
                 self.library     = Action.sourceLibrary.localized(b)
@@ -46,8 +46,8 @@ extension VesselEdit {
             }
         }
         
-        @Localize private var bundle
-        
+        @Environment(\.bundle) private var bundle
+
         public init() {}
         
         public var wrappedValue: Value {

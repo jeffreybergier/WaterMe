@@ -62,7 +62,7 @@ internal struct NavigationRouter: ViewModifier {
                 }
         }
         .modifier(
-            ErrorStorage.Presenter<LocalizeBundle>(
+            ErrorStorage.Presenter(
                 isAlreadyPresenting: self.nav.modal.isAlreadyPresenting,
                 toPresent: self.$nav.modal.isError,
                 router: errorRouter(_:)
