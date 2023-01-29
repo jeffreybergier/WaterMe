@@ -21,26 +21,4 @@
 import Umbrella
 import V3Model
 
-public struct UnknownError: UserFacingError {
-    
-    static public var errorDomain = "com.saturdayapps.WaterMe.localize"
-    public var errorCode: Int { 1001 }
-    
-    public init() {}
-    
-    public var title: Umbrella.LocalizationKey {
-        Noun.error.rawValue
-    }
-    public var message: Umbrella.LocalizationKey {
-        Phrase.errorUnknown.rawValue
-    }
-    public var dismissTitle: Umbrella.LocalizationKey {
-        Verb.dismiss.rawValue
-    }
-    public var isCritical: Bool {
-        false
-    }
-    public var options: [Umbrella.RecoveryOption] {
-        return []
-    }
-}
+public let kLocalizedDismissKey: LocalizationKey = Verb.dismiss.rawValue

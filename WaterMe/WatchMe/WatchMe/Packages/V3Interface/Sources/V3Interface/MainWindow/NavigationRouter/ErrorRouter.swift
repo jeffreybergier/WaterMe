@@ -27,24 +27,5 @@ internal func errorRouter(_ input: Swift.Error) -> any UserFacingError {
     if let error = input as? UserFacingError {
         return error
     }
-    return UnknownError()
-    /*
-    var output: UserFacingError?
-    switch input.errorDomain {
-    case V3Datum.Error.errorDomain:
-        output = V3Datum.Error(decode: input)
-    case V3Model.DeleteRequestError.errorDomain:
-        output = DeleteRequestError(decode: input).map {
-            DeleteConfirmationError(request: $0) {
-                $0.vesselID.map { self.controller.delete($0) }?
-                     .error.map { self.errorResponder($0) }
-                $0.reminderID.map { self.controller.delete($0) }?
-                       .error.map { self.errorResponder($0) }
-            }
-        }
-    default:
-        break
-    }
-    return output ?? UnknownError()
-    */
+    return LocalizedNSError(input, dismissTitle: kLocalizedDismissKey)
 }
