@@ -37,6 +37,7 @@ let package = Package(
     dependencies: [
         // TODO: I think this should be V3Model
         .package(path: "../V3Datum"),
+        .package(path: "../V3Settings"),
         .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "waterme3"),
     ],
     targets: [
@@ -44,6 +45,7 @@ let package = Package(
             name: PKGNAME,
             dependencies: [
                 .byNameItem(name: "V3Datum", condition: nil),
+                .byNameItem(name: "V3Settings", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
             ]
          ),

@@ -156,6 +156,7 @@ internal enum Action {
     case sourceCamera
     case sourceCameraLock
     case sourceLibrary
+    case sourceLibraryLock
     case editPhotoMessage
     
     private var raw: ActionLocalization {
@@ -222,6 +223,8 @@ internal enum Action {
             return Action.raw_sourceCameraLock
         case .sourceLibrary:
             return Action.raw_sourceLibrary
+        case .sourceLibraryLock:
+            return Action.raw_sourceLibraryLock
         case .editPhotoMessage:
             return Action.raw_editPhotoMessage
         }
@@ -389,6 +392,11 @@ extension Action {
     }()
     private static let raw_sourceLibrary: ActionLocalization = {
         .init(title: Verb.photos.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_sourceLibraryLock: ActionLocalization = {
+        .init(title: Verb.photosLock.rawValue,
               hint:  nil,
               image: nil)
     }()

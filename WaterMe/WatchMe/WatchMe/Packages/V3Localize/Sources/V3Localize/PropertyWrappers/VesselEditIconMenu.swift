@@ -20,6 +20,7 @@
 
 import SwiftUI
 import Umbrella
+import V3Settings
 
 extension VesselEdit {
     @propertyWrapper
@@ -34,24 +35,25 @@ extension VesselEdit {
             public var viewCurrent: ActionLocalization
             public var message:     ActionLocalization
             
-            internal init(_ b: Bundle) {
+            internal init(b: Bundle, p: DevicePermissions.Value) {
                 self.title       = b.localized(key: Noun.emptyString.rawValue)
                 self.emoji       = Action.sourceEmoji.localized(b)
-                self.library     = Action.sourceLibrary.localized(b)
                 self.viewCurrent = Action.viewPhoto.localized(b)
                 self.message     = Action.editPhotoMessage.localized(b)
-                // TODO: Replace with real logic based on permissions / device
-                self.camera      = false ? Action.sourceCamera.localized(b)
-                                         : Action.sourceCameraLock.localized(b)
+                self.camera  = p.camera.boolValue  ? Action.sourceCamera.localized(b)
+                                                   : Action.sourceCameraLock.localized(b)
+                self.library = p.library.boolValue ? Action.sourceLibrary.localized(b)
+                                                   : Action.sourceLibraryLock.localized(b)
             }
         }
         
         @Environment(\.bundle) private var bundle
+        @DevicePermissions private var permissions
 
         public init() {}
         
         public var wrappedValue: Value {
-            Value(self.bundle)
+            Value(b: self.bundle, p: self.permissions)
         }
     }
 }

@@ -26,11 +26,13 @@ import V3Model
 import V3Datum
 import V3Style
 import V3Localize
+import V3Settings
 
 extension VesselEdit {
     internal struct IconMenu: ViewModifier {
         
         @Nav private var nav
+        @DevicePermissions private var permission
         @V3Style.VesselEdit.IconMenu private var style
         @V3Localize.VesselEdit.IconMenu private var text
         
@@ -56,25 +58,25 @@ extension VesselEdit {
                 {
                     self.nav.stack.picker(kind: .emoji, for: vessel.id)
                 }
+                // TODO: In the future, instead of disabling the button
+                // change to show error to the user
                 self.style.button
                     .action(text: self.text.camera)
-                    .button
+                    .button(isEnabled: self.permission.camera.boolValue)
                 {
                     self.nav.stack.picker(kind: .camera, for: vessel.id)
                 }
                 self.style.button
                     .action(text: self.text.library)
-                    .button
+                    .button(isEnabled: self.permission.library.boolValue)
                 {
                     self.nav.stack.picker(kind: .library, for: vessel.id)
                 }
-                if vessel.icon?.imageValue != nil {
-                    self.style.button
-                        .action(text: self.text.viewCurrent)
-                        .button
-                    {
-                        self.nav.stack.picker(kind: .viewPhoto, for: vessel.id)
-                    }
+                self.style.button
+                    .action(text: self.text.viewCurrent)
+                    .button(isEnabled: vessel.icon?.imageValue != nil)
+                {
+                    self.nav.stack.picker(kind: .viewPhoto, for: vessel.id)
                 }
             } message: { _ in
                 self.style.message

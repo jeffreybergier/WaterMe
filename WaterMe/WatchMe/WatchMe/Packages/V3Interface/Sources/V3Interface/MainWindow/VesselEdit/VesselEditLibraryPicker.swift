@@ -28,6 +28,7 @@ import V3Style
 import V3Localize
 
 extension VesselEdit {
+    @available(*, deprecated, message: "// TODO: Put on back-burner. Finish later")
     internal struct LibraryPicker: View {
         
         @Selection private var selection
