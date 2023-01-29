@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import Umbrella
 
 public var store = UserDefaults.standard
 
@@ -38,19 +39,15 @@ public struct CheckForUpdatesOnLaunch: DynamicProperty {
 
 @propertyWrapper
 public struct LastRequestedReviewDate: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kRequestReviewDate, store: store)
-    private var value: DateRep?
+    @JSBAppStorage(UserDefaults.Constants.kRequestReviewDate, store: store)
+        private var value: Date? = nil
     public init() {}
     public var wrappedValue: Date? {
-        get { self.value?.value }
-        nonmutating set { self.value = .init(newValue) }
+        get { self.value }
+        nonmutating set { self.value = newValue }
     }
     public var projectedValue: Binding<Date?> {
-        Binding {
-            self.wrappedValue
-        } set: {
-            self.wrappedValue = $0
-        }
+        self.$value
     }
 }
 
