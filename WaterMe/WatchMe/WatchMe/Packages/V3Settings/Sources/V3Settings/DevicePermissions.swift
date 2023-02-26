@@ -21,16 +21,17 @@
 import SwiftUI
 import AVFoundation
 import CoreLocation
+import UserNotifications
 
 @propertyWrapper
 public struct DevicePermissions: DynamicProperty {
     
     public enum State {
-        case denied, allowed, requestable
+        case denied, allowed, requestable, incapable
         public var boolValue: Bool {
             switch self {
             case .allowed: return true
-            case .denied, .requestable: return false
+            case .denied, .requestable, .incapable: return false
             }
         }
     }
@@ -67,6 +68,9 @@ extension DevicePermissions {
         }
         
         private func updateCamera() {
+            #if os(watchOS)
+            self.value.camera = .incapable
+            #else
             switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
             case .authorized:
                 self.value.camera = .allowed
@@ -77,6 +81,7 @@ extension DevicePermissions {
             @unknown default:
                 self.value.camera = .denied
             }
+            #endif
         }
         
         private func updateLibrary() {
