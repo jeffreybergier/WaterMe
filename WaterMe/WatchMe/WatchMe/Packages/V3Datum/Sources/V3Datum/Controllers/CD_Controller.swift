@@ -665,7 +665,7 @@ extension NSManagedObjectContext {
         do {
             try self.save()
             return .success(())
-        } catch let error as NSError {
+        } catch let error {
             // doing this async stops the tableviews from crashing
             // TODO: Figure out how to remove this async
             DispatchQueue.main.async {
