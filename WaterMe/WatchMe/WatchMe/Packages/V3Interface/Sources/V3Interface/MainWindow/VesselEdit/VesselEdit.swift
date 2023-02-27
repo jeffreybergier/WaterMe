@@ -94,7 +94,7 @@ internal struct VesselEdit: View {
                 }
                 // TODO: Add Siri Shortcuts Here
             }
-            .modifier(self.toolbar(vessel.id))
+            .modifier(self.toolbar)
         } onNIL: {
             self.style.content
                       .action(text: self.text.notFound)
@@ -117,13 +117,83 @@ internal struct VesselEdit: View {
         }
     }
     
-    private func toolbar(_ id: Vessel.Identifier) -> JSBToolbar {
+    private var toolbar: some ViewModifier {
+        // TODO: Toolbar hack. If the Cancel or Delete are missing, then this freezes
+        // when the iPhone touches into the textfield for some reason.
         return JSBToolbar(
             title: self.text.title,
+            cancel: .init(title: "aHack"),
             delete: self.text.delete,
             deleteAction: {
-                self.errors.append(DeleteRequestError.vessel(id))
+                self.errors.append(DeleteRequestError.vessel(self.id))
             }
         )
+    }
+}
+
+
+// Debugging this stupid toolbar problem
+public struct JSBToolbar_iOS_Temp: ViewModifier {
+
+    private var title:  LocalizedString
+    private var done:   ActionLocalization?
+    private var cancel: ActionLocalization?
+    private var delete: ActionLocalization?
+    
+    public var actionDone:   (() -> Void)?
+    public var actionCancel: (() -> Void)?
+    public var actionDelete: (() -> Void)?
+
+    public init(title:  LocalizedString,
+                done:   ActionLocalization? = nil,
+                cancel: ActionLocalization? = nil,
+                delete: ActionLocalization? = nil,
+                doneAction:   (() -> Void)? = nil,
+                cancelAction: (() -> Void)? = nil,
+                deleteAction: (() -> Void)? = nil)
+    {
+        self.title = title
+        self.done = done
+        self.cancel = cancel
+        self.delete = delete
+        self.actionDone = doneAction
+        self.actionCancel = cancelAction
+        self.actionDelete = deleteAction
+    }
+    
+    public func body(content: Content) -> some View {
+        content
+            .navigationTitle(self.title)
+            .navigationBarTitleDisplayModeInline
+            .if(value: self.done) { view, done in
+                view.toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        JSBToolbarButtonStyleDone
+                            .action(text: done)
+                            .button(item: self.actionDone, action: { $0() })
+                    }
+                }
+            }
+            .if(value: self.cancel) { view, cancel in
+                view.toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        JSBToolbarButtonStyleCancel
+                            .action(text: cancel)
+                            .button(item: self.actionCancel, action: { $0() })
+                    }
+                }
+            }
+            .if(value: self.delete) { view, delete in
+                view.toolbar {
+                    // TODO: This should be `.destructiveAction` but the toolbar
+                    // places this on the right side of the title with the ConfirmationAction.
+                    // Configuring as `.cancellationAction` to place button on Left
+                    ToolbarItem(placement: .cancellationAction) {
+                        JSBToolbarButtonStyleDelete
+                            .action(text: delete)
+                            .button(item: self.actionDelete, action: { $0() })
+                    }
+                }
+            }
     }
 }
