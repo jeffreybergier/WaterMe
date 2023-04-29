@@ -199,7 +199,7 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Delete
 
-    internal func delete(_ ids: Set<Vessel.Identifier>) -> Result<Void, Error> {
+    internal func delete(_ ids: Vessel.Selection) -> Result<Void, Error> {
         assert(Thread.isMainThread)
         let vessels: [CD_ReminderVessel] = ids.compactMap { __genericSearch(matching: $0.rawValue).value }
         guard vessels.count == ids.count else { return .failure(.objectMissing) }
@@ -212,26 +212,43 @@ internal class CD_Controller: ControllerProtocol {
         return context.waterme_save()
     }
 
-    internal func delete(_ reminder: Reminder.Selection.Element) -> Result<Void, Error> {
+    internal func delete(_ ids: Reminder.Selection) -> Result<Void, Error> {
+        // Precondition
+        assert(Thread.isMainThread)
+        let reminders: [CD_Reminder] = ids.compactMap { __genericSearch(matching: $0.rawValue).value }
+        guard reminders.count == ids.count else { return .failure(.objectMissing) }
         let context = self.container.viewContext
-        return __genericSearch(matching: reminder.id).flatMap
-        { (reminder: CD_Reminder) -> Result<Void, Error> in
-            // debug only sanity checks
-            assert(Thread.isMainThread)
+        assert(reminders.reduce(true) {
+            guard $0 else { return $0 }
+            return $1.managedObjectContext === context
+        })
+        
+        // Logic to see if there were any issues when trying to delete
+        let result: Result<Void, Error> = reminders.reduce(.success(()))
+        { prev, reminder in
+            guard case .success = prev else { return prev }
             assert(context === reminder.managedObjectContext)
-
+            // Verify this reminder belongs to a vessel.
             guard let vessel = reminder.raw_vessel else {
                 context.delete(reminder)
-                return context.waterme_save()
+                return .success(())
             }
-
+            // Verify this is not the last reminder for a vessel
             let reminderCount = vessel.raw_reminders?.count ?? 0
             guard reminderCount >= 2 else {
                 return .failure(.cannotDeleteLastReminder)
             }
-
             context.delete(reminder)
+            return .success(())
+        }
+        
+        // If no issues, save. If there are issues, rollback
+        switch result {
+        case .success:
             return context.waterme_save()
+        case .failure:
+            context.rollback()
+            return result
         }
     }
 

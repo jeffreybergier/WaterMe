@@ -23,7 +23,25 @@ import Umbrella
 
 public struct DeleteVesselConfirmationError: CustomNSError {
     
-    public typealias Selection = Set<Vessel.Identifier>
+    public typealias Selection = Vessel.Selection
+    
+    static public var errorDomain = "com.saturdayapps.WaterMe.model"
+    public var errorCode: Int { 1002 }
+    
+    public var selection: Selection
+    public var onConfirmation: (Selection) -> Void
+    
+    public init(_ selection: Selection,
+                onConfirmation: @escaping (Selection) -> Void)
+    {
+        self.selection = selection
+        self.onConfirmation = onConfirmation
+    }
+}
+
+public struct DeleteReminderConfirmationError: CustomNSError {
+    
+    public typealias Selection = Reminder.Selection
     
     static public var errorDomain = "com.saturdayapps.WaterMe.model"
     public var errorCode: Int { 1002 }

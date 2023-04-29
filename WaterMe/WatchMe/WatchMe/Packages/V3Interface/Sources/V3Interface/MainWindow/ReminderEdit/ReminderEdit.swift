@@ -32,6 +32,7 @@ internal struct ReminderEdit: View {
     private static let kIntervalRange: Range<Int> = Reminder.Constants.minimumInterval ..< Reminder.Constants.maximumInterval + 1
     
     @Nav private var nav
+    @Controller private var controller
     @ErrorStorage private var errors
     
     @V3Style.ReminderEdit private var style
@@ -124,7 +125,12 @@ internal struct ReminderEdit: View {
             delete: self.text.delete,
             doneAction: { self.dismiss() },
             deleteAction: {
-                self.errors.append(DeleteRequestError.reminder(self.id))
+                let error = DeleteReminderConfirmationError([self.id]) { selection in
+                    self.controller.delete(selection)
+                        .error
+                        .map(self.errors.append(_:))
+                }
+                self.errors.append(error)
             }
         )
     }

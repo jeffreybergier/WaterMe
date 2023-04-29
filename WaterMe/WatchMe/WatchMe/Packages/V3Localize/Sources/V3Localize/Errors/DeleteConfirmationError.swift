@@ -42,3 +42,25 @@ extension DeleteVesselConfirmationError: UserFacingError {
         ]
     }
 }
+
+extension DeleteReminderConfirmationError: UserFacingError {
+    public var title: Umbrella.LocalizationKey {
+        "" // Do we need a title? Should I set this to nillable?
+    }
+    public var message: Umbrella.LocalizationKey {
+        Phrase.confirmDelete.rawValue
+    }
+    public var dismissTitle: Umbrella.LocalizationKey {
+        Verb.dontDelete.rawValue
+    }
+    public var isCritical: Bool {
+        false
+    }
+    public var options: [Umbrella.RecoveryOption] {
+        return [
+            .init(title: Verb.delete.rawValue,
+                  isDestructive: true,
+                  perform: { self.onConfirmation(self.selection) }),
+        ]
+    }
+}
