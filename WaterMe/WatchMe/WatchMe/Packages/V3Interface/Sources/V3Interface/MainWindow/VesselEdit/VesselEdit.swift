@@ -39,6 +39,8 @@ internal struct VesselEdit: View {
     @VesselQuery private var vesselQuery
     @ReminderListQuery private var remindersQuery
     
+    @Environment(\.dismiss) private var dismiss
+    
     private let id: Vessel.Identifier
     
     internal init(_ id: Vessel.Identifier) {
@@ -118,12 +120,11 @@ internal struct VesselEdit: View {
     }
     
     private var toolbar: some ViewModifier {
-        // TODO: Toolbar hack. If the Cancel or Delete are missing, then this freezes
-        // when the iPhone touches into the textfield for some reason.
         return JSBToolbar(
-            title: self.text.title,
-            cancel: .init(title: "aHack"),
+            title:  self.text.title,
+            done:   self.text.done,
             delete: self.text.delete,
+            doneAction: { self.dismiss() },
             deleteAction: {
                 self.errors.append(DeleteRequestError.vessel(self.id))
             }

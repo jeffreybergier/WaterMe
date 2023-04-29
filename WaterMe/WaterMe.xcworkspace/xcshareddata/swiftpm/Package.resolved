@@ -14,7 +14,7 @@
       "location" : "https://github.com/jeffreybergier/JSBServerlessLogger.git",
       "state" : {
         "branch" : "2.0",
-        "revision" : "2a819f6a546ed24dff9c0aad9ab2614b30a382b8"
+        "revision" : "e8d66a1e72975095e2d90cbb1f75d2a361108e96"
       }
     },
     {
@@ -50,7 +50,7 @@
       "location" : "https://github.com/jeffreybergier/Umbrella.git",
       "state" : {
         "branch" : "waterme3",
-        "revision" : "44e2270ad6a40e8eaf80d7891e87f60f8fc47cba"
+        "revision" : "d7baa95e1f116dfeabf039b83cc9c0bb5ce55bbc"
       }
     },
     {

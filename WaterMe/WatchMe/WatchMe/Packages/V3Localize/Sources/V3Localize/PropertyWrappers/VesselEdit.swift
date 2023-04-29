@@ -26,6 +26,7 @@ public struct VesselEdit: DynamicProperty {
     
     public struct Value {
         public var title:         LocalizedString
+        public var done:          ActionLocalization
         public var delete:        ActionLocalization
         public var notFound:      ActionLocalization
         public var addReminder:   ActionLocalization
@@ -42,6 +43,7 @@ public struct VesselEdit: DynamicProperty {
         
         internal init(_ b: Bundle) {
             self.title         = b.localized(key: Noun.editPlant.rawValue)
+            self.done          = Action.done.localized(b)
             self.delete        = Action.delete.localized(b)
             self.notFound      = Action.itemNotFound.localized(b)
             self.addReminder   = Action.addReminder.localized(b)

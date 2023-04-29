@@ -125,6 +125,7 @@ extension DarkMode {
 
 internal enum Action {
     
+    case done
     case delete
     case addPlantLong
     case addPlantShort
@@ -161,6 +162,8 @@ internal enum Action {
     
     private var raw: ActionLocalization {
         switch self {
+        case .done:
+            return Action.raw_done
         case .delete:
             return Action.raw_delete
         case .addPlantLong:
@@ -239,6 +242,11 @@ internal enum Action {
 }
 
 extension Action {
+    private static let raw_done: ActionLocalization = {
+        .init(title: Verb.done.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
     private static let raw_delete: ActionLocalization = {
         .init(title: Verb.delete.rawValue,
               hint:  nil,

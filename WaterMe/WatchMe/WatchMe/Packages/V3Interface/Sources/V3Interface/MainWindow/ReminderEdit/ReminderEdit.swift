@@ -39,6 +39,8 @@ internal struct ReminderEdit: View {
     
     @ReminderQuery private var query
     
+    @Environment(\.dismiss) private var dismiss
+    
     private let id: Reminder.Identifier
     
     internal init(_ id: Reminder.Identifier) {
@@ -118,7 +120,9 @@ internal struct ReminderEdit: View {
     private var toolbar: JSBToolbar {
         return JSBToolbar(
             title: self.text.title,
+            done:   self.text.done,
             delete: self.text.delete,
+            doneAction: { self.dismiss() },
             deleteAction: {
                 self.errors.append(DeleteRequestError.reminder(self.id))
             }

@@ -28,6 +28,7 @@ public struct ReminderEdit: DynamicProperty {
         
         private var never:        LocalizedString
         public var title:         LocalizedString
+        public var done:          ActionLocalization
         public var delete:        ActionLocalization
         public var notFound:      ActionLocalization
         public var kind:          ActionLocalization
@@ -46,6 +47,7 @@ public struct ReminderEdit: DynamicProperty {
         internal init(_ b: Bundle) {
             self.title         = b.localized(key: Noun.editReminder.rawValue)
             self.never         = b.localized(key: Noun.never.rawValue)
+            self.done          = Action.done.localized(b)
             self.delete        = Action.delete.localized(b)
             self.notFound      = Action.itemNotFound.localized(b)
             self.kind          = Action.reminderKind.localized(b)
