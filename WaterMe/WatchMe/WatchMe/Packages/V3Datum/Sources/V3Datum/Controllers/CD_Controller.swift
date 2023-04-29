@@ -199,17 +199,17 @@ internal class CD_Controller: ControllerProtocol {
 
     // MARK: Delete
 
-    internal func delete(_ vessel: Vessel.Selection.Element) -> Result<Void, Error> {
+    internal func delete(_ ids: Set<Vessel.Identifier>) -> Result<Void, Error> {
+        assert(Thread.isMainThread)
+        let vessels: [CD_ReminderVessel] = ids.compactMap { __genericSearch(matching: $0.rawValue).value }
+        guard vessels.count == ids.count else { return .failure(.objectMissing) }
         let context = self.container.viewContext
-        return __genericSearch(matching: vessel.id).flatMap
-        { (vessel: CD_ReminderVessel) -> Result<Void, Error> in
-            // debug only sanity checks
-            assert(Thread.isMainThread)
-            assert(context === vessel.managedObjectContext)
-
-            context.delete(vessel)
-            return context.waterme_save()
-        }
+        assert(vessels.reduce(true) {
+            guard $0 else { return false }
+            return $1.managedObjectContext === context
+        })
+        vessels.forEach(context.delete(_:))
+        return context.waterme_save()
     }
 
     internal func delete(_ reminder: Reminder.Selection.Element) -> Result<Void, Error> {

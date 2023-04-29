@@ -126,7 +126,12 @@ internal struct VesselEdit: View {
             delete: self.text.delete,
             doneAction: { self.dismiss() },
             deleteAction: {
-                self.errors.append(DeleteRequestError.vessel(self.id))
+                let error = DeleteVesselConfirmationError([self.id]) { selection in
+                    self.controller.delete(selection)
+                        .error
+                        .map(self.errors.append(_:))
+                }
+                self.errors.append(error)
             }
         )
     }

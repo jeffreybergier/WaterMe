@@ -21,16 +21,20 @@
 import Foundation
 import Umbrella
 
-public struct DeleteConfirmationError: CustomNSError {
+public struct DeleteVesselConfirmationError: CustomNSError {
+    
+    public typealias Selection = Set<Vessel.Identifier>
     
     static public var errorDomain = "com.saturdayapps.WaterMe.model"
     public var errorCode: Int { 1002 }
     
-    public var request: DeleteRequestError
-    public var onConfirmation: (DeleteRequestError) -> Void
+    public var selection: Selection
+    public var onConfirmation: (Selection) -> Void
     
-    public init(request: DeleteRequestError, onConfirmation: @escaping (DeleteRequestError) -> Void) {
-        self.request = request
+    public init(_ selection: Selection,
+                onConfirmation: @escaping (Selection) -> Void)
+    {
+        self.selection = selection
         self.onConfirmation = onConfirmation
     }
 }

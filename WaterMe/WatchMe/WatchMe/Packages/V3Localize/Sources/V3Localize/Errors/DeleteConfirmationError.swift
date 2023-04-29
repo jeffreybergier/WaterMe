@@ -21,7 +21,7 @@
 import Umbrella
 import V3Model
 
-extension DeleteConfirmationError: UserFacingError {
+extension DeleteVesselConfirmationError: UserFacingError {
     public var title: Umbrella.LocalizationKey {
         "" // Do we need a title? Should I set this to nillable?
     }
@@ -38,7 +38,7 @@ extension DeleteConfirmationError: UserFacingError {
         return [
             .init(title: Verb.delete.rawValue,
                   isDestructive: true,
-                  perform: { self.onConfirmation(self.request) }),
+                  perform: { self.onConfirmation(self.selection) }),
         ]
     }
 }

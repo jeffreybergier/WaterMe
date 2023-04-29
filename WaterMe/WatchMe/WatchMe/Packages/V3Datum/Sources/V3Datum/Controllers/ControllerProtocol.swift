@@ -38,8 +38,8 @@ public protocol ControllerProtocol {
 
     // MARK: Websites CRUD
     func createVessel() -> Result<Vessel.Selection.Element, Error>
-    func createReminder(in vessel: Vessel.Identifier) -> Result<Reminder.Selection.Element, Error>
-    func delete(_   vessel: Vessel.Selection.Element)   -> Result<Void, Error>
+    func createReminder(in vessel: Vessel.Identifier)   -> Result<Reminder.Selection.Element, Error>
+    func delete(_  vessels: Set<Vessel.Identifier>)     -> Result<Void, Error>
     func delete(_ reminder: Reminder.Selection.Element) -> Result<Void, Error>
     func appendNewPerformToReminders(with ids: Reminder.Selection) -> Result<Void, Error>
 }
