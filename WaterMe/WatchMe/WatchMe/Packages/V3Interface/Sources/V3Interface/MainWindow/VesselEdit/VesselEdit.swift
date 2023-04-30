@@ -39,8 +39,6 @@ internal struct VesselEdit: View {
     @VesselQuery private var vesselQuery
     @ReminderListQuery private var remindersQuery
     
-    @Environment(\.dismiss) private var dismiss
-    
     private let id: Vessel.Identifier
     
     internal init(_ id: Vessel.Identifier) {
@@ -124,7 +122,7 @@ internal struct VesselEdit: View {
             title:  self.text.title,
             done:   self.text.done,
             delete: self.text.delete,
-            doneAction: { self.dismiss() },
+            doneAction: { self.nav.stack.pop() },
             deleteAction: {
                 let error = DeleteVesselConfirmationError([self.id]) { selection in
                     self.controller.delete(selection)

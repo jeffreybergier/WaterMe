@@ -40,8 +40,6 @@ internal struct ReminderEdit: View {
     
     @ReminderQuery private var query
     
-    @Environment(\.dismiss) private var dismiss
-    
     private let id: Reminder.Identifier
     
     internal init(_ id: Reminder.Identifier) {
@@ -123,7 +121,7 @@ internal struct ReminderEdit: View {
             title: self.text.title,
             done:   self.text.done,
             delete: self.text.delete,
-            doneAction: { self.dismiss() },
+            doneAction: { self.nav.stack.pop() },
             deleteAction: {
                 let error = DeleteReminderConfirmationError([self.id]) { selection in
                     self.controller.delete(selection)
