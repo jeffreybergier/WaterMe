@@ -27,17 +27,17 @@ internal struct WateringAnimation: View {
     
     @Nav private var nav
     
-    @State private var player = AVPlayer(
-        url: Bundle.module.url(forResource: "WateringLandscape",
-                               withExtension: "mov")!
-    )
+    @StateObject private var player = AnimationTimeObserver()
     
     internal var body: some View {
-        VideoPlayer(player: self.player)
+        VideoPlayer(player: self.player.player)
             .ignoresSafeArea()
             .onAppear {
-                self.player.seek(to: .zero)
-                self.player.play()
+                self.player.playFromBeginning()
+            }
+            .onChange(of: self.player.videoEnded) { ended in
+                guard ended == true else { return }
+                self.nav.stack.pop()
             }
     }
     
@@ -48,4 +48,56 @@ internal struct WateringAnimation: View {
 //        self.errors.append(error)
 //    }
     
+}
+
+internal class AnimationTimeObserver: ObservableObject {
+    
+    private var observerToken: Any? = nil
+    private var timeoutTimer: Timer?
+    private let timeoutInterval: TimeInterval = 0.3
+    private let observeInterval = CMTime(
+        seconds: 0.1,
+        preferredTimescale: CMTimeScale(NSEC_PER_SEC)
+    )
+    
+    @Published internal var videoEnded = false
+    
+    internal let player = AVPlayer(
+        url: Bundle.module.url(forResource: "WateringLandscape",
+                               withExtension: "mov")!
+    )
+    
+    internal init() {
+        self.configureObserver()
+        self.resetTimer()
+    }
+    
+    internal func playFromBeginning() {
+        self.player.seek(to: .zero)
+        self.player.play()
+    }
+    
+    private func configureObserver() {
+        self.observerToken = self.player.addPeriodicTimeObserver(forInterval: self.observeInterval,
+                                                                 queue: nil)
+        { [weak self] _ in
+            self?.resetTimer()
+        }
+    }
+    
+    private func resetTimer() {
+        self.timeoutTimer?.invalidate()
+        self.timeoutTimer = Timer.scheduledTimer(withTimeInterval: self.timeoutInterval,
+                                                 repeats: false)
+        { [weak self] timer in
+            timer.invalidate()
+            self?.timeoutTimer = nil
+            self?.videoEnded = true
+        }
+    }
+    
+    deinit {
+        self.observerToken.map(self.player.removeTimeObserver(_:))
+        self.timeoutTimer?.invalidate()
+    }
 }
