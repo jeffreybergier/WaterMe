@@ -60,6 +60,9 @@ extension Nav.Value {
         public mutating func picker(kind: Nav.PickerKind, for vessel: Vessel.Identifier) {
             self.path.append(Nav.Picker(kind: kind, for: vessel))
         }
+        public mutating func perform(_ reminders: Reminder.Selection) {
+            self.path.append(Nav.Perform(reminders))
+        }
     }
 }
 
@@ -91,9 +94,18 @@ extension Nav {
             self.id = id
         }
     }
+    
+    public struct Perform<T: Codable & Hashable>: Codable, Hashable {
+        public var id: T
+        public init(_ id: T) {
+            self.id = id
+        }
+    }
+    
     public enum PickerKind: Codable, Hashable {
         case emoji, camera, library, viewPhoto
     }
+    
     public struct Picker<T: Codable & Hashable>: Codable, Hashable {
         public var id: T
         public var kind: PickerKind

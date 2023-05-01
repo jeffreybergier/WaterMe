@@ -53,7 +53,8 @@ let package = Package(
                 .byNameItem(name: "V3Localize", condition: nil),
                 .byNameItem(name: "V3Settings", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
-            ]
-         ),
+            ],
+            resources: [.process("Resources")]
+        ),
     ]
 )
