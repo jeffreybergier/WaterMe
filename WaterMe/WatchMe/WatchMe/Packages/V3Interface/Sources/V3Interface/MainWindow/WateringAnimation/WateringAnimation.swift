@@ -21,33 +21,41 @@
 import SwiftUI
 import AVKit
 import AVFoundation
+import Umbrella
 import V3Nav
+import V3Model
+import V3Datum
 
 internal struct WateringAnimation: View {
     
     @Nav private var nav
+    @Controller private var controller
+    @ErrorStorage private var errors
     
+    @State private var didAppearOnce = false
     @StateObject private var player = AnimationTimeObserver()
+    
+    private let selection: Reminder.Selection
+    
+    internal init(_ selection: Reminder.Selection) {
+        self.selection = selection
+    }
     
     internal var body: some View {
         VideoPlayer(player: self.player.player)
             .ignoresSafeArea()
             .onAppear {
+                guard self.didAppearOnce == false else { return }
+                self.didAppearOnce = true
                 self.player.playFromBeginning()
+                let result = self.controller.appendNewPerformToReminders(with: self.selection)
+                result.error.map(self.errors.append(_:))
             }
             .onChange(of: self.player.videoEnded) { ended in
                 guard ended == true else { return }
                 self.nav.stack.pop()
             }
     }
-    
-//    switch self.controller.appendNewPerformToReminders(with: [reminder.id]) {
-//    case .success:
-//        self.nav.stack.pop()
-//    case .failure(let error):
-//        self.errors.append(error)
-//    }
-    
 }
 
 internal class AnimationTimeObserver: ObservableObject {
