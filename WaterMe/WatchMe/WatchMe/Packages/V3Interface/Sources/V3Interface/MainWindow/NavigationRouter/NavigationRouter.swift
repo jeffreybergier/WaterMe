@@ -53,7 +53,7 @@ internal struct NavigationRouter: ViewModifier {
                     ReminderEdit($0.id)
                 }
                 .navigationDestination(for: Nav.Perform<Reminder.Selection>.self) {
-                    WateringAnimation($0.id)
+                    PerformReminders($0.id)
                 }
                 .navigationDestination(for: Nav.Picker<Vessel.Identifier>.self) {
                     switch $0.kind {
