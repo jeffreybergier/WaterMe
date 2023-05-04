@@ -34,6 +34,7 @@ internal struct WateringAnimation: View {
     
     internal var body: some View {
         VideoPlayer(player: self.player.player)
+            .ignoresSafeArea()
             .onAppear {
                 guard self.didAppearOnce == false else { return }
                 self.didAppearOnce = true

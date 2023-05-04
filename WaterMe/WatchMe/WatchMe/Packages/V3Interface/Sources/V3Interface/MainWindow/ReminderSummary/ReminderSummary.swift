@@ -50,7 +50,13 @@ internal struct ReminderSummary: View {
             List {
                 Section {
                     self.style.button.action(text: self.text.markDone).button {
-                        self.nav.stack.perform([reminder.id])
+                        let result = self.controller.appendNewPerformToReminders(with: [reminder.id])
+                        switch result {
+                        case .success:
+                            self.nav.stack.wateringAnimation()
+                        case .failure(let error):
+                            self.errors.append(error)
+                        }
                     }
                     self.style.button.action(text: self.text.editReminder).button {
                         self.nav.stack.edit(reminder.id)
