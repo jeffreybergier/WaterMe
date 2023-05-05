@@ -25,13 +25,18 @@ import Umbrella
 public struct SyncIndicator: DynamicProperty {
     
     public struct Value {
-        public let idle:     ActionLocalization
-        public let error:    ActionLocalization
-        public let syncing:  ActionLocalization
-        public let idleSoon: ActionLocalization
+        public let idle:        ActionLocalization
+        public let error:       ActionLocalization
+        public let unavailable: ActionLocalization
+        public let syncing:     ActionLocalization
+        public let idleSoon:    ActionLocalization
         
         internal init(_ b: Bundle) {
-            fatalError()
+            self.idle        = Action.syncIdle.localized(b)
+            self.error       = Action.syncError.localized(b)
+            self.unavailable = Action.syncUnavailable.localized(b)
+            self.syncing     = Action.syncSyncing.localized(b)
+            self.idleSoon    = Action.syncIdleSoon.localized(b)
         }
     }
     

@@ -320,6 +320,18 @@ other buttons in the UI
 /* When the user is being asked to confirm to delete an item, this button lets them not delete it. */
 "Action.Don't Delete" = "Don’t Delete";
 
+/* Status Bar: iCloud sync recently completed. Not a button. */
+"Action.iCloud Sync Complete" = "iCloud Sync Complete";
+
+/* Status Bar: iCloud syncing is currently in progress. Not a button. */
+"Action.Syncing with iCloud…" = "Syncing with iCloud…";
+
+/* Alert Title: Indicates there was an error with iCloud Sync. */
+"Action.iCloud Sync Error" = "iCloud Sync Error";
+
+/* Status Bar: iCloud syncing unavailable on this device. A tappable button. */
+"Action.iCloud Sync Unavailable" = "iCloud Sync Unavailable";
+
 /*
  
  _____  _
@@ -662,9 +674,6 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 /* Cloud Sync Info: Body: Lets the user know how iCloud sync works and that it can be enabled and disabled from the settings app. */
 "WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen." = "WaterMe now automatically syncs all plants and reminders via iCloud. You can enable and disable iCloud sync from the settings screen.";
 
-/* Alert Title: Indicates there was an error with iCloud Sync. */
-"iCloud Sync Error" = "iCloud Sync Error";
-
 /* Alert Message: Indicates there was an issue with the password used for iCloud. This requires going to the phone's settings app. */
 "Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud." = "Sync failed because there is an issue with your iCloud password. Check your password in Settings → Apple ID → iCloud.";
 
@@ -694,18 +703,6 @@ _| |    | | ___  _   _  __| | | (___  _   _ _ __   ___
 
 /* Alert Message: The device is running an old version of iOS and cannot use iCloud Sync. */
 "iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings." = "iCloud Sync in WaterMe is only available on devices running iOS 14 or newer. If you do not want to see this error, turn off 'Sync via iCloud' in Settings.";
-
-/* Status Bar: iCloud sync recently completed. Not a button. */
-"iCloud Sync Complete" = "iCloud Sync Complete";
-
-/* Status Bar: iCloud syncing is currently in progress. Not a button. */
-"Syncing with iCloud…" = "Syncing with iCloud…";
-
-/* Status Bar: iCloud syncing had an error. A tappable button. */
-"Sync Error" = "Sync Error";
-
-/* Status Bar: iCloud syncing unavailable on this device. A tappable button. */
-"iCloud Sync Unavailable" = "iCloud Sync Unavailable";
 
 /*
  

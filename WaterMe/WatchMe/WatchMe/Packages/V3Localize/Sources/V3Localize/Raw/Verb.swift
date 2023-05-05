@@ -45,4 +45,8 @@ internal enum Verb: LocalizationKey {
     case pause              = "Action.Pause"
     case openSettings       = "Action.Open Settings"
     case settings           = "Action.Settings"
+    case syncIdle           = "Action.iCloud Sync Complete"
+    case syncError          = "Action.iCloud Sync Error"
+    case syncUnavailable    = "Action.iCloud Sync Unavailable"
+    case syncSyncing        = "Action.Syncing with iCloud…"
 }

@@ -26,23 +26,30 @@ internal struct SyncIndicator: ViewModifier {
     
     @V3Localize.SyncIndicator private var text
     
+    // TODO: Get rid of timer and hook up to real data
+    @State private var timer = Timer.publish(every: 2.0, on: .main, in: .default).autoconnect()
+    @State private var state = V3Style.SyncIndicator.Visibility.idle
+    
     internal init() { }
     
     internal func body(content: Content) -> some View {
         ZStack {
             content
-            V3Style.SyncIndicator(state: .error,
+            V3Style.SyncIndicator(state: self.state,
                                   configuration: self.configuration)
             {
                 print($0)
             }
-            .ignoresSafeArea()
+        }
+        .onReceive(self.timer) { _ in
+            self.state = .init(rawValue: self.state.rawValue + 1) ?? .idle
         }
     }
     
     private var configuration: V3Style.SyncIndicator.Localization {
         .init(idle: self.text.idle,
               error: self.text.error,
+              unavailable: self.text.unavailable,
               syncing: self.text.syncing,
               idleSoon: self.text.idleSoon)
     }

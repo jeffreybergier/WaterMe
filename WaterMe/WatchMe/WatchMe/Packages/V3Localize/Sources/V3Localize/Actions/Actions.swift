@@ -159,6 +159,11 @@ internal enum Action {
     case sourceLibrary
     case sourceLibraryLock
     case editPhotoMessage
+    case syncIdle
+    case syncError
+    case syncUnavailable
+    case syncSyncing
+    case syncIdleSoon
     
     private var raw: ActionLocalization {
         switch self {
@@ -230,6 +235,16 @@ internal enum Action {
             return Action.raw_sourceLibraryLock
         case .editPhotoMessage:
             return Action.raw_editPhotoMessage
+        case .syncIdle:
+            return Action.raw_syncIdle
+        case .syncError:
+            return Action.raw_syncError
+        case .syncUnavailable:
+            return Action.raw_syncUnavailable
+        case .syncSyncing:
+            return Action.raw_syncSyncing
+        case .syncIdleSoon:
+            return Action.raw_syncIdleSoon
         }
     }
     
@@ -412,5 +427,30 @@ extension Action {
         .init(title: Phrase.chooseIconMenuTitle.rawValue,
               hint:  nil,
               image: nil)
+    }()
+    private static let raw_syncIdle: ActionLocalization = {
+        .init(title: Verb.syncIdle.rawValue,
+              hint:  nil,
+              image: .system(Symbol.syncIdle.rawValue))
+    }()
+    private static let raw_syncError: ActionLocalization = {
+        .init(title: Verb.syncError.rawValue,
+              hint:  nil,
+              image: .system(Symbol.syncError.rawValue))
+    }()
+    private static let raw_syncUnavailable: ActionLocalization = {
+        .init(title: Verb.syncUnavailable.rawValue,
+              hint:  nil,
+              image: .system(Symbol.syncUnavailable.rawValue))
+    }()
+    private static let raw_syncSyncing: ActionLocalization = {
+        .init(title: Verb.syncSyncing.rawValue,
+              hint:  nil,
+              image: .system(Symbol.syncSyncing.rawValue))
+    }()
+    private static let raw_syncIdleSoon: ActionLocalization = {
+        .init(title: Verb.syncIdle.rawValue,
+              hint:  nil,
+              image: .system(Symbol.syncIdle.rawValue))
     }()
 }

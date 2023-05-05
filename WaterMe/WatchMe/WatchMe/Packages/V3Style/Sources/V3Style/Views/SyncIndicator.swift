@@ -26,21 +26,25 @@ public struct SyncIndicator: View {
     public typealias Action = (Visibility) -> Void
     
     public enum Visibility: Int {
-        case idle = 0, error, syncing, idleSoon
+        case idle = 0, error, unavailable, syncing, idleSoon
     }
     
     public struct Localization {
-        public let idle:     ActionLocalization
-        public let error:    ActionLocalization
-        public let syncing:  ActionLocalization
-        public let idleSoon: ActionLocalization
+        public let idle:        ActionLocalization
+        public let error:       ActionLocalization
+        public let unavailable: ActionLocalization
+        public let syncing:     ActionLocalization
+        public let idleSoon:    ActionLocalization
+
         public init(idle: ActionLocalization,
                     error: ActionLocalization,
+                    unavailable: ActionLocalization,
                     syncing: ActionLocalization,
                     idleSoon: ActionLocalization)
         {
             self.idle = idle
             self.error = error
+            self.unavailable = unavailable
             self.syncing = syncing
             self.idleSoon = idleSoon
         }
@@ -72,53 +76,66 @@ public struct SyncIndicator: View {
     }
     
     private var composed: some View {
-        Button {
+        ActionStyleSyncIndicator.action(text: self.localization).button {
             self.action(self.state)
-        } label: {
-            ZStack {
-                Color.gray
-                    .clipShape(Capsule())
-                self.image
-                    .padding(8)
-                    .layoutPriority(1.1)
-            }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.borderedProminent)
+        .disabled(self.disabled)
     }
     
-    private var image: Image {
+    private var localization: ActionLocalization {
         switch self.state {
-        case .error:    return Image(systemName: "exclamationmark.icloud")
-        case .syncing:  return Image(systemName: "arrow.clockwise.icloud")
-        case .idleSoon: return Image(systemName: "checkmark.icloud")
-        case .idle:     return Image(systemName: "checkmark.icloud")
+        case .error:       return self.configuration.error
+        case .unavailable: return self.configuration.unavailable
+        case .syncing:     return self.configuration.syncing
+        case .idleSoon:    return self.configuration.idleSoon
+        case .idle:        return self.configuration.idle
+        }
+    }
+    
+    private var disabled: Bool {
+        switch self.state {
+        case .idle, .syncing, .idleSoon: return true
+        case .error, .unavailable:       return false
         }
     }
     
     private var scale: CGSize {
         switch self.state {
-        case .error:    return .init(width: 1, height: 1)
-        case .syncing:  return .init(width: 1, height: 1)
-        case .idleSoon: return .init(width: 1, height: 1)
-        case .idle:     return .init(width: 0.5, height: 0.5)
-        }
-    }
-    
-    private var opacity: CGFloat {
-        switch self.state {
-        case .error:    return 1.0
-        case .syncing:  return 1.0
-        case .idleSoon: return 1.0
-        case .idle:     return 0.0
+        case .error, .unavailable, .syncing, .idleSoon:
+            return .init(width: 1, height: 1)
+        case .idle:
+            return .init(width: 0.5, height: 0.5)
         }
     }
     
     private var padding: CGFloat {
         switch self.state {
-        case .error:    return 15
-        case .syncing:  return 15
-        case .idleSoon: return 15
-        case .idle:     return 0.0
+        case .error, .unavailable, .syncing, .idleSoon:
+            return 0.0
+        case .idle:
+            return -15.0
+        }
+    }
+    
+    private var opacity: CGFloat {
+        switch self.state {
+        case .error, .unavailable, .syncing, .idleSoon:
+            return 1.0
+        case .idle:
+            return 0.0
+        }
+    }
+}
+
+internal struct SyncIndicatorModifier: ViewModifier {
+    internal func body(content: Content) -> some View {
+        ZStack {
+            Color.gray
+                .clipShape(Capsule())
+            content
+                .padding(8)
+                .layoutPriority(1.1)
         }
     }
 }
