@@ -30,8 +30,6 @@ internal struct NavigationRouter: ViewModifier {
     @Nav private var nav
     @ErrorStorage private var errors
     
-    @EnvironmentObject private var syncProgress: ContinousProgress.Environment
-    
     internal init() {}
     
     internal func body(content: Content) -> some View {
@@ -65,12 +63,6 @@ internal struct NavigationRouter: ViewModifier {
                     case .viewPhoto: fatalError()
                     }
                 }
-        }
-        .onLoadChange(of: self.syncProgress.id) { _ in
-            let errors = self.syncProgress.value.errors
-            guard errors.isEmpty == false else { return }
-            self.syncProgress.value.errors = []
-            errors.forEach(self.errors.append(_:))
         }
         .modifier(SyncIndicator())
         .modifier(

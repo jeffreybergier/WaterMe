@@ -19,10 +19,15 @@
 //
 
 import SwiftUI
+import Umbrella
 import V3Style
 import V3Localize
+import V3Datum
 
 internal struct SyncIndicator: ViewModifier {
+    
+    @ErrorStorage private var errors
+    @EnvironmentObject private var syncProgress: ContinousProgress.Environment
     
     @V3Localize.SyncIndicator private var text
     
@@ -35,14 +40,24 @@ internal struct SyncIndicator: ViewModifier {
     internal func body(content: Content) -> some View {
         ZStack {
             content
-            V3Style.SyncIndicator(state: self.state,
-                                  configuration: self.configuration)
-            {
-                print($0)
-            }
+            self.syncIndicator
         }
         .onReceive(self.timer) { _ in
             self.state = .init(rawValue: self.state.rawValue + 1) ?? .idle
+        }
+    }
+    
+    private var syncIndicator: V3Style.SyncIndicator {
+        .init(state: self.state, configuration: self.configuration) {
+            switch $0 {
+            case .idle, .syncing, .idleSoon:
+                assertionFailure()
+            case .error, .unavailable:
+                let errors = self.syncProgress.value.errors
+                guard errors.isEmpty == false else { return }
+                self.syncProgress.value.errors = []
+                errors.forEach(self.errors.append(_:))
+            }
         }
     }
     
