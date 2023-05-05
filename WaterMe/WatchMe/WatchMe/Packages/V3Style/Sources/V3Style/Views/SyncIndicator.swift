@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import Umbrella
 
 public struct SyncIndicator: View {
     
@@ -28,11 +29,33 @@ public struct SyncIndicator: View {
         case idle = 0, error, syncing, idleSoon
     }
     
+    public struct Localization {
+        public let idle:     ActionLocalization
+        public let error:    ActionLocalization
+        public let syncing:  ActionLocalization
+        public let idleSoon: ActionLocalization
+        public init(idle: ActionLocalization,
+                    error: ActionLocalization,
+                    syncing: ActionLocalization,
+                    idleSoon: ActionLocalization)
+        {
+            self.idle = idle
+            self.error = error
+            self.syncing = syncing
+            self.idleSoon = idleSoon
+        }
+    }
+    
     private let action: Action
+    private let configuration: Localization
     private let state: Visibility
     
-    public init(state: Visibility, action: @escaping Action) {
+    public init(state: Visibility,
+                configuration: Localization,
+                action: @escaping Action)
+    {
         self.state = state
+        self.configuration = configuration
         self.action = action
     }
     

@@ -20,16 +20,30 @@
 
 import SwiftUI
 import V3Style
+import V3Localize
 
 internal struct SyncIndicator: ViewModifier {
+    
+    @V3Localize.SyncIndicator private var text
     
     internal init() { }
     
     internal func body(content: Content) -> some View {
         ZStack {
             content
-            V3Style.SyncIndicator(state: .error, action: { print($0) })
-                .ignoresSafeArea()
+            V3Style.SyncIndicator(state: .error,
+                                  configuration: self.configuration)
+            {
+                print($0)
+            }
+            .ignoresSafeArea()
         }
+    }
+    
+    private var configuration: V3Style.SyncIndicator.Localization {
+        .init(idle: self.text.idle,
+              error: self.text.error,
+              syncing: self.text.syncing,
+              idleSoon: self.text.idleSoon)
     }
 }
