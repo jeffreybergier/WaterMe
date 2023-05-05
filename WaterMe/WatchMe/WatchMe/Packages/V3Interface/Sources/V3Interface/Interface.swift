@@ -47,6 +47,7 @@ public struct Interface: Scene {
                 MainWindow()
                     .environmentObject(self.controller)
                     .environmentObject(self.errorStorage)
+                    .environmentObject(controller.syncProgress)
                     .environment(\.bundle, self.localizeBundle)
                     .environment(\.managedObjectContext, controller.context)
             case .failure(let error):
