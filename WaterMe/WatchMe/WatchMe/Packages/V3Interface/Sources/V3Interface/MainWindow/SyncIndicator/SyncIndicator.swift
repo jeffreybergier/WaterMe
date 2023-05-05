@@ -27,6 +27,7 @@ import V3Datum
 internal struct SyncIndicator: ViewModifier {
     
     @ErrorStorage private var errors
+    @StateObject private var observer = SyncObserver()
     @EnvironmentObject private var syncProgress: ContinousProgress.Environment
     
     @V3Localize.SyncIndicator private var text
@@ -42,13 +43,14 @@ internal struct SyncIndicator: ViewModifier {
             content
             self.syncIndicator
         }
-        .onReceive(self.timer) { _ in
-            self.state = .init(rawValue: self.state.rawValue + 1) ?? .idle
+        .onChange(of: self.syncProgress.id) { _ in
+            self.observer.progress = self.syncProgress.value.progress
+            self.observer.newestError = self.syncProgress.value.errors.first
         }
     }
     
     private var syncIndicator: V3Style.SyncIndicator {
-        .init(state: self.state, configuration: self.configuration) {
+        .init(state: self.observer.visibility, configuration: self.configuration) {
             switch $0 {
             case .idle, .syncing, .idleSoon:
                 assertionFailure()
@@ -68,4 +70,39 @@ internal struct SyncIndicator: ViewModifier {
               syncing: self.text.syncing,
               idleSoon: self.text.idleSoon)
     }
+}
+
+private class SyncObserver: ObservableObject {
+    
+    @Published internal var visibility: V3Style.SyncIndicator.Visibility = .idle
+    
+    internal var newestError: Swift.Error? {
+        didSet {
+            self.updateVisibility()
+        }
+    }
+    
+    internal var progress: Progress? {
+        didSet {
+            self.updateVisibility()
+        }
+    }
+    
+    internal func updateVisibility() {
+        if let newestError {
+            if newestError is Umbrella.CPAccountStatus {
+                self.visibility = .unavailable
+            } else {
+                self.visibility = .error
+            }
+            return
+        }
+        
+        if let progress, progress.fractionCompleted < 1.0 {
+            self.visibility = .syncing
+        } else {
+            self.visibility = .idle
+        }
+    }
+    
 }
