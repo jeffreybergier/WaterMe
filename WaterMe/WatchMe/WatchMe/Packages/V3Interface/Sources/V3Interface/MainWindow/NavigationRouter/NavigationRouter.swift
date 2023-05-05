@@ -72,6 +72,7 @@ internal struct NavigationRouter: ViewModifier {
             self.syncProgress.value.errors = []
             errors.forEach(self.errors.append(_:))
         }
+        .modifier(SyncIndicator())
         .modifier(
             ErrorStorage.Presenter(
                 isAlreadyPresenting: self.nav.modal.isAlreadyPresenting,
