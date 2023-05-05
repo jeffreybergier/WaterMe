@@ -19,6 +19,7 @@
 //
 
 import SwiftUI
+import V3Style
 
 internal struct SyncIndicator: ViewModifier {
     
@@ -27,7 +28,7 @@ internal struct SyncIndicator: ViewModifier {
     internal func body(content: Content) -> some View {
         ZStack {
             content
-            Color.red
+            V3Style.SyncIndicator(state: .error, action: { print($0) })
                 .ignoresSafeArea()
         }
     }
