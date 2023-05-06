@@ -36,6 +36,7 @@ internal struct NavigationRouter: ViewModifier {
         // or rather they only says "Do List of this", "Edit this", "pop to this", etc
         NavigationStack(path: self.$nav.stack.path) {
             content
+                .modifier(SyncIndicator())
                 .navigationDestination(for: Nav.Special<Share.Identifier>.self) {
                     ReminderGrid($0.id)
                         .modifier(SyncIndicator())

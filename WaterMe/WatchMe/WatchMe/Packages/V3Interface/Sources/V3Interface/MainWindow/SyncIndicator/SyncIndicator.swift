@@ -27,16 +27,14 @@ import V3Datum
 internal struct SyncIndicator: ViewModifier {
     
     @ErrorStorage private var errors
-    @StateObject private var observer = SyncObserver()
+    @StateObject private var observer = SyncIndicatorObserver()
     @EnvironmentObject private var syncProgress: ContinousProgress.Environment
-    
     @V3Localize.SyncIndicator private var text
     
     internal init() { }
     
     internal func body(content: Content) -> some View {
-        ZStack {
-            content
+        content.overlay {
             self.syncIndicator
         }
         .onLoadChange(of: self.syncProgress.id) { _ in
@@ -66,39 +64,4 @@ internal struct SyncIndicator: ViewModifier {
               syncing: self.text.syncing,
               idleSoon: self.text.idleSoon)
     }
-}
-
-private class SyncObserver: ObservableObject {
-    
-    @Published internal var visibility: V3Style.SyncIndicator.Visibility = .idle
-    
-    internal var newestError: Swift.Error? {
-        didSet {
-            self.updateVisibility()
-        }
-    }
-    
-    internal var progress: Progress? {
-        didSet {
-            self.updateVisibility()
-        }
-    }
-    
-    internal func updateVisibility() {
-        if let newestError {
-            if newestError is Umbrella.CPAccountStatus {
-                self.visibility = .unavailable
-            } else {
-                self.visibility = .error
-            }
-            return
-        }
-        
-        if let progress, progress.fractionCompleted < 1.0 {
-            self.visibility = .syncing
-        } else {
-            self.visibility = .idle
-        }
-    }
-    
 }
