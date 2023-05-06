@@ -28,7 +28,6 @@ import V3Localize
 internal struct NavigationRouter: ViewModifier {
     
     @Nav private var nav
-    @ErrorStorage private var errors
     
     internal init() {}
     
@@ -39,6 +38,7 @@ internal struct NavigationRouter: ViewModifier {
             content
                 .navigationDestination(for: Nav.Special<Share.Identifier>.self) {
                     ReminderGrid($0.id)
+                        .modifier(SyncIndicator())
                 }
                 .navigationDestination(for: Nav.List<Share.Identifier>.self) {
                     VesselGrid($0.id)
@@ -64,7 +64,6 @@ internal struct NavigationRouter: ViewModifier {
                     }
                 }
         }
-        .modifier(SyncIndicator())
         .modifier(
             ErrorStorage.Presenter(
                 isAlreadyPresenting: self.nav.modal.isAlreadyPresenting,
