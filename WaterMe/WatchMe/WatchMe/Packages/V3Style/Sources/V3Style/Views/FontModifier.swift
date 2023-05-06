@@ -20,23 +20,25 @@
 
 import SwiftUI
 
-internal struct ButtonBorderShapeModifier: ViewModifier {
+// TODO: change back to internal
+public struct ButtonBorderShapeModifier: ViewModifier {
     private let shape: ButtonBorderShape
     internal init(_ shape: ButtonBorderShape) {
         self.shape = shape
     }
-    internal func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .buttonBorderShape(self.shape)
     }
 }
 
-internal struct FontModifier: ViewModifier {
+// TODO: change back to internal
+public struct FontModifier: ViewModifier {
     private let font: Font
     internal init(_ font: Font) {
         self.font = font
     }
-    internal func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content.font(self.font)
     }
 }

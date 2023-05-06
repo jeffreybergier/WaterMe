@@ -43,12 +43,13 @@ internal struct FallbackAlphaModifier: ViewModifier {
     }
 }
 
-internal struct FallbackFontModifier: ViewModifier {
+// TODO: change back to internal
+public struct FallbackFontModifier: ViewModifier {
     
     @State private var isFallback = false
     @Environment(\.colorScheme) private var scheme
     
-    internal func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         Group {
             if self.isFallback {
                 content
@@ -65,7 +66,8 @@ internal struct FallbackFontModifier: ViewModifier {
     }
 }
 
-internal struct Modifier2<M1: ViewModifier, M2: ViewModifier>: ViewModifier {
+// TODO: change back to internal
+public struct Modifier2<M1: ViewModifier, M2: ViewModifier>: ViewModifier {
     
     private let m1: M1
     private let m2: M2
@@ -75,7 +77,7 @@ internal struct Modifier2<M1: ViewModifier, M2: ViewModifier>: ViewModifier {
         self.m2 = m2
     }
     
-    internal func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .modifier(self.m1)
             .modifier(self.m2)
