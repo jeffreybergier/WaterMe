@@ -32,10 +32,6 @@ internal struct SyncIndicator: ViewModifier {
     
     @V3Localize.SyncIndicator private var text
     
-    // TODO: Get rid of timer and hook up to real data
-    @State private var timer = Timer.publish(every: 2.0, on: .main, in: .default).autoconnect()
-    @State private var state = V3Style.SyncIndicator.Visibility.idle
-    
     internal init() { }
     
     internal func body(content: Content) -> some View {
