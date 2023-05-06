@@ -21,7 +21,7 @@
 import SwiftUI
 import Umbrella
 
-internal struct CircleModifier: ViewModifier {
+internal struct CircleModifierEmoji: ViewModifier {
     
     @Environment(\.tintColor) private var tintColor
     
@@ -38,6 +38,30 @@ internal struct CircleModifier: ViewModifier {
     internal func body(content: Content) -> some View {
         content
             .padding()
+            .clipShape(Circle())
+            .overlay(
+                Circle().stroke(self.strokeColor ?? self.tintColor,
+                                lineWidth: self.strokeWidth)
+            )
+    }
+}
+
+internal struct CircleModifierImage: ViewModifier {
+    
+    @Environment(\.tintColor) private var tintColor
+    
+    private let strokeColor: Color?
+    private let strokeWidth: CGFloat
+    
+    internal init(strokeColor: Color? = nil,
+                  strokeWidth: CGFloat = 2)
+    {
+        self.strokeColor = strokeColor
+        self.strokeWidth = strokeWidth
+    }
+    
+    internal func body(content: Content) -> some View {
+        content
             .clipShape(Circle())
             .overlay(
                 Circle().stroke(self.strokeColor ?? self.tintColor,

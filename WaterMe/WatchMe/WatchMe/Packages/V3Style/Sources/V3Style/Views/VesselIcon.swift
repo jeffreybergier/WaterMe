@@ -32,18 +32,20 @@ internal struct VesselIcon: View {
     }
     
     internal var body: some View {
-        self.content
-            .modifier(CircleModifier())
-    }
-    
-    @ViewBuilder private var content: some View {
         if let emoji {
             Text(emoji)
+                .modifier(CircleModifierEmoji())
         } else if let image {
             Image(jsbImage: image)
+                .resizable()
+                .clipShape(Circle())
+                 // TODO: Figure out how to choose this size better
+                .frame(width: 72, height: 72, alignment: .center)
+                .modifier(CircleModifierImage())
         } else {
             Text("🌸")
                 .preference(key: isFallbackKey.self, value: true)
+                .modifier(CircleModifierEmoji())
         }
     }
     
