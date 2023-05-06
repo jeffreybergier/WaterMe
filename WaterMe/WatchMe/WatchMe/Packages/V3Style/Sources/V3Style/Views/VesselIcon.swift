@@ -38,6 +38,7 @@ internal struct VesselIcon: View {
         } else if let image {
             Image(jsbImage: image)
                 .resizable()
+                .scaledToFill()
                 .clipShape(Circle())
                  // TODO: Figure out how to choose this size better
                 .frame(width: 72, height: 72, alignment: .center)
