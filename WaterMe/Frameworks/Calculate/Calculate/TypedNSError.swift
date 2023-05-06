@@ -32,7 +32,7 @@ open class TypedNSError<T: ErrorInitable>: ErrorInitable, CustomNSError {
     open class var errorDomain: String { "com.saturdayapps.WaterMe.InvalidDomain" }
     open var errorCode: Int { self.untyped.code }
     open var errorUserInfo: [String: Any] {
-        var userInfo = self.errorUserInfo
+        var userInfo = self.untyped.userInfo
         userInfo["JSBOriginalErrorDomainKey"] = self.untyped.domain
         return userInfo
     }
