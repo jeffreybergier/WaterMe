@@ -28,7 +28,7 @@ extension VesselEdit.LibraryPicker {
     public struct Selection: DynamicProperty {
         
         // swiftlint:disable:next nesting
-        public enum Value {
+        public enum Value: Equatable {
             case step1_user_presentLibrary
             case step2_system_loadPhoto(PhotosPickerItem)
             case step3_user_cropPhoto(Data)

@@ -28,6 +28,50 @@ import V3Style
 import V3Localize
 
 extension VesselEdit {
+    @available(*, deprecated, message: "// TODO: Temporary for Phone Only")
+    internal struct LibraryPicker2: View {
+        
+        @VesselEdit.LibraryPicker.Selection private var selection
+        @VesselQuery private var query
+        
+        @V3Style.VesselEdit.LibraryPicker private var style
+        @V3Localize.VesselEdit.LibraryPicker private var text
+        
+        private let id: Vessel.Selection.Element
+        
+        internal init(id: Vessel.Selection.Element) {
+            self.id = id
+        }
+        
+        internal var body: some View {
+            PhotosPicker("Open Photo Library",
+                         selection: self.$selection,
+                         matching: .images,
+                         preferredItemEncoding: .compatible)
+            .navigationTitle(self.text.title)
+            .onLoadChange(of: self.id) {
+                self.query.identifier = $0
+            }
+            .onChange(of: self.selection) { value in
+                Task {
+                    switch value {
+                    case .step1_user_presentLibrary:
+                        return
+                    case .step2_system_loadPhoto(let requestable):
+                        guard let data = try? await requestable.loadTransferable(type: Data.self) else { return }
+                        self.$query?.wrappedValue.icon = .image(data)
+                    case .step3_user_cropPhoto(_):
+                        fatalError()
+                    case .step4_system_savePhoto(_):
+                        fatalError()
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension VesselEdit {
     @available(*, deprecated, message: "// TODO: Put on back-burner. Finish later")
     internal struct LibraryPicker: View {
         

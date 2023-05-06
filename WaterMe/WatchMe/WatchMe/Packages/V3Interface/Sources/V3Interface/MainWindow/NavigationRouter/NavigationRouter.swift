@@ -59,7 +59,7 @@ internal struct NavigationRouter: ViewModifier {
                     switch $0.kind {
                     case .emoji: VesselEdit.EmojiPicker(id: $0.id)
                     case .camera: fatalError()
-                    case .library: fatalError()
+                    case .library: VesselEdit.LibraryPicker2(id: $0.id)
                     case .viewPhoto: fatalError()
                     }
                 }
