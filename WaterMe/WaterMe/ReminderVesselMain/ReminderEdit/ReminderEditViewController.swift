@@ -352,10 +352,10 @@ extension ReminderEditViewController: ReminderEditTableViewControllerDelegate {
             activity = _activity
         case .viewReminder:
             activity = NSUserActivity(kind: .viewReminder,
-                                          delegate: self.userActivityDelegate)
+                                      delegate: self.userActivityDelegate)
         case .performReminder:
             activity = NSUserActivity(kind: .performReminder,
-                                          delegate: self.userActivityDelegate)
+                                      delegate: self.userActivityDelegate)
         }
         activity.needsSave = true
         activity.becomeCurrent()
