@@ -37,6 +37,9 @@ internal struct NavigationRouter: ViewModifier {
         NavigationStack(path: self.$nav.stack.path) {
             content
                 .modifier(SyncIndicator())
+                .navigationDestination(for: Nav.QuickPerform<Share.Identifier>.self) {
+                    QuickPerform($0.id)
+                }
                 .navigationDestination(for: Nav.Special<Share.Identifier>.self) {
                     ReminderGrid($0.id)
                         .modifier(SyncIndicator())

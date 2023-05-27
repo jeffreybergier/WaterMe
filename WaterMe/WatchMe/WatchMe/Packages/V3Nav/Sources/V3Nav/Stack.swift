@@ -38,6 +38,10 @@ extension Nav.Value {
             self.path.append(Nav.Special(share))
         }
         
+        public mutating func quick(_ share: Share.Identifier) {
+            self.path.append(Nav.QuickPerform(share))
+        }
+        
         public mutating func list(_ share: Share.Identifier) {
             self.path.append(Nav.List(share))
         }
@@ -101,6 +105,13 @@ extension Nav {
     
     public enum PickerKind: Codable, Hashable {
         case emoji, camera, library, viewPhoto
+    }
+    
+    public struct QuickPerform<T: Codable & Hashable>: Codable, Hashable {
+        public var id: T
+        public init(_ id: T) {
+            self.id = id
+        }
     }
     
     public struct Picker<T: Codable & Hashable>: Codable, Hashable {

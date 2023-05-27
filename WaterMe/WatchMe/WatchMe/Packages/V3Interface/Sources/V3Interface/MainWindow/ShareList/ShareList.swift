@@ -36,7 +36,7 @@ internal struct ShareList: View {
         self.data.view {
             List($0) { id in
                 Button {
-                    self.nav.stack.main(id)
+                    self.nav.stack.quick(id)
                 } label: {
                     Row(id)
                 }
