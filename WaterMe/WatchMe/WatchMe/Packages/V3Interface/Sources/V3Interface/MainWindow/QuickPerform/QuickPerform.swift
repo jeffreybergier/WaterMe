@@ -20,9 +20,15 @@
 //
 
 import SwiftUI
+import Umbrella
 import V3Model
+import V3Datum
 
 internal struct QuickPerform: View {
+    
+    @ReminderListQuery(.late)     private var late
+    @ReminderListQuery(.today)    private var today
+    @ReminderListQuery(.tomorrow) private var tomorrow
     
     private let id: Share.Identifier
     
@@ -31,6 +37,16 @@ internal struct QuickPerform: View {
     }
     
     internal var body: some View {
-        Color.red
+        ScrollView {
+            Text("Late: \(self.late.data.count)")
+            Text("Today: \(self.today.data.count)")
+            Text("Tomorrow: \(self.tomorrow.data.count)")
+            Text("View All")
+        }
+        .onLoadChange(of: self.id) {
+            self.late.filter     = .share($0)
+            self.today.filter    = .share($0)
+            self.tomorrow.filter = .share($0)
+        }
     }
 }
