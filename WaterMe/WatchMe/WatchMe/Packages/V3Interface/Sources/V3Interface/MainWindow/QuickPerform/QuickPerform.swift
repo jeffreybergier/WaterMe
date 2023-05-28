@@ -23,12 +23,21 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Nav
+import V3Localize
+import V3Style
 
 internal struct QuickPerform: View {
     
+    @Nav private var nav
+    @Controller private var controller
+    @ErrorStorage private var errors
+    
     @ReminderListQuery(.late)     private var late
     @ReminderListQuery(.today)    private var today
-    @ReminderListQuery(.tomorrow) private var tomorrow
+    
+    @V3Style.QuickPerform private var style
+    @V3Localize.QuickPerform private var text
     
     private let id: Share.Identifier
     
@@ -38,15 +47,29 @@ internal struct QuickPerform: View {
     
     internal var body: some View {
         ScrollView {
-            Text("Late: \(self.late.data.count)")
-            Text("Today: \(self.today.data.count)")
-            Text("Tomorrow: \(self.tomorrow.data.count)")
-            Text("View All")
+            self.style.late.action(text: .init(title: self.text.sectionTitleLate)).button {
+                self.perform(selection: Set(self.late.data))
+            }
+            self.style.late.action(text: .init(title: self.text.sectionTitleToday)).button {
+                self.perform(selection: Set(self.today.data))
+            }
+            self.style.late.action(text: .init(title: self.text.kindOther)).button {
+                
+            }
         }
         .onLoadChange(of: self.id) {
             self.late.filter     = .share($0)
             self.today.filter    = .share($0)
-            self.tomorrow.filter = .share($0)
+        }
+    }
+    
+    private func perform(selection: Reminder.Selection) {
+        let result = self.controller.appendNewPerformToReminders(with: selection)
+        switch result {
+        case .failure(let error):
+            self.errors.append(error)
+        case .success:
+            self.nav.stack.wateringAnimation()
         }
     }
 }
