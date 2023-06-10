@@ -14,7 +14,7 @@
       "location" : "https://github.com/jeffreybergier/JSBServerlessLogger.git",
       "state" : {
         "branch" : "2.0",
-        "revision" : "e8d66a1e72975095e2d90cbb1f75d2a361108e96"
+        "revision" : "d9de1d34cf7d37f2c34136351a41dded6355867c"
       }
     },
     {
@@ -49,8 +49,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jeffreybergier/Umbrella.git",
       "state" : {
-        "branch" : "waterme3",
-        "revision" : "874794ba19436bb9464f74fd452090d16691584f"
+        "branch" : "waterme3-wOS10",
+        "revision" : "994403db78db641b9723798e05500c5c4b3bc974"
       }
     },
     {
