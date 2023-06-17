@@ -1,4 +1,4 @@
-// swift-tools-version:5.7.0
+// swift-tools-version:5.9
 
 //
 //  Created by Jeffrey Bergier on 2022/11/03.
@@ -26,7 +26,7 @@ let PKGNAME = "V3Interface"
 
 let package = Package(
     name: PKGNAME,
-    platforms: [.iOS(.v16), .macOS(.v13), .watchOS(.v9)],
+    platforms: [.iOS(.v16), .macOS(.v13), .watchOS(.v10)],
     products: [
         .library(
            	name: PKGNAME,

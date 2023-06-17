@@ -27,6 +27,7 @@ import V3Model
 public struct Nav: DynamicProperty {
     
     public struct Value: Codable {
+        public var shareSelection: Share.Identifier?
         public var stack: Stack = .init()
         public var modal: Modal = .init()
     }

@@ -34,12 +34,8 @@ internal struct ShareList: View {
     
     internal var body: some View {
         self.data.view {
-            List($0) { id in
-                Button {
-                    self.nav.stack.quick(id)
-                } label: {
-                    Row(id)
-                }
+            List($0, id: \.self, selection: self.$nav.shareSelection) {
+                Row($0)
             }
         } onEmpty: {
             Text("No Libraries Found")

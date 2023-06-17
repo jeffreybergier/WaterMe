@@ -20,13 +20,24 @@
 
 import SwiftUI
 import V3Model
+import V3Nav
 
 internal struct MainWindow: View {
+    
+    @Nav private var nav
     
     internal init() { }
     
     internal var body: some View {
-        ShareList()
-            .modifier(NavigationRouter())
+        NavigationSplitView {
+            ShareList()
+        } detail: {
+            self.nav.shareSelection.view {
+                QuickPerform($0)
+            } onNIL: {
+                Text("// TODO: No Selection")
+            }
+        }
+        .modifier(NavigationRouter())
     }
 }
