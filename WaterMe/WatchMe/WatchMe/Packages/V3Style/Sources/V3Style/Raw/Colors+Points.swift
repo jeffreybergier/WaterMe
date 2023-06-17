@@ -60,6 +60,35 @@ extension Color {
         scheme.isLight ? Color.black
                        : Color.white
     }
+    internal static func tintApplication(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 200 / 255.0, green: 129 / 255.0, blue: 242 / 255.0)
+                       : Color(red: 192 / 255.0, green: 85 / 255.0, blue: 255 / 255.0)
+    }
+    internal static func tintApplicationAccessible(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 97 / 255.0, green: 46 / 255.0, blue: 128 / 255.0)
+                       : Color(red: 240 / 255.0, green: 216 / 255.0, blue: 255 / 255.0)
+    }
+    internal static func tintReminderLate(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 221 / 255.0, green: 158 / 255.0, blue: 95 / 255.0)
+                       : Color(red: 255 / 255.0, green: 163 / 255.0, blue: 72 / 255.0)
+    }
+    internal static func tintReminderToday(_ scheme: ColorScheme) -> Color {
+        tintReminderTomorrow(scheme)
+    }
+    internal static func tintReminderTomorrow(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 26 / 255.0, green: 188 / 255.0, blue: 156 / 255.0)
+                       : Color(red: 8 / 255.0, green: 228 / 255.0, blue: 185 / 255.0)
+    }
+    internal static func tintReminderThisWeek(_ scheme: ColorScheme) -> Color {
+        tintReminderLater(scheme)
+    }
+    internal static func tintReminderLater(_ scheme: ColorScheme) -> Color {
+        tintApplication(scheme)
+    }
+    internal static func tintReminderDisabled(_ scheme: ColorScheme) -> Color {
+        scheme.isLight ? Color(red: 0.6, green: 0.6, blue: 0.7)
+                       : Color(red: 0.6, green: 0.6, blue: 0.7)
+    }
 }
 
 extension ColorScheme {

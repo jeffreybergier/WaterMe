@@ -29,12 +29,8 @@ import V3Style
 
 internal struct QuickPerform: View {
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
-    
-    @ReminderListQuery(.late)     private var late
-    @ReminderListQuery(.today)    private var today
     
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
@@ -46,30 +42,27 @@ internal struct QuickPerform: View {
     }
     
     internal var body: some View {
-        ScrollView {
-            self.style.late.action(text: .init(title: self.text.sectionTitleLate)).button {
-                self.perform(selection: Set(self.late.data))
-            }
-            self.style.late.action(text: .init(title: self.text.sectionTitleToday)).button {
-                self.perform(selection: Set(self.today.data))
-            }
-            self.style.late.action(text: .init(title: self.text.kindOther)).button {
-                
-            }
+        TabView {
+            QuickPerformTab(self.id, section: .late)
+            QuickPerformTab(self.id, section: .today)
+            QuickPerformTab(self.id, section: .tomorrow)
         }
-        .onLoadChange(of: self.id) {
-            self.late.filter     = .share($0)
-            self.today.filter    = .share($0)
+        .tabViewStyle(.verticalPage)
+        .navigationTitle(self.text.title)
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                self.style.button.action(text: self.text.addPlant).button {
+                    let result = self.controller.createVessel()
+                    switch result {
+                    case .success(let id):
+                        break // TODO: Do something here
+                    case .failure(let error):
+                        self.errors.append(error)
+                    }
+                }
+            }
         }
     }
     
-    private func perform(selection: Reminder.Selection) {
-        let result = self.controller.appendNewPerformToReminders(with: selection)
-        switch result {
-        case .failure(let error):
-            self.errors.append(error)
-        case .success:
-            self.nav.stack.wateringAnimation()
-        }
-    }
+    
 }

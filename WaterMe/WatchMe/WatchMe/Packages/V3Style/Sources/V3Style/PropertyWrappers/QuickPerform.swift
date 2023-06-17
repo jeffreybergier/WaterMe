@@ -25,14 +25,31 @@ import Umbrella
 public struct QuickPerform: DynamicProperty {
     
     public struct Value {
-        public var late:  some ActionStyle  = ActionStyleDefault
-        public var today: some ActionStyle  = ActionStyleDefault
-        public var all:   some ActionStyle  = ActionStyleDefault
+        public var button: some ActionStyle = ActionStyleDefault
+        public var backgroundLate:     Color
+        public var backgroundToday:    Color
+        public var backgroundTomorrow: Color
+        public var backgroundThisWeek: Color
+        public var backgroundLater:    Color
+        public var backgroundDisabled: Color
+
+        
+        internal init(scheme: ColorScheme) {
+            self.backgroundLate     = .tintReminderLate(scheme)
+            self.backgroundToday    = .tintReminderToday(scheme)
+            self.backgroundTomorrow = .tintReminderTomorrow(scheme)
+            self.backgroundThisWeek = .tintReminderThisWeek(scheme)
+            self.backgroundLater    = .tintReminderLater(scheme)
+            self.backgroundDisabled = .tintReminderDisabled(scheme)
+
+        }
     }
+    
+    @Environment(\.colorScheme) private var scheme
     
     public init() {}
     
     public var wrappedValue: Value {
-        Value()
+        Value(scheme: self.scheme)
     }
 }
