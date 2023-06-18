@@ -50,7 +50,8 @@ internal struct QuickPerform: View {
         .tabViewStyle(.verticalPage)
         .navigationTitle(self.text.title)
         .toolbar {
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
                 self.style.button.action(text: self.text.addPlant).button {
                     let result = self.controller.createVessel()
                     switch result {

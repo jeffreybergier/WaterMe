@@ -275,7 +275,7 @@ extension Action {
     private static let raw_addPlantShort: ActionLocalization = {
         .init(title: Verb.addGeneric.rawValue,
               hint:  nil,
-              image: nil)
+              image: .system("plus.circle"))
     }()
     private static let raw_addReminder: ActionLocalization = {
         .init(title: Verb.addReminder.rawValue,
