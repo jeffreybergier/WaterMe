@@ -48,8 +48,14 @@ internal struct QuickPerformTab: View {
     }
     
     internal var body: some View {
-        List(self.query.data) {
-            ReminderGrid.Cell($0)
+        self.query.data.view { data in
+            VStack {
+                ForEach(data.prefix(3)) { reminder in
+                    Text(reminder.rawValue)
+                }
+            }
+        } onEmpty: {
+            Text("// TODO: All Done Here")
         }
         .navigationTitle(self.navigationTitle)
         .containerBackground(self.containerBackground.gradient, for: .tabView)
