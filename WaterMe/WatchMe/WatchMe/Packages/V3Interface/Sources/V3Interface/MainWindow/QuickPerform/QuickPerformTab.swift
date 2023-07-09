@@ -49,18 +49,14 @@ internal struct QuickPerformTab: View {
     
     internal var body: some View {
         self.query.data.view { data in
-            VStack {
-                ForEach(data.prefix(3)) { reminder in
-                    Text(reminder.rawValue)
-                }
-            }
+            QuickPerform3Up(identifiers: Set(data.prefix(3)))
         } onEmpty: {
             Text("// TODO: All Done Here")
         }
         .navigationTitle(self.navigationTitle)
         .containerBackground(self.containerBackground.gradient, for: .tabView)
-        .onLoadChange(of: self.id) {
-            self.query.filter = .share($0)
+        .onChange(of: self.id, initial: true) { _, shareID in
+            self.query.filter = .share(shareID)
         }
     }
     
