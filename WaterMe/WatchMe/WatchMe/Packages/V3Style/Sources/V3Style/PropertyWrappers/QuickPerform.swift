@@ -43,6 +43,12 @@ public struct QuickPerform: DynamicProperty {
             self.backgroundDisabled = .tintReminderDisabled(scheme)
 
         }
+        
+        public func icon(image: JSBImage?, emoji: String?) -> some View {
+            VesselIcon(image: image, emoji: emoji)
+                .modifier(FontModifier(.emojiSmall))
+                .modifier(FallbackAlphaModifier())
+        }
     }
     
     @Environment(\.colorScheme) private var scheme

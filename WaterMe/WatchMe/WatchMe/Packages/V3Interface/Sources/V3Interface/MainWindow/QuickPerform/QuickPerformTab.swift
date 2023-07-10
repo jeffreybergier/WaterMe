@@ -49,7 +49,7 @@ internal struct QuickPerformTab: View {
     
     internal var body: some View {
         self.query.data.view { data in
-            QuickPerform3Up(identifiers: Set(data.prefix(3)))
+            QuickPerform3Up(upTo3IDs: Set(data.prefix(3)), totalIDs: data.count)
         } onEmpty: {
             Text("// TODO: All Done Here")
         }

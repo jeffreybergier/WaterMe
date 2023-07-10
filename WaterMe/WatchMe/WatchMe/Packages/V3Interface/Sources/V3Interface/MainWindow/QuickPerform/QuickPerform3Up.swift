@@ -23,8 +23,13 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Style
+import V3Localize
 
 internal struct QuickPerform3Up: View {
+    
+    @V3Style.QuickPerform private var style
+    @V3Localize.QuickPerform private var text
     
     @ReminderQuery private var reminder0
     @ReminderQuery private var reminder1
@@ -64,37 +69,52 @@ internal struct QuickPerform3Up: View {
                      image: vessel.icon)
     }
     
-    private let identifiers: Set<Reminder.Identifier>
+    private let upTo3IDs: Set<Reminder.Identifier>
+    private let totalIDs: Int
     
-    internal init(identifiers: Set<Reminder.Identifier>) {
-        assert(identifiers.isEmpty == false)
-        assert(identifiers.count <= 3)
-        self.identifiers = identifiers
+    internal init(upTo3IDs: Set<Reminder.Identifier>, totalIDs: Int) {
+        assert(upTo3IDs.isEmpty == false)
+        assert(upTo3IDs.count <= 3)
+        self.upTo3IDs = upTo3IDs
+        self.totalIDs = totalIDs
     }
     
-    @ViewBuilder private var render: some View {
+    @ViewBuilder private var threeUpDisplay: some View {
         if let display0, let display1, let display2 {
-            VStack {
-                Text(display0.name ?? "Untitled")
-                Text(display1.name ?? "Untitled")
-                Text(display2.name ?? "Untitled")
+            VStack(spacing: -16) {
+                HStack(spacing: -8) {
+                    self.style.icon(image: display0.image?.imageValue,
+                                    emoji: display0.image?.stringValue)
+                    self.style.icon(image: display1.image?.imageValue,
+                                    emoji: display1.image?.stringValue)
+                }
+                self.style.icon(image: display2.image?.imageValue,
+                                emoji: display2.image?.stringValue)
             }
         } else if let display0, let display1 {
-            VStack {
-                Text(display0.name ?? "Untitled")
-                Text(display1.name ?? "Untitled")
+            HStack(spacing: -8) {
+                self.style.icon(image: display0.image?.imageValue,
+                                emoji: display0.image?.stringValue)
+                self.style.icon(image: display1.image?.imageValue,
+                                emoji: display1.image?.stringValue)
             }
         } else if let display0 {
-            Text(display0.name ?? "Untitled")
+            self.style.icon(image: display0.image?.imageValue,
+                            emoji: display0.image?.stringValue)
         }
     }
     
     internal var body: some View {
         // TODO: Not sure why this HStack is needed
         HStack {
-            self.render
+            VStack {
+                self.threeUpDisplay
+                if self.totalIDs > 3 {
+                    Text("+ \(self.totalIDs - 3) more…")
+                }
+            }
         }
-        .onChange(of: self.identifiers, initial: true) { _, identifiers in
+        .onChange(of: self.upTo3IDs, initial: true) { _, identifiers in
             var identifiers = identifiers
             self.reminder0.identifier = identifiers.popFirst()
             self.reminder1.identifier = identifiers.popFirst()
