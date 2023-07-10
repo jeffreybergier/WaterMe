@@ -40,8 +40,7 @@ internal struct VesselIcon: View {
                 .resizable()
                 .scaledToFill()
                 .clipShape(Circle())
-                 // TODO: Figure out how to choose this size better
-                .frame(width: 72, height: 72, alignment: .center)
+                .frame(width: 72, height: 72, alignment: .center) // TODO: Magic Numbers
                 .modifier(CircleModifierImage())
         } else {
             Text("🌸")
