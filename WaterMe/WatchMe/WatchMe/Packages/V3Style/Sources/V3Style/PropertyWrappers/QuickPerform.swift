@@ -59,17 +59,59 @@ public struct QuickPerform: DynamicProperty {
 
         }
         
-        public func icon(request: IconRequest) -> some View {
+        @ViewBuilder public func threeUpIcon(_ request0: IconRequest?,
+                                             _ request1: IconRequest?,
+                                             _ request2: IconRequest?,
+                                             _ extra:    Int?)
+                                             -> some View
+        {
+            if let request0, let request1, let request2, let extra {
+                Grid {
+                    GridRow {
+                        self.icon(request: request0)
+                        self.icon(request: request1)
+                    }
+                    GridRow {
+                        self.icon(request: request2)
+                        self.icon(extra: extra)
+                    }
+                }
+            } else if let request0, let request1, let request2 {
+                VStack {
+                    HStack {
+                        self.icon(request: request0)
+                        self.icon(request: request1)
+                    }
+                    self.icon(request: request2)
+                }
+            } else if let request0, let request1 {
+                HStack {
+                    self.icon(request: request0)
+                    self.icon(request: request1)
+                }
+            } else if let request0 {
+                self.icon(request: request0)
+            }
+        }
+        
+        private func icon(request: IconRequest) -> some View {
             ZStack(alignment: .bottomTrailing) {
                 VesselIcon(image: request.vesselIconImage,
                            emoji: request.vesselIconEmoji)
                     .modifier(FontModifier(.emojiSmall))
+                    .modifier(FallbackAlphaModifier())
                 self.kindIcon
                     .action(text: request.reminderKind)
                     .label
             }
-            .modifier(FallbackAlphaModifier())
-
+        }
+        
+        private func icon(extra: Int) -> some View {
+            Text("+" + String(describing: extra))
+                .font(.prominent)
+                // TODO: Figure out how to choose this size better
+                .frame(width: 36, height: 36, alignment: .center)
+                .modifier(CircleModifierEmoji())
         }
     }
     

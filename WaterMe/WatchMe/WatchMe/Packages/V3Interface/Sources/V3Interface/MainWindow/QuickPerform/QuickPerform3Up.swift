@@ -60,6 +60,11 @@ internal struct QuickPerform3Up: View {
     private let upTo3IDs: Set<Reminder.Identifier>
     private let totalIDs: Int
     
+    private var extra: Int? {
+        guard self.totalIDs > self.upTo3IDs.count else { return nil }
+        return self.totalIDs - self.upTo3IDs.count
+    }
+    
     internal init(upTo3IDs: Set<Reminder.Identifier>, totalIDs: Int) {
         assert(upTo3IDs.isEmpty == false)
         assert(upTo3IDs.count <= 3)
@@ -67,34 +72,13 @@ internal struct QuickPerform3Up: View {
         self.totalIDs = totalIDs
     }
     
-    @ViewBuilder private var threeUpDisplay: some View {
-        if let display0, let display1, let display2 {
-            VStack(spacing: -16) {
-                HStack(spacing: -8) {
-                    self.style.icon(request: display0)
-                    self.style.icon(request: display1)
-                }
-                self.style.icon(request: display2)
-            }
-        } else if let display0, let display1 {
-            HStack(spacing: -8) {
-                self.style.icon(request: display0)
-                self.style.icon(request: display1)
-            }
-        } else if let display0 {
-            self.style.icon(request: display0)
-        }
-    }
-    
     internal var body: some View {
         // TODO: Not sure why this HStack is needed
         HStack {
-            VStack {
-                self.threeUpDisplay
-                if self.totalIDs > 3 {
-                    Text("+ \(self.totalIDs - 3) more…")
-                }
-            }
+            self.style.threeUpIcon(self.display0,
+                                   self.display1,
+                                   self.display2,
+                                   self.extra)
         }
         .onChange(of: self.upTo3IDs, initial: true) { _, identifiers in
             var identifiers = identifiers
