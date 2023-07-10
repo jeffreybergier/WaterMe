@@ -24,8 +24,23 @@ import Umbrella
 @propertyWrapper
 public struct QuickPerform: DynamicProperty {
     
+    public struct IconRequest {
+        public var vesselIconImage: JSBImage?
+        public var vesselIconEmoji: String?
+        public var reminderKind: ActionLocalization
+        public init(vesselIconImage: JSBImage? = nil,
+                    vesselIconEmoji: String? = nil,
+                    reminderKind: ActionLocalization)
+        {
+            self.vesselIconImage = vesselIconImage
+            self.vesselIconEmoji = vesselIconEmoji
+            self.reminderKind = reminderKind
+        }
+    }
+    
     public struct Value {
-        public var button: some ActionStyle = ActionStyleDefault
+        internal var kindIcon: some ActionStyle = ActionStyleImp(labelStyle: .iconOnly, outerModifier: ReminderKindIcon())
+        public var button:     some ActionStyle = ActionStyleDefault
         public var backgroundLate:     Color
         public var backgroundToday:    Color
         public var backgroundTomorrow: Color
@@ -44,10 +59,17 @@ public struct QuickPerform: DynamicProperty {
 
         }
         
-        public func icon(image: JSBImage?, emoji: String?) -> some View {
-            VesselIcon(image: image, emoji: emoji)
-                .modifier(FontModifier(.emojiSmall))
-                .modifier(FallbackAlphaModifier())
+        public func icon(request: IconRequest) -> some View {
+            ZStack(alignment: .bottomTrailing) {
+                VesselIcon(image: request.vesselIconImage,
+                           emoji: request.vesselIconEmoji)
+                    .modifier(FontModifier(.emojiSmall))
+                self.kindIcon
+                    .action(text: request.reminderKind)
+                    .label
+            }
+            .modifier(FallbackAlphaModifier())
+
         }
     }
     

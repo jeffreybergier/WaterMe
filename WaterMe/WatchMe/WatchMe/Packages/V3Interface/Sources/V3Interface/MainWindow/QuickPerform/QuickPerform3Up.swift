@@ -39,34 +39,22 @@ internal struct QuickPerform3Up: View {
     @VesselQuery private var vessel1
     @VesselQuery private var vessel2
     
-    private var display0: Display? {
-        guard
-            let reminder = self.reminder0.data,
-            let vessel = self.vessel0.data
-        else { return nil }
-        return .init(name: vessel.displayName,
-                     kind: reminder.kind,
-                     image: vessel.icon)
+    private var display0: V3Style.QuickPerform.IconRequest? {
+        .init(reminder: self.reminder0.data,
+              vessel: self.vessel0.data,
+              localize: self.text)
     }
     
-    private var display1: Display? {
-        guard
-            let reminder = self.reminder1.data,
-            let vessel = self.vessel1.data
-        else { return nil }
-        return .init(name: vessel.displayName,
-                     kind: reminder.kind,
-                     image: vessel.icon)
+    private var display1: V3Style.QuickPerform.IconRequest? {
+        .init(reminder: self.reminder1.data,
+              vessel: self.vessel1.data,
+              localize: self.text)
     }
     
-    private var display2: Display? {
-        guard
-            let reminder = self.reminder2.data,
-            let vessel = self.vessel2.data
-        else { return nil }
-        return .init(name: vessel.displayName,
-                     kind: reminder.kind,
-                     image: vessel.icon)
+    private var display2: V3Style.QuickPerform.IconRequest? {
+        .init(reminder: self.reminder2.data,
+              vessel: self.vessel2.data,
+              localize: self.text)
     }
     
     private let upTo3IDs: Set<Reminder.Identifier>
@@ -83,24 +71,18 @@ internal struct QuickPerform3Up: View {
         if let display0, let display1, let display2 {
             VStack(spacing: -16) {
                 HStack(spacing: -8) {
-                    self.style.icon(image: display0.image?.imageValue,
-                                    emoji: display0.image?.stringValue)
-                    self.style.icon(image: display1.image?.imageValue,
-                                    emoji: display1.image?.stringValue)
+                    self.style.icon(request: display0)
+                    self.style.icon(request: display1)
                 }
-                self.style.icon(image: display2.image?.imageValue,
-                                emoji: display2.image?.stringValue)
+                self.style.icon(request: display2)
             }
         } else if let display0, let display1 {
             HStack(spacing: -8) {
-                self.style.icon(image: display0.image?.imageValue,
-                                emoji: display0.image?.stringValue)
-                self.style.icon(image: display1.image?.imageValue,
-                                emoji: display1.image?.stringValue)
+                self.style.icon(request: display0)
+                self.style.icon(request: display1)
             }
         } else if let display0 {
-            self.style.icon(image: display0.image?.imageValue,
-                            emoji: display0.image?.stringValue)
+            self.style.icon(request: display0)
         }
     }
     
@@ -132,8 +114,26 @@ internal struct QuickPerform3Up: View {
     }
 }
 
-private struct Display {
-    internal var name: String?
-    internal var kind: Reminder.Kind
-    internal var image: Vessel.Icon?
+extension V3Style.QuickPerform.IconRequest {
+    fileprivate init?(reminder: Reminder?,
+                      vessel: Vessel?,
+                      localize: V3Localize.QuickPerform.Value)
+    {
+        guard
+            let reminder = reminder,
+            let vessel = vessel
+        else { return nil }
+        let kind: ActionLocalization
+        switch reminder.kind {
+        case .water:     kind = localize.kindWater
+        case .fertilize: kind = localize.kindFertilize
+        case .trim:      kind = localize.kindTrim
+        case .mist:      kind = localize.kindMist
+        case .move:      kind = localize.kindMove
+        case .other:     kind = localize.kindOther
+        }
+        self.init(vesselIconImage: vessel.icon?.imageValue,
+                  vesselIconEmoji: vessel.icon?.stringValue,
+                  reminderKind: kind)
+    }
 }

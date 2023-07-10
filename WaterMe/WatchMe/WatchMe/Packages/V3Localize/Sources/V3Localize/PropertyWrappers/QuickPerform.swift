@@ -33,12 +33,12 @@ public struct QuickPerform: DynamicProperty {
         public var sectionTitleThisWeek: LocalizedString
         public var sectionTitleLater:    LocalizedString
         public var sectionTitleDisabled: LocalizedString
-        public var kindWater:            LocalizedString
-        public var kindFertilize:        LocalizedString
-        public var kindMist:             LocalizedString
-        public var kindTrim:             LocalizedString
-        public var kindMove:             LocalizedString
-        public var kindOther:            LocalizedString
+        public var kindWater:            ActionLocalization
+        public var kindFertilize:        ActionLocalization
+        public var kindMist:             ActionLocalization
+        public var kindTrim:             ActionLocalization
+        public var kindMove:             ActionLocalization
+        public var kindOther:            ActionLocalization
         public var itemNotFound:         ActionLocalization
         public var addPlant:             ActionLocalization
         
@@ -51,12 +51,12 @@ public struct QuickPerform: DynamicProperty {
             self.sectionTitleThisWeek = b.localized(key: Noun.thisWeek.rawValue)
             self.sectionTitleLater    = b.localized(key: Noun.later.rawValue)
             self.sectionTitleDisabled = b.localized(key: Noun.paused.rawValue)
-            self.kindWater            = b.localized(key: Noun.waterShort.rawValue)
-            self.kindFertilize        = b.localized(key: Noun.fertilizeShort.rawValue)
-            self.kindMist             = b.localized(key: Noun.mistShort.rawValue)
-            self.kindTrim             = b.localized(key: Noun.trimShort.rawValue)
-            self.kindMove             = b.localized(key: Noun.moveShort.rawValue)
-            self.kindOther            = b.localized(key: Noun.other.rawValue)
+            self.kindWater            = Action.reminderKindWater.localized(b)
+            self.kindFertilize        = Action.reminderKindFertilize.localized(b)
+            self.kindMist             = Action.reminderKindMist.localized(b)
+            self.kindTrim             = Action.reminderKindTrim.localized(b)
+            self.kindMove             = Action.reminderKindMove.localized(b)
+            self.kindOther            = Action.reminderKindOther.localized(b)
             self.itemNotFound         = Action.itemNotFound.localized(b)
             self.addPlant             = sizeH == .tiny
                                         ? Action.addPlantShort.localized(b)
