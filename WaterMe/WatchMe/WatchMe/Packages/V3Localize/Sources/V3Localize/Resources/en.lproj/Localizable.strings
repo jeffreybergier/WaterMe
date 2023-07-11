@@ -332,6 +332,9 @@ other buttons in the UI
 /* Status Bar: iCloud syncing unavailable on this device. A tappable button. */
 "Action.iCloud Sync Unavailable" = "iCloud Sync Unavailable";
 
+/* Hamburger menu button title. */
+"Action.More Actions" = "More Actions";
+
 /*
  
  _____  _

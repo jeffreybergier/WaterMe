@@ -38,6 +38,7 @@ internal enum Symbol: String {
     case syncError       = "exclamationmark.icloud"
     case syncUnavailable = "xmark.icloud"
     case syncSyncing     = "arrow.clockwise.icloud"
+    case ellipsis        = "ellipsis.circle"
     
     internal var catalog: JSBImage {
         JSBImage.image(named: self.rawValue, in: Bundle.module)!
