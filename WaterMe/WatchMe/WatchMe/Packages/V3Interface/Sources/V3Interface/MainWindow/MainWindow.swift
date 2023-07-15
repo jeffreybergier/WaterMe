@@ -32,7 +32,7 @@ internal struct MainWindow: View {
         NavigationSplitView {
             ShareList()
         } detail: {
-            self.nav.shareSelection.view {
+            self.nav.isQuickPerform.isPresented.view {
                 QuickPerform($0)
             } onNIL: {
                 Text("// TODO: No Selection")
