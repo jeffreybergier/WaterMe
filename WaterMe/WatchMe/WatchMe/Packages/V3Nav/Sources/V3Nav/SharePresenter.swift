@@ -25,4 +25,6 @@ import V3Model
 
 public struct SharePresenter: Codable {
     public var isPresented: Share.Identifier?
+    public var isBulkPerformMenu: Reminder.Selection = []
+    public var isHamburgerMenu = false
 }

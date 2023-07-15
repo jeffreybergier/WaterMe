@@ -29,6 +29,10 @@ import V3Style
 
 internal struct QuickPerform: View {
     
+    @Nav private var nav
+    @Controller private var controller
+    @ErrorStorage private var errors
+    
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
     
@@ -49,12 +53,24 @@ internal struct QuickPerform: View {
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
-                self.style.button.action(text: self.text.hamburger).button {
-                    
+                self.style.buttonToolbar.action(text: self.text.hamburger).button {
+                    self.nav.isQuickPerform.isHamburgerMenu = true
                 }
             }
         }
+        .confirmationDialog("", isPresented: self.$nav.isQuickPerform.isHamburgerMenu) {
+            self.style.button.action(text: self.text.addPlant).button {
+                let result = self.controller.createVessel()
+                switch result {
+                case .success(let id):
+                    break // TODO: Do something here
+                case .failure(let error):
+                    self.errors.append(error)
+                }
+            }
+            Button("View All Reminders") {
+                
+            }
+        }
     }
-    
-    
 }

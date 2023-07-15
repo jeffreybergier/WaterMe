@@ -39,8 +39,9 @@ public struct QuickPerform: DynamicProperty {
     }
     
     public struct Value {
-        internal var kindIcon: some ActionStyle = ActionStyleImp(labelStyle: .iconOnly, outerModifier: ReminderKindIcon())
-        public var button:     some ActionStyle = ActionStyleImp(labelStyle: .iconOnly)
+        internal var kindIcon:    some ActionStyle = ActionStyleImp(labelStyle: .iconOnly, outerModifier: ReminderKindIcon())
+        public var button:        some ActionStyle = ActionStyleDefault
+        public var buttonToolbar: some ActionStyle = ActionStyleImp(labelStyle: .iconOnly)
         public var backgroundLate:     Color
         public var backgroundToday:    Color
         public var backgroundTomorrow: Color
