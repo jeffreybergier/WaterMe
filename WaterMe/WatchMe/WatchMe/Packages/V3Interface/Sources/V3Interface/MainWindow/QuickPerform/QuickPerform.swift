@@ -30,9 +30,6 @@ import V3Style
 internal struct QuickPerform: View {
     
     @Nav private var nav
-    @Controller private var controller
-    @ErrorStorage private var errors
-    
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
     
@@ -54,23 +51,56 @@ internal struct QuickPerform: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
                 self.style.buttonToolbar.action(text: self.text.hamburger).button {
-                    self.nav.isQuickPerform.isHamburgerMenu = true
+                    self.nav.quickPerform.isHamburgerMenu = true
                 }
             }
         }
-        .confirmationDialog("", isPresented: self.$nav.isQuickPerform.isHamburgerMenu) {
-            self.style.button.action(text: self.text.addPlant).button {
-                let result = self.controller.createVessel()
-                switch result {
-                case .success(let id):
-                    break // TODO: Do something here
-                case .failure(let error):
-                    self.errors.append(error)
+        .modifier(QuickPerformModalPresentation(self.id))
+
+    }
+}
+
+// MARK: Modal Presentation
+
+internal struct QuickPerformModalPresentation: ViewModifier {
+    
+    @Nav private var nav
+    @Controller private var controller
+    @ErrorStorage private var errors
+    
+    @V3Style.QuickPerform private var style
+    @V3Localize.QuickPerform private var text
+    
+    private let id: Share.Identifier
+    
+    internal init(_ id: Share.Identifier) {
+        self.id = id
+    }
+    
+    internal func body(content: Content) -> some View {
+        content
+        // Hamburger Menu
+            .confirmationDialog("", isPresented: self.$nav.quickPerform.isHamburgerMenu) {
+                self.style.button.action(text: self.text.addPlant).button {
+                    let result = self.controller.createVessel()
+                    switch result {
+                    case .success(let id):
+                        self.nav.quickPerform.isVesselEdit = id
+                    case .failure(let error):
+                        self.errors.append(error)
+                    }
+                }
+                Button("View All Reminders") {
+                    self.nav.quickPerform.isReminderGrid.isPresented = self.id
                 }
             }
-            Button("View All Reminders") {
-                
+        // Reminder Grid
+            .sheet(item: self.$nav.quickPerform.isReminderGrid.isPresented) { share in
+                ReminderGrid(share)
             }
-        }
+        // Vessel Edit
+            .sheet(item: self.$nav.quickPerform.isVesselEdit) { vessel in
+                VesselEdit(vessel)
+            }
     }
 }

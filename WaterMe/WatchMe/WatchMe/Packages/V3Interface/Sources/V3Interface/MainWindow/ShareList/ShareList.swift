@@ -34,7 +34,7 @@ internal struct ShareList: View {
     
     internal var body: some View {
         self.data.view {
-            List($0, id: \.self, selection: self.$nav.isQuickPerform.isPresented) {
+            List($0, id: \.self, selection: self.$nav.quickPerform.isPresented) {
                 Row($0)
             }
         } onEmpty: {

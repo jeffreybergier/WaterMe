@@ -27,8 +27,8 @@ import V3Model
 public struct Nav: DynamicProperty {
     
     public struct Value: Codable {
-        public var isQuickPerform = SharePresenter()
-        public var isReminderList = SharePresenter()
+        public var quickPerform = QuickPerform2()
+        public var reminderGrid = ReminderGrid()
         public var stack: Stack = .init()
         public var modal: Modal = .init()
     }

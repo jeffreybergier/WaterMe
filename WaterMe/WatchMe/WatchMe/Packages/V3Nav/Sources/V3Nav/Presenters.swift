@@ -20,11 +20,17 @@
 //
 
 import SwiftUI
-import Umbrella
 import V3Model
 
-public struct SharePresenter: Codable {
+// TODO: Rename
+public struct QuickPerform2: Codable {
     public var isPresented: Share.Identifier?
+    public var isVesselEdit: Vessel.Identifier?
+    public var isReminderGrid = ReminderGrid()
     public var isBulkPerformMenu: Reminder.Selection = []
     public var isHamburgerMenu = false
+}
+
+public struct ReminderGrid: Codable {
+    public var isPresented: Share.Identifier?
 }

@@ -32,9 +32,11 @@ internal struct MainWindow: View {
         NavigationSplitView {
             ShareList()
         } detail: {
-            self.nav.isQuickPerform.isPresented.view {
-                QuickPerform($0)
-            } onNIL: {
+            if let share = self.nav.reminderGrid.isPresented {
+                ReminderGrid(share)
+            } else if let share = self.nav.quickPerform.isPresented {
+                QuickPerform(share)
+            } else {
                 Text("// TODO: No Selection")
             }
         }
