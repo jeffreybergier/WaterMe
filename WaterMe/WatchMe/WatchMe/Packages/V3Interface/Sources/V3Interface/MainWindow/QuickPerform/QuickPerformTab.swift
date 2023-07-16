@@ -19,6 +19,8 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#if os(watchOS)
+
 import SwiftUI
 import Umbrella
 import V3Model
@@ -105,3 +107,5 @@ internal struct QuickPerformTab: View {
         }
     }
 }
+
+#endif

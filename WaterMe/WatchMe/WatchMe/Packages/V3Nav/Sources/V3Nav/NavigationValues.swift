@@ -25,8 +25,11 @@ import V3Model
 
 public struct Root: Codable {
     public var isError: ErrorStorage.Identifier?
-    public var quickPerform = QuickPerform()
-    public var reminderGrid = ReminderGrid()
+    #if os(watchOS)
+    public var root = QuickPerform()
+    #else
+    public var root = ReminderGrid()
+    #endif
     public var isAlreadyPresenting: Bool {
         self.isError != nil
     }

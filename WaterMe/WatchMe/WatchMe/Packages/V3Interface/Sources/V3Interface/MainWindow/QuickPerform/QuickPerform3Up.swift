@@ -19,6 +19,8 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#if os(watchOS)
+
 import SwiftUI
 import Umbrella
 import V3Model
@@ -121,3 +123,5 @@ extension V3Style.QuickPerform.IconRequest {
                   reminderKind: kind)
     }
 }
+
+#endif
