@@ -29,7 +29,6 @@ import V3Localize
 
 internal struct VesselEdit: View {
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
     
@@ -40,8 +39,10 @@ internal struct VesselEdit: View {
     @ReminderListQuery private var remindersQuery
     
     private let id: Vessel.Identifier
+    @Binding private var nav: V3Nav.VesselEdit
     
-    internal init(_ id: Vessel.Identifier) {
+    internal init(_ id: Vessel.Identifier, nav: Binding<V3Nav.VesselEdit>) {
+        _nav = nav
         self.id = id
     }
     
@@ -56,7 +57,8 @@ internal struct VesselEdit: View {
                                   .action(text: self.text.editPhoto)
                                   .button
                         {
-                            self.nav.modal.isEditPhotoChooser = vessel.id
+                            // TODO: Nav
+                            // self.nav.modal.isEditPhotoChooser = vessel.id
                         }
                     }
                 } header: {
@@ -75,7 +77,8 @@ internal struct VesselEdit: View {
                     self.remindersQuery.data.view { reminders in
                         ForEach(reminders) { id in
                             ReminderRow(id) {
-                                self.nav.stack.edit(id)
+                                // TODO: Nav
+                                // self.nav.stack.edit(id)
                             }
                         }
                     } onEmpty: {
@@ -105,13 +108,15 @@ internal struct VesselEdit: View {
             self.vesselQuery.identifier = $0
             self.remindersQuery.filter = .vessel($0)
         }
-        .modifier(IconMenu())
+        .modifier(IconMenu(nav: self.$nav.reminderEdit))
     }
     
     private func addReminder(in vesselID: Vessel.Identifier) {
         switch self.controller.createReminder(in: vesselID) {
         case .success(let reminderID):
-            self.nav.stack.edit(reminderID)
+            // TODO: Nav
+            // self.nav.stack.edit(reminderID)
+            break
         case .failure(let error):
             self.errors.append(error)
         }
@@ -122,7 +127,7 @@ internal struct VesselEdit: View {
             title:  self.text.title,
             done:   self.text.done,
             delete: self.text.delete,
-            doneAction: { self.nav.stack.pop() },
+            doneAction: { /* // TODO: Nav */ },
             deleteAction: {
                 let error = DeleteVesselConfirmationError([self.id]) { selection in
                     self.controller.delete(selection)

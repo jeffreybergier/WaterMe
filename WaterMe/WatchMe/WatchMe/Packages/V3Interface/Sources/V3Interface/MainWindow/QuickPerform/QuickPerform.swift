@@ -85,22 +85,22 @@ internal struct QuickPerformModalPresentation: ViewModifier {
                     let result = self.controller.createVessel()
                     switch result {
                     case .success(let id):
-                        self.nav.quickPerform.isVesselEdit = id
+                        self.nav.quickPerform.vesselEdit.isPresented = id
                     case .failure(let error):
                         self.errors.append(error)
                     }
                 }
                 Button("View All Reminders") {
-                    self.nav.quickPerform.isReminderGrid.isPresented = self.id
+                    self.nav.quickPerform.reminderGrid.isPresented = self.id
                 }
             }
         // Reminder Grid
-            .sheet(item: self.$nav.quickPerform.isReminderGrid.isPresented) { share in
+            .sheet(item: self.$nav.quickPerform.reminderGrid.isPresented) { share in
                 ReminderGrid(share)
             }
         // Vessel Edit
-            .sheet(item: self.$nav.quickPerform.isVesselEdit) { vessel in
-                VesselEdit(vessel)
+            .sheet(item: self.$nav.quickPerform.vesselEdit.isPresented) { vessel in
+                VesselEdit(vessel, nav: self.$nav.quickPerform.vesselEdit)
             }
     }
 }

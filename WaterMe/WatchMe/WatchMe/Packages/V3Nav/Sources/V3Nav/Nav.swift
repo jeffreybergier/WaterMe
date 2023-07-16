@@ -27,10 +27,13 @@ import V3Model
 public struct Nav: DynamicProperty {
     
     public struct Value: Codable {
+        public var isError: ErrorStorage.Identifier?
         public var quickPerform = QuickPerform2()
         public var reminderGrid = ReminderGrid()
         public var stack: Stack = .init()
-        public var modal: Modal = .init()
+        public var isAlreadyPresenting: Bool {
+            self.isError != nil
+        }
     }
     
     @JSBSceneStorage("com.saturdayapps.waterme.navigation")

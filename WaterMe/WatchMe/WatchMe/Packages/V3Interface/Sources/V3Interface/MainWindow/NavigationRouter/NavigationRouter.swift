@@ -34,44 +34,14 @@ internal struct NavigationRouter: ViewModifier {
     internal func body(content: Content) -> some View {
         // TODO: Make it so Views never touch Nav directly...
         // or rather they only says "Do List of this", "Edit this", "pop to this", etc
-        NavigationStack(path: self.$nav.stack.path) {
+        NavigationStack {
             content
                 .modifier(SyncIndicator())
-                .navigationDestination(for: Nav.QuickPerform<Share.Identifier>.self) {
-                    QuickPerform($0.id)
-                }
-                .navigationDestination(for: Nav.Special<Share.Identifier>.self) {
-                    ReminderGrid($0.id)
-                        .modifier(SyncIndicator())
-                }
-                .navigationDestination(for: Nav.List<Share.Identifier>.self) {
-                    VesselGrid($0.id)
-                }
-                .navigationDestination(for: Nav.View<Reminder.Identifier>.self) {
-                    ReminderSummary($0.id)
-                }
-                .navigationDestination(for: Nav.Edit<Vessel.Identifier>.self) {
-                    VesselEdit($0.id)
-                }
-                .navigationDestination(for: Nav.Edit<Reminder.Identifier>.self) {
-                    ReminderEdit($0.id)
-                }
-                .navigationDestination(for: Nav.WateringAnimation.self) { _ in
-                    WateringAnimation { self.nav.stack.pop() }
-                }
-                .navigationDestination(for: Nav.Picker<Vessel.Identifier>.self) {
-                    switch $0.kind {
-                    case .emoji: VesselEdit.EmojiPicker(id: $0.id)
-                    case .camera: fatalError()
-                    case .library: VesselEdit.LibraryPicker2(id: $0.id)
-                    case .viewPhoto: fatalError()
-                    }
-                }
         }
         .modifier(
             ErrorStorage.Presenter(
-                isAlreadyPresenting: self.nav.modal.isAlreadyPresenting,
-                toPresent: self.$nav.modal.isError,
+                isAlreadyPresenting: self.nav.isAlreadyPresenting,
+                toPresent: self.$nav.isError,
                 router: errorRouter(_:)
             )
         )

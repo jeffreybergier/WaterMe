@@ -31,15 +31,16 @@ import V3Settings
 extension VesselEdit {
     internal struct IconMenu: ViewModifier {
         
-        @Nav private var nav
         @DevicePermissions private var permission
         @V3Style.VesselEdit.IconMenu private var style
         @V3Localize.VesselEdit.IconMenu private var text
         
         @VesselQuery private var query
         
+        @Binding internal var nav: V3Nav.ReminderEdit
+        
         private var binding: Binding<Vessel.Selection.Element?> {
-            self.$nav.modal.isEditPhotoChooser
+            self.$nav.isEditPhotoChooser
         }
         
         internal func body(content: Content) -> some View {
@@ -56,7 +57,8 @@ extension VesselEdit {
                     .action(text: self.text.emoji)
                     .button
                 {
-                    self.nav.stack.picker(kind: .emoji, for: vessel.id)
+                    // TODO: Nav
+                    // self.nav.stack.picker(kind: .emoji, for: vessel.id)
                 }
                 // TODO: In the future, instead of disabling the button
                 // change to show error to the user
@@ -64,19 +66,22 @@ extension VesselEdit {
                     .action(text: self.text.camera)
                     .button(isEnabled: self.permission.camera.boolValue)
                 {
-                    self.nav.stack.picker(kind: .camera, for: vessel.id)
+                    // TODO: Nav
+                    // self.nav.stack.picker(kind: .camera, for: vessel.id)
                 }
                 self.style.button
                     .action(text: self.text.library)
                     .button(isEnabled: self.permission.library.boolValue)
                 {
-                    self.nav.stack.picker(kind: .library, for: vessel.id)
+                    // TODO: Nav
+                    // self.nav.stack.picker(kind: .library, for: vessel.id)
                 }
                 self.style.button
                     .action(text: self.text.viewCurrent)
                     .button(isEnabled: vessel.icon?.imageValue != nil)
                 {
-                    self.nav.stack.picker(kind: .viewPhoto, for: vessel.id)
+                    // TODO: Nav
+                    // self.nav.stack.picker(kind: .viewPhoto, for: vessel.id)
                 }
             } message: { _ in
                 self.style.message

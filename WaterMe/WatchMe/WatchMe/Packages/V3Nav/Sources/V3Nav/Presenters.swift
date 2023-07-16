@@ -25,12 +25,22 @@ import V3Model
 // TODO: Rename
 public struct QuickPerform2: Codable {
     public var isPresented: Share.Identifier?
-    public var isVesselEdit: Vessel.Identifier?
-    public var isReminderGrid = ReminderGrid()
+    public var vesselEdit = VesselEdit()
+    public var reminderGrid = ReminderGrid()
     public var isBulkPerformMenu: Reminder.Selection = []
     public var isHamburgerMenu = false
 }
 
 public struct ReminderGrid: Codable {
     public var isPresented: Share.Identifier?
+}
+
+public struct ReminderEdit: Codable {
+    public var isPresented: Reminder.Identifier?
+    public var isEditPhotoChooser: Vessel.Selection.Element?
+}
+
+public struct VesselEdit: Codable {
+    public var isPresented: Vessel.Identifier?
+    public var reminderEdit = ReminderEdit()
 }
