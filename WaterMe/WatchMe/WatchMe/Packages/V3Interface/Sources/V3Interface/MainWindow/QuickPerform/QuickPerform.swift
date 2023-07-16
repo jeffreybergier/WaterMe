@@ -29,13 +29,14 @@ import V3Style
 
 internal struct QuickPerform: View {
     
-    @Nav private var nav
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
     
     private let id: Share.Identifier
+    @Binding private var nav: V3Nav.QuickPerform
     
-    internal init(_ id: Share.Identifier) {
+    internal init(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) {
+        _nav = nav
         self.id = id
     }
     
@@ -51,11 +52,11 @@ internal struct QuickPerform: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
                 self.style.buttonToolbar.action(text: self.text.hamburger).button {
-                    self.nav.quickPerform.isHamburgerMenu = true
+                    self.nav.isHamburgerMenu = true
                 }
             }
         }
-        .modifier(QuickPerformModalPresentation(self.id))
+        .modifier(QuickPerformModalPresentation(self.id, nav: self.$nav))
 
     }
 }
@@ -64,7 +65,6 @@ internal struct QuickPerform: View {
 
 internal struct QuickPerformModalPresentation: ViewModifier {
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
     
@@ -72,35 +72,37 @@ internal struct QuickPerformModalPresentation: ViewModifier {
     @V3Localize.QuickPerform private var text
     
     private let id: Share.Identifier
+    @Binding private var nav: V3Nav.QuickPerform
     
-    internal init(_ id: Share.Identifier) {
+    internal init(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) {
+        _nav = nav
         self.id = id
     }
     
     internal func body(content: Content) -> some View {
         content
         // Hamburger Menu
-            .confirmationDialog("", isPresented: self.$nav.quickPerform.isHamburgerMenu) {
+            .confirmationDialog("", isPresented: self.$nav.isHamburgerMenu) {
                 self.style.button.action(text: self.text.addPlant).button {
                     let result = self.controller.createVessel()
                     switch result {
                     case .success(let id):
-                        self.nav.quickPerform.vesselEdit.isPresented = id
+                        self.nav.vesselEdit.isPresented = id
                     case .failure(let error):
                         self.errors.append(error)
                     }
                 }
                 Button("View All Reminders") {
-                    self.nav.quickPerform.reminderGrid.isPresented = self.id
+                    self.nav.reminderGrid.isPresented = self.id
                 }
             }
         // Reminder Grid
-            .sheet(item: self.$nav.quickPerform.reminderGrid.isPresented) { share in
-                ReminderGrid(share)
+            .sheet(item: self.$nav.reminderGrid.isPresented) { share in
+                ReminderGrid(share, nav: self.$nav.reminderGrid)
             }
         // Vessel Edit
-            .sheet(item: self.$nav.quickPerform.vesselEdit.isPresented) { vessel in
-                VesselEdit(vessel, nav: self.$nav.quickPerform.vesselEdit)
+            .sheet(item: self.$nav.vesselEdit.isPresented) { vessel in
+                VesselEdit(vessel, nav: self.$nav.vesselEdit)
             }
     }
 }

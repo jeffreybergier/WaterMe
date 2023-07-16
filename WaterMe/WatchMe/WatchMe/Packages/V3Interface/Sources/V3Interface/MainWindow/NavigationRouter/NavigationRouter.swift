@@ -32,8 +32,6 @@ internal struct NavigationRouter: ViewModifier {
     internal init() {}
     
     internal func body(content: Content) -> some View {
-        // TODO: Make it so Views never touch Nav directly...
-        // or rather they only says "Do List of this", "Edit this", "pop to this", etc
         NavigationStack {
             content
                 .modifier(SyncIndicator())

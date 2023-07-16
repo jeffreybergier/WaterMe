@@ -29,7 +29,6 @@ import V3Localize
 
 internal struct ReminderSummary: View {
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
 

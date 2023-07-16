@@ -29,7 +29,6 @@ import V3Style
 
 internal struct QuickPerformTab: View {
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
     

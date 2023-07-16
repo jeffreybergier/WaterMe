@@ -33,9 +33,9 @@ internal struct MainWindow: View {
             ShareList()
         } detail: {
             if let share = self.nav.reminderGrid.isPresented {
-                ReminderGrid(share)
+                ReminderGrid(share, nav: self.$nav.reminderGrid)
             } else if let share = self.nav.quickPerform.isPresented {
-                QuickPerform(share)
+                QuickPerform(share, nav: self.$nav.quickPerform)
             } else {
                 Text("// TODO: No Selection")
             }

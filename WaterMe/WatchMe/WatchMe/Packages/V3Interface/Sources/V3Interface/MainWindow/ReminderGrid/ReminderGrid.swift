@@ -29,7 +29,6 @@ import V3Style
 
 internal struct ReminderGrid: View {
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
     
@@ -39,8 +38,10 @@ internal struct ReminderGrid: View {
     @ReminderGridQuery private var sections
 
     private let id: Share.Identifier
+    @Binding private var nav: V3Nav.ReminderGrid
     
-    internal init(_ id: Share.Identifier) {
+    internal init(_ id: Share.Identifier, nav: Binding<V3Nav.ReminderGrid>) {
+        _nav = nav
         self.id = id
     }
     

@@ -26,7 +26,6 @@ import V3Datum
 
 internal struct VesselList: View {
     
-    @Nav private var nav
     @VesselListQuery private var query
     private let id: Share.Identifier
     

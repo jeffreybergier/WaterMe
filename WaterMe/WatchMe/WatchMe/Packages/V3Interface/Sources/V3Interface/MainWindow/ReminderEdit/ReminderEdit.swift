@@ -31,7 +31,6 @@ internal struct ReminderEdit: View {
     
     private static let kIntervalRange: Range<Int> = Reminder.Constants.minimumInterval ..< Reminder.Constants.maximumInterval + 1
     
-    @Nav private var nav
     @Controller private var controller
     @ErrorStorage private var errors
     

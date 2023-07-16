@@ -30,7 +30,6 @@ import V3Style
 extension ReminderGrid {
     internal struct Cell: View {
         
-        @Nav private var nav
         @V3Style.ReminderGrid private var style
         @V3Localize.ReminderGrid private var text
 
