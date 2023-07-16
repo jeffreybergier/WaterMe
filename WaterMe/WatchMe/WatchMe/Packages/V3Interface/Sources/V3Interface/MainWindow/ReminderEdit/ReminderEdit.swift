@@ -121,7 +121,7 @@ internal struct ReminderEdit: View {
             title: self.text.title,
             done:   self.text.done,
             delete: self.text.delete,
-            doneAction: { self.nav.stack.pop() },
+            doneAction: { /* // TODO: Nav self.nav.stack.pop() */ },
             deleteAction: {
                 let error = DeleteReminderConfirmationError([self.id]) { selection in
                     self.controller.delete(selection)

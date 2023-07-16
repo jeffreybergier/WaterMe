@@ -116,7 +116,9 @@ internal struct ReminderGrid: View {
             doneAction: {
                 switch self.controller.createVessel() {
                 case .success(let id):
-                    self.nav.stack.edit(id)
+                    // TODO: Nav
+                    // self.nav.stack.edit(id)
+                    break
                 case .failure(let error):
                     self.errors.append(error)
                 }

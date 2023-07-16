@@ -53,16 +53,20 @@ internal struct ReminderSummary: View {
                         let result = self.controller.appendNewPerformToReminders(with: [reminder.id])
                         switch result {
                         case .success:
-                            self.nav.stack.wateringAnimation()
+                            // TODO: Nav
+                            // self.nav.stack.wateringAnimation()
+                            break
                         case .failure(let error):
                             self.errors.append(error)
                         }
                     }
                     self.style.button.action(text: self.text.editReminder).button {
-                        self.nav.stack.edit(reminder.id)
+                        // TODO: Nav
+                        // self.nav.stack.edit(reminder.id)
                     }
                     self.style.button.action(text: self.text.editVessel).button {
-                        self.nav.stack.edit(vessel.id)
+                        // TODO: Nav
+                        // self.nav.stack.edit(vessel.id)
                     }
                 } header: {
                     self.style.sectionHeader

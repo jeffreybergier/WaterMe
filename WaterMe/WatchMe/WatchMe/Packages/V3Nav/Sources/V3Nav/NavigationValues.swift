@@ -20,10 +20,19 @@
 //
 
 import SwiftUI
+import Umbrella
 import V3Model
 
-// TODO: Rename
-public struct QuickPerform2: Codable {
+public struct Root: Codable {
+    public var isError: ErrorStorage.Identifier?
+    public var quickPerform = QuickPerform()
+    public var reminderGrid = ReminderGrid()
+    public var isAlreadyPresenting: Bool {
+        self.isError != nil
+    }
+}
+
+public struct QuickPerform: Codable {
     public var isPresented: Share.Identifier?
     public var vesselEdit = VesselEdit()
     public var reminderGrid = ReminderGrid()

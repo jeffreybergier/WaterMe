@@ -66,7 +66,9 @@ internal struct QuickPerformTab: View {
         case .failure(let error):
             self.errors.append(error)
         case .success:
-            self.nav.stack.wateringAnimation()
+            // TODO: Nav
+            // self.nav.stack.wateringAnimation()
+            break
         }
     }
     

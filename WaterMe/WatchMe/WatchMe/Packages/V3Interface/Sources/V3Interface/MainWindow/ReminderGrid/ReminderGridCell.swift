@@ -47,7 +47,8 @@ extension ReminderGrid {
             self.reminderQuery.data.view(self.vesselQuery.data)
             { reminder, vessel in
                 Button {
-                    self.nav.stack.view(reminder.id)
+                    // TODO: Nav
+                    // self.nav.stack.view(reminder.id)
                 } label: {
                     VStack {
                         self.style.icon(image: vessel.icon?.imageValue,

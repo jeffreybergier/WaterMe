@@ -38,7 +38,8 @@ internal struct VesselList: View {
         self.query.data.view {
             List($0) { id in
                 Button {
-                    self.nav.stack.list(id)
+                    // TODO: Nav
+                    // self.nav.stack.list(id)
                 } label: {
                     Row(id)
                 }

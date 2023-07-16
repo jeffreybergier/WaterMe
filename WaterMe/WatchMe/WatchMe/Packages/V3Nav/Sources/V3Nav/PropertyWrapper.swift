@@ -26,27 +26,17 @@ import V3Model
 @propertyWrapper
 public struct Nav: DynamicProperty {
     
-    public struct Value: Codable {
-        public var isError: ErrorStorage.Identifier?
-        public var quickPerform = QuickPerform2()
-        public var reminderGrid = ReminderGrid()
-        public var stack: Stack = .init()
-        public var isAlreadyPresenting: Bool {
-            self.isError != nil
-        }
-    }
-    
     @JSBSceneStorage("com.saturdayapps.waterme.navigation")
-    private var storage: Value = .init()
+    private var storage: Root = .init()
     
     public init() {}
     
-    public var wrappedValue: Value {
+    public var wrappedValue: Root {
         get { self.storage }
         nonmutating set { self.storage = newValue }
     }
     
-    public var projectedValue: Binding<Value> {
+    public var projectedValue: Binding<Root> {
         Binding {
             self.wrappedValue
         } set: {
