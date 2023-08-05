@@ -24,6 +24,7 @@ import Umbrella
 internal struct CircleModifierEmoji: ViewModifier {
     
     @Environment(\.tintColor) private var tintColor
+    @Environment(\.colorScheme) private var scheme
     
     private let strokeColor: Color?
     private let strokeWidth: CGFloat
@@ -38,6 +39,7 @@ internal struct CircleModifierEmoji: ViewModifier {
     internal func body(content: Content) -> some View {
         content
             .padding()
+            .background(Color.backgroundContent(self.scheme))
             .clipShape(Circle())
             .overlay(
                 Circle().stroke(self.strokeColor ?? self.tintColor,

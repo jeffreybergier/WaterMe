@@ -23,10 +23,12 @@ import Umbrella
 
 public struct ReminderKindIcon: ViewModifier {
     
+    @Environment(\.colorScheme) private var scheme
+    
     public func body(content: Content) -> some View {
         content
             .frame(width: 32, height: 32, alignment: .center) // TODO: Magic Numbers
-            .background(Color.black) // TODO: Magic Numbers
+            .background(Color.backgroundContent(self.scheme))
             .modifier(CircleModifierImage())
     }
 }

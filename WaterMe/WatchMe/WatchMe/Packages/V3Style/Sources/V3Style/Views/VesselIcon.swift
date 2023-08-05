@@ -45,6 +45,7 @@ internal struct VesselIcon: View {
         } else {
             Text("🌸")
                 .preference(key: isFallbackKey.self, value: true)
+                .modifier(FallbackAlphaModifier())
                 .modifier(CircleModifierEmoji())
         }
     }

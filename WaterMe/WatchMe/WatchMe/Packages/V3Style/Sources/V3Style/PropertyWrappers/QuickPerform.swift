@@ -100,7 +100,6 @@ public struct QuickPerform: DynamicProperty {
                 VesselIcon(image: request.vesselIconImage,
                            emoji: request.vesselIconEmoji)
                     .modifier(FontModifier(.emojiSmall))
-                    .modifier(FallbackAlphaModifier())
                     .padding([.trailing, .bottom], 4) // TODO: Magic Numbers
                 self.kindIcon
                     .action(text: request.reminderKind)
