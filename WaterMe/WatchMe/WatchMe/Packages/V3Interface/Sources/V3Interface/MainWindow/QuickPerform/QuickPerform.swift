@@ -31,42 +31,6 @@ import V3Style
 
 internal struct QuickPerform: View {
     
-    @V3Style.QuickPerform private var style
-    @V3Localize.QuickPerform private var text
-    
-    private let id: Share.Identifier
-    @Binding private var nav: V3Nav.QuickPerform
-    
-    internal init(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) {
-        _nav = nav
-        self.id = id
-    }
-    
-    internal var body: some View {
-        TabView {
-            QuickPerformTab(self.id, section: .late)
-            QuickPerformTab(self.id, section: .today)
-            QuickPerformTab(self.id, section: .tomorrow)
-        }
-        .tabViewStyle(.verticalPage)
-        .navigationTitle(self.text.title)
-        .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
-                self.style.buttonToolbar.action(text: self.text.hamburger).button {
-                    self.nav.isHamburgerMenu = true
-                }
-            }
-        }
-        .modifier(QuickPerformModalPresentation(self.id, nav: self.$nav))
-
-    }
-}
-
-// MARK: Modal Presentation
-
-internal struct QuickPerformModalPresentation: ViewModifier {
-    
     @Controller private var controller
     @ErrorStorage private var errors
     
@@ -81,32 +45,76 @@ internal struct QuickPerformModalPresentation: ViewModifier {
         self.id = id
     }
     
-    internal func body(content: Content) -> some View {
-        content
+    internal var body: some View {
+        TabView {
+            QuickPerformTab(self.id, section: .late,
+                            perform: self.$nav.isBulkPerformMenu)
+            QuickPerformTab(self.id, section: .today,
+                            perform: self.$nav.isBulkPerformMenu)
+            QuickPerformTab(self.id, section: .tomorrow,
+                            perform: self.$nav.isBulkPerformMenu)
+        }
+        .tabViewStyle(.verticalPage)
+        .navigationTitle(self.text.title)
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
+                self.style.buttonToolbar.action(text: self.text.hamburger).button {
+                    self.nav.isHamburgerMenu = true
+                }
+            }
+        }
         // Hamburger Menu
-            .confirmationDialog("", isPresented: self.$nav.isHamburgerMenu) {
-                self.style.button.action(text: self.text.addPlant).button {
-                    let result = self.controller.createVessel()
-                    switch result {
-                    case .success(let id):
-                        self.nav.vesselEdit.isPresented = id
-                    case .failure(let error):
-                        self.errors.append(error)
-                    }
-                }
-                Button("View All Reminders") {
-                    self.nav.reminderGrid.isPresented = self.id
+        .confirmationDialog("", isPresented: self.$nav.isHamburgerMenu) {
+            self.style.button.action(text: self.text.addPlant).button {
+                let result = self.controller.createVessel()
+                switch result {
+                case .success(let id):
+                    self.nav.vesselEdit.isPresented = id
+                case .failure(let error):
+                    self.errors.append(error)
                 }
             }
+            Button("View All Reminders") {
+                self.nav.reminderGrid.isPresented = self.id
+            }
+        }
         // Reminder Grid
-            .sheet(item: self.$nav.reminderGrid.isPresented) { share in
-                ReminderGrid(share, nav: self.$nav.reminderGrid)
-            }
+        .sheet(item: self.$nav.reminderGrid.isPresented) { share in
+            ReminderGrid(share, nav: self.$nav.reminderGrid)
+        }
         // Vessel Edit
-            .sheet(item: self.$nav.vesselEdit.isPresented) { vessel in
-                VesselEdit(vessel, nav: self.$nav.vesselEdit)
+        .sheet(item: self.$nav.vesselEdit.isPresented) { vessel in
+            VesselEdit(vessel, nav: self.$nav.vesselEdit)
+        }
+        // Perform Reminders
+        .confirmationDialog(items: self.$nav.isBulkPerformMenu,
+                            title: "Mark All Reminders as Done")
+        { reminders in
+            Button("Mark \(reminders.count) Reminders as Done") {
+                NSLog("Done!")
             }
+        } message: { _ in EmptyView() }
     }
 }
 
 #endif
+
+extension View {
+    /// Removed redundent `isPresented` and `presenting` arguments
+    public func confirmationDialog<C: Collection & ExpressibleByArrayLiteral, A: View, M: View, S: StringProtocol>(
+        items: Binding<C>,
+        title: S,
+        titleVisibility: Visibility = .automatic,
+        @ViewBuilder actions: (C) -> A,
+        @ViewBuilder message: (C) -> M
+    ) -> some View
+    {
+        self.confirmationDialog(title,
+                                isPresented: items.mapBool(),
+                                titleVisibility: titleVisibility,
+                                presenting: items.wrappedValue,
+                                actions: actions,
+                                message: message)
+    }
+}

@@ -35,6 +35,7 @@ internal struct QuickPerformTab: View {
     @ErrorStorage private var errors
     
     @ReminderListQuery private var query
+    @Binding private var perform: Reminder.Selection
     
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
@@ -42,15 +43,25 @@ internal struct QuickPerformTab: View {
     private let id: Share.Identifier
     private let section: Reminder.Section
     
-    internal init(_ id: Share.Identifier, section: Reminder.Section) {
+    internal init(_ id: Share.Identifier,
+                  section: Reminder.Section,
+                  perform: Binding<Reminder.Selection>)
+    {
         self.id = id
         self.section = section
         _query = .init(section)
+        _perform = perform
+
     }
     
     internal var body: some View {
         self.query.data.view { data in
-            QuickPerform3Up(upTo3IDs: Set(data.prefix(3)), totalIDs: data.count)
+            Button {
+                self.perform = Set(data)
+            } label: {
+                QuickPerform3Up(upTo3IDs: Set(data.prefix(3)), totalIDs: data.count)
+            }
+            .buttonStyle(.plain)
         } onEmpty: {
             Text("// TODO: All Done Here")
         }
