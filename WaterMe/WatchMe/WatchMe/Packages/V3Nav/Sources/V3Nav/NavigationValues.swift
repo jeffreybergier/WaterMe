@@ -39,11 +39,16 @@ public struct QuickPerform: Codable {
     public var isPresented: Share.Identifier?
     public var vesselEdit = VesselEdit()
     public var reminderGrid = ReminderGrid()
+    public var vesselGrid   = VesselGrid()
     public var isBulkPerformMenu: Reminder.Selection = []
     public var isHamburgerMenu = false
 }
 
 public struct ReminderGrid: Codable {
+    public var isPresented: Share.Identifier?
+}
+
+public struct VesselGrid: Codable {
     public var isPresented: Share.Identifier?
 }
 

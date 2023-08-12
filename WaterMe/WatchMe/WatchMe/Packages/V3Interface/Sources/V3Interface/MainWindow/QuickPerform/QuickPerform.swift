@@ -78,10 +78,17 @@ internal struct QuickPerform: View {
             Button("View All Reminders") {
                 self.nav.reminderGrid.isPresented = self.id
             }
+            Button("View All Plants") {
+                self.nav.vesselGrid.isPresented = self.id
+            }
         }
         // Reminder Grid
         .sheet(item: self.$nav.reminderGrid.isPresented) { share in
             ReminderGrid(share, nav: self.$nav.reminderGrid)
+        }
+        // Vessel Grid
+        .sheet(item: self.$nav.vesselGrid.isPresented) { share in
+            VesselGrid(share, nav: self.$nav.vesselGrid)
         }
         // Vessel Edit
         .sheet(item: self.$nav.vesselEdit.isPresented) { vessel in

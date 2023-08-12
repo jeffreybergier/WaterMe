@@ -28,10 +28,12 @@ import V3Datum
 internal struct VesselGrid: View {
     
     @VesselListQuery private var query
+    @Binding private var nav: V3Nav.VesselGrid
     private let id: Share.Identifier
     
-    internal init(_ id: Share.Identifier) {
+    internal init(_ id: Share.Identifier, nav: Binding<V3Nav.VesselGrid>) {
         self.id = id
+        _nav = nav
     }
     
     internal var body: some View {
