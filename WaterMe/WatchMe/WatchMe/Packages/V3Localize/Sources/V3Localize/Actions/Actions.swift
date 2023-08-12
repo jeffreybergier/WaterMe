@@ -457,7 +457,7 @@ extension Action {
               image: .system(Symbol.syncIdle.rawValue))
     }()
     private static let raw_hamburger: ActionLocalization = {
-        .init(title: Verb.moreActions.rawValue,
+        .init(title: Verb.menu.rawValue,
               hint:  nil,
               image: .system(Symbol.ellipsis.rawValue))
     }()

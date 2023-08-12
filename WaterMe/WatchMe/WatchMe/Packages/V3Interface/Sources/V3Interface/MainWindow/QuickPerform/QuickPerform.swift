@@ -58,10 +58,10 @@ internal struct QuickPerform: View {
         .navigationTitle(self.text.title)
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
                 self.style.buttonToolbar.action(text: self.text.hamburger).button {
                     self.nav.isHamburgerMenu = true
                 }
+                Spacer()
             }
         }
         // Hamburger Menu
@@ -89,10 +89,12 @@ internal struct QuickPerform: View {
         }
         // Perform Reminders
         .confirmationDialog(items: self.$nav.isBulkPerformMenu,
-                            title: "Mark All Reminders as Done")
+                            title: "\(self.nav.isBulkPerformMenu.count) Reminders")
         { reminders in
-            Button("Mark \(reminders.count) Reminders as Done") {
-                NSLog("Done!")
+            Button("Mark as Done") {
+                self.controller.appendNewPerformToReminders(with: reminders)
+                    .error
+                    .map(self.errors.append)
             }
         } message: { _ in EmptyView() }
     }

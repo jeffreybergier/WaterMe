@@ -333,7 +333,7 @@ other buttons in the UI
 "Action.iCloud Sync Unavailable" = "Sincronizzazione iCloud non disponibile";
 
 /* Hamburger menu button title. */
-"Action.More Actions" = "Più azioni"; // From Google Translate
+"Action.Menu" = "Menu"; // From Google Translate
 
 /*
  

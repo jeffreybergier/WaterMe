@@ -43,7 +43,7 @@ public struct QuickPerform: DynamicProperty {
         public var addPlant:             ActionLocalization
         public var hamburger:            ActionLocalization
 
-        internal init(_ b: Bundle, sizeH: JSBSizeClass.Value) {
+        internal init(_ b: Bundle) {
             self.title                = b.localized(key: Noun.appTitle.rawValue)
             self.myPlant              = b.localized(key: Noun.myPlant.rawValue)
             self.sectionTitleLate     = b.localized(key: Noun.late.rawValue)
@@ -60,18 +60,15 @@ public struct QuickPerform: DynamicProperty {
             self.kindOther            = Action.reminderKindOther.localized(b)
             self.itemNotFound         = Action.itemNotFound.localized(b)
             self.hamburger            = Action.hamburger.localized(b)
-            self.addPlant             = sizeH == .tiny
-                                        ? Action.addPlantShort.localized(b)
-                                        : Action.addPlantLong.localized(b)
+            self.addPlant             = Action.addPlantLong.localized(b)
         }
     }
     
-    @JSBSizeClass private var size
     @Environment(\.bundle) private var bundle
     
     public init() {}
     
     public var wrappedValue: Value {
-        Value(self.bundle, sizeH: self.size.horizontal)
+        Value(self.bundle)
     }
 }
