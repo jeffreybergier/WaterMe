@@ -64,7 +64,7 @@ internal struct QuickPerform: View {
                 Spacer()
             }
         }
-        // Hamburger Menu
+        // Main Menu
         .confirmationDialog("", isPresented: self.$nav.isHamburgerMenu) {
             self.style.button.action(text: self.text.addPlant).button {
                 let result = self.controller.createVessel()
@@ -82,19 +82,7 @@ internal struct QuickPerform: View {
                 self.nav.vesselGrid.isPresented = self.id
             }
         }
-        // Reminder Grid
-        .sheet(item: self.$nav.reminderGrid.isPresented) { share in
-            ReminderGrid(share, nav: self.$nav.reminderGrid)
-        }
-        // Vessel Grid
-        .sheet(item: self.$nav.vesselGrid.isPresented) { share in
-            VesselGrid(share, nav: self.$nav.vesselGrid)
-        }
-        // Vessel Edit
-        .sheet(item: self.$nav.vesselEdit.isPresented) { vessel in
-            VesselEdit(vessel, nav: self.$nav.vesselEdit)
-        }
-        // Perform Reminders
+        // Quick Action
         .confirmationDialog(items: self.$nav.isBulkPerformMenu,
                             title: "\(self.nav.isBulkPerformMenu.count) Reminders")
         { reminders in

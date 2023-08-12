@@ -19,13 +19,10 @@
 //
 
 import SwiftUI
-import Umbrella
 import V3Model
 import V3Nav
 
 internal struct MainWindow: View {
-    
-    @Nav private var nav
     
     internal init() { }
     
@@ -33,28 +30,34 @@ internal struct MainWindow: View {
         NavigationSplitView {
             ShareList()
         } detail: {
-            #if os(watchOS)
-            if let share = self.nav.root.isPresented {
-                QuickPerform(share, nav: self.$nav.root)
-            } else {
-                Text("// TODO: No Selection")
-            }
-            #else
-            if let share = self.nav.root.isPresented {
-                ReminderGrid(share, nav: self.$nav.root)
-            } else {
-                Text("// TODO: No Selection")
-            }
-            #endif
-
+            Root()
         }
         .modifier(SyncIndicator())
-        .modifier(
-            ErrorStorage.Presenter(
-                isAlreadyPresenting: self.nav.isAlreadyPresenting,
-                toPresent: self.$nav.isError,
-                router: errorRouter(_:)
-            )
-        )
+        .modifier(ModalPresentation())
+    }
+}
+
+private struct Root: View {
+    
+    @Nav private var nav
+    
+    internal var body: some View {
+        if let share = self.nav.root.isPresented {
+            self.isSelection(share)
+        } else {
+            self.noSelection
+        }
+    }
+    
+    internal func isSelection(_ share: Share.Identifier) -> some View {
+        #if os(watchOS)
+        QuickPerform(share, nav: self.$nav.root)
+        #else
+        ReminderGrid(share, nav: self.$nav.root)
+        #endif
+    }
+    
+    internal var noSelection: some View {
+        Text("// TODO: No Selection")
     }
 }
