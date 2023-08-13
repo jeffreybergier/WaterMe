@@ -45,9 +45,15 @@ public struct QuickPerform: Codable {
 }
 
 public struct ReminderGrid: Codable {
-    public var isPresented:  Share.Identifier?
-    public var reminderEdit: ReminderEdit = .init()
-    public var vesselEdit:   VesselEdit = .init()
+    public var isPresented:     Share.Identifier?
+    public var isError:         ErrorStorage.Identifier?
+    public var vesselEdit:      VesselEdit = .init()
+    public var reminderSummary: ReminderSummary = .init()
+    public var isAlreadyPresenting: Bool {
+        return self.isError != nil
+        || self.vesselEdit.isPresented != nil
+        || self.reminderSummary.isPresented != nil
+    }
 }
 
 public struct VesselGrid: Codable {
@@ -70,5 +76,17 @@ public struct VesselEdit: Codable {
     public var reminderEdit = ReminderEdit()
     public var isAlreadyPresenting: Bool {
         return false
+    }
+}
+
+public struct ReminderSummary: Codable {
+    public var isPresented: Reminder.Identifier?
+    public var isError:     ErrorStorage.Identifier?
+    public var reminderEdit = ReminderEdit()
+    public var vesselEdit   = VesselEdit()
+    public var isAlreadyPresenting: Bool {
+        return self.isError != nil
+        || self.reminderEdit.isPresented != nil
+        || self.vesselEdit.isPresented != nil
     }
 }

@@ -33,20 +33,53 @@ internal struct ModalPresentation: ViewModifier {
                 toPresent: self.$nav.isError,
                 router: errorRouter(_:)
             ))
-        // MARK: ReminderGrid
+        // MARK: Root:ReminderGrid
         .sheet(item: self.$nav.root.reminderGrid.isPresented) { share in
             ReminderGrid(share, nav: self.$nav.root.reminderGrid)
-            // MARK: ReminderEdit
-                .sheet(item: self.$nav.root.reminderGrid.reminderEdit.isPresented) {
-                    ReminderEdit($0, nav: self.$nav.root.reminderGrid.reminderEdit)
+                .modifier(ErrorStorage.Presenter(
+                    isAlreadyPresenting: self.nav.root.reminderGrid.isAlreadyPresenting,
+                    toPresent: self.$nav.root.reminderGrid.isError,
+                    router: errorRouter(_:)
+                ))
+            // MARK: Root:ReminderGrid:ReminderSummary
+                .sheet(item: self.$nav.root.reminderGrid.reminderSummary.isPresented) {
+                    ReminderSummary($0, nav: self.$nav.root.reminderGrid.reminderSummary)
                         .modifier(ErrorStorage.Presenter(
-                            isAlreadyPresenting: self.nav.root.reminderGrid.reminderEdit.isAlreadyPresenting,
-                            toPresent: self.$nav.root.reminderGrid.reminderEdit.isError,
+                            isAlreadyPresenting: self.nav.root.reminderGrid.reminderSummary.isAlreadyPresenting,
+                            toPresent: self.$nav.root.reminderGrid.reminderSummary.isError,
+                            router: errorRouter(_:)
+                        ))
+                    // MARK: Root:ReminderGrid:ReminderSummary:ReminderEdit
+                        .sheet(item: self.$nav.root.reminderGrid.reminderSummary.reminderEdit.isPresented) {
+                            ReminderEdit($0, nav: self.$nav.root.reminderGrid.reminderSummary.reminderEdit)
+                                .modifier(ErrorStorage.Presenter(
+                                    isAlreadyPresenting: self.nav.root.reminderGrid.reminderSummary.reminderEdit.isAlreadyPresenting,
+                                    toPresent: self.$nav.root.reminderGrid.reminderSummary.reminderEdit.isError,
+                                    router: errorRouter(_:)
+                                ))
+                        }
+                    // MARK: Root:ReminderGrid:ReminderSummary:VesselEdit
+                        .sheet(item: self.$nav.root.reminderGrid.reminderSummary.vesselEdit.isPresented) {
+                            VesselEdit($0, nav: self.$nav.root.reminderGrid.reminderSummary.vesselEdit)
+                                .modifier(ErrorStorage.Presenter(
+                                    isAlreadyPresenting: self.nav.root.reminderGrid.reminderSummary.vesselEdit.isAlreadyPresenting,
+                                    toPresent: self.$nav.root.reminderGrid.reminderSummary.vesselEdit.isError,
+                                    router: errorRouter(_:)
+                                ))
+                        }
+
+                }
+            // MARK: Root:ReminderGrid:VesselEdit
+                .sheet(item: self.$nav.root.reminderGrid.vesselEdit.isPresented) {
+                    VesselEdit($0, nav: self.$nav.root.reminderGrid.vesselEdit)
+                        .modifier(ErrorStorage.Presenter(
+                            isAlreadyPresenting: self.nav.root.reminderGrid.vesselEdit.isAlreadyPresenting,
+                            toPresent: self.$nav.root.reminderGrid.vesselEdit.isError,
                             router: errorRouter(_:)
                         ))
                 }
         }
-        // MARK: VesselGrid
+        // MARK: Root:VesselGrid
         .sheet(item: self.$nav.root.vesselGrid.isPresented) { share in
             VesselGrid(share, nav: self.$nav.root.vesselGrid)
             // MARK: VesselEdit
@@ -59,7 +92,7 @@ internal struct ModalPresentation: ViewModifier {
                         ))
                 }
         }
-        // MARK: VesselEdit
+        // MARK: Root:VesselEdit
         .sheet(item: self.$nav.root.vesselEdit.isPresented) { vessel in
             VesselEdit(vessel, nav: self.$nav.root.vesselEdit)
         }

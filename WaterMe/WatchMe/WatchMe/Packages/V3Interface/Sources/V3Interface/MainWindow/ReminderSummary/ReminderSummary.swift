@@ -37,10 +37,13 @@ internal struct ReminderSummary: View {
     
     @VesselQuery private var vesselQuery
     @ReminderQuery private var reminderQuery
-    private let id: Reminder.Identifier
     
-    internal init(_ id: Reminder.Identifier) {
+    private let id: Reminder.Identifier
+    @Binding private var nav: V3Nav.ReminderSummary
+    
+    internal init(_ id: Reminder.Identifier, nav: Binding<V3Nav.ReminderSummary>) {
         self.id = id
+        _nav = nav
     }
     
     internal var body: some View {
@@ -60,12 +63,10 @@ internal struct ReminderSummary: View {
                         }
                     }
                     self.style.button.action(text: self.text.editReminder).button {
-                        // TODO: Nav
-                        // self.nav.stack.edit(reminder.id)
+                        self.nav.reminderEdit.isPresented = reminder.id
                     }
                     self.style.button.action(text: self.text.editVessel).button {
-                        // TODO: Nav
-                        // self.nav.stack.edit(vessel.id)
+                        self.nav.vesselEdit.isPresented = vessel.id
                     }
                 } header: {
                     self.style.sectionHeader
@@ -104,11 +105,11 @@ internal struct ReminderSummary: View {
                       .preference(key: isFallbackKey.self, value: true)
         }
         .navigationTitle(self.text.title)
-        .onLoadChange(of: self.id) {
-            self.reminderQuery.identifier = $0
+        .onChange(of: self.id, initial: true) { _, newValue in
+            self.reminderQuery.identifier = newValue
         }
-        .onLoadChange(of: self.reminderQuery.data?.vesselID) {
-            self.vesselQuery.identifier = $0
+        .onChange(of: self.reminderQuery.data?.vesselID, initial: true) { _, newValue in
+            self.vesselQuery.identifier = newValue
         }
     }
     

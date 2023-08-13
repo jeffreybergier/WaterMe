@@ -52,7 +52,7 @@ internal struct ReminderGrid: View {
                     Section {
                         ForEach(data) { id in
                             Cell(id) {
-                                self.nav.reminderEdit.isPresented = id
+                                self.nav.reminderSummary.isPresented = id
                             }
                         }
                     } header: {
@@ -63,7 +63,7 @@ internal struct ReminderGrid: View {
                     Section {
                         ForEach(data) { id in
                             Cell(id) {
-                                self.nav.reminderEdit.isPresented = id
+                                self.nav.reminderSummary.isPresented = id
                             }
                         }
                     } header: {
@@ -74,7 +74,7 @@ internal struct ReminderGrid: View {
                     Section {
                         ForEach(data) { id in
                             Cell(id) {
-                                self.nav.reminderEdit.isPresented = id
+                                self.nav.reminderSummary.isPresented = id
                             }
                         }
                     } header: {
@@ -85,7 +85,7 @@ internal struct ReminderGrid: View {
                     Section {
                         ForEach(data) { id in
                             Cell(id) {
-                                self.nav.reminderEdit.isPresented = id
+                                self.nav.reminderSummary.isPresented = id
                             }
                         }
                     } header: {
@@ -96,7 +96,7 @@ internal struct ReminderGrid: View {
                     Section {
                         ForEach(data) { id in
                             Cell(id) {
-                                self.nav.reminderEdit.isPresented = id
+                                self.nav.reminderSummary.isPresented = id
                             }
                         }
                     } header: {
@@ -107,7 +107,7 @@ internal struct ReminderGrid: View {
                     Section {
                         ForEach(data) { id in
                             Cell(id) {
-                                self.nav.reminderEdit.isPresented = id
+                                self.nav.reminderSummary.isPresented = id
                             }
                         }
                     } header: {
