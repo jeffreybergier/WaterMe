@@ -27,9 +27,10 @@ internal struct ModalPresentation: ViewModifier {
     
     @Nav private var nav
     
+    #if os(watchOS)
     internal func body(content: Content) -> some View {
         // MARK: /QuickPerform
-        content // Root
+        content
             .modifier(ErrorStorage.Presenter(
                 isAlreadyPresenting: self.nav.isAlreadyPresenting,
                 toPresent: self.$nav.isError,
@@ -48,6 +49,17 @@ internal struct ModalPresentation: ViewModifier {
             VesselEdit.new($0, nav: self.$nav.root.vesselEdit)
         }
     }
+    #else
+    internal func body(content: Content) -> some View {
+        // MARK: /ReminderGrid
+        content
+            .modifier(ErrorStorage.Presenter(
+                isAlreadyPresenting: self.nav.isAlreadyPresenting,
+                toPresent: self.$nav.isError,
+                router: errorRouter(_:)
+            ))
+    }
+    #endif
 }
 
 extension VesselEdit {

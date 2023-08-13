@@ -26,7 +26,7 @@ let PKGNAME = "V3Interface"
 
 let package = Package(
     name: PKGNAME,
-    platforms: [.iOS(.v16), .macOS(.v13), .watchOS(.v10)],
+    platforms: [.iOS(.v17), .macOS(.v13), .watchOS(.v10)],
     products: [
         .library(
            	name: PKGNAME,
