@@ -77,8 +77,7 @@ internal struct VesselEdit: View {
                     self.remindersQuery.data.view { reminders in
                         ForEach(reminders) { id in
                             ReminderRow(id) {
-                                // TODO: Nav
-                                // self.nav.stack.edit(id)
+                                self.nav.reminderEdit.isPresented = id
                             }
                         }
                     } onEmpty: {
