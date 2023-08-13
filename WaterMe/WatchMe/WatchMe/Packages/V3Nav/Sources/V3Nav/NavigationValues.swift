@@ -52,6 +52,7 @@ public struct ReminderGrid: Codable {
 
 public struct VesselGrid: Codable {
     public var isPresented: Share.Identifier?
+    public var vesselEdit:  VesselEdit = .init()
 }
 
 public struct ReminderEdit: Codable {
@@ -65,5 +66,9 @@ public struct ReminderEdit: Codable {
 
 public struct VesselEdit: Codable {
     public var isPresented: Vessel.Identifier?
+    public var isError: ErrorStorage.Identifier?
     public var reminderEdit = ReminderEdit()
+    public var isAlreadyPresenting: Bool {
+        return false
+    }
 }

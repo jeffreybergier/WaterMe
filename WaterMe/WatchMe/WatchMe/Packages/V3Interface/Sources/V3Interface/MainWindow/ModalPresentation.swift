@@ -36,8 +36,8 @@ internal struct ModalPresentation: ViewModifier {
         // MARK: ReminderGrid
         .sheet(item: self.$nav.root.reminderGrid.isPresented) { share in
             ReminderGrid(share, nav: self.$nav.root.reminderGrid)
+            // MARK: ReminderEdit
                 .sheet(item: self.$nav.root.reminderGrid.reminderEdit.isPresented) {
-                    // MARK: ReminderEdit
                     ReminderEdit($0, nav: self.$nav.root.reminderGrid.reminderEdit)
                         .modifier(ErrorStorage.Presenter(
                             isAlreadyPresenting: self.nav.root.reminderGrid.reminderEdit.isAlreadyPresenting,
@@ -49,6 +49,15 @@ internal struct ModalPresentation: ViewModifier {
         // MARK: VesselGrid
         .sheet(item: self.$nav.root.vesselGrid.isPresented) { share in
             VesselGrid(share, nav: self.$nav.root.vesselGrid)
+            // MARK: VesselEdit
+                .sheet(item: self.$nav.root.vesselGrid.vesselEdit.isPresented) {
+                    VesselEdit($0, nav: self.$nav.root.vesselGrid.vesselEdit)
+                        .modifier(ErrorStorage.Presenter(
+                            isAlreadyPresenting: self.nav.root.vesselGrid.vesselEdit.isAlreadyPresenting,
+                            toPresent: self.$nav.root.vesselGrid.vesselEdit.isError,
+                            router: errorRouter(_:)
+                        ))
+                }
         }
         // MARK: VesselEdit
         .sheet(item: self.$nav.root.vesselEdit.isPresented) { vessel in
