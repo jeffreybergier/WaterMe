@@ -38,11 +38,13 @@ internal struct ReminderEdit: View {
     @V3Localize.ReminderEdit private var text
     
     @ReminderQuery private var query
+    @Binding private var nav: V3Nav.ReminderEdit
     
     private let id: Reminder.Identifier
     
-    internal init(_ id: Reminder.Identifier) {
+    internal init(_ id: Reminder.Identifier, nav: Binding<V3Nav.ReminderEdit>) {
         self.id = id
+        _nav = nav
     }
     
     internal var body: some View {
@@ -110,17 +112,15 @@ internal struct ReminderEdit: View {
                       .preference(key: isFallbackKey.self, value: true)
         }
         .modifier(self.toolbar)
-        .onLoadChange(of: self.id) {
-            self.query.identifier = $0
+        .onChange(of: self.id, initial: true) { _, newValue in
+            self.query.identifier = newValue
         }
     }
     
     private var toolbar: JSBToolbar {
         return JSBToolbar(
             title: self.text.title,
-            done:   self.text.done,
             delete: self.text.delete,
-            doneAction: { /* // TODO: Nav self.nav.stack.pop() */ },
             deleteAction: {
                 let error = DeleteReminderConfirmationError([self.id]) { selection in
                     self.controller.delete(selection)

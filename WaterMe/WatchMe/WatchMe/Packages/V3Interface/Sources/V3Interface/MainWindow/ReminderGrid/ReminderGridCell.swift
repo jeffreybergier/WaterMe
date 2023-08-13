@@ -37,18 +37,19 @@ extension ReminderGrid {
         @ReminderQuery private var reminderQuery
         
         private let id: Reminder.Identifier
+        private let action: () -> Void
         
-        internal init(_ id: Reminder.Identifier) {
+        internal init(_ id: Reminder.Identifier,
+                      action: @escaping () -> Void)
+        {
             self.id = id
+            self.action = action
         }
         
         internal var body: some View {
             self.reminderQuery.data.view(self.vesselQuery.data)
             { reminder, vessel in
-                Button {
-                    // TODO: Nav
-                    // self.nav.stack.view(reminder.id)
-                } label: {
+                Button(action: self.action) {
                     VStack {
                         self.style.icon(image: vessel.icon?.imageValue,
                                         emoji: vessel.icon?.stringValue)

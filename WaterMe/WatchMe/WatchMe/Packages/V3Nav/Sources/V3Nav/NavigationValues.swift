@@ -37,15 +37,17 @@ public struct Root: Codable {
 
 public struct QuickPerform: Codable {
     public var isPresented: Share.Identifier?
-    public var vesselEdit = VesselEdit()
-    public var reminderGrid = ReminderGrid()
-    public var vesselGrid   = VesselGrid()
-    public var isBulkPerformMenu: Reminder.Selection = []
+    public var vesselEdit      = VesselEdit()
+    public var reminderGrid    = ReminderGrid()
+    public var vesselGrid      = VesselGrid()
     public var isHamburgerMenu = false
+    public var isBulkPerformMenu: Reminder.Selection = []
 }
 
 public struct ReminderGrid: Codable {
-    public var isPresented: Share.Identifier?
+    public var isPresented:  Share.Identifier?
+    public var reminderEdit: ReminderEdit = .init()
+    public var vesselEdit:   VesselEdit = .init()
 }
 
 public struct VesselGrid: Codable {
@@ -54,7 +56,11 @@ public struct VesselGrid: Codable {
 
 public struct ReminderEdit: Codable {
     public var isPresented: Reminder.Identifier?
+    public var isError: ErrorStorage.Identifier?
     public var isEditPhotoChooser: Vessel.Selection.Element?
+    public var isAlreadyPresenting: Bool {
+        return self.isEditPhotoChooser != nil
+    }
 }
 
 public struct VesselEdit: Codable {

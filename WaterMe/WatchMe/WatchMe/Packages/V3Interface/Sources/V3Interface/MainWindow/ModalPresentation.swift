@@ -28,22 +28,29 @@ internal struct ModalPresentation: ViewModifier {
     
     internal func body(content: Content) -> some View {
         content // Root
-            .modifier(
-                ErrorStorage.Presenter(
-                    isAlreadyPresenting: self.nav.isAlreadyPresenting,
-                    toPresent: self.$nav.isError,
-                    router: errorRouter(_:)
-                )
-            )
-        // Reminder Grid
+            .modifier(ErrorStorage.Presenter(
+                isAlreadyPresenting: self.nav.isAlreadyPresenting,
+                toPresent: self.$nav.isError,
+                router: errorRouter(_:)
+            ))
+        // MARK: ReminderGrid
         .sheet(item: self.$nav.root.reminderGrid.isPresented) { share in
             ReminderGrid(share, nav: self.$nav.root.reminderGrid)
+                .sheet(item: self.$nav.root.reminderGrid.reminderEdit.isPresented) {
+                    // MARK: ReminderEdit
+                    ReminderEdit($0, nav: self.$nav.root.reminderGrid.reminderEdit)
+                        .modifier(ErrorStorage.Presenter(
+                            isAlreadyPresenting: self.nav.root.reminderGrid.reminderEdit.isAlreadyPresenting,
+                            toPresent: self.$nav.root.reminderGrid.reminderEdit.isError,
+                            router: errorRouter(_:)
+                        ))
+                }
         }
-        // Vessel Grid
+        // MARK: VesselGrid
         .sheet(item: self.$nav.root.vesselGrid.isPresented) { share in
             VesselGrid(share, nav: self.$nav.root.vesselGrid)
         }
-        // Vessel Edit
+        // MARK: VesselEdit
         .sheet(item: self.$nav.root.vesselEdit.isPresented) { vessel in
             VesselEdit(vessel, nav: self.$nav.root.vesselEdit)
         }

@@ -51,7 +51,9 @@ internal struct ReminderGrid: View {
                 self.sections.dataLate.view { data in
                     Section {
                         ForEach(data) { id in
-                            Cell(id)
+                            Cell(id) {
+                                self.nav.reminderEdit.isPresented = id
+                            }
                         }
                     } header: {
                         Header(.late)
@@ -60,7 +62,9 @@ internal struct ReminderGrid: View {
                 self.sections.dataToday.view { data in
                     Section {
                         ForEach(data) { id in
-                            Cell(id)
+                            Cell(id) {
+                                self.nav.reminderEdit.isPresented = id
+                            }
                         }
                     } header: {
                         Header(.today)
@@ -69,7 +73,9 @@ internal struct ReminderGrid: View {
                 self.sections.dataTomorrow.view { data in
                     Section {
                         ForEach(data) { id in
-                            Cell(id)
+                            Cell(id) {
+                                self.nav.reminderEdit.isPresented = id
+                            }
                         }
                     } header: {
                         Header(.tomorrow)
@@ -78,7 +84,9 @@ internal struct ReminderGrid: View {
                 self.sections.dataThisWeek.view { data in
                     Section {
                         ForEach(data) { id in
-                            Cell(id)
+                            Cell(id) {
+                                self.nav.reminderEdit.isPresented = id
+                            }
                         }
                     } header: {
                         Header(.thisWeek)
@@ -87,7 +95,9 @@ internal struct ReminderGrid: View {
                 self.sections.dataLater.view { data in
                     Section {
                         ForEach(data) { id in
-                            Cell(id)
+                            Cell(id) {
+                                self.nav.reminderEdit.isPresented = id
+                            }
                         }
                     } header: {
                         Header(.later)
@@ -96,7 +106,9 @@ internal struct ReminderGrid: View {
                 self.sections.dataDisabled.view { data in
                     Section {
                         ForEach(data) { id in
-                            Cell(id)
+                            Cell(id) {
+                                self.nav.reminderEdit.isPresented = id
+                            }
                         }
                     } header: {
                         Header(.disabled)
@@ -105,8 +117,8 @@ internal struct ReminderGrid: View {
             }
         }
         .modifier(self.toolbar)
-        .onLoadChange(of: self.id) {
-            self.sections.filter = .share($0)
+        .onChange(of: self.id, initial: true) { _, newValue in
+            self.sections.filter = .share(newValue)
         }
     }
     
@@ -117,9 +129,7 @@ internal struct ReminderGrid: View {
             doneAction: {
                 switch self.controller.createVessel() {
                 case .success(let id):
-                    // TODO: Nav
-                    // self.nav.stack.edit(id)
-                    break
+                    self.nav.vesselEdit.isPresented = id
                 case .failure(let error):
                     self.errors.append(error)
                 }
