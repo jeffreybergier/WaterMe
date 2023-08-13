@@ -33,12 +33,14 @@ internal struct ShareList: View {
     
     internal var body: some View {
         self.data.view {
-            List($0, id: \.self, selection: self.$nav.root.isPresented) {
+            List($0, id: \.self, selection: self.$nav.detail.isPresented) {
                 Row($0)
             }
         } onEmpty: {
+            // TODO: Localize
             Text("No Libraries Found")
         }
+        // TODO: Localize
         .navigationTitle("Libraries")
     }
 }

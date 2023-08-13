@@ -19,21 +19,23 @@
 //
 
 import SwiftUI
+import Umbrella
 import V3Model
 import V3Nav
 
 internal struct MainWindow: View {
     
+    @Nav private var nav
+    
     internal init() { }
     
     internal var body: some View {
         NavigationSplitView {
-            ShareList()
+            ShareList.new(nav: self.$nav)
         } detail: {
             Root()
         }
         .modifier(SyncIndicator())
-        .modifier(ModalPresentation())
     }
 }
 
@@ -42,7 +44,7 @@ private struct Root: View {
     @Nav private var nav
     
     internal var body: some View {
-        if let share = self.nav.root.isPresented {
+        if let share = self.nav.detail.isPresented {
             self.isSelection(share)
         } else {
             self.noSelection
@@ -51,9 +53,9 @@ private struct Root: View {
     
     internal func isSelection(_ share: Share.Identifier) -> some View {
         #if os(watchOS)
-        QuickPerform(share, nav: self.$nav.root)
+        QuickPerform.new(share, nav: self.$nav.detail)
         #else
-        ReminderGrid(share, nav: self.$nav.root)
+        ReminderGrid.new(share, nav: self.$nav.detail)
         #endif
     }
     

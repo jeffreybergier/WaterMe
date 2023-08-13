@@ -23,91 +23,34 @@ import Umbrella
 import V3Nav
 import V3Model
 
-internal struct ModalPresentation: ViewModifier {
-    
-    @Nav private var nav
-    
-    #if os(watchOS)
-    internal func body(content: Content) -> some View {
-        // MARK: /QuickPerform
-        content
-            .modifier(ErrorStorage.Presenter(
-                isAlreadyPresenting: self.nav.isAlreadyPresenting,
-                toPresent: self.$nav.isError,
-                router: errorRouter(_:)
-            ))
-        // MARK: /QuickPerform/ReminderGrid
-        .sheet(item: self.$nav.root.reminderGrid.isPresented) {
-            ReminderGrid.new($0, nav: self.$nav.root.reminderGrid)
-        }
-        // MARK: /QuickPerform/VesselGrid
-        .sheet(item: self.$nav.root.vesselGrid.isPresented) {
-            VesselGrid.new($0, nav: self.$nav.root.vesselGrid)
-        }
-        // MARK: QuickPerform/VesselEdit
-        .sheet(item: self.$nav.root.vesselEdit.isPresented) {
-            VesselEdit.new($0, nav: self.$nav.root.vesselEdit)
-        }
-    }
-    #else
-    internal func body(content: Content) -> some View {
-        // MARK: /ReminderGrid
-        content
-            .modifier(ErrorStorage.Presenter(
-                isAlreadyPresenting: self.nav.isAlreadyPresenting,
-                toPresent: self.$nav.isError,
-                router: errorRouter(_:)
-            ))
-    }
-    #endif
-}
-
-extension VesselEdit {
-    static func new(_ id: Vessel.Identifier, nav: Binding<V3Nav.VesselEdit>) -> some View {
-        // MARK: .../VesselEdit
-        VesselEdit(id, nav: nav)
+#if os(watchOS)
+extension QuickPerform {
+    internal static func new(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) -> some View {
+        // MARK: .../QuickPerform
+        QuickPerform(id, nav: nav)
             .modifier(ErrorStorage.Presenter(
                 isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
                 toPresent: nav.isError,
                 router: errorRouter(_:)
             ))
-    }
-}
-
-extension ReminderEdit {
-    static func new(_ id: Reminder.Identifier, nav: Binding<V3Nav.ReminderEdit>) -> some View {
-        // MARK: .../ReminderEdit
-        ReminderEdit(id, nav: nav)
-            .modifier(ErrorStorage.Presenter(
-                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
-                toPresent: nav.isError,
-                router: errorRouter(_:)
-            ))
-    }
-}
-
-extension ReminderSummary {
-    static func new(_ id: Reminder.Identifier, nav: Binding<V3Nav.ReminderSummary>) -> some View {
-        // MARK: .../ReminderGrid/ReminderSummary
-        ReminderSummary(id, nav: nav)
-            .modifier(ErrorStorage.Presenter(
-                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
-                toPresent: nav.isError,
-                router: errorRouter(_:)
-            ))
-        // MARK: .../ReminderGrid/ReminderSummary/ReminderEdit
-            .sheet(item: nav.reminderEdit.isPresented) {
-                ReminderEdit.new($0, nav: nav.reminderEdit)
+        // MARK: .../QuickPerform/ReminderGrid
+            .sheet(item: nav.reminderGrid.isPresented) {
+                ReminderGrid.new($0, nav: nav.reminderGrid)
             }
-        // MARK: .../ReminderGrid/ReminderSummary/VesselEdit
+        // MARK: .../QuickPerform/VesselGrid
+            .sheet(item: nav.vesselGrid.isPresented) {
+                VesselGrid.new($0, nav: nav.vesselGrid)
+            }
+        // MARK: .../QuickPerform/VesselEdit
             .sheet(item: nav.vesselEdit.isPresented) {
                 VesselEdit.new($0, nav: nav.vesselEdit)
             }
     }
 }
+#endif
 
 extension ReminderGrid {
-    static func new(_ id: Share.Identifier, nav: Binding<V3Nav.ReminderGrid>) -> some View {
+    internal static func new(_ id: Share.Identifier, nav: Binding<V3Nav.ReminderGrid>) -> some View {
         // MARK: .../ReminderGrid
         ReminderGrid(id, nav: nav)
             .modifier(ErrorStorage.Presenter(
@@ -126,8 +69,63 @@ extension ReminderGrid {
     }
 }
 
+extension ShareList {
+    internal static func new(nav: Binding<V3Nav.Root>) -> some View {
+        ShareList()
+            .modifier(ErrorStorage.Presenter(
+                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
+                toPresent: nav.isError,
+                router: errorRouter(_:)
+            ))
+    }
+}
+
+extension VesselEdit {
+    fileprivate static func new(_ id: Vessel.Identifier, nav: Binding<V3Nav.VesselEdit>) -> some View {
+        // MARK: .../VesselEdit
+        VesselEdit(id, nav: nav)
+            .modifier(ErrorStorage.Presenter(
+                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
+                toPresent: nav.isError,
+                router: errorRouter(_:)
+            ))
+    }
+}
+
+extension ReminderEdit {
+    fileprivate static func new(_ id: Reminder.Identifier, nav: Binding<V3Nav.ReminderEdit>) -> some View {
+        // MARK: .../ReminderEdit
+        ReminderEdit(id, nav: nav)
+            .modifier(ErrorStorage.Presenter(
+                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
+                toPresent: nav.isError,
+                router: errorRouter(_:)
+            ))
+    }
+}
+
+extension ReminderSummary {
+    fileprivate static func new(_ id: Reminder.Identifier, nav: Binding<V3Nav.ReminderSummary>) -> some View {
+        // MARK: .../ReminderGrid/ReminderSummary
+        ReminderSummary(id, nav: nav)
+            .modifier(ErrorStorage.Presenter(
+                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
+                toPresent: nav.isError,
+                router: errorRouter(_:)
+            ))
+        // MARK: .../ReminderGrid/ReminderSummary/ReminderEdit
+            .sheet(item: nav.reminderEdit.isPresented) {
+                ReminderEdit.new($0, nav: nav.reminderEdit)
+            }
+        // MARK: .../ReminderGrid/ReminderSummary/VesselEdit
+            .sheet(item: nav.vesselEdit.isPresented) {
+                VesselEdit.new($0, nav: nav.vesselEdit)
+            }
+    }
+}
+
 extension VesselGrid {
-    static func new(_ id: Share.Identifier, nav: Binding<V3Nav.VesselGrid>) -> some View {
+    fileprivate static func new(_ id: Share.Identifier, nav: Binding<V3Nav.VesselGrid>) -> some View {
         // MARK: .../VesselGrid
         VesselGrid(id, nav: nav)
             .modifier(ErrorStorage.Presenter(

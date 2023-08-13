@@ -23,13 +23,15 @@ import SwiftUI
 import Umbrella
 import V3Model
 
+#if os(watchOS)
+public typealias Detail = QuickPerform
+#else
+public typealias Detail = ReminderGrid
+#endif
+
 public struct Root: Codable {
     public var isError: ErrorStorage.Identifier?
-    #if os(watchOS)
-    public var root = QuickPerform()
-    #else
-    public var root = ReminderGrid()
-    #endif
+    public var detail = Detail()
     public var isAlreadyPresenting: Bool {
         self.isError != nil
     }
@@ -37,11 +39,21 @@ public struct Root: Codable {
 
 public struct QuickPerform: Codable {
     public var isPresented: Share.Identifier?
+    public var isError:        ErrorStorage.Identifier?
     public var vesselEdit      = VesselEdit()
     public var reminderGrid    = ReminderGrid()
     public var vesselGrid      = VesselGrid()
     public var isHamburgerMenu = false
     public var isBulkPerformMenu: Reminder.Selection = []
+    public var isAlreadyPresenting: Bool {
+        return self.isError != nil
+        || self.vesselEdit.isPresented != nil
+        || self.reminderGrid.isPresented != nil
+        || self.vesselGrid.isPresented != nil
+        || self.isBulkPerformMenu.isEmpty == false
+        || self.isHamburgerMenu == true
+
+    }
 }
 
 public struct ReminderGrid: Codable {
