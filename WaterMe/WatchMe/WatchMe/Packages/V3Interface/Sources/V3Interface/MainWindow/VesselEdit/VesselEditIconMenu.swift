@@ -36,7 +36,8 @@ extension VesselEdit {
         @V3Localize.VesselEdit.IconMenu private var text
         
         @VesselQuery private var query
-        @Binding internal var nav: V3Nav.VesselEditIconMenu
+        @Binding internal var isPresented: Vessel.Identifier?
+        @Binding internal var isPicker: PickerKind?
         
         private var isPresentedBinding: Binding<Vessel?> {
             Binding {
@@ -49,7 +50,7 @@ extension VesselEdit {
         
         internal func body(content: Content) -> some View {
             return content
-                .onChange(of: self.nav.isPresented, initial: true) { _, newValue in
+                .onChange(of: self.isPresented, initial: true) { _, newValue in
                     self.query.identifier = newValue
                 }
                 .confirmationDialog(item: self.isPresentedBinding,
@@ -59,8 +60,7 @@ extension VesselEdit {
                     .action(text: self.text.emoji)
                     .button
                 {
-                    // TODO: Nav
-                    // self.nav.stack.picker(kind: .emoji, for: vessel.id)
+                    self.isPicker = .emoji
                 }
                 // TODO: In the future, instead of disabling the button
                 // change to show error to the user
@@ -68,22 +68,19 @@ extension VesselEdit {
                     .action(text: self.text.camera)
                     .button(isEnabled: self.permission.camera.boolValue)
                 {
-                    // TODO: Nav
-                    // self.nav.stack.picker(kind: .camera, for: vessel.id)
+                    self.isPicker = .camera
                 }
                 self.style.button
                     .action(text: self.text.library)
                     .button(isEnabled: self.permission.library.boolValue)
                 {
-                    // TODO: Nav
-                    // self.nav.stack.picker(kind: .library, for: vessel.id)
+                    self.isPicker = .library
                 }
                 self.style.button
                     .action(text: self.text.viewCurrent)
                     .button(isEnabled: vessel.icon?.imageValue != nil)
                 {
-                    // TODO: Nav
-                    // self.nav.stack.picker(kind: .viewPhoto, for: vessel.id)
+                    self.isPicker = .viewPhoto
                 }
             } message: { _ in
                 self.style.message

@@ -89,21 +89,16 @@ public struct ReminderEdit: Codable {
 }
 
 public struct VesselEdit: Codable {
-    public var isPresented: Vessel.Identifier?
-    public var isError:     ErrorStorage.Identifier?
+    public var isPresented:  Vessel.Identifier?
+    public var isError:      ErrorStorage.Identifier?
+    public var isPickerMenu: Vessel.Identifier?
+    public var isPicker:     PickerKind?
     public var reminderEdit = ReminderEdit()
-    public var iconMenu     = VesselEditIconMenu()
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
         || self.reminderEdit.isPresented != nil
-    }
-}
-
-public struct VesselEditIconMenu: Codable {
-    public var isPresented: Vessel.Identifier?
-    public var isError: ErrorStorage.Identifier?
-    public var isAlreadyPresenting: Bool {
-        return self.isError != nil
+        || self.isPickerMenu != nil
+        || self.isPicker != nil
     }
 }
 
@@ -117,4 +112,8 @@ public struct ReminderSummary: Codable {
         || self.reminderEdit.isPresented != nil
         || self.vesselEdit.isPresented != nil
     }
+}
+
+public enum PickerKind: Codable {
+    case camera, library, emoji, viewPhoto
 }

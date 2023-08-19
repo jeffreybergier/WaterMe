@@ -57,7 +57,7 @@ internal struct VesselEdit: View {
                                   .action(text: self.text.editPhoto)
                                   .button
                         {
-                            self.nav.iconMenu.isPresented = vessel.id
+                            self.nav.isPickerMenu = vessel.id
                         }
                     }
                 } header: {
@@ -113,7 +113,7 @@ internal struct VesselEdit: View {
                       .label
                       .preference(key: isFallbackKey.self, value: true)
         }
-        .modifier(IconMenu(nav: self.$nav.iconMenu))
+        .modifier(IconMenu(isPresented: self.$nav.isPickerMenu, isPicker: self.$nav.isPicker))
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.vesselQuery.identifier = newValue
