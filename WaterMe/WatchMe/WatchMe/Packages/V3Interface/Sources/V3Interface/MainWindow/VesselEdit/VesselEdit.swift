@@ -95,113 +95,39 @@ internal struct VesselEdit: View {
                         .label
                 }
                 // TODO: Add Siri Shortcuts Here
+                Section {
+                    self.style.delete.action(text: self.text.delete).button {
+                        let error = DeleteVesselConfirmationError([self.id]) { selection in
+                            self.controller.delete(selection)
+                                .error
+                                .map(self.errors.append(_:))
+                        }
+                        self.errors.append(error)
+                    }
+                } header: {
+                    self.style.sectionHeader.action(text: self.text.actions).label
+                }
             }
-            .modifier(self.toolbar)
         } onNIL: {
             self.style.content
                       .action(text: self.text.notFound)
                       .label
                       .preference(key: isFallbackKey.self, value: true)
         }
-        .onLoadChange(of: self.id) {
-            self.vesselQuery.identifier = $0
-            self.remindersQuery.filter = .vessel($0)
-        }
         .modifier(IconMenu(nav: self.$nav.reminderEdit))
+        .navigationTitle(self.text.title)
+        .onChange(of: self.id, initial: true) { _, newValue in
+            self.vesselQuery.identifier = newValue
+            self.remindersQuery.filter = .vessel(newValue)
+        }
     }
     
     private func addReminder(in vesselID: Vessel.Identifier) {
         switch self.controller.createReminder(in: vesselID) {
         case .success(let reminderID):
-            // TODO: Nav
-            // self.nav.stack.edit(reminderID)
-            break
+            self.nav.reminderEdit.isPresented = reminderID
         case .failure(let error):
             self.errors.append(error)
         }
-    }
-    
-    private var toolbar: some ViewModifier {
-        return JSBToolbar(
-            title:  self.text.title,
-            done:   self.text.done,
-            delete: self.text.delete,
-            doneAction: { /* // TODO: Nav */ },
-            deleteAction: {
-                let error = DeleteVesselConfirmationError([self.id]) { selection in
-                    self.controller.delete(selection)
-                        .error
-                        .map(self.errors.append(_:))
-                }
-                self.errors.append(error)
-            }
-        )
-    }
-}
-
-
-// Debugging this stupid toolbar problem
-public struct JSBToolbar_iOS_Temp: ViewModifier {
-
-    private var title:  LocalizedString
-    private var done:   ActionLocalization?
-    private var cancel: ActionLocalization?
-    private var delete: ActionLocalization?
-    
-    public var actionDone:   (() -> Void)?
-    public var actionCancel: (() -> Void)?
-    public var actionDelete: (() -> Void)?
-
-    public init(title:  LocalizedString,
-                done:   ActionLocalization? = nil,
-                cancel: ActionLocalization? = nil,
-                delete: ActionLocalization? = nil,
-                doneAction:   (() -> Void)? = nil,
-                cancelAction: (() -> Void)? = nil,
-                deleteAction: (() -> Void)? = nil)
-    {
-        self.title = title
-        self.done = done
-        self.cancel = cancel
-        self.delete = delete
-        self.actionDone = doneAction
-        self.actionCancel = cancelAction
-        self.actionDelete = deleteAction
-    }
-    
-    public func body(content: Content) -> some View {
-        content
-            .navigationTitle(self.title)
-            .navigationBarTitleDisplayModeInline
-            .if(value: self.done) { view, done in
-                view.toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        JSBToolbarButtonStyleDone
-                            .action(text: done)
-                            .button(item: self.actionDone, action: { $0() })
-                    }
-                }
-            }
-            .if(value: self.cancel) { view, cancel in
-                view.toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        JSBToolbarButtonStyleCancel
-                            .action(text: cancel)
-                            .button(item: self.actionCancel, action: { $0() })
-                    }
-                }
-            }
-            .if(value: self.delete) { view, delete in
-                view.toolbar {
-                    // TODO: This should be `.destructiveAction` but the toolbar
-                    // places this on the right side of the title with the ConfirmationAction.
-                    // Configuring as `.cancellationAction` to place button on Left
-                    ToolbarItem(placement: .cancellationAction) {
-                        JSBToolbarButtonStyleDelete
-                            .action(text: delete)
-                            .button(item: self.actionDelete, action: { $0() })
-                    }
-                }
-            }
     }
 }
