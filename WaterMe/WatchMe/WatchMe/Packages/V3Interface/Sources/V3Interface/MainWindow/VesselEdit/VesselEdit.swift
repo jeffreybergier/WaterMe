@@ -57,8 +57,7 @@ internal struct VesselEdit: View {
                                   .action(text: self.text.editPhoto)
                                   .button
                         {
-                            // TODO: Nav
-                            // self.nav.modal.isEditPhotoChooser = vessel.id
+                            self.nav.iconMenu.isPresented = vessel.id
                         }
                     }
                 } header: {
@@ -114,7 +113,7 @@ internal struct VesselEdit: View {
                       .label
                       .preference(key: isFallbackKey.self, value: true)
         }
-        .modifier(IconMenu(nav: self.$nav.reminderEdit))
+        .modifier(IconMenu(nav: self.$nav.iconMenu))
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.vesselQuery.identifier = newValue

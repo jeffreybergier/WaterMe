@@ -36,22 +36,24 @@ extension VesselEdit {
         @V3Localize.VesselEdit.IconMenu private var text
         
         @VesselQuery private var query
+        @Binding internal var nav: V3Nav.VesselEditIconMenu
         
-        @Binding internal var nav: V3Nav.ReminderEdit
-        
-        private var binding: Binding<Vessel.Selection.Element?> {
-            self.$nav.isEditPhotoChooser
+        private var isPresentedBinding: Binding<Vessel?> {
+            Binding {
+                self.query.data
+            } set: {
+                guard let newValue = $0 else { return }
+                self.$query?.wrappedValue = newValue
+            }
         }
         
         internal func body(content: Content) -> some View {
             return content
-                .onLoadChange(of: self.binding.wrappedValue) {
-                    self.query.identifier = $0
+                .onChange(of: self.nav.isPresented, initial: true) { _, newValue in
+                    self.query.identifier = newValue
                 }
-                .confirmationDialog(self.text.title,
-                                    isPresented: self.binding.mapBool(),
-                                    titleVisibility: .automatic,
-                                    presenting: self.query.data)
+                .confirmationDialog(item: self.isPresentedBinding,
+                                    title: self.text.title)
             { vessel in
                 self.style.button
                     .action(text: self.text.emoji)

@@ -82,21 +82,28 @@ public struct VesselGrid: Codable {
 
 public struct ReminderEdit: Codable {
     public var isPresented: Reminder.Identifier?
-    public var isError: ErrorStorage.Identifier?
-    public var isEditPhotoChooser: Vessel.Selection.Element?
+    public var isError:     ErrorStorage.Identifier?
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
-        || self.isEditPhotoChooser != nil
     }
 }
 
 public struct VesselEdit: Codable {
     public var isPresented: Vessel.Identifier?
-    public var isError: ErrorStorage.Identifier?
+    public var isError:     ErrorStorage.Identifier?
     public var reminderEdit = ReminderEdit()
+    public var iconMenu     = VesselEditIconMenu()
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
         || self.reminderEdit.isPresented != nil
+    }
+}
+
+public struct VesselEditIconMenu: Codable {
+    public var isPresented: Vessel.Identifier?
+    public var isError: ErrorStorage.Identifier?
+    public var isAlreadyPresenting: Bool {
+        return self.isError != nil
     }
 }
 
