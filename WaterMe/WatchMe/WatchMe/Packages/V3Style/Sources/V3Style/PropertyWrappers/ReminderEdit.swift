@@ -25,6 +25,7 @@ import Umbrella
 public struct ReminderEdit: DynamicProperty {
     
     public struct Value {
+        public var delete:        some ActionStyle = ActionStyleImp(buttonRole: .destructive, outerModifier: ButtonDestructiveSimulated())
         public var picker:        some ActionStyle = ActionStyleDefault
         public var contentLabel:  some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault

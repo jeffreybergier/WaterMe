@@ -43,6 +43,7 @@ public struct ReminderEdit: DynamicProperty {
         public var reminder:      ActionLocalization
         public var notes:         ActionLocalization
         public var lastPerformed: ActionLocalization
+        public var actions:       ActionLocalization
         
         internal init(_ b: Bundle) {
             self.title         = b.localized(key: Noun.editReminder.rawValue)
@@ -62,6 +63,7 @@ public struct ReminderEdit: DynamicProperty {
             self.reminder      = Action.reminder.localized(b)
             self.notes         = Action.notes.localized(b)
             self.lastPerformed = Action.lastPerformed.localized(b)
+            self.actions       = Action.actions.localized(b)
         }
         
         public func interval(_ count: Int) -> ActionLocalization {

@@ -237,6 +237,9 @@ other static items in the UI
 /* There is a selection but the item could not be found. It was probably deleted. */
 "Label.Item Not Found" = "Non trovato";
 
+/* Label that shows near variety of actions the user can take like delete. */
+"Label.Actions" = "Azioni";
+
 /*
  
               _   _

@@ -104,6 +104,20 @@ internal struct ReminderEdit: View {
                         .label
                         .preference(key: isFallbackKey.self, value: true)
                 }
+                Section {
+                    self.text.delete.action(style: self.style.delete).button {
+                        let error = DeleteReminderConfirmationError([self.id]) { selection in
+                            self.controller.delete(selection)
+                                .error
+                                .map(self.errors.append(_:))
+                        }
+                        self.errors.append(error)
+                    }
+                } header: {
+                    self.style.sectionHeader
+                        .action(text: self.text.actions)
+                        .label
+                }
             }
         } onNIL: {
             self.style.picker
@@ -111,25 +125,9 @@ internal struct ReminderEdit: View {
                       .label
                       .preference(key: isFallbackKey.self, value: true)
         }
-        .modifier(self.toolbar)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.query.identifier = newValue
         }
-    }
-    
-    private var toolbar: JSBToolbar {
-        return JSBToolbar(
-            title: self.text.title,
-            delete: self.text.delete,
-            deleteAction: {
-                let error = DeleteReminderConfirmationError([self.id]) { selection in
-                    self.controller.delete(selection)
-                        .error
-                        .map(self.errors.append(_:))
-                }
-                self.errors.append(error)
-            }
-        )
     }
     
     private var kinds: [(Reminder.Kind, ActionLocalization)] {

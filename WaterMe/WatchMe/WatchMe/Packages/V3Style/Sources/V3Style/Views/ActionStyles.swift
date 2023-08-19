@@ -83,3 +83,11 @@ public struct Modifier2<M1: ViewModifier, M2: ViewModifier>: ViewModifier {
             .modifier(self.m2)
     }
 }
+
+// TODO: change back to internal
+public struct ButtonDestructiveSimulated: ViewModifier {
+    public func body(content: Content) -> some View {
+        content
+            .foregroundStyle(.red)
+    }
+}

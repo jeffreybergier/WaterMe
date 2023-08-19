@@ -54,7 +54,7 @@ public struct ReminderSummary: DynamicProperty {
             self.myPlant         = b.localized(key: Noun.myPlant.rawValue)
             self.plant           = Action.plant.localized(b)
             self.reminder        = Action.reminder.localized(b)
-            self.actions         = .init(title: "Actions") // TODO: Choose better localization
+            self.actions         = Action.actions.localized(b)
             self.markDone        = Action.markDoneReminder.localized(b)
             self.editVessel      = Action.editVessel.localized(b)
             self.editReminder    = Action.editReminder.localized(b)

@@ -120,4 +120,5 @@ internal enum Noun: LocalizationKey {
     case alwaysDark          = "Label.Always Dark"
     case noSelection         = "Label.No Selection"
     case itemNotFound        = "Label.Item Not Found"
+    case actions             = "Label.Actions"
 }
