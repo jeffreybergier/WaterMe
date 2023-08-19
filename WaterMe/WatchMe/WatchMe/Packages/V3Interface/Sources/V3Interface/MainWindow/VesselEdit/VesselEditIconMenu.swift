@@ -39,12 +39,14 @@ extension VesselEdit {
         @Binding internal var isPresented: Vessel.Identifier?
         @Binding internal var isPicker: PickerKind?
         
+        /// Combines the `isPresented` binding with the `VesselQuery` so they are never out of sync
         private var isPresentedBinding: Binding<Vessel?> {
-            Binding {
+            guard self.isPresented != nil else { return .constant(nil) }
+            return .init {
                 self.query.data
             } set: {
-                guard let newValue = $0 else { return }
-                self.$query?.wrappedValue = newValue
+                guard $0 == nil else { return }
+                self.isPresented = nil
             }
         }
         
