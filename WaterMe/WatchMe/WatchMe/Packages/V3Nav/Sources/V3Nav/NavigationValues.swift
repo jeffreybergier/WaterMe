@@ -114,6 +114,7 @@ public struct ReminderSummary: Codable {
     }
 }
 
-public enum PickerKind: Codable {
+public enum PickerKind: Int, Codable, Identifiable {
+    public var id: Int { self.rawValue }
     case camera, library, emoji, viewPhoto
 }

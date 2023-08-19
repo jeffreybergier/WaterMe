@@ -52,8 +52,8 @@ extension VesselEdit {
                 }
             }
             .navigationTitle(self.text.title)
-            .onLoadChange(of: self.id) {
-                self.query.identifier = $0
+            .onChange(of: self.id, initial: true) { _, newValue in
+                self.query.identifier = newValue
             }
         }
         

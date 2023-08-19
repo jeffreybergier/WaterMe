@@ -89,6 +89,18 @@ extension VesselEdit {
                 toPresent: nav.isError,
                 router: errorRouter(_:)
             ))
+            .sheet(item: nav.isPicker) { kind in
+                switch kind {
+                case .emoji:
+                    VesselEdit.EmojiPicker(id: id)
+                case .camera:
+                    fatalError()
+                case .library:
+                    fatalError()
+                case .viewPhoto:
+                    fatalError()
+                }
+            }
     }
 }
 

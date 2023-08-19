@@ -31,7 +31,7 @@ extension VesselEdit {
             public var checkmark: some View = Symbol.check.system
             
             internal init(_ b: Bundle) {
-                self.title = b.localized(key: Noun.emoji.rawValue)
+                self.title = b.localized(key: Noun.emojiChoose.rawValue)
             }
         }
         
