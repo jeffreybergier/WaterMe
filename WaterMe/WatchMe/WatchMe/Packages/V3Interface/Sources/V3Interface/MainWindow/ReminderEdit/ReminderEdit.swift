@@ -125,6 +125,7 @@ internal struct ReminderEdit: View {
                       .label
                       .preference(key: isFallbackKey.self, value: true)
         }
+        .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.query.identifier = newValue
         }

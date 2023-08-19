@@ -135,6 +135,7 @@ internal struct ReminderGrid: View {
                 }
             }
         }
+        .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.sections.filter = .share(newValue)
         }
