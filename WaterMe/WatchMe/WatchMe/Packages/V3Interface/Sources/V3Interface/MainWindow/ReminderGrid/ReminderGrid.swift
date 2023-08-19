@@ -116,24 +116,27 @@ internal struct ReminderGrid: View {
                 }
             }
         }
-        .modifier(self.toolbar)
-        .onChange(of: self.id, initial: true) { _, newValue in
-            self.sections.filter = .share(newValue)
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                self.style.buttonToolbar.action(text: self.text.hamburger).button {
+                    self.nav.isHamburgerMenu = true
+                }
+                Spacer()
+            }
         }
-    }
-    
-    private var toolbar: JSBToolbar {
-        return JSBToolbar(
-            title: self.text.title,
-            done: self.text.addPlant,
-            doneAction: {
-                switch self.controller.createVessel() {
+        .confirmationDialog("", isPresented: self.$nav.isHamburgerMenu) {
+            self.style.buttonToolbar.action(text: self.text.addPlant).button {
+                let result = self.controller.createVessel()
+                switch result {
                 case .success(let id):
                     self.nav.vesselEdit.isPresented = id
                 case .failure(let error):
                     self.errors.append(error)
                 }
             }
-        )
+        }
+        .onChange(of: self.id, initial: true) { _, newValue in
+            self.sections.filter = .share(newValue)
+        }
     }
 }
