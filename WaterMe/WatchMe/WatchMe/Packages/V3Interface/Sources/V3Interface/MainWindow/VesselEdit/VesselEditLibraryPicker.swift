@@ -28,51 +28,6 @@ import V3Style
 import V3Localize
 
 extension VesselEdit {
-    @available(*, deprecated, message: "// TODO: Temporary for Phone Only")
-    internal struct LibraryPicker2: View {
-        
-        @VesselEdit.LibraryPicker.Selection private var selection
-        @VesselQuery private var query
-        
-        @V3Style.VesselEdit.LibraryPicker private var style
-        @V3Localize.VesselEdit.LibraryPicker private var text
-        
-        private let id: Vessel.Selection.Element
-        
-        internal init(id: Vessel.Selection.Element) {
-            self.id = id
-        }
-        
-        internal var body: some View {
-            PhotosPicker("Open Photo Library",
-                         selection: self.$selection,
-                         matching: .images,
-                         preferredItemEncoding: .compatible)
-            .navigationTitle(self.text.title)
-            .onLoadChange(of: self.id) {
-                self.query.identifier = $0
-            }
-            .onChange(of: self.selection) { value in
-                Task {
-                    switch value {
-                    case .step1_user_presentLibrary:
-                        return
-                    case .step2_system_loadPhoto(let requestable):
-                        guard let data = try? await requestable.loadTransferable(type: Data.self) else { return }
-                        self.$query?.wrappedValue.icon = .image(data)
-                    case .step3_user_cropPhoto(_):
-                        fatalError()
-                    case .step4_system_savePhoto(_):
-                        fatalError()
-                    }
-                }
-            }
-        }
-    }
-}
-
-extension VesselEdit {
-    @available(*, deprecated, message: "// TODO: Put on back-burner. Finish later")
     internal struct LibraryPicker: View {
         
         @Selection private var selection
@@ -100,18 +55,19 @@ extension VesselEdit {
                 case .step2_system_loadPhoto:
                     ProgressView()
                 case .step3_user_cropPhoto(let data):
-                    PhotoCropper(input: data, output: self.$temp_cropOutput)
+                    Cropper(input: data, output: self.$temp_cropOutput)
                 case .step4_system_savePhoto(let data):
                     fatalError()
                 }
             }
             .navigationTitle(self.text.title)
-            .onLoadChange(of: self.id) {
-                self.query.identifier = $0
+            .onChange(of: self.id, initial: true) { _, newValue in
+                self.query.identifier = newValue
             }
-            .onChange(of: self.$selection.wrappedValue) { raw in
+            .onChange(of: self.$selection.wrappedValue, initial: true) { _, raw in
+                guard let raw = raw else { return }
                 Task {
-                    guard let data = try? await raw?.loadTransferable(type: Data.self) else { return }
+                    guard let data = try? await raw.loadTransferable(type: Data.self) else { return }
                     self.selection = .step3_user_cropPhoto(data)
                 }
             }

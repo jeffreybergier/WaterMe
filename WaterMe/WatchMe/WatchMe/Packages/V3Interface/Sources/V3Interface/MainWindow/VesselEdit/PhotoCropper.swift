@@ -26,117 +26,82 @@
 
 import SwiftUI
 
-@available(*, deprecated, message: "// TODO: Put on back-burner. Finish later")
-public struct PhotoCropper: View {
-    
-    public struct Offset: Equatable, Codable {
-        public var offset: CGSize
-        public var scale:  CGFloat
-        public init(offset: CGSize = .zero, scale: CGFloat = 1) {
-            self.offset = offset
-            self.scale = scale
-        }
-    }
-    
-    @State private var offset: Offset = .init()
-    @StateObject private var processor = PhotoCropperImageProcessor()
-    
-    @Environment(\.displayScale) private var displayScale
-    
-    @Binding private var output: Data?
-    private let input: Data
-    
-    public init(input: Data, output: Binding<Data?>) {
-        self.input = input
-        _output = output
-    }
-    
-    public var body: some View {
-        ZStack {
-            self.background
-            self.imageToCrop
-            self.cropRect
-            self.zoomButtons
-        }
-        .gesture(self.gestureDrag)
-        .onChange(of: self.offset) {
-            let output = self.processor.process(photo: self.input, offset: $0)!
-            dump(output)
-        }
-        .onLoadChange(of: self.displayScale) {
-            self.processor.displayScale = $0
-        }
-    }
-    
-    private var background: some View {
-        Color.blue
-            .ignoresSafeArea()
-    }
-    
-    private var imageToCrop: some View {
-        Image(data: self.input)!
-            .ignoresSafeArea()
-            .layoutPriority(-1)
-            .offset(self.offset.offset)
-            .scaleEffect(self.offset.scale)
-    }
-    
-    private var cropRect: some View {
-        Rectangle()
-            .stroke(lineWidth: 4)
-            .foregroundColor(.red)
-            .aspectRatio(1, contentMode: .fit)
-            .overlay {
-                GeometryReader { geo in
-                    // -> EmptyView does not work here. Assuming its optimized out
-                    { () -> AnyView in
-                        self.processor.cropRect = geo.frame(in: .global)
-                        return AnyView(EmptyView())
-                    }()
-                }
-            }
-            .padding()
-    }
-    
-    private var gestureDrag: some Gesture {
-        DragGesture(minimumDistance: 0, coordinateSpace: .local)
-            .onChanged { value in
-                self.offset.offset.width += value.location.x - value.startLocation.x
-                self.offset.offset.height += value.location.y - value.startLocation.y
-            }
-    }
-    
-    private var zoomButtons: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Button("➖") { self.offset.scale -= 0.1 }
-                Button("➕") { self.offset.scale += 0.1}
-                Spacer()
-            }
-            .font(.title)
-        }
-    }
-}
+internal let style_maxWidth: CGFloat = 1536
 
-fileprivate class PhotoCropperImageProcessor: ObservableObject {
-    
-    internal var cropRect: CGRect?
-    internal var displayScale: CGFloat = 1
-    
-    fileprivate func process(photo input_data: Data, offset: PhotoCropper.Offset) -> Data? {
-        guard let adj_cropRect = self.cropRect?.multiply(by: self.displayScale) else { return nil }
-        let adj_offset = offset.offset.multiply(by: self.displayScale)
-        let input_ui = UIImage(data: input_data)!
-        let input_cg = input_ui.cgImage!
-        let input_rect = CGRect(origin: adj_cropRect.origin, size: CGSize(width: adj_cropRect.width + (adj_offset.width * 2), height: adj_cropRect.height + (adj_offset.height * 2)))
-        let output_cg = input_cg.cropping(to: input_rect)!
-        let output_ui = UIImage(cgImage: output_cg)
-        let output_data = output_ui.jpegData(compressionQuality: 0.7)!
-        return output_data
+extension VesselEdit.LibraryPicker {
+    public struct Cropper: View {
+        
+        @State private var offset = CGSize.zero
+        @Environment(\.displayScale) private var displayScale
+        @Binding private var output: Data?
+        private let input: Data
+        private let image: CGImage
+        
+        public init(input: Data, output: Binding<Data?>) {
+            _output = output
+            self.input = input
+            let provider = CGDataProvider(data: input as CFData)!
+            self.image = CGImage(jpegDataProviderSource: provider,
+                                 decode: nil,
+                                 shouldInterpolate: false,
+                                 intent: .defaultIntent)!
+        }
+        
+        public var body: some View {
+            ZStack(alignment: .topLeading) {
+                self.background
+                    .overlay(alignment: .topLeading) {
+                        self.imageToCrop
+                    }
+                self.cropRect
+                self.zoomButtons
+            }
+            .gesture(self.gestureDrag)
+        }
+        
+        private var background: some View {
+            Color.blue
+                .ignoresSafeArea()
+        }
+        
+        private var imageToCrop: some View {
+            Image(data: self.input)!
+                .frame(width: CGFloat(self.image.width), height: CGFloat(self.image.height))
+                .offset(x: self.offset.width, y: self.offset.height)
+        }
+        
+        private var cropRect: some View {
+            Rectangle()
+                .stroke(lineWidth: 10)
+                .foregroundColor(.red)
+//                .frame(width: style_maxWidth / self.displayScale,
+//                       height: style_maxWidth / self.displayScale)
+                .frame(width: 200,
+                       height: 200)
+//                .transformEffect(CGAffineTransform(scaleX: 0.5, y: 0.5))
+        }
+        
+        private var gestureDrag: some Gesture {
+            DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                .onChanged { value in
+                    self.offset.width += value.location.x - value.startLocation.x
+                    self.offset.height += value.location.y - value.startLocation.y
+                }
+        }
+        
+        private var zoomButtons: some View {
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button("➖") { /* self.offset.scale -= 0.1 */ }
+                    Button("➕") { /* self.offset.scale += 0.1 */}
+                    Spacer()
+                }
+                .font(.title)
+            }
+        }
     }
-    
 }
 
 extension CGSize {
