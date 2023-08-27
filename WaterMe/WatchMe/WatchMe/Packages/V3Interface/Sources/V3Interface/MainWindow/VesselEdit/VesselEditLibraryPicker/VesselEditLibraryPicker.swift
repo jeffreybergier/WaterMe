@@ -19,6 +19,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+/*
 import SwiftUI
 import PhotosUI
 import Umbrella
@@ -74,3 +75,4 @@ extension VesselEdit {
         }
     }
 }
+*/

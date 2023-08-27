@@ -96,7 +96,7 @@ extension VesselEdit {
                 case .camera:
                     fatalError()
                 case .library:
-                    VesselEdit.LibraryPicker(id: id)
+                    fatalError("// TODO: VesselEdit.LibraryPicker(id: id)")
                 case .viewPhoto:
                     fatalError()
                 }

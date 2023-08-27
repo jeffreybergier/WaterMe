@@ -86,7 +86,7 @@ extension DevicePermissions {
         
         private func updateLibrary() {
             // TODO: Enhance once this is possible on different devices
-            self.value.library = .allowed
+            self.value.library = .denied
         }
         
         @objc internal func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

@@ -24,6 +24,7 @@
 //  SOFTWARE.
 //
 
+/*
 import SwiftUI
 
 internal let style_maxWidth: CGFloat = 1536
@@ -116,3 +117,5 @@ extension CGRect {
               width: self.size.width * factor, height: self.size.height * factor)
     }
 }
+
+*/
