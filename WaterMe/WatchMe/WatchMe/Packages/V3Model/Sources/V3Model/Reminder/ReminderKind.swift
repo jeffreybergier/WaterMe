@@ -42,7 +42,7 @@ extension Reminder {
     }
     
     public enum Section: Int, Codable, Hashable, CaseIterable, Identifiable {
-        case late, today, tomorrow, thisWeek, later, disabled
+        case late, today, tomorrow, thisWeek, later, disabled, lateAndToday
         public var id: Int { self.rawValue }
         
         public var dateInterval: DateInterval {
@@ -59,6 +59,10 @@ extension Reminder {
                 return ReminderDateCalculator.later()
             case .disabled:
                 fatalError("DISABLED does not have a date range")
+            case .lateAndToday:
+                let start = Section.late.dateInterval.start
+                let end = Section.today.dateInterval.end
+                return .init(start: start, end: end)
             }
         }
     }

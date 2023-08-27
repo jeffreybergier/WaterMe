@@ -34,7 +34,7 @@ internal struct QuickPerformTab: View {
     @Controller private var controller
     @ErrorStorage private var errors
     
-    @ReminderListQuery private var query
+    @QuickPerformQuery private var query
     @Binding private var perform: Reminder.Selection
     
     @V3Style.QuickPerform private var style
@@ -86,35 +86,23 @@ internal struct QuickPerformTab: View {
     
     private var navigationTitle: LocalizedString {
         switch self.section {
-        case .late:
-            self.text.sectionTitleLate
-        case .today:
-            self.text.sectionTitleToday
+        case .lateAndToday:
+            self.text.sectionTitleLateAndToday
         case .tomorrow:
             self.text.sectionTitleTomorrow
-        case .thisWeek:
-            self.text.sectionTitleThisWeek
-        case .later:
-            self.text.sectionTitleLater
-        case .disabled:
-            self.text.sectionTitleDisabled
+        case .late, .today, .thisWeek, .later, .disabled:
+            fatalError("Unsupported Configuration")
         }
     }
     
     private var containerBackground: Color {
         switch self.section {
-        case .late:
-            self.style.backgroundLate
-        case .today:
-            self.style.backgroundToday
+        case .lateAndToday:
+            self.style.backgroundLateAndToday
         case .tomorrow:
             self.style.backgroundTomorrow
-        case .thisWeek:
-            self.style.backgroundThisWeek
-        case .later:
-            self.style.backgroundLater
-        case .disabled:
-            self.style.backgroundDisabled
+        case .late, .today, .thisWeek, .later, .disabled:
+            fatalError("Unsupported Configuration")
         }
     }
 }

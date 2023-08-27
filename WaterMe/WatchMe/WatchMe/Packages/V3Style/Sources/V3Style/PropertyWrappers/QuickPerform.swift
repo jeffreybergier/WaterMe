@@ -42,21 +42,13 @@ public struct QuickPerform: DynamicProperty {
         internal var kindIcon:    some ActionStyle = ActionStyleImp(labelStyle: .iconOnly, outerModifier: ReminderKindIcon())
         public var button:        some ActionStyle = ActionStyleDefault
         public var buttonToolbar: some ActionStyle = ActionStyleImp(labelStyle: .titleOnly)
-        public var backgroundLate:     Color
-        public var backgroundToday:    Color
-        public var backgroundTomorrow: Color
-        public var backgroundThisWeek: Color
-        public var backgroundLater:    Color
-        public var backgroundDisabled: Color
+        public var backgroundTomorrow:     Color
+        public var backgroundLateAndToday: Color
 
         
         internal init(scheme: ColorScheme) {
-            self.backgroundLate     = .tintReminderLate(scheme)
-            self.backgroundToday    = .tintReminderToday(scheme)
-            self.backgroundTomorrow = .tintReminderTomorrow(scheme)
-            self.backgroundThisWeek = .tintReminderThisWeek(scheme)
-            self.backgroundLater    = .tintReminderLater(scheme)
-            self.backgroundDisabled = .tintReminderDisabled(scheme)
+            self.backgroundTomorrow     = .tintReminderTomorrow(scheme)
+            self.backgroundLateAndToday = .tintReminderLate(scheme)
 
         }
         

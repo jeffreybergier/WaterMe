@@ -164,7 +164,7 @@ extension Reminder.Section {
             predicate = disabledPredicate
         case .later, .thisWeek, .today, .tomorrow:
             predicate = normalPredicate(self.dateInterval)
-        case .late:
+        case .late, .lateAndToday:
             let neverPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
                 enabledPredicate,
                 NSPredicate(format: "%K == nil", #keyPath(CD_Reminder.raw_nextPerformDate)),

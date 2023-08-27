@@ -44,6 +44,7 @@ extension ReminderGrid {
             case .thisWeek: Text(self.text.sectionTitleThisWeek)
             case .later:    Text(self.text.sectionTitleLater)
             case .disabled: Text(self.text.sectionTitleDisabled)
+            case .lateAndToday: Text(self.text.sectionTitleToday)
             }
         }
     }
