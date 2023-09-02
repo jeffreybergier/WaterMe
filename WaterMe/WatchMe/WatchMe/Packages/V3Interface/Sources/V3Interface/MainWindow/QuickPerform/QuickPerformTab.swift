@@ -56,8 +56,6 @@ internal struct QuickPerformTab<C: RandomAccessCollection<Reminder.Identifier>>:
                 QuickPerform3Up(upTo3IDs: Set(data.prefix(3)), totalIDs: data.count)
             }
             .buttonStyle(.plain)
-        } onEmpty: {
-            Text("// TODO: All Done Here")
         }
         .navigationTitle(self.navigationTitle)
         .containerBackground(self.containerBackground.gradient, for: .tabView)

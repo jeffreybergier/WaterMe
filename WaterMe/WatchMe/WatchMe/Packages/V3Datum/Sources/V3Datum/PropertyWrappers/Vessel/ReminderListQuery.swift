@@ -28,29 +28,32 @@ public struct ReminderListQuery: DynamicProperty {
     
     public struct Value<C> {
         public let data: C
-        public let section: Reminder.Section?
+        public var section: Reminder.Section?
         public var filter: Reminder.Filter
     }
 
     @Controller private var controller
-    @State private var filter: Reminder.Filter = .none
     @CDListQuery<CD_Reminder, Reminder.Identifier>(onRead: { .init($0.objectID) }) private var query
     
-    public let section: Reminder.Section?
+    @State private var section: Reminder.Section?
+    @State private var filter: Reminder.Filter
     
-    public init(_ section: Reminder.Section? = nil) {
-        self.section = section
+    public init(_ section: Reminder.Section? = nil, filter: Reminder.Filter = .none) {
+        _section = .init(initialValue: section)
+        _filter = .init(initialValue: filter)
     }
 
     public var wrappedValue: Value<some RandomAccessCollection<Reminder.Identifier>> {
         get { .init(data: self.query.data, section: self.section, filter: self.filter) }
-        nonmutating set { self.setFilter(newValue.filter) }
+        nonmutating set { self.setQuery(newFilter: newValue.filter, newSection: newValue.section) }
     }
     
-    private func setFilter(_ newValue: Reminder.Filter) {
+    private func setQuery(newFilter: Reminder.Filter, newSection: Reminder.Section?) {
         let oldFilter = self.filter
-        self.filter = newValue
-        guard oldFilter != newValue else { return }
+        let oldSection = self.section
+        guard oldFilter != newFilter || oldSection != newSection else { return }
+        self.filter = newFilter
+        self.section = newSection
         self.updateCoreData()
     }
     
