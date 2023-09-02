@@ -28,6 +28,7 @@ public struct ReminderListQuery: DynamicProperty {
     
     public struct Value<C> {
         public let data: C
+        public let section: Reminder.Section?
         public var filter: Reminder.Filter
     }
 
@@ -42,7 +43,7 @@ public struct ReminderListQuery: DynamicProperty {
     }
 
     public var wrappedValue: Value<some RandomAccessCollection<Reminder.Identifier>> {
-        get { .init(data: self.query.data, filter: self.filter) }
+        get { .init(data: self.query.data, section: self.section, filter: self.filter) }
         nonmutating set { self.setFilter(newValue.filter) }
     }
     

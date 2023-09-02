@@ -37,6 +37,9 @@ internal struct QuickPerform: View {
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
     
+    @ReminderListQuery(.lateAndToday) private var queryLate
+    @ReminderListQuery(.tomorrow)     private var queryTomorrow
+    
     private let id: Share.Identifier
     @Binding private var nav: V3Nav.QuickPerform
     
@@ -47,15 +50,28 @@ internal struct QuickPerform: View {
     
     internal var body: some View {
         TabView {
-            QuickPerformTab(self.id, section: .late,
-                            perform: self.$nav.isBulkPerformMenu)
-            QuickPerformTab(self.id, section: .today,
-                            perform: self.$nav.isBulkPerformMenu)
-            QuickPerformTab(self.id, section: .tomorrow,
-                            perform: self.$nav.isBulkPerformMenu)
+            switch (self.queryLate.data.count, self.queryTomorrow.data.count) {
+            case (0,0):
+                Text("// TODO: All is good here")
+            case (1..., 0):
+                QuickPerformTab(query: self.queryLate,
+                                perform: self.$nav.isBulkPerformMenu)
+            case (0, 1...):
+                QuickPerformTab(query: self.queryTomorrow,
+                                perform: self.$nav.isBulkPerformMenu)
+            case (_, _):
+                QuickPerformTab(query: self.queryLate,
+                                perform: self.$nav.isBulkPerformMenu)
+                QuickPerformTab(query: self.queryTomorrow,
+                                perform: self.$nav.isBulkPerformMenu)
+            }
         }
         .tabViewStyle(.verticalPage)
         .navigationTitle(self.text.title)
+        .onChange(of: self.id, initial: true) { _, newValue in
+            self.queryLate.filter = .share(newValue)
+            self.queryTomorrow.filter = .share(newValue)
+        }
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 self.style.buttonToolbar.action(text: self.text.hamburger).button {

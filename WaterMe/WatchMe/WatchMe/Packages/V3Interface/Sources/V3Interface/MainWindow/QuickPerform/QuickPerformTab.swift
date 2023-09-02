@@ -29,29 +29,23 @@ import V3Nav
 import V3Localize
 import V3Style
 
-internal struct QuickPerformTab: View {
+internal struct QuickPerformTab<C: RandomAccessCollection<Reminder.Identifier>>: View {
     
     @Controller private var controller
     @ErrorStorage private var errors
     
-    @QuickPerformQuery private var query
     @Binding private var perform: Reminder.Selection
     
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
     
-    private let id: Share.Identifier
-    private let section: Reminder.Section
+    private let query: ReminderListQuery.Value<C>
     
-    internal init(_ id: Share.Identifier,
-                  section: Reminder.Section,
+    internal init(query: ReminderListQuery.Value<C>,
                   perform: Binding<Reminder.Selection>)
     {
-        self.id = id
-        self.section = section
-        _query = .init(section)
+        self.query = query
         _perform = perform
-
     }
     
     internal var body: some View {
@@ -67,9 +61,6 @@ internal struct QuickPerformTab: View {
         }
         .navigationTitle(self.navigationTitle)
         .containerBackground(self.containerBackground.gradient, for: .tabView)
-        .onChange(of: self.id, initial: true) { _, shareID in
-            self.query.filter = .share(shareID)
-        }
     }
     
     private func perform(selection: Reminder.Selection) {
@@ -85,22 +76,24 @@ internal struct QuickPerformTab: View {
     }
     
     private var navigationTitle: LocalizedString {
-        switch self.section {
+        guard let section = self.query.section else { return "" }
+        switch section {
         case .lateAndToday:
-            self.text.sectionTitleLateAndToday
+            return self.text.sectionTitleLateAndToday
         case .tomorrow:
-            self.text.sectionTitleTomorrow
+            return self.text.sectionTitleTomorrow
         case .late, .today, .thisWeek, .later, .disabled:
             fatalError("Unsupported Configuration")
         }
     }
     
     private var containerBackground: Color {
-        switch self.section {
+        guard let section = self.query.section else { return Color.black }
+        switch section {
         case .lateAndToday:
-            self.style.backgroundLateAndToday
+            return self.style.backgroundLateAndToday
         case .tomorrow:
-            self.style.backgroundTomorrow
+            return self.style.backgroundTomorrow
         case .late, .today, .thisWeek, .later, .disabled:
             fatalError("Unsupported Configuration")
         }
