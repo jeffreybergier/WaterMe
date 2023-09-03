@@ -29,71 +29,57 @@ import V3Nav
 import V3Localize
 import V3Style
 
-internal struct QuickPerformTab<C: RandomAccessCollection<Reminder.Identifier>>: View {
-    
-    @Controller private var controller
-    @ErrorStorage private var errors
-    
-    @Binding private var perform: Reminder.Selection
-    
-    @V3Style.QuickPerform private var style
-    @V3Localize.QuickPerform private var text
-    
-    private let query: ReminderListQuery.Value<C>
-    
-    internal init(query: ReminderListQuery.Value<C>,
-                  perform: Binding<Reminder.Selection>)
-    {
-        self.query = query
-        _perform = perform
-    }
-    
-    internal var body: some View {
-        self.query.data.view { data in
-            Button {
-                self.perform = Set(data)
-            } label: {
-                QuickPerform3Up(upTo3IDs: Set(data.prefix(3)), totalIDs: data.count)
+extension QuickPerform {
+    internal struct Tab<C: RandomAccessCollection<Reminder.Identifier>>: View {
+        
+        @V3Style.QuickPerform private var style
+        @V3Localize.QuickPerform private var text
+        
+        @Binding private var onTap: Reminder.Selection
+        private let query: ReminderListQuery.Value<C>
+        
+        internal init(_ query: ReminderListQuery.Value<C>,
+                      onTap: Binding<Reminder.Selection>)
+        {
+            self.query = query
+            _onTap = onTap
+        }
+        
+        internal var body: some View {
+            self.query.data.view { data in
+                Button {
+                    self.onTap = Set(data)
+                } label: {
+                    Render(data: data)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
+            .navigationTitle(self.navigationTitle)
+            .containerBackground(self.containerBackground.gradient, for: .tabView)
         }
-        .navigationTitle(self.navigationTitle)
-        .containerBackground(self.containerBackground.gradient, for: .tabView)
-    }
-    
-    private func perform(selection: Reminder.Selection) {
-        let result = self.controller.appendNewPerformToReminders(with: selection)
-        switch result {
-        case .failure(let error):
-            self.errors.append(error)
-        case .success:
-            // TODO: Nav
-            // self.nav.stack.wateringAnimation()
-            break
+        
+        private var navigationTitle: LocalizedString {
+            guard let section = self.query.section else { return "" }
+            switch section {
+            case .lateAndToday:
+                return self.text.sectionTitleLateAndToday
+            case .tomorrow:
+                return self.text.sectionTitleTomorrow
+            case .late, .today, .thisWeek, .later, .disabled:
+                fatalError("Unsupported Configuration")
+            }
         }
-    }
-    
-    private var navigationTitle: LocalizedString {
-        guard let section = self.query.section else { return "" }
-        switch section {
-        case .lateAndToday:
-            return self.text.sectionTitleLateAndToday
-        case .tomorrow:
-            return self.text.sectionTitleTomorrow
-        case .late, .today, .thisWeek, .later, .disabled:
-            fatalError("Unsupported Configuration")
-        }
-    }
-    
-    private var containerBackground: Color {
-        guard let section = self.query.section else { return Color.black }
-        switch section {
-        case .lateAndToday:
-            return self.style.backgroundLateAndToday
-        case .tomorrow:
-            return self.style.backgroundTomorrow
-        case .late, .today, .thisWeek, .later, .disabled:
-            fatalError("Unsupported Configuration")
+        
+        private var containerBackground: Color {
+            guard let section = self.query.section else { return Color.black }
+            switch section {
+            case .lateAndToday:
+                return self.style.backgroundLateAndToday
+            case .tomorrow:
+                return self.style.backgroundTomorrow
+            case .late, .today, .thisWeek, .later, .disabled:
+                fatalError("Unsupported Configuration")
+            }
         }
     }
 }

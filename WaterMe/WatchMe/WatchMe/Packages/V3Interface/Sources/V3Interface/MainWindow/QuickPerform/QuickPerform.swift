@@ -44,8 +44,8 @@ internal struct QuickPerform: View {
     @Binding private var nav: V3Nav.QuickPerform
     
     internal init(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) {
-        _nav = nav
         self.id = id
+        _nav = nav
     }
     
     internal var body: some View {
@@ -54,22 +54,18 @@ internal struct QuickPerform: View {
             case (0,0):
                 Text("// TODO: All is good here")
             case (1..., 0):
-                QuickPerformTab(query: self.queryLate,
-                                perform: self.$nav.isBulkPerformMenu)
+                Tab(self.queryLate,     onTap: self.$nav.isBulkPerformMenu)
             case (0, 1...):
-                QuickPerformTab(query: self.queryTomorrow,
-                                perform: self.$nav.isBulkPerformMenu)
+                Tab(self.queryTomorrow, onTap: self.$nav.isBulkPerformMenu)
             case (_, _):
-                QuickPerformTab(query: self.queryLate,
-                                perform: self.$nav.isBulkPerformMenu)
-                QuickPerformTab(query: self.queryTomorrow,
-                                perform: self.$nav.isBulkPerformMenu)
+                Tab(self.queryLate,     onTap: self.$nav.isBulkPerformMenu)
+                Tab(self.queryTomorrow, onTap: self.$nav.isBulkPerformMenu)
             }
         }
         .tabViewStyle(.verticalPage)
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
-            self.queryLate.filter = .share(newValue)
+            self.queryLate.filter     = .share(newValue)
             self.queryTomorrow.filter = .share(newValue)
         }
         .toolbar {
