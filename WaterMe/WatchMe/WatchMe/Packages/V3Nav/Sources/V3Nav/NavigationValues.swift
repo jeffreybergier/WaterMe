@@ -39,8 +39,13 @@ public struct Root: Codable {
 
 public struct QuickPerform: Codable {
     public struct Hamburger: Codable {
-        public var isPresented: Bool = false
         public var selection: Reminder.Selection = []
+        public var isPresented: Bool = false {
+            didSet {
+                guard self.isPresented == false else { return }
+                self.selection = []
+            }
+        }
     }
     public var isPresented: Share.Identifier?
     public var isError:        ErrorStorage.Identifier?
