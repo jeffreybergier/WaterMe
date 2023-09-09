@@ -67,7 +67,9 @@ extension QuickPerform.Tab {
         internal init(data: C) {
             self.data = data
             self.dataMax = 3
-            self.dataExtra = self.data.count - 3 > 0 ? self.data.count - 3 : nil
+            self.dataExtra = self.data.count - 3 > 0 
+                             ? self.data.count - 3
+                             : nil
         }
         
         internal var body: some View {
@@ -78,6 +80,7 @@ extension QuickPerform.Tab {
                                        self.display2,
                                        self.dataExtra)
             }
+            // TODO: this data check could be better
             .onChange(of: self.data.count, initial: true) { _, _ in
                 var identifiers = Set(self.data.prefix(self.dataMax))
                 self.reminder0.identifier = identifiers.popFirst()
