@@ -35,11 +35,11 @@ extension QuickPerform {
         @V3Style.QuickPerform private var style
         @V3Localize.QuickPerform private var text
         
-        @Binding private var onTap: Reminder.Selection
+        @Binding private var onTap: V3Nav.QuickPerform.Hamburger
         private let query: ReminderListQuery.Value<C>
         
         internal init(_ query: ReminderListQuery.Value<C>,
-                      onTap: Binding<Reminder.Selection>)
+                      onTap: Binding<V3Nav.QuickPerform.Hamburger>)
         {
             self.query = query
             _onTap = onTap
@@ -48,7 +48,8 @@ extension QuickPerform {
         internal var body: some View {
             self.query.data.view { data in
                 Button {
-                    self.onTap = Set(data)
+                    self.onTap.isPresented = true
+                    self.onTap.selection = Set(data)
                 } label: {
                     Render(data: data)
                 }

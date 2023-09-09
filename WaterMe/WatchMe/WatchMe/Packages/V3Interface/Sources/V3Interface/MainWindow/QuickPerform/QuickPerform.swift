@@ -54,12 +54,12 @@ internal struct QuickPerform: View {
             case (0,0):
                 Text("// TODO: All is good here")
             case (1..., 0):
-                Tab(self.queryLate,     onTap: self.$nav.isBulkPerformMenu)
+                Tab(self.queryLate,     onTap: self.$nav.hamburgerMenu)
             case (0, 1...):
-                Tab(self.queryTomorrow, onTap: self.$nav.isBulkPerformMenu)
+                Tab(self.queryTomorrow, onTap: self.$nav.hamburgerMenu)
             case (_, _):
-                Tab(self.queryLate,     onTap: self.$nav.isBulkPerformMenu)
-                Tab(self.queryTomorrow, onTap: self.$nav.isBulkPerformMenu)
+                Tab(self.queryLate,     onTap: self.$nav.hamburgerMenu)
+                Tab(self.queryTomorrow, onTap: self.$nav.hamburgerMenu)
             }
         }
         .tabViewStyle(.verticalPage)
@@ -68,16 +68,20 @@ internal struct QuickPerform: View {
             self.queryLate.filter     = .share(newValue)
             self.queryTomorrow.filter = .share(newValue)
         }
-        .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                self.style.buttonToolbar.action(text: self.text.hamburger).button {
-                    self.nav.isHamburgerMenu = true
+        // Quick Action
+        // TODO: Localize
+        .confirmationDialog(self.text.hamburger.title,
+                            isPresented: self.$nav.hamburgerMenu.isPresented,
+                            presenting: self.nav.hamburgerMenu.selection)
+        { reminders in
+            if reminders.isEmpty == false {
+                // TODO: Localize
+                Button("Mark as Done") {
+                    self.controller.appendNewPerformToReminders(with: reminders)
+                        .error
+                        .map(self.errors.append)
                 }
-                Spacer()
             }
-        }
-        // Main Menu
-        .confirmationDialog("", isPresented: self.$nav.isHamburgerMenu) {
             self.style.button.action(text: self.text.addPlant).button {
                 let result = self.controller.createVessel()
                 switch result {
@@ -94,18 +98,6 @@ internal struct QuickPerform: View {
             // TODO: Localize
             Button("View All Plants") {
                 self.nav.vesselGrid.isPresented = self.id
-            }
-        }
-        // Quick Action
-        // TODO: Localize
-        .confirmationDialog(items: self.$nav.isBulkPerformMenu,
-                            title: "\(self.nav.isBulkPerformMenu.count) Reminders")
-        { reminders in
-            // TODO: Localize
-            Button("Mark as Done") {
-                self.controller.appendNewPerformToReminders(with: reminders)
-                    .error
-                    .map(self.errors.append)
             }
         } message: { _ in EmptyView() }
     }

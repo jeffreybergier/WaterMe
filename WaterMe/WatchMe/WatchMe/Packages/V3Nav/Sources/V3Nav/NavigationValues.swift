@@ -38,20 +38,22 @@ public struct Root: Codable {
 }
 
 public struct QuickPerform: Codable {
+    public struct Hamburger: Codable {
+        public var isPresented: Bool = false
+        public var selection: Reminder.Selection = []
+    }
     public var isPresented: Share.Identifier?
     public var isError:        ErrorStorage.Identifier?
     public var vesselEdit      = VesselEdit()
     public var reminderGrid    = ReminderGrid()
     public var vesselGrid      = VesselGrid()
-    public var isHamburgerMenu = false
-    public var isBulkPerformMenu: Reminder.Selection = []
+    public var hamburgerMenu = Hamburger()
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
         || self.vesselEdit.isPresented != nil
         || self.reminderGrid.isPresented != nil
         || self.vesselGrid.isPresented != nil
-        || self.isBulkPerformMenu.isEmpty == false
-        || self.isHamburgerMenu == true
+        || self.hamburgerMenu.isPresented == true
 
     }
 }
