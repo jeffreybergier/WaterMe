@@ -26,8 +26,11 @@ import V3Model
 import V3Datum
 import V3Style
 import V3Localize
+import V3Settings
 
 internal struct ReminderSummary: View {
+    
+    @FullEditModeProp private var canEdit
     
     @Controller private var controller
     @ErrorStorage private var errors
@@ -62,11 +65,13 @@ internal struct ReminderSummary: View {
                             self.errors.append(error)
                         }
                     }
-                    self.style.button.action(text: self.text.editReminder).button {
-                        self.nav.reminderEdit.isPresented = reminder.id
-                    }
-                    self.style.button.action(text: self.text.editVessel).button {
-                        self.nav.vesselEdit.isPresented = vessel.id
+                    if self.canEdit {
+                        self.style.button.action(text: self.text.editReminder).button {
+                            self.nav.reminderEdit.isPresented = reminder.id
+                        }
+                        self.style.button.action(text: self.text.editVessel).button {
+                            self.nav.vesselEdit.isPresented = vessel.id
+                        }
                     }
                 } header: {
                     self.style.sectionHeader

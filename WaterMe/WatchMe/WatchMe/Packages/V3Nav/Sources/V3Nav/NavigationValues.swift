@@ -66,12 +66,10 @@ public struct ReminderGrid: Codable {
     public var isError:         ErrorStorage.Identifier?
     public var vesselEdit:      VesselEdit = .init()
     public var reminderSummary: ReminderSummary = .init()
-    public var isHamburgerMenu = false
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
         || self.vesselEdit.isPresented != nil
         || self.reminderSummary.isPresented != nil
-        || self.isHamburgerMenu == true
     }
 }
 
