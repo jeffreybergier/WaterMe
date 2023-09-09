@@ -28,8 +28,11 @@ import V3Datum
 import V3Nav
 import V3Localize
 import V3Style
+import V3Settings
 
 internal struct QuickPerform: View {
+    
+    @FullEditModeProp private var canEdit
     
     @Controller private var controller
     @ErrorStorage private var errors
@@ -82,13 +85,15 @@ internal struct QuickPerform: View {
                         .map(self.errors.append)
                 }
             }
-            self.style.button.action(text: self.text.addPlant).button {
-                let result = self.controller.createVessel()
-                switch result {
-                case .success(let id):
-                    self.nav.vesselEdit.isPresented = id
-                case .failure(let error):
-                    self.errors.append(error)
+            if self.canEdit {
+                self.style.button.action(text: self.text.addPlant).button {
+                    let result = self.controller.createVessel()
+                    switch result {
+                    case .success(let id):
+                        self.nav.vesselEdit.isPresented = id
+                    case .failure(let error):
+                        self.errors.append(error)
+                    }
                 }
             }
             // TODO: Localize

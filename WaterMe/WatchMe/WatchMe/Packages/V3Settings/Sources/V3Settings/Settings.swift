@@ -196,3 +196,19 @@ public struct ReminderDaysProp: DynamicProperty {
         }
     }
 }
+
+@propertyWrapper
+public struct FullEditModeProp: DynamicProperty {
+    @AppStorage(
+        UserDefaults.Constants.kModeEditFull,
+        store: store
+    ) private var value = store.modeEditFull
+    public init() {}
+    public var wrappedValue: Bool {
+        get { self.value }
+        nonmutating set { self.value = newValue }
+    }
+    public var projectedValue: Binding<Bool> {
+        self.$value
+    }
+}
