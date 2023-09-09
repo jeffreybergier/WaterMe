@@ -25,8 +25,10 @@ public var store = UserDefaults.standard
 
 @propertyWrapper
 public struct CheckForUpdatesOnLaunch: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kCheckForUpdatesOnLaunch, store: store)
-    private var value = true
+    @AppStorage(
+        UserDefaults.Constants.kCheckForUpdatesOnLaunch,
+        store: store
+    ) private var value = store.checkForUpdatesOnLaunch
     public init() {}
     public var wrappedValue: Bool {
         get { self.value }
@@ -39,8 +41,10 @@ public struct CheckForUpdatesOnLaunch: DynamicProperty {
 
 @propertyWrapper
 public struct LastRequestedReviewDate: DynamicProperty {
-    @JSBAppStorage(UserDefaults.Constants.kRequestReviewDate, store: store)
-        private var value: Date? = nil
+    @JSBAppStorage(
+        UserDefaults.Constants.kRequestReviewDate,
+        store: store
+    ) private var value: Date? = nil
     public init() {}
     public var wrappedValue: Date? {
         get { self.value }
@@ -53,8 +57,10 @@ public struct LastRequestedReviewDate: DynamicProperty {
 
 @propertyWrapper
 public struct LastBuildNumber: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kBuildNumberKey, store: store)
-    private var value: Int?
+    @AppStorage(
+        UserDefaults.Constants.kBuildNumberKey,
+        store: store
+    ) private var value: Int?
     public init() {}
     public var wrappedValue: Int? {
         get { self.value }
@@ -68,8 +74,11 @@ public struct LastBuildNumber: DynamicProperty {
 @propertyWrapper
 public struct IncreaseContrast: DynamicProperty {
     @Environment(\.colorSchemeContrast) private var contrast
-    @AppStorage(UserDefaults.Constants.kIncreaseContrast, store: store)
-    private var value = false
+    @AppStorage(
+        UserDefaults.Constants.kIncreaseContrast,
+        store: store
+    )
+    private var value = store.increaseContrast
     public init() {}
     public var wrappedValue: Bool {
         get { self.contrast == .increased ? true : self.value }
@@ -82,8 +91,10 @@ public struct IncreaseContrast: DynamicProperty {
 
 @propertyWrapper
 public struct DarkModeProp: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kDarkMode, store: store)
-    private var value = 0
+    @AppStorage(
+        UserDefaults.Constants.kDarkMode,
+        store: store
+    ) private var value = store.darkMode.rawValue
     public init() {}
     public var wrappedValue: DarkMode {
         get { .init(rawValue: self.value) ?? .system }
@@ -96,8 +107,10 @@ public struct DarkModeProp: DynamicProperty {
 
 @propertyWrapper
 public struct AskForNotifications: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kFirstRun, store: store)
-    private var value = true
+    @AppStorage(
+        UserDefaults.Constants.kFirstRun,
+        store: store
+    ) private var value = store.askForNotifications
     public init() {}
     public var wrappedValue: Bool {
         get { self.value }
@@ -110,8 +123,10 @@ public struct AskForNotifications: DynamicProperty {
 
 @propertyWrapper
 public struct ControllerKindProp: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kCloudSync, store: store)
-    private var value = true
+    @AppStorage(
+        UserDefaults.Constants.kCloudSync,
+        store: store
+    ) private var value = store.controllerKind.rawValue
     public init() {}
     public var wrappedValue: ControllerKind {
         get { .init(rawValue: self.value) }
@@ -135,8 +150,10 @@ public struct ControllerKindProp: DynamicProperty {
 
 @propertyWrapper
 public struct CloudSyncInfoHasShown: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kCloudSyncInfoShown, store: store)
-    private var value = true
+    @AppStorage(
+        UserDefaults.Constants.kCloudSyncInfoShown,
+        store: store
+    ) private var value = store.hasCloudSyncInfoShown
     public init() {}
     public var wrappedValue: Bool {
         get { self.value }
@@ -149,8 +166,10 @@ public struct CloudSyncInfoHasShown: DynamicProperty {
 
 @propertyWrapper
 public struct DidRunWithoutCloudSync: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kDidRunWithoutCloudSync, store: store)
-    private var value = true
+    @AppStorage(
+        UserDefaults.Constants.kDidRunWithoutCloudSync,
+        store: store
+    ) private var value = store.didRunWithoutCloudSync
     public init() {}
     public var wrappedValue: Bool {
         get { self.value }
@@ -163,8 +182,10 @@ public struct DidRunWithoutCloudSync: DynamicProperty {
 
 @propertyWrapper
 public struct ReminderHourProp: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kReminderHour, store: store)
-    private var value = 8
+    @AppStorage(
+        UserDefaults.Constants.kReminderHour,
+        store: store
+    ) private var value = store.reminderHour.rawValue
     public init() {}
     public var wrappedValue: ReminderHours {
         get { .init(rawValue: self.value) ?? .default }
@@ -181,8 +202,10 @@ public struct ReminderHourProp: DynamicProperty {
 
 @propertyWrapper
 public struct ReminderDaysProp: DynamicProperty {
-    @AppStorage(UserDefaults.Constants.kNumberOfReminderDays, store: store)
-    private var value = 14
+    @AppStorage(
+        UserDefaults.Constants.kNumberOfReminderDays,
+        store: store
+    ) private var value = store.reminderDays.rawValue
     public init() {}
     public var wrappedValue: ReminderDays {
         get { .init(rawValue: self.value) ?? .default }
