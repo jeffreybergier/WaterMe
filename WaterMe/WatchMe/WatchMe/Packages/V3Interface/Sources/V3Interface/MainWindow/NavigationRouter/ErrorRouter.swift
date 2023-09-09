@@ -22,10 +22,9 @@
 import Umbrella
 import V3Localize
 
-// TODO: Fix error router
 internal func errorRouter(_ input: Swift.Error) -> any UserFacingError {
-    if let error = input as? UserFacingError {
-        return error
+    guard let error = input as? UserFacingError else {
+        return LocalizedNSError(input, dismissTitle: kLocalizedDismissKey)
     }
-    return LocalizedNSError(input, dismissTitle: kLocalizedDismissKey)
+    return error
 }
