@@ -46,13 +46,11 @@ public struct QuickPerform: Codable {
     public var isError:        ErrorStorage.Identifier?
     public var vesselEdit      = VesselEdit()
     public var reminderGrid    = ReminderGrid()
-    public var vesselGrid      = VesselGrid()
     public var hamburgerMenu = Hamburger()
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
         || self.vesselEdit.isPresented != nil
         || self.reminderGrid.isPresented != nil
-        || self.vesselGrid.isPresented != nil
         || self.hamburgerMenu.isPresented == true
 
     }
@@ -69,16 +67,6 @@ public struct ReminderGrid: Codable {
         || self.vesselEdit.isPresented != nil
         || self.reminderSummary.isPresented != nil
         || self.isHamburgerMenu == true
-    }
-}
-
-public struct VesselGrid: Codable {
-    public var isPresented: Share.Identifier?
-    public var isError:     ErrorStorage.Identifier?
-    public var vesselEdit:  VesselEdit = .init()
-    public var isAlreadyPresenting: Bool {
-        return self.isError != nil
-        || self.vesselEdit.isPresented != nil
     }
 }
 

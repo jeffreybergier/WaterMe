@@ -37,10 +37,6 @@ extension QuickPerform {
             .sheet(item: nav.reminderGrid.isPresented) {
                 ReminderGrid.new($0, nav: nav.reminderGrid)
             }
-        // MARK: .../QuickPerform/VesselGrid
-            .sheet(item: nav.vesselGrid.isPresented) {
-                VesselGrid.new($0, nav: nav.vesselGrid)
-            }
         // MARK: .../QuickPerform/VesselEdit
             .sheet(item: nav.vesselEdit.isPresented) {
                 VesselEdit.new($0, nav: nav.vesselEdit)
@@ -130,22 +126,6 @@ extension ReminderSummary {
                 ReminderEdit.new($0, nav: nav.reminderEdit)
             }
         // MARK: .../ReminderGrid/ReminderSummary/VesselEdit
-            .sheet(item: nav.vesselEdit.isPresented) {
-                VesselEdit.new($0, nav: nav.vesselEdit)
-            }
-    }
-}
-
-extension VesselGrid {
-    fileprivate static func new(_ id: Share.Identifier, nav: Binding<V3Nav.VesselGrid>) -> some View {
-        // MARK: .../VesselGrid
-        VesselGrid(id, nav: nav)
-            .modifier(ErrorStorage.Presenter(
-                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
-                toPresent: nav.isError,
-                router: errorRouter(_:)
-            ))
-        // MARK: .../VesselGrid/VesselEdit
             .sheet(item: nav.vesselEdit.isPresented) {
                 VesselEdit.new($0, nav: nav.vesselEdit)
             }

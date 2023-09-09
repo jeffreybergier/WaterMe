@@ -100,10 +100,6 @@ internal struct QuickPerform: View {
             Button("View All Reminders") {
                 self.nav.reminderGrid.isPresented = self.id
             }
-            // TODO: Localize
-            Button("View All Plants") {
-                self.nav.vesselGrid.isPresented = self.id
-            }
         } message: { _ in EmptyView() }
     }
 }
