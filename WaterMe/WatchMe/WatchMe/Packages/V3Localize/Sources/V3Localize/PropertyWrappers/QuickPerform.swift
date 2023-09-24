@@ -29,14 +29,15 @@ public struct QuickPerform: DynamicProperty {
         public var myPlant:                  LocalizedString
         public var sectionTitleTomorrow:     LocalizedString
         public var sectionTitleLateAndToday: LocalizedString
-        public var kindWater:     ActionLocalization
-        public var kindFertilize: ActionLocalization
-        public var kindMist:      ActionLocalization
-        public var kindTrim:      ActionLocalization
-        public var kindMove:      ActionLocalization
-        public var kindOther:     ActionLocalization
-        public var itemNotFound:  ActionLocalization
-        public var addPlant:      ActionLocalization
+        public var kindWater:                ActionLocalization
+        public var kindFertilize:            ActionLocalization
+        public var kindMist:                 ActionLocalization
+        public var kindTrim:                 ActionLocalization
+        public var kindMove:                 ActionLocalization
+        public var kindOther:                ActionLocalization
+        public var itemNotFound:             ActionLocalization
+        public var addPlant:                 ActionLocalization
+        public var menuButtonMarkAsDone:     ActionLocalization
         private var bundle: Bundle
         public func menuTitle(_ count: Int) -> LocalizedString {
             switch count {
@@ -55,14 +56,15 @@ public struct QuickPerform: DynamicProperty {
             self.myPlant                  = b.localized(key: Noun.myPlant.rawValue)
             self.sectionTitleTomorrow     = b.localized(key: Noun.tomorrow.rawValue)
             self.sectionTitleLateAndToday = b.localized(key: Noun.late.rawValue)
-            self.kindWater     = Action.reminderKindWater.localized(b)
-            self.kindFertilize = Action.reminderKindFertilize.localized(b)
-            self.kindMist      = Action.reminderKindMist.localized(b)
-            self.kindTrim      = Action.reminderKindTrim.localized(b)
-            self.kindMove      = Action.reminderKindMove.localized(b)
-            self.kindOther     = Action.reminderKindOther.localized(b)
-            self.itemNotFound  = Action.itemNotFound.localized(b)
-            self.addPlant      = Action.addPlantLong.localized(b)
+            self.kindWater                = Action.reminderKindWater.localized(b)
+            self.kindFertilize            = Action.reminderKindFertilize.localized(b)
+            self.kindMist                 = Action.reminderKindMist.localized(b)
+            self.kindTrim                 = Action.reminderKindTrim.localized(b)
+            self.kindMove                 = Action.reminderKindMove.localized(b)
+            self.kindOther                = Action.reminderKindOther.localized(b)
+            self.itemNotFound             = Action.itemNotFound.localized(b)
+            self.addPlant                 = Action.addPlantLong.localized(b)
+            self.menuButtonMarkAsDone     = Action.markDoneGeneric.localized(b)
             self.bundle = b
         }
     }

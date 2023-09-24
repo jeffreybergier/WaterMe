@@ -79,13 +79,13 @@ internal struct QuickPerform: View {
                             isPresented: self.$nav.hamburgerMenu.isPresented,
                             presenting: self.nav.hamburgerMenu.selection)
         { reminders in
-            if reminders.isEmpty == false {
-                // TODO: Localize
-                Button("Mark as Done") {
-                    self.controller.appendNewPerformToReminders(with: reminders)
-                        .error
-                        .map(self.errors.append)
-                }
+            self.style.button
+                .action(text: self.text.menuButtonMarkAsDone)
+                .button(isEnabled: !reminders.isEmpty)
+            {
+                self.controller.appendNewPerformToReminders(with: reminders)
+                    .error
+                    .map(self.errors.append)
             }
             if self.canEdit {
                 self.style.button.action(text: self.text.addPlant).button {
