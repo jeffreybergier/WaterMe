@@ -49,5 +49,4 @@ internal enum Verb: LocalizationKey {
     case syncError          = "Action.iCloud Sync Error"
     case syncUnavailable    = "Action.iCloud Sync Unavailable"
     case syncSyncing        = "Action.Syncing with iCloud…"
-    case menu               = "Action.Menu"
 }

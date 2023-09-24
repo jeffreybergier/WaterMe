@@ -37,7 +37,18 @@ public struct QuickPerform: DynamicProperty {
         public var kindOther:     ActionLocalization
         public var itemNotFound:  ActionLocalization
         public var addPlant:      ActionLocalization
-        public var hamburger:     ActionLocalization
+        private var bundle: Bundle
+        public func menuTitle(_ count: Int) -> LocalizedString {
+            switch count {
+            case 0: ""
+            default: NSAttributedString(
+                AttributedString(
+                    localized: Phrase.markXAsDoneMarkdown(count),
+                    bundle: self.bundle
+                )
+            ).string
+            }
+        }
 
         internal init(_ b: Bundle) {
             self.title                    = b.localized(key: Noun.appTitle.rawValue)
@@ -51,8 +62,8 @@ public struct QuickPerform: DynamicProperty {
             self.kindMove      = Action.reminderKindMove.localized(b)
             self.kindOther     = Action.reminderKindOther.localized(b)
             self.itemNotFound  = Action.itemNotFound.localized(b)
-            self.hamburger     = Action.hamburger.localized(b)
             self.addPlant      = Action.addPlantLong.localized(b)
+            self.bundle = b
         }
     }
     

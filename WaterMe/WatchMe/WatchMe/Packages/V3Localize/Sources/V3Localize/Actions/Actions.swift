@@ -165,7 +165,6 @@ internal enum Action {
     case syncUnavailable
     case syncSyncing
     case syncIdleSoon
-    case hamburger
     
     private var raw: ActionLocalization {
         switch self {
@@ -249,8 +248,6 @@ internal enum Action {
             return Action.raw_syncSyncing
         case .syncIdleSoon:
             return Action.raw_syncIdleSoon
-        case .hamburger:
-            return Action.raw_hamburger
         }
     }
     
@@ -463,10 +460,5 @@ extension Action {
         .init(title: Verb.syncIdle.rawValue,
               hint:  nil,
               image: .system(Symbol.syncIdle.rawValue))
-    }()
-    private static let raw_hamburger: ActionLocalization = {
-        .init(title: Verb.menu.rawValue,
-              hint:  nil,
-              image: .system(Symbol.ellipsis.rawValue))
     }()
 }

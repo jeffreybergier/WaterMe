@@ -75,7 +75,7 @@ internal struct QuickPerform: View {
         }
         // Quick Action
         // TODO: Localize
-        .confirmationDialog(self.text.hamburger.title,
+        .confirmationDialog(self.text.menuTitle(self.nav.hamburgerMenu.selection.count),
                             isPresented: self.$nav.hamburgerMenu.isPresented,
                             presenting: self.nav.hamburgerMenu.selection)
         { reminders in
