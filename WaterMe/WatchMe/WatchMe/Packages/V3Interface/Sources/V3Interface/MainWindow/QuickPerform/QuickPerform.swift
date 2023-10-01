@@ -74,7 +74,6 @@ internal struct QuickPerform: View {
             self.queryTomorrow.filter = .share(newValue)
         }
         // Quick Action
-        // TODO: Localize
         .confirmationDialog(self.text.menuTitle(self.nav.hamburgerMenu.selection.count),
                             isPresented: self.$nav.hamburgerMenu.isPresented,
                             presenting: self.nav.hamburgerMenu.selection)
@@ -94,8 +93,7 @@ internal struct QuickPerform: View {
                     }
                 }
             }
-            // TODO: Localize
-            Button("View All Reminders") {
+            self.style.button.action(text: self.text.menuButtonViewAll).button {
                 self.nav.reminderGrid.isPresented = self.id
             }
         } message: { _ in EmptyView() }

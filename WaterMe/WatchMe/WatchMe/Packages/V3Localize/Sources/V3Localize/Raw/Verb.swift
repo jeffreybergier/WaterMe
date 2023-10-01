@@ -35,6 +35,7 @@ internal enum Verb: LocalizationKey {
     case dontDelete         = "Action.Don't Delete"
     case done               = "Action.Done"
     case viewCurrentPhoto   = "Action.View Current Photo"
+    case viewAllReminders   = "Action.View All Reminders"
     case cancel             = "Action.Cancel"
     case emoji              = "Action.Emoji"
     case camera             = "Action.Camera"

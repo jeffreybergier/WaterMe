@@ -148,6 +148,7 @@ internal enum Action {
     case plant
     case reminder
     case reminders
+    case remindersViewAll
     case notes
     case nextPerformDate
     case lastPerformed
@@ -215,6 +216,8 @@ internal enum Action {
             return Action.raw_reminder
         case .reminders:
             return Action.raw_reminders
+        case .remindersViewAll:
+            return Action.raw_remindersViewAll
         case .notes:
             return Action.raw_notes
         case .nextPerformDate:
@@ -376,6 +379,11 @@ extension Action {
     }()
     private static let raw_reminders: ActionLocalization = {
         .init(title: Noun.reminders.rawValue,
+              hint:  nil,
+              image: nil)
+    }()
+    private static let raw_remindersViewAll: ActionLocalization = {
+        .init(title: Verb.viewAllReminders.rawValue,
               hint:  nil,
               image: nil)
     }()

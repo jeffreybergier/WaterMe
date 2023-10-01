@@ -290,6 +290,9 @@ other buttons in the UI
 /* Button tht allows the user to see the current photo larger */
 "Action.View Current Photo" = "View Current Photo";
 
+/* Button tht allows the user to see all of the reminders */
+"Action.View All Reminders" = "View All Reminders";
+
 /* Button thst allows the user to cancel the current operation */
 "Action.Cancel" = "Cancel";
 
