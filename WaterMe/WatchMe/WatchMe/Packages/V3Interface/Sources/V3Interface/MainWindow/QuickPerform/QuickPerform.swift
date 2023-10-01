@@ -89,12 +89,8 @@ internal struct QuickPerform: View {
             }
             if self.canEdit {
                 self.style.button.action(text: self.text.addPlant).button {
-                    let result = self.controller.createVessel()
-                    switch result {
-                    case .success(let id):
-                        self.nav.vesselEdit.isPresented = id
-                    case .failure(let error):
-                        self.errors.append(error)
+                    self.controller.createVessel().switch(onFailure: self.errors.append) {
+                        self.nav.vesselEdit.isPresented=$0
                     }
                 }
             }

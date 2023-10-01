@@ -87,7 +87,13 @@ internal struct VesselEdit: View {
                     }
                     self.style.button
                         .action(text: self.text.addReminder)
-                        .button(action: { self.addReminder(in: vessel.id) })
+                        .button {
+                            self.controller.createReminder(in: vessel.id)
+                                .switch(onFailure: self.errors.append)
+                            {
+                                self.nav.reminderEdit.isPresented = $0
+                            }
+                        }
                 } header: {
                     self.style.sectionHeader
                         .action(text: self.text.reminders)
@@ -118,15 +124,6 @@ internal struct VesselEdit: View {
         .onChange(of: self.id, initial: true) { _, newValue in
             self.vesselQuery.identifier = newValue
             self.remindersQuery.filter = .vessel(newValue)
-        }
-    }
-    
-    private func addReminder(in vesselID: Vessel.Identifier) {
-        switch self.controller.createReminder(in: vesselID) {
-        case .success(let reminderID):
-            self.nav.reminderEdit.isPresented = reminderID
-        case .failure(let error):
-            self.errors.append(error)
         }
     }
 }
