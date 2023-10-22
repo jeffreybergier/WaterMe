@@ -26,6 +26,7 @@ import V3Model
 import V3Datum
 import V3Style
 import V3Localize
+import V3Settings
 
 internal struct ReminderEdit: View {
     
@@ -36,6 +37,7 @@ internal struct ReminderEdit: View {
     
     @V3Style.ReminderEdit private var style
     @V3Localize.ReminderEdit private var text
+    @V3Settings.FeatureFlags private var features
     
     @ReminderQuery private var query
     @Binding private var nav: V3Nav.ReminderEdit
@@ -105,7 +107,10 @@ internal struct ReminderEdit: View {
                         .preference(key: isFallbackKey.self, value: true)
                 }
                 Section {
-                    self.text.delete.action(style: self.style.delete).button {
+                    self.text.delete
+                             .action(style: self.style.delete)
+                             .button(isEnabled: self.features.contains(.deleteReminder))
+                    {
                         let error = DeleteReminderConfirmationError([self.id]) { selection in
                             self.controller.delete(selection)
                                 .error
@@ -127,6 +132,7 @@ internal struct ReminderEdit: View {
         }
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
+            assert(self.features.contains(.editReminder))
             self.query.identifier = newValue
         }
     }

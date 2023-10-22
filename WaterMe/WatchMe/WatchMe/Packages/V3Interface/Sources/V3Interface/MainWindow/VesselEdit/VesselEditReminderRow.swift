@@ -26,12 +26,14 @@ import V3Model
 import V3Datum
 import V3Style
 import V3Localize
+import V3Settings
 
 extension VesselEdit {
     internal struct ReminderRow: View {
         
         @V3Style.VesselEdit private var style
         @V3Localize.VesselEdit private var text
+        @V3Settings.FeatureFlags private var features
                 
         @ReminderQuery private var query
         private let id: Reminder.Identifier
@@ -46,15 +48,18 @@ extension VesselEdit {
             self.query.data.view { reminder in
                 self.style.row(subtitle: self.text.interval(reminder.interval))
                           .action(text: self.text(for: reminder.kind))
-                          .button(action: self.action)
+                          .button(
+                            isEnabled: self.features.contains(.editReminder),
+                            action: self.action
+                          )
             } onNIL: {
                 self.style.content
                           .action(text: self.text.notFound)
                           .label
                           .preference(key: isFallbackKey.self, value: true)
             }
-            .onLoadChange(of: self.id) {
-                self.query.identifier = $0
+            .onChange(of: self.id, initial: true) { _, newValue in
+                self.query.identifier = newValue
             }
         }
         

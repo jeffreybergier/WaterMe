@@ -66,11 +66,11 @@ extension ReminderGrid {
                           .label
                           .preference(key: isFallbackKey.self, value: true)
             }
-            .onLoadChange(of: self.id) {
-                self.reminderQuery.identifier = $0
+            .onChange(of: self.id, initial: true) { _, newValue in
+                self.reminderQuery.identifier = newValue
             }
-            .onLoadChange(of: self.reminderQuery.data?.vesselID) {
-                self.vesselQuery.identifier = $0
+            .onChange(of: self.reminderQuery.data?.vesselID, initial: true) { _, newValue in
+                self.vesselQuery.identifier = newValue
             }
         }
         

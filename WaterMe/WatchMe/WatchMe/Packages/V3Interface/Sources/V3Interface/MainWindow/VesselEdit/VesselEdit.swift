@@ -26,6 +26,7 @@ import V3Model
 import V3Datum
 import V3Style
 import V3Localize
+import V3Settings
 
 internal struct VesselEdit: View {
     
@@ -34,6 +35,7 @@ internal struct VesselEdit: View {
     
     @V3Style.VesselEdit private var style
     @V3Localize.VesselEdit private var text
+    @V3Settings.FeatureFlags private var features
     
     @VesselQuery private var vesselQuery
     @ReminderListQuery private var remindersQuery
@@ -87,7 +89,7 @@ internal struct VesselEdit: View {
                     }
                     self.style.button
                         .action(text: self.text.addReminder)
-                        .button {
+                        .button(isEnabled: self.features.contains(.addReminder)) {
                             self.controller.createReminder(in: vessel.id)
                                 .switch(onFailure: self.errors.append)
                             {
@@ -101,7 +103,9 @@ internal struct VesselEdit: View {
                 }
                 // TODO: Add Siri Shortcuts Here
                 Section {
-                    self.style.delete.action(text: self.text.delete).button {
+                    self.style.delete
+                              .action(text: self.text.delete)
+                              .button(isEnabled: self.features.contains(.deleteVessel)) {
                         let error = DeleteVesselConfirmationError([self.id]) { selection in
                             self.controller.delete(selection)
                                 .error
@@ -122,6 +126,7 @@ internal struct VesselEdit: View {
         .modifier(IconMenu(isPresented: self.$nav.isPickerMenu, isPicker: self.$nav.isPicker))
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
+            assert(self.features.contains(.editVessel))
             self.vesselQuery.identifier = newValue
             self.remindersQuery.filter = .vessel(newValue)
         }

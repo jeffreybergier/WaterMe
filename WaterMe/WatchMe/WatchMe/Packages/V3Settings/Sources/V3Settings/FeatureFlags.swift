@@ -31,8 +31,9 @@ public struct FeatureFlags: DynamicProperty {
         public static let editVessel      = Value(rawValue: 1 << 4)
         public static let addVessel       = Value(rawValue: 1 << 5)
         public static let deleteVessel    = Value(rawValue: 1 << 6)
-        static let all: Value = [.editReminder, .addReminder, .deleteReminder, .performReminder, .editVessel, .addVessel, .deleteVessel]
+        static let all:   Value = [.editReminder, .addReminder, .deleteReminder, .performReminder, .editVessel, .addVessel, .deleteVessel]
         static let watch: Value = [.deleteReminder, .performReminder, .deleteVessel]
+        static let none:  Value = []
         public init(rawValue: UInt) {
             self.rawValue = rawValue
         }

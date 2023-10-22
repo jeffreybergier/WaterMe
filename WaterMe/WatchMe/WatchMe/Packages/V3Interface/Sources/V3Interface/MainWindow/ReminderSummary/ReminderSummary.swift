@@ -53,7 +53,10 @@ internal struct ReminderSummary: View {
         { reminder, vessel in
             List {
                 Section {
-                    self.style.button.action(text: self.text.markDone).button {
+                    self.style.button
+                              .action(text: self.text.markDone)
+                              .button(isEnabled: self.features.contains(.performReminder))
+                    {
                         self.controller.appendNewPerformToReminders(with: [reminder.id])
                             .switch(onFailure: self.errors.append)
                         {

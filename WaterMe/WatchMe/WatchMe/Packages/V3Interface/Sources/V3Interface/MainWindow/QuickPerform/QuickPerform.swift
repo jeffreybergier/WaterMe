@@ -79,7 +79,7 @@ internal struct QuickPerform: View {
         { reminders in
             self.style.button
                 .action(text: self.text.menuButtonMarkAsDone)
-                .button(isEnabled: !reminders.isEmpty)
+                .button(isEnabled: reminders.isEmpty == false && self.features.contains(.performReminder))
             {
                 self.controller.appendNewPerformToReminders(with: reminders)
                     .error
