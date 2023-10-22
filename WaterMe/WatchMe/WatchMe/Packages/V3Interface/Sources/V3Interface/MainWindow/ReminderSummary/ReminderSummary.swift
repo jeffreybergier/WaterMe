@@ -30,13 +30,12 @@ import V3Settings
 
 internal struct ReminderSummary: View {
     
-    @FullEditModeProp private var canEdit
-    
     @Controller private var controller
     @ErrorStorage private var errors
-
+    
     @V3Style.ReminderSummary private var style
     @V3Localize.ReminderSummary private var text
+    @V3Settings.FeatureFlags private var features
     
     @VesselQuery private var vesselQuery
     @ReminderQuery private var reminderQuery
@@ -62,13 +61,17 @@ internal struct ReminderSummary: View {
                             // self.nav.stack.wateringAnimation()
                         }
                     }
-                    if self.canEdit {
-                        self.style.button.action(text: self.text.editReminder).button {
-                            self.nav.reminderEdit.isPresented = reminder.id
-                        }
-                        self.style.button.action(text: self.text.editVessel).button {
-                            self.nav.vesselEdit.isPresented = vessel.id
-                        }
+                    self.style.button
+                              .action(text: self.text.editReminder)
+                              .button(isEnabled: self.features.contains(.editReminder))
+                    {
+                        self.nav.reminderEdit.isPresented = reminder.id
+                    }
+                    self.style.button
+                              .action(text: self.text.editVessel)
+                              .button(isEnabled: self.features.contains(.editVessel))
+                    {
+                        self.nav.vesselEdit.isPresented = vessel.id
                     }
                 } header: {
                     self.style.sectionHeader

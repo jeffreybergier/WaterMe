@@ -35,7 +35,6 @@ extension UserDefaults {
         internal static let kCheckForUpdatesOnLaunch = "CHECK_FOR_UPDATES"
         // Make sure this stays in sync with BasicWrappers.swift file
         internal static let kDidRunWithoutCloudSync = "DID_RUN_WITHOUT_CLOUD_SYNC"
-        internal static let kModeEditFull = "MODE_EDIT_FULL"
     }
 
     public var checkForUpdatesOnLaunch: Bool {
@@ -163,17 +162,6 @@ extension UserDefaults {
             self.set(NSNumber(value: newValue.rawValue), forKey: Constants.kNumberOfReminderDays)
         }
     }
-    
-    public var modeEditFull: Bool {
-        get {
-            guard let number = self.object(forKey: Constants.kModeEditFull) as? NSNumber
-                else { fatalError("Must call configure() before accessing user defaults") }
-            return number.boolValue
-        }
-        set {
-            self.set(NSNumber(value: newValue), forKey: Constants.kModeEditFull)
-        }
-    }
 
     public func configure() {
         // swiftlint:disable colon
@@ -187,7 +175,6 @@ extension UserDefaults {
             Constants.kDarkMode                : 0,
             Constants.kCheckForUpdatesOnLaunch : true,
             Constants.kDidRunWithoutCloudSync  : true,
-            Constants.kModeEditFull            : false,
         ])
         // swiftlint:enable colon
 

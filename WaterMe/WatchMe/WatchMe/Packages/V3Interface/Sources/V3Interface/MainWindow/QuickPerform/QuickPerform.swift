@@ -32,13 +32,12 @@ import V3Settings
 
 internal struct QuickPerform: View {
     
-    @FullEditModeProp private var canEdit
-    
     @Controller private var controller
     @ErrorStorage private var errors
     
     @V3Style.QuickPerform private var style
     @V3Localize.QuickPerform private var text
+    @V3Settings.FeatureFlags private var features
     
     @ReminderListQuery(.lateAndToday) private var queryLate
     @ReminderListQuery(.tomorrow)     private var queryTomorrow
@@ -86,11 +85,12 @@ internal struct QuickPerform: View {
                     .error
                     .map(self.errors.append)
             }
-            if self.canEdit {
-                self.style.button.action(text: self.text.addPlant).button {
-                    self.controller.createVessel().switch(onFailure: self.errors.append) {
-                        self.nav.vesselEdit.isPresented=$0
-                    }
+            self.style.button
+                .action(text: self.text.addPlant)
+                .button(isEnabled: self.features.contains(.addVessel))
+            {
+                self.controller.createVessel().switch(onFailure: self.errors.append) {
+                    self.nav.vesselEdit.isPresented=$0
                 }
             }
             self.style.button.action(text: self.text.menuButtonViewAll).button {
