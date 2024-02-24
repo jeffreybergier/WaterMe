@@ -29,6 +29,8 @@ public struct QuickPerform: DynamicProperty {
         public var myPlant:                  LocalizedString
         public var sectionTitleTomorrow:     LocalizedString
         public var sectionTitleLateAndToday: LocalizedString
+        public var feelGoodMessage:          LocalizedString
+        public var feelGoodImage:            JSBImage
         public var kindWater:                ActionLocalization
         public var kindFertilize:            ActionLocalization
         public var kindMist:                 ActionLocalization
@@ -57,6 +59,8 @@ public struct QuickPerform: DynamicProperty {
             self.myPlant                  = b.localized(key: Noun.myPlant.rawValue)
             self.sectionTitleTomorrow     = b.localized(key: Noun.tomorrow.rawValue)
             self.sectionTitleLateAndToday = b.localized(key: Noun.late.rawValue)
+            self.feelGoodMessage          = b.localized(key: Phrase.youreAllSet.rawValue)
+            self.feelGoodImage            = Symbol.appIcon.catalog
             self.kindWater                = Action.reminderKindWater.localized(b)
             self.kindFertilize            = Action.reminderKindFertilize.localized(b)
             self.kindMist                 = Action.reminderKindMist.localized(b)

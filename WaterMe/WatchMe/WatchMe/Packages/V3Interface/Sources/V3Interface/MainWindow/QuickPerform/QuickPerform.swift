@@ -54,9 +54,8 @@ internal struct QuickPerform: View {
         TabView {
             switch (self.queryLate.data.count, self.queryTomorrow.data.count) {
             case (0,0):
-                Button("// TODO: Maybe improve this to be something that makes the user feel nice.") {
-                    self.nav.hamburgerMenu.isPresented = true
-                }
+                self.style.icon(self.text.feelGoodImage,
+                                with: self.text.feelGoodMessage)
             case (1..., 0):
                 Tab(self.queryLate,     onTap: self.$nav.hamburgerMenu)
             case (0, 1...):

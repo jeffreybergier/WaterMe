@@ -399,6 +399,9 @@ Used for explanations and other sentences
 /* Message of the alert that asks the user if they want to delete this item. */
 "Are you sure you want to delete this?" = "Are you sure you want to delete this?";
 
+/* You're all set message for when all the plants are watered. */
+"You're All Set" = "You're All Set";
+
 /* Tells the user they can mark X number of reminders as done */
 "Mark ^[%lld Reminder](inflect: true) as Done" = "Mark ^[%lld Reminder](inflect: true) as Done";
 

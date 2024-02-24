@@ -39,5 +39,6 @@ internal enum Phrase: LocalizationKey {
     case errorAlreadyDeleted        = "Unable to save changes because the item was deleted. Possibly from another device."
     case errorUnknown               = "An unknown error occurred."
     case confirmDelete              = "Are you sure you want to delete this?"
+    case youreAllSet                = "You're All Set"
     static func markXAsDoneMarkdown(_ count: Int) -> String.LocalizationValue { "Mark ^[\(count) Reminder](inflect: true) as Done" }
 }

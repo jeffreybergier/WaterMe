@@ -52,6 +52,17 @@ public struct QuickPerform: DynamicProperty {
 
         }
         
+        public func icon(_ image: JSBImage, with text: LocalizedString) -> some View {
+            VStack {
+                Image(jsbImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                Text(text)
+                    .lineLimit(2)
+                    .font(.title3)
+            }
+        }
+        
         @ViewBuilder public func threeUpIcon(_ request0: IconRequest?,
                                              _ request1: IconRequest?,
                                              _ request2: IconRequest?,
