@@ -281,6 +281,9 @@ other buttons in the UI
 /* Button to mark something as completed */
 "Action.Mark as Done" = "Mark as Done";
 
+/* Button to open menus */
+"Action.Menu" = "Menu";
+
 /* Button that allows the user to delete a reminder or a plant. */
 "Action.Delete" = "Delete";
 

@@ -142,6 +142,7 @@ internal enum Action {
     case pauseNotifications
     case markDoneReminder
     case markDoneGeneric
+    case menu
     case actions
     case editReminder
     case editVessel
@@ -204,6 +205,8 @@ internal enum Action {
             return Action.raw_markDoneReminder
         case .markDoneGeneric:
             return Action.raw_markDoneGeneric
+        case .menu:
+            return Action.raw_menu
         case .actions:
             return Action.raw_actions
         case .editReminder:
@@ -351,6 +354,11 @@ extension Action {
         .init(title: Verb.markDoneGeneric.rawValue,
               hint:  nil,
               image: nil)
+    }()
+    private static let raw_menu: ActionLocalization = {
+        .init(title: Verb.menu.rawValue,
+              hint:  nil,
+              image: .system(Symbol.ellipsis.rawValue))
     }()
     private static let raw_actions: ActionLocalization = {
         .init(title: Noun.actions.rawValue,

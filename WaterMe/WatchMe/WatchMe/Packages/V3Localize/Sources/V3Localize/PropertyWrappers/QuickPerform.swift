@@ -41,6 +41,7 @@ public struct QuickPerform: DynamicProperty {
         public var addPlant:                 ActionLocalization
         public var menuButtonMarkAsDone:     ActionLocalization
         public var menuButtonViewAll:        ActionLocalization
+        public var menuButtonHamburger:      ActionLocalization
         private var bundle: Bundle
         public func menuTitle(_ count: Int) -> LocalizedString {
             switch count {
@@ -71,6 +72,7 @@ public struct QuickPerform: DynamicProperty {
             self.addPlant                 = Action.addPlantLong.localized(b)
             self.menuButtonMarkAsDone     = Action.markDoneGeneric.localized(b)
             self.menuButtonViewAll        = Action.remindersViewAll.localized(b)
+            self.menuButtonHamburger      = Action.menu.localized(b)
             self.bundle = b
         }
     }

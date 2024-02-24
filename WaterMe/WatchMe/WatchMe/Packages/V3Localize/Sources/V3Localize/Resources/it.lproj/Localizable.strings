@@ -281,6 +281,9 @@ other buttons in the UI
 /* Button to mark something as completed */
 "Action.Mark as Done" = "Segna come fatto"; // TODO: GT
 
+/* Button to open menus */
+"Action.Menu" = "Menu"; // TODO: GT
+
 /* Button that allows the user to delete a reminder or a plant. */
 "Action.Delete" = "Elimina";
 

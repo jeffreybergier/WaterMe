@@ -46,6 +46,7 @@ public struct QuickPerform: Codable {
                 self.selection = []
             }
         }
+        public init() {}
     }
     public var isPresented: Share.Identifier?
     public var isError:        ErrorStorage.Identifier?

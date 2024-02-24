@@ -53,25 +53,54 @@ internal struct QuickPerform: View {
     internal var body: some View {
         TabView {
             switch (self.queryLate.data.count, self.queryTomorrow.data.count) {
-            case (0,0):
-                self.style.icon(self.text.feelGoodImage,
-                                with: self.text.feelGoodMessage)
+            case (0, 0):
+                Button {
+                    self.nav.hamburgerMenu = .init()
+                    self.nav.hamburgerMenu.isPresented = true
+                } label: {
+                    self.style.icon(image: self.text.feelGoodImage,
+                                    subtitle: self.text.feelGoodMessage)
+                }
+                .buttonStyle(.plain)
             case (1..., 0):
-                Tab(self.queryLate,     onTap: self.$nav.hamburgerMenu)
+                Tab(data:    self.queryLate.data,
+                    section: self.queryLate.section,
+                    onTap:   self.$nav.hamburgerMenu)
             case (0, 1...):
-                Tab(self.queryTomorrow, onTap: self.$nav.hamburgerMenu)
+                Tab(data:    self.queryTomorrow.data,
+                    section: self.queryTomorrow.section,
+                    onTap:   self.$nav.hamburgerMenu)
             case (_, _):
-                Tab(self.queryLate,     onTap: self.$nav.hamburgerMenu)
-                Tab(self.queryTomorrow, onTap: self.$nav.hamburgerMenu)
+                Tab(data:    self.queryLate.data,
+                    section: self.queryLate.section,
+                    onTap:   self.$nav.hamburgerMenu)
+                Tab(data:    self.queryTomorrow.data,
+                    section: self.queryTomorrow.section,
+                    onTap:   self.$nav.hamburgerMenu)
             }
         }
         .tabViewStyle(.verticalPage)
         .navigationTitle(self.text.title)
+        .toolbar {
+            if false { // remove if toolbar is desired
+                ToolbarItem(placement: .bottomBar) {
+                    self.style.buttonToolbar
+                        .action(text: self.text.menuButtonHamburger)
+                        .button
+                    {
+                        self.nav.hamburgerMenu = .init()
+                        self.nav.hamburgerMenu.isPresented = true
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+            }
+        }
         .onChange(of: self.id, initial: true) { _, newValue in
             self.queryLate.filter     = .share(newValue)
             self.queryTomorrow.filter = .share(newValue)
         }
-        // Quick Action
         .confirmationDialog(self.text.menuTitle(self.nav.hamburgerMenu.selection.count),
                             isPresented: self.$nav.hamburgerMenu.isPresented,
                             presenting: self.nav.hamburgerMenu.selection)

@@ -36,17 +36,21 @@ extension QuickPerform {
         @V3Localize.QuickPerform private var text
         
         @Binding private var onTap: V3Nav.QuickPerform.Hamburger
-        private let query: ReminderListQuery.Value<C>
         
-        internal init(_ query: ReminderListQuery.Value<C>,
+        private let data: C
+        private let section: Reminder.Section
+        
+        internal init(data: C,
+                      section: Reminder.Section?,
                       onTap: Binding<V3Nav.QuickPerform.Hamburger>)
         {
-            self.query = query
+            self.data = data
+            self.section = section ?? .lateAndToday
             _onTap = onTap
         }
         
         internal var body: some View {
-            self.query.data.view { data in
+            self.data.view { data in
                 Button {
                     self.onTap.isPresented = true
                     self.onTap.selection = Set(data)
@@ -60,8 +64,7 @@ extension QuickPerform {
         }
         
         private var navigationTitle: LocalizedString {
-            guard let section = self.query.section else { return "" }
-            switch section {
+            switch self.section {
             case .lateAndToday:
                 return self.text.sectionTitleLateAndToday
             case .tomorrow:
@@ -72,8 +75,7 @@ extension QuickPerform {
         }
         
         private var containerBackground: Color {
-            guard let section = self.query.section else { return Color.black }
-            switch section {
+            switch self.section {
             case .lateAndToday:
                 return self.style.backgroundLateAndToday
             case .tomorrow:
