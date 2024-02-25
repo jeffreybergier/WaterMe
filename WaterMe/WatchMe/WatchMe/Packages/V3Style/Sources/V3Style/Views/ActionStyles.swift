@@ -32,7 +32,7 @@ internal struct FallbackAlphaModifier: ViewModifier {
         Group {
             if self.isFallback {
                 content
-                    .opacity(0.6) // TODO: Magic Numbers
+                    .opacity(.opacityIsFallback)
             } else {
                 content
             }

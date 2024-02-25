@@ -664,7 +664,6 @@ extension NSManagedObjectContext {
             return .success(())
         } catch let error as NSError {
             // doing this async stops the tableviews from crashing
-            // TODO: Figure out how to remove this async
             DispatchQueue.main.async {
                 // we need to rollback the context
                 self.rollback()

@@ -30,7 +30,7 @@ internal struct CircleModifierEmoji: ViewModifier {
     private let strokeWidth: CGFloat
     
     internal init(strokeColor: Color? = nil,
-                  strokeWidth: CGFloat = 2) // TODO: Magic Numbers
+                  strokeWidth: CGFloat = .strokeWidth)
     {
         self.strokeColor = strokeColor
         self.strokeWidth = strokeWidth
@@ -56,7 +56,7 @@ internal struct CircleModifierImage: ViewModifier {
     private let strokeWidth: CGFloat
     
     internal init(strokeColor: Color? = nil,
-                  strokeWidth: CGFloat = 2) // TODO: Magic Numbers
+                  strokeWidth: CGFloat = .strokeWidth)
     {
         self.strokeColor = strokeColor
         self.strokeWidth = strokeWidth

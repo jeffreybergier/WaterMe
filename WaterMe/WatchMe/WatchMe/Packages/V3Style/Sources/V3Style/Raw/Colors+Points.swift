@@ -38,9 +38,16 @@ extension Font {
 }
 
 extension CGFloat {
-    internal static let thumbnailSmall: CGFloat = 64
-    internal static let thumbnailMedium: CGFloat = 128
-    internal static let thumbnailLarge: CGFloat = 280
+    internal static let thumbnailSmall: CGFloat    = 64
+    internal static let thumbnailMedium: CGFloat   = 128
+    internal static let thumbnailLarge: CGFloat    = 280
+    internal static let paddingVesselKind: CGFloat = 4
+    internal static let sizeIconExtra: CGFloat     = 36
+    internal static let strokeWidth: CGFloat       = 2
+}
+
+extension Double {
+    internal static let opacityIsFallback: Double = 0.6
 }
 
 extension Color {

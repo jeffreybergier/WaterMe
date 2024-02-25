@@ -104,7 +104,7 @@ public struct QuickPerform: DynamicProperty {
                 VesselIcon(image: request.vesselIconImage,
                            emoji: request.vesselIconEmoji)
                     .modifier(FontModifier(.emojiSmall))
-                    .padding([.trailing, .bottom], 4) // TODO: Magic Numbers
+                    .padding([.trailing, .bottom], .paddingVesselKind)
                 self.kindIcon
                     .action(text: request.reminderKind)
                     .label
@@ -113,8 +113,10 @@ public struct QuickPerform: DynamicProperty {
         
         private func icon(extra: Int) -> some View {
             Text("+" + String(describing: extra))
-                .font(.prominent) // TODO: Magic Numbers
-                .frame(width: 36, height: 36, alignment: .center) // TODO: Magic Numbers
+                .font(.prominent)
+                .frame(width: .sizeIconExtra,
+                       height: .sizeIconExtra,
+                       alignment: .center)
                 .modifier(CircleModifierEmoji())
         }
     }

@@ -98,7 +98,7 @@ internal let openSettings: [RecoveryOption] = {
 
 #else
 
-// TODO: Change out of space strings for WatchOS
+// TODO: Change out of space error strings for WatchOS
 // On WatchOS is there anything the user can do if there is a write error?
 internal let openSettings: [RecoveryOption] = {
     []
