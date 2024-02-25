@@ -74,7 +74,7 @@ extension V3Datum.Error: UserFacingError {
              .maintenanceFixDates,
              .maintenanceDeleteOrphanedReminders,
              .maintenanceFixOrphanedVessels:
-            return [openSettings]
+            return openSettings
         case .maintenanceContextMismatch,
              .objectMissing,
              .cannotDeleteLastReminder:
@@ -83,9 +83,25 @@ extension V3Datum.Error: UserFacingError {
     }
 }
 
-internal let openSettings: RecoveryOption = {
-    .init(title: Verb.openSettings.rawValue) {
-        // TODO: Open settings
-        print("Open Settings")
-    }
+#if os(iOS)
+
+import UIKit
+
+internal let openSettings: [RecoveryOption] = {
+    [
+        .init(title: Verb.openSettings.rawValue) {
+            let url = URL(string: UIApplication.openSettingsURLString)!
+            UIApplication.shared.open(url)
+        }
+    ]
 }()
+
+#else
+
+// TODO: Change out of space strings for WatchOS
+// On WatchOS is there anything the user can do if there is a write error?
+internal let openSettings: [RecoveryOption] = {
+    []
+}()
+
+#endif
