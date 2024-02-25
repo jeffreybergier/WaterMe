@@ -30,8 +30,7 @@ extension V3Datum.Error: UserFacingError {
             return Noun.errorSaving.rawValue
         case .cannotDeleteLastReminder:
             return Noun.errorDeleting.rawValue
-        case .read,
-             .objectMissing,
+        case .objectMissing,
              .maintenanceOneTrueVesselShare,
              .maintenanceMassageAllEntries,
              .maintenanceFixDates,
@@ -51,8 +50,6 @@ extension V3Datum.Error: UserFacingError {
             return Phrase.errorDeleteLastReminder.rawValue
         case .objectMissing:
             return Phrase.errorAlreadyDeleted.rawValue
-        case .read:
-            return Phrase.errorUnknown.rawValue // TODO: Replace with better error?
         case .maintenanceOneTrueVesselShare,
              .maintenanceMassageAllEntries,
              .maintenanceFixDates,
@@ -72,7 +69,6 @@ extension V3Datum.Error: UserFacingError {
         switch self {
         case .load,
              .write,
-             .read,
              .maintenanceOneTrueVesselShare,
              .maintenanceMassageAllEntries,
              .maintenanceFixDates,

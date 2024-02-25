@@ -28,7 +28,6 @@ public enum Error: Int, CustomNSError {
 
     case load
     case write
-    case read
     case objectMissing
     case cannotDeleteLastReminder
     case maintenanceOneTrueVesselShare
