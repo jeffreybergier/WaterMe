@@ -22,6 +22,8 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Nav
+import V3Style
+import V3Localize
 
 internal struct MainWindow: View {
     
@@ -40,6 +42,9 @@ internal struct MainWindow: View {
 }
 
 private struct Root: View {
+    
+    @V3Style.MainWindow private var style
+    @V3Localize.MainWindow private var text
     
     @Nav private var nav
     
@@ -60,6 +65,6 @@ private struct Root: View {
     }
     
     internal var noSelection: some View {
-        Text("// TODO: No Selection")
+        self.text.noContent.action(style: self.style.default).label
     }
 }
