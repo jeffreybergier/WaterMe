@@ -18,6 +18,9 @@ other static items in the UI
 /* Noun for a reminder in titles and lists */
 "Label.Reminder" = "Ricordare";
 
+/* Noun for a library in titles and lists */
+"Label.Libraries" = "Libraries"; // TODO: GT
+
 /* Noun for a plant. Used in titles and lists. */
 "Label.Plant" = "Pianta";
 

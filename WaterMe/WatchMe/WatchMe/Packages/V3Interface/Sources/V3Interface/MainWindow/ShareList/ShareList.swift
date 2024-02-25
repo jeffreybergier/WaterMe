@@ -23,8 +23,11 @@ import Umbrella
 import V3Nav
 import V3Model
 import V3Datum
+import V3Localize
 
 internal struct ShareList: View {
+    
+    @V3Localize.ShareList private var text
     
     @Nav private var nav
     @ShareListQuery private var data
@@ -40,7 +43,6 @@ internal struct ShareList: View {
             // TODO: Localize
             Text("No Libraries Found")
         }
-        // TODO: Localize
-        .navigationTitle("Libraries")
+        .navigationTitle(self.text.title)
     }
 }
