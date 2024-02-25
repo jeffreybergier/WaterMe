@@ -35,7 +35,7 @@ internal class WateringAnimationTimeObserver: ObservableObject {
     
     // TODO: Move this WateringLandscape String elsewhere
     internal let player = AVPlayer(
-        url: Bundle.module.url(forResource: "WateringLandscape",
+        url: Bundle.module.url(forResource: "WateringWatch",
                                withExtension: "mov")!
     )
     
