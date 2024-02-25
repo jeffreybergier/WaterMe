@@ -109,9 +109,12 @@ internal struct QuickPerform: View {
                 .action(text: self.text.menuButtonMarkAsDone)
                 .button(isEnabled: reminders.isEmpty == false && self.features.contains(.performReminder))
             {
-                self.controller.appendNewPerformToReminders(with: reminders)
-                    .error
-                    .map(self.errors.append)
+                self.controller
+                    .appendNewPerformToReminders(with: reminders)
+                    .switch(onFailure: self.errors.append)
+                {
+                    self.nav.isWatering = reminders
+                }
             }
             self.style.button
                 .action(text: self.text.addPlant)

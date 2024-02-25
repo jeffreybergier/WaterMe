@@ -60,8 +60,7 @@ internal struct ReminderSummary: View {
                         self.controller.appendNewPerformToReminders(with: [reminder.id])
                             .switch(onFailure: self.errors.append)
                         {
-                            // TODO: Nav
-                            // self.nav.stack.wateringAnimation()
+                            self.nav.isWatering = [reminder.id]
                         }
                     }
                     if self.features.contains(.editReminder) {

@@ -41,10 +41,10 @@ internal class WateringAnimationTimeObserver: ObservableObject {
     
     internal init() {
         self.configureObserver()
-        self.resetTimer()
     }
     
     internal func playFromBeginning() {
+        self.resetTimer()
         self.player.seek(to: .zero)
         self.player.play()
     }
@@ -58,6 +58,7 @@ internal class WateringAnimationTimeObserver: ObservableObject {
     }
     
     private func resetTimer() {
+        self.videoEnded = false
         self.timeoutTimer?.invalidate()
         self.timeoutTimer = Timer.scheduledTimer(withTimeInterval: self.timeoutInterval,
                                                  repeats: false)

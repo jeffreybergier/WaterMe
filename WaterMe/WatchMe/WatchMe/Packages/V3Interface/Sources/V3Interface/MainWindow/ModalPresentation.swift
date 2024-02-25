@@ -33,6 +33,12 @@ extension QuickPerform {
                 toPresent: nav.isError,
                 router: errorRouter(_:)
             ))
+        // MARK: .../QuickPerform/Watering
+            .sheet(items: nav.isWatering) { reminders in
+                WateringAnimation {
+                    nav.wrappedValue.isWatering = []
+                }
+            }
         // MARK: .../QuickPerform/ReminderGrid
             .sheet(item: nav.reminderGrid.isPresented) {
                 ReminderGrid.new($0, nav: nav.reminderGrid)
@@ -121,6 +127,12 @@ extension ReminderSummary {
                 toPresent: nav.isError,
                 router: errorRouter(_:)
             ))
+        // MARK: .../ReminderGrid/ReminderSummary/Watering
+            .sheet(items: nav.isWatering) { reminders in
+                WateringAnimation {
+                    nav.wrappedValue.isWatering = []
+                }
+            }
         // MARK: .../ReminderGrid/ReminderSummary/ReminderEdit
             .sheet(item: nav.reminderEdit.isPresented) {
                 ReminderEdit.new($0, nav: nav.reminderEdit)

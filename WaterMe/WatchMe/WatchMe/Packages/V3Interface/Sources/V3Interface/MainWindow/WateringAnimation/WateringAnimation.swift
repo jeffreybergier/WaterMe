@@ -40,7 +40,7 @@ internal struct WateringAnimation: View {
                 self.didAppearOnce = true
                 self.player.playFromBeginning()
             }
-            .onChange(of: self.player.videoEnded) { ended in
+            .onChange(of: self.player.videoEnded, initial: false) { _, ended in
                 guard ended == true else { return }
                 self.onAnimationCompletion()
             }

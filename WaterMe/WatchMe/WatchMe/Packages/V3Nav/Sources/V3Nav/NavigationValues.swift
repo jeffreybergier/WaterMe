@@ -48,17 +48,18 @@ public struct QuickPerform: Codable {
         }
         public init() {}
     }
-    public var isPresented: Share.Identifier?
-    public var isError:        ErrorStorage.Identifier?
-    public var vesselEdit      = VesselEdit()
-    public var reminderGrid    = ReminderGrid()
+    public var isPresented:  Share.Identifier?
+    public var isError:      ErrorStorage.Identifier?
+    public var isWatering:   Reminder.Selection = []
+    public var vesselEdit    = VesselEdit()
+    public var reminderGrid  = ReminderGrid()
     public var hamburgerMenu = Hamburger()
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
+        || self.isWatering.isEmpty != false
         || self.vesselEdit.isPresented != nil
         || self.reminderGrid.isPresented != nil
         || self.hamburgerMenu.isPresented == true
-
     }
 }
 
@@ -99,10 +100,12 @@ public struct VesselEdit: Codable {
 public struct ReminderSummary: Codable {
     public var isPresented: Reminder.Identifier?
     public var isError:     ErrorStorage.Identifier?
+    public var isWatering:  Reminder.Selection = []
     public var reminderEdit = ReminderEdit()
     public var vesselEdit   = VesselEdit()
     public var isAlreadyPresenting: Bool {
         return self.isError != nil
+        || self.isWatering.isEmpty != false
         || self.reminderEdit.isPresented != nil
         || self.vesselEdit.isPresented != nil
     }
