@@ -61,7 +61,14 @@ public struct ReminderListQuery: DynamicProperty {
     private func updateCoreData() {
         // 0) Make sure we always complete our mission
         var predicate = NSPredicate(value: false)
-        defer { self.query.configuration.predicate = predicate }
+        defer {
+            self.query.configuration.predicate = predicate
+            // TODO: This needs more testing
+            // Its very hard to tell what order this is with fake data
+            self.query.configuration.sortDescriptors = [
+                .init(\.raw_nextPerformDate, order: .forward),
+            ]
+        }
         
         // 1) If filter is none, nothing should load ever
         if case .none = self.filter { return }

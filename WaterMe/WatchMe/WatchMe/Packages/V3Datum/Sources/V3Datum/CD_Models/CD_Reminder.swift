@@ -80,23 +80,6 @@ internal class CD_ReminderPerform: CD_Base {
     }
 }
 
-extension CD_Reminder {
-    static func sortDescriptor(for sortOrder: Reminder.Sort,
-                               ascending: Bool) -> NSSortDescriptor
-    {
-        switch sortOrder {
-        case .interval:
-            return .init(key: #keyPath(CD_Reminder.raw_interval), ascending: ascending)
-        case .kind:
-            return .init(key: #keyPath(CD_Reminder.raw_kindString), ascending: ascending)
-        case .nextPerformDate:
-            return .init(key: #keyPath(CD_Reminder.raw_nextPerformDate), ascending: ascending)
-        case .note:
-            return .init(key: #keyPath(CD_Reminder.raw_note), ascending: ascending)
-        }
-    }
-}
-
 extension Reminder.Identifier {
     internal init(_ id: NSManagedObjectID) {
         self.init(rawValue: id.uriRepresentation().absoluteString)
@@ -174,8 +157,6 @@ extension Reminder.Section {
                 neverPredicate,
             ])
         }
-        // TODO: use sort later
-        // let sort = [CD_Reminder.sortDescriptor(for: .nextPerformDate, ascending: true)]
         return predicate
     }
 }
