@@ -23,11 +23,15 @@ import SwiftUI
 import Umbrella
 import V3Model
 import V3Datum
+import V3Style
+import V3Localize
 
 extension ShareList {
     internal struct Row: View {
         
-        // @ShareQuery private var item
+        @V3Style.ShareList private var style
+        @V3Localize.ShareList private var text
+        
         private let id: Share.Identifier
         
         internal init(_ id: Share.Identifier) {
@@ -35,7 +39,7 @@ extension ShareList {
         }
         
         internal var body: some View {
-            Text(String(describing: self.id.rawValue))
+            self.style.row.action(text: self.text.rowTitle).label
         }
     }
 }

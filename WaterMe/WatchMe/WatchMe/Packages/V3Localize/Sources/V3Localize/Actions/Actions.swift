@@ -147,6 +147,7 @@ internal enum Action {
     case editReminder
     case editVessel
     case plant
+    case home
     case reminder
     case reminders
     case remindersViewAll
@@ -215,6 +216,8 @@ internal enum Action {
             return Action.raw_editVessel
         case .plant:
             return Action.raw_plant
+        case .home:
+            return Action.raw_home
         case .reminder:
             return Action.raw_reminder
         case .reminders:
@@ -379,6 +382,11 @@ extension Action {
         .init(title: Noun.plant.rawValue,
               hint:  nil,
               image: nil)
+    }()
+    private static let raw_home: ActionLocalization = {
+        .init(title: Noun.home.rawValue,
+              hint:  nil,
+              image: .system(Symbol.home.rawValue))
     }()
     private static let raw_reminder: ActionLocalization = {
         .init(title: Noun.reminder.rawValue,

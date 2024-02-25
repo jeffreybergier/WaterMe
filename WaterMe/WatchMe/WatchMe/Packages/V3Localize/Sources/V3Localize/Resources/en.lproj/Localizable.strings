@@ -21,6 +21,9 @@ other static items in the UI
 /* Noun for a library in titles and lists */
 "Label.Libraries" = "Libraries";
 
+/* Noun for a home in titles and lists */
+"Label.Home" = "Home";
+
 /* Noun for a plant. Used in titles and lists. */
 "Label.Plant" = "Plant";
 

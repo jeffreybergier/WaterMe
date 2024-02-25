@@ -23,10 +23,12 @@ import Umbrella
 import V3Nav
 import V3Model
 import V3Datum
+import V3Style
 import V3Localize
 
 internal struct ShareList: View {
     
+    @V3Style.ShareList private var style
     @V3Localize.ShareList private var text
     
     @Nav private var nav
@@ -40,8 +42,7 @@ internal struct ShareList: View {
                 Row($0)
             }
         } onEmpty: {
-            // TODO: Localize
-            Text("No Libraries Found")
+            self.text.noContent.action(style: self.style.row).label
         }
         .navigationTitle(self.text.title)
     }

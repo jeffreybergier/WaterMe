@@ -23,6 +23,7 @@ import Umbrella
 
 internal enum Symbol: String {
     case noContent       = "circle.slash"
+    case home            = "house"
     case camera          = "Camera"
     case plus            = "PlusIcon"
     case shovel          = "ReminderKindFertilize"

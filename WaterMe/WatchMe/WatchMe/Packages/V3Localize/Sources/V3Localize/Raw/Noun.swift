@@ -24,6 +24,7 @@ import Umbrella
 internal enum Noun: LocalizationKey {
     case appTitle            = "Label.WaterMe"
     case reminder            = "Label.Reminder"
+    case home                = "Label.Home"
     case libraries           = "Label.Libraries"
     case plant               = "Label.Plant"
     case name                = "Label.Name"

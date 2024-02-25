@@ -1,6 +1,6 @@
 //
 //  Created by Jeffrey Bergier on 2024/02/25.
-//  Copyright © 2020 Saturday Apps.
+//  Copyright © 2024 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -31,8 +31,8 @@ public struct ShareList: DynamicProperty {
 
         internal init(_ b: Bundle) {
             self.title     = b.localized(key: Noun.libraries.rawValue)
-            self.rowTitle  = Action.syncIdle.localized(b)
-            self.noContent = Action.syncIdle.localized(b)
+            self.rowTitle  = Action.home.localized(b)
+            self.noContent = Action.itemNotFound.localized(b)
         }
     }
     
