@@ -87,17 +87,3 @@ extension Vessel {
         )
     }
 }
-
-extension Vessel.Filter {
-    internal var cd_predicate: NSPredicate {
-        switch self {
-        case .none:
-            return .init(value: false)
-        case .all:
-            return .init(value: true)
-        case .share(let id):
-            // TODO: Fix
-            return .init(value: true)
-        }
-    }
-}
