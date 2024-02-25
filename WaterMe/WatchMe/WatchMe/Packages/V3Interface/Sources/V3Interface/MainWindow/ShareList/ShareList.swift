@@ -45,5 +45,9 @@ internal struct ShareList: View {
             self.text.noContent.action(style: self.style.row).label
         }
         .navigationTitle(self.text.title)
+        .onChange(of: self.data.count, initial: true) { _, newCount in
+            guard newCount == 1, self.nav.detail.isPresented == nil else { return }
+            self.nav.detail.isPresented = self.data.first
+        }
     }
 }
