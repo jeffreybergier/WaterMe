@@ -305,7 +305,6 @@ extension Action {
     }()
     private static let raw_reminderKind: ActionLocalization = {
         .init(title: Noun.reminderKindShort.rawValue,
-              // TODO: Change to verb
               hint:  nil,
               image: nil)
     }()

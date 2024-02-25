@@ -95,12 +95,8 @@ extension VesselEdit {
                 switch kind {
                 case .emoji:
                     VesselEdit.EmojiPicker(id: id)
-                case .camera:
-                    fatalError()
-                case .library:
-                    fatalError("// TODO: VesselEdit.LibraryPicker(id: id)")
-                case .viewPhoto:
-                    fatalError()
+                case .camera, .library, .viewPhoto:
+                    fatalError("Need to implement image choosing")
                 }
             }
     }

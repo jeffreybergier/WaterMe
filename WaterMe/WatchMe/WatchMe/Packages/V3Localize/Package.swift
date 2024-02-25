@@ -35,7 +35,6 @@ let package = Package(
          ),
     ],
     dependencies: [
-        // TODO: I think this should be V3Model
         .package(path: "../V3Datum"),
         .package(path: "../V3Settings"),
         .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "waterme3-wOS10"),

@@ -85,7 +85,7 @@ extension DevicePermissions {
         }
         
         private func updateLibrary() {
-            // TODO: Enhance once this is possible on different devices
+            // TODO: PhotosPicker now works on watchOS
             self.value.library = .denied
         }
         
