@@ -46,16 +46,14 @@ public struct Controller: DynamicProperty {
 
 extension Controller {
     public static func newEnvironment(_ kind: ControllerKind) -> Environment {
-        // TODO: Change to not be inMemory
         do {
             let controller = try CD_Controller(kind: kind)
             return .init(.success(controller))
         } catch let error as Error {
+            // TODO: Add logging
             return .init(.failure(error))
         } catch {
-            // TODO: Improve
-            NSLog("Whoa")
-            fatalError()
+            return .init(.failure(.load))
         }
     }
 }

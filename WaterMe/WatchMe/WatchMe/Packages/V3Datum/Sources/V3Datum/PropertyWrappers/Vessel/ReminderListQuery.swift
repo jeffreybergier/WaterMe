@@ -32,6 +32,7 @@ public struct ReminderListQuery: DynamicProperty {
         public var filter: Reminder.Filter
     }
 
+    @ErrorStorage private var errors
     @Controller private var controller
     @CDListQuery<CD_Reminder, Reminder.Identifier>(onRead: { .init($0.objectID) }) private var query
     
@@ -80,9 +81,7 @@ public struct ReminderListQuery: DynamicProperty {
                 filter,
             ])
         case .failure(let error):
-            // 4) Present error to UI
-            // TODO: Do something with this error
-            NSLog(String(describing: error))
+            self.errors.append(error)
         }
     }
 }
