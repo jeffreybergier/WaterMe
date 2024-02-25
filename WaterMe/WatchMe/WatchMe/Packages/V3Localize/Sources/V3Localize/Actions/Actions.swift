@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Umbrella
 
 /*
@@ -290,12 +291,12 @@ extension Action {
     private static let raw_addPlantShort: ActionLocalization = {
         .init(title: Verb.addGeneric.rawValue,
               hint:  nil,
-              image: .system("plus.circle"))
+              image: .view(Image(jsbImage: Catalog.plus.image).resizable()))
     }()
     private static let raw_addReminder: ActionLocalization = {
         .init(title: Verb.addReminder.rawValue,
               hint:  nil,
-              image: .image(Symbol.plus.catalog))
+              image: .image(Catalog.plus.image))
     }()
     private static let raw_itemNotFound: ActionLocalization = {
         .init(title: Noun.itemNotFound.rawValue,
@@ -311,32 +312,32 @@ extension Action {
     private static let raw_reminderKindWater: ActionLocalization = {
         .init(title: Noun.waterShort.rawValue,
               hint:  nil,
-              image: .image(Symbol.waterCan.catalog))
+              image: .view(Image(jsbImage: Catalog.waterCan.image).resizable()))
     }()
     private static let raw_reminderKindFertilize: ActionLocalization = {
         .init(title: Noun.fertilizeShort.rawValue,
               hint:  nil,
-              image: .image(Symbol.shovel.catalog))
+              image: .view(Image(jsbImage: Catalog.shovel.image).resizable()))
     }()
     private static let raw_reminderKindTrim: ActionLocalization = {
         .init(title: Noun.trimShort.rawValue,
               hint:  nil,
-              image: .image(Symbol.scissors.catalog))
+              image: .view(Image(jsbImage: Catalog.scissors.image).resizable()))
     }()
     private static let raw_reminderKindMist: ActionLocalization = {
         .init(title: Noun.mistShort.rawValue,
               hint:  nil,
-              image: .image(Symbol.sprayer.catalog))
+              image: .view(Image(jsbImage: Catalog.sprayer.image).resizable()))
     }()
     private static let raw_reminderKindMove: ActionLocalization = {
         .init(title: Noun.moveShort.rawValue,
               hint:  nil,
-              image: .image(Symbol.wheelBarrow.catalog))
+              image: .view(Image(jsbImage: Catalog.wheelBarrow.image).resizable()))
     }()
     private static let raw_reminderKindOther: ActionLocalization = {
         .init(title: Noun.other.rawValue,
               hint:  nil,
-              image: .image(Symbol.boxOpen.catalog))
+              image: .view(Image(jsbImage: Catalog.boxOpen.image).resizable()))
     }()
     private static let raw_reminderInterval: ActionLocalization = {
         .init(title: Noun.remindEvery.rawValue,
@@ -431,7 +432,7 @@ extension Action {
     private static let raw_editPhoto: ActionLocalization = {
         .init(title: Verb.editPhoto.rawValue,
               hint:  nil,
-              image: .image(Symbol.camera.catalog))
+              image: .image(Catalog.camera.image))
     }()
     private static let raw_viewPhoto: ActionLocalization = {
         .init(title: Verb.viewCurrentPhoto.rawValue,

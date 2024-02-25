@@ -25,16 +25,18 @@ import Umbrella
 public struct QuickPerform: DynamicProperty {
     
     public struct IconRequest {
+        
         public var vesselIconImage: JSBImage?
         public var vesselIconEmoji: String?
-        public var reminderKind: ActionLocalization
+        public var reminderKind:    ActionLocalization
+        
         public init(vesselIconImage: JSBImage? = nil,
                     vesselIconEmoji: String? = nil,
-                    reminderKind: ActionLocalization)
+                    reminderKind:    ActionLocalization)
         {
             self.vesselIconImage = vesselIconImage
             self.vesselIconEmoji = vesselIconEmoji
-            self.reminderKind = reminderKind
+            self.reminderKind    = reminderKind
         }
     }
     

@@ -53,6 +53,7 @@ extension ReminderGrid {
                     VStack {
                         self.style.icon(image: vessel.icon?.imageValue,
                                         emoji: vessel.icon?.stringValue)
+                        // TODO: Localize
                         JSBText("My Plant", text: vessel.displayName)
                             .modifier(self.style.displayName)
                         self.kind(reminder.kind)

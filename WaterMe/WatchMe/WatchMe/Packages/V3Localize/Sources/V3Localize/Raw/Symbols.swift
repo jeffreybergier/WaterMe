@@ -21,9 +21,8 @@
 import SwiftUI
 import Umbrella
 
-internal enum Symbol: String {
-    case noContent       = "circle.slash"
-    case home            = "house"
+/// Asset Catalog
+internal enum Catalog: String {
     case camera          = "Camera"
     case plus            = "PlusIcon"
     case shovel          = "ReminderKindFertilize"
@@ -34,17 +33,24 @@ internal enum Symbol: String {
     case waterCan        = "ReminderKindWater"
     case present         = "TipJar"
     case appIcon         = "WaterMeIcon"
+    
+    internal var image: JSBImage {
+        JSBImage.image(named: self.rawValue, in: Bundle.module)!
+    }
+}
+
+/// SF Symbols
+internal enum Symbol: String {
     case check           = "checkmark.circle.fill"
     case syncIdle        = "checkmark.icloud"
     case syncError       = "exclamationmark.icloud"
     case syncUnavailable = "xmark.icloud"
     case syncSyncing     = "arrow.clockwise.icloud"
     case ellipsis        = "ellipsis.circle"
+    case noContent       = "circle.slash"
+    case home            = "house"
     
-    internal var catalog: JSBImage {
-        JSBImage.image(named: self.rawValue, in: Bundle.module)!
-    }
-    internal var system: Image {
+    internal var view: Image {
         Image(systemName: self.rawValue)
     }
 }
