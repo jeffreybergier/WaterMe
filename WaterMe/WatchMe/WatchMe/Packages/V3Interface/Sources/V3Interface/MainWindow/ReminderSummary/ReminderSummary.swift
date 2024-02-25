@@ -64,17 +64,21 @@ internal struct ReminderSummary: View {
                             // self.nav.stack.wateringAnimation()
                         }
                     }
-                    self.style.button
-                              .action(text: self.text.editReminder)
-                              .button(isEnabled: self.features.contains(.editReminder))
-                    {
-                        self.nav.reminderEdit.isPresented = reminder.id
+                    if self.features.contains(.editReminder) {
+                        self.style.button
+                            .action(text: self.text.editReminder)
+                            .button(isEnabled: self.features.contains(.editReminder))
+                        {
+                            self.nav.reminderEdit.isPresented = reminder.id
+                        }
                     }
-                    self.style.button
-                              .action(text: self.text.editVessel)
-                              .button(isEnabled: self.features.contains(.editVessel))
-                    {
-                        self.nav.vesselEdit.isPresented = vessel.id
+                    if self.features.contains(.editVessel) {
+                        self.style.button
+                            .action(text: self.text.editVessel)
+                            .button(isEnabled: self.features.contains(.editVessel))
+                        {
+                            self.nav.vesselEdit.isPresented = vessel.id
+                        }
                     }
                 } header: {
                     self.style.sectionHeader
