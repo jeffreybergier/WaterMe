@@ -258,6 +258,38 @@
             endingLineNumber = "31"
             landmarkName = "launchConfiguration"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "DB40F23E-27E7-43BE-9CEE-7533432F0FED - 14781ad3b098527e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in variable initialization expression of static V3Interface.Interface.launchConfiguration : ()"
+                  moduleName = "WatchMeExt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeffberg/Developer/SaturdayApps/WaterMe2/WaterMe/WatchMe/WatchMe/Packages/V3Interface/Sources/V3Interface/Interface.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "DB40F23E-27E7-43BE-9CEE-7533432F0FED - 18672c4b14ed1b26"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in variable initialization expression of static V3Interface.Interface.launchConfiguration : ()"
+                  moduleName = "WaterMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeffberg/Developer/SaturdayApps/WaterMe2/WaterMe/WatchMe/WatchMe/Packages/V3Interface/Sources/V3Interface/Interface.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

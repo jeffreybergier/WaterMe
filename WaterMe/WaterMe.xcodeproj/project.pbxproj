@@ -211,10 +211,8 @@
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
 		73BEAFCE2913C1A100DE9656 /* V3Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73BEAFCD2913C1A100DE9656 /* V3Interface */; };
-		73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMe.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8E72840FA870001BF37 /* WatchMeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WatchMeMain.swift */; };
-		73C3C8E82840FA8B0001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733A726B2840D0310040640B /* Assets.xcassets */; };
 		73C3C92D284344980001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C3C92C284344980001BF37 /* Assets.xcassets */; };
 		73D02F66263F683300E90138 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F64263F683200E90138 /* TestDB.sqlite */; };
 		73D02F67263F683300E90138 /* TestDB.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 73D02F65263F683300E90138 /* TestDB.sqlite-wal */; };
@@ -280,13 +278,6 @@
 			remoteGlobalIDString = 5034766524552D0600C3DAD3;
 			remoteInfo = Store;
 		};
-		73C3C8CA2840F6C40001BF37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50BB0F481EBFCDE500850FF4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 73C3C8C72840F6C40001BF37;
-			remoteInfo = "WaterMeW WatchKit Extension";
-		};
 		73C3C8D92840F6C50001BF37 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 50BB0F481EBFCDE500850FF4 /* Project object */;
@@ -308,17 +299,6 @@
 				5034765924552CFD00C3DAD3 /* DatumL.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		73C3C8DF2840F6C50001BF37 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		73C3C8E32840F6C50001BF37 /* Embed Watch Content */ = {
@@ -549,21 +529,18 @@
 		731B01E726411E8B00165220 /* CloudSyncProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncProgressView.swift; sourceTree = "<group>"; };
 		7334FE1C26429286004381A0 /* CloudSyncErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncErrors.swift; sourceTree = "<group>"; };
 		733A72672840D0300040640B /* WatchMeMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMeMain.swift; sourceTree = "<group>"; };
-		733A726B2840D0310040640B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		733A72702840D0310040640B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		733A727E2840F0FB0040640B /* WatchMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchMe.entitlements; sourceTree = "<group>"; };
 		733A727F2840F0FE0040640B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		733BC95226880E9700F821D6 /* Result+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
 		733BC954268821A800F821D6 /* ZStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStackView.swift; sourceTree = "<group>"; };
 		738AB94F2610B07A00162114 /* v2.7.0.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.7.0.001.xcdatamodel; sourceTree = "<group>"; };
 		73C3C8C02840F6C30001BF37 /* WaterMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WatchMeExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C3C92C284344980001BF37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73D02F64263F683200E90138 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
 		73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMigrationTests.swift; sourceTree = "<group>"; };
 		73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Exceptions.swift"; sourceTree = "<group>"; };
-		73FA91782B942F56003FAC13 /* WatchMeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchMeApp.entitlements; sourceTree = "<group>"; };
+		73FA917A2B944338003FAC13 /* WatchMeApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WatchMeApp-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1092,7 +1069,6 @@
 				48A7B0D32467FCB100DC0861 /* Calculate.framework */,
 				48A7B0DB2467FCB100DC0861 /* CalculateTests.xctest */,
 				73C3C8C02840F6C30001BF37 /* WaterMe.app */,
-				73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1164,6 +1140,10 @@
 		733A72642840D0300040640B /* WatchMe */ = {
 			isa = PBXGroup;
 			children = (
+				733A727E2840F0FB0040640B /* WatchMe.entitlements */,
+				733A72672840D0300040640B /* WatchMeMain.swift */,
+				73FA917A2B944338003FAC13 /* WatchMeApp-Info.plist */,
+				73C3C92C284344980001BF37 /* Assets.xcassets */,
 				73C3C92B284344830001BF37 /* Extension */,
 				73C3C92A284344760001BF37 /* App */,
 			);
@@ -1194,8 +1174,6 @@
 		73C3C92A284344760001BF37 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				73FA91782B942F56003FAC13 /* WatchMeApp.entitlements */,
-				73C3C92C284344980001BF37 /* Assets.xcassets */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1203,10 +1181,6 @@
 		73C3C92B284344830001BF37 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				733A727E2840F0FB0040640B /* WatchMe.entitlements */,
-				733A72672840D0300040640B /* WatchMeMain.swift */,
-				733A726B2840D0310040640B /* Assets.xcassets */,
-				733A72702840D0310040640B /* Info.plist */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1401,37 +1375,20 @@
 			buildConfigurationList = 73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeApp" */;
 			buildPhases = (
 				73C3C8BE2840F6C30001BF37 /* Resources */,
-				73C3C8DF2840F6C50001BF37 /* Embed Foundation Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				73C3C8CB2840F6C40001BF37 /* PBXTargetDependency */,
-			);
-			name = WatchMeApp;
-			productName = WaterMeW;
-			productReference = 73C3C8C02840F6C30001BF37 /* WaterMe.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		73C3C8C72840F6C40001BF37 /* WatchMeExt */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 73C3C8DC2840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeExt" */;
-			buildPhases = (
 				73C3C8C42840F6C40001BF37 /* Sources */,
 				73C3C8C52840F6C40001BF37 /* Frameworks */,
-				73C3C8C62840F6C40001BF37 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = WatchMeExt;
+			name = WatchMeApp;
 			packageProductDependencies = (
-				73BEAFCD2913C1A100DE9656 /* V3Interface */,
+				73FA91792B944338003FAC13 /* V3Interface */,
 			);
-			productName = "WaterMeW WatchKit Extension";
-			productReference = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
+			productName = WaterMeW;
+			productReference = 73C3C8C02840F6C30001BF37 /* WaterMe.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -1487,9 +1444,6 @@
 					73C3C8BF2840F6C30001BF37 = {
 						CreatedOnToolsVersion = 13.4;
 					};
-					73C3C8C72840F6C40001BF37 = {
-						CreatedOnToolsVersion = 13.4;
-					};
 				};
 			};
 			buildConfigurationList = 50BB0F4B1EBFCDE500850FF4 /* Build configuration list for PBXProject "WaterMe" */;
@@ -1521,7 +1475,6 @@
 				48A7B0D22467FCB100DC0861 /* Calculate */,
 				48A7B0DA2467FCB100DC0861 /* CalculateTests */,
 				73C3C8BF2840F6C30001BF37 /* WatchMeApp */,
-				73C3C8C72840F6C40001BF37 /* WatchMeExt */,
 			);
 		};
 /* End PBXProject section */
@@ -1610,14 +1563,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				73C3C92D284344980001BF37 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		73C3C8C62840F6C40001BF37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				73C3C8E82840FA8B0001BF37 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1901,11 +1846,6 @@
 			isa = PBXTargetDependency;
 			target = 5034766524552D0600C3DAD3 /* Store */;
 			targetProxy = 5034767924552D0700C3DAD3 /* PBXContainerItemProxy */;
-		};
-		73C3C8CB2840F6C40001BF37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 73C3C8C72840F6C40001BF37 /* WatchMeExt */;
-			targetProxy = 73C3C8CA2840F6C40001BF37 /* PBXContainerItemProxy */;
 		};
 		73C3C8DA2840F6C50001BF37 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2490,105 +2430,32 @@
 			};
 			name = Release;
 		};
-		73C3C8DD2840F6C50001BF37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/Extension/WatchMe.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290003;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = V6ESYGU6CV;
-				ENABLE_PREVIEWS = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WaterMe/WatchMe/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = WatchMeExt.ComplicationController;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2.9.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3.ext;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Debug;
-		};
-		73C3C8DE2840F6C50001BF37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/Extension/WatchMe.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290003;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = V6ESYGU6CV;
-				ENABLE_PREVIEWS = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WaterMe/WatchMe/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WaterMeWExt;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = WatchMeExt.ComplicationController;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2.9.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3.ext;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
 		73C3C8E12840F6C50001BF37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/App/WatchMeApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/WatchMe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 290003;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				IBSC_MODULE = WaterMeW_WatchKit_Extension;
+				INFOPLIST_FILE = "WaterMe/WatchMe/WatchMeApp-Info.plist";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.saturdayapps.WaterMe;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 2.9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2608,19 +2475,27 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/App/WatchMeApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/WatchMe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 290003;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				IBSC_MODULE = WaterMeW_WatchKit_Extension;
+				INFOPLIST_FILE = "WaterMe/WatchMe/WatchMeApp-Info.plist";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Saturday Apps. All rights reserved.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.saturdayapps.WaterMe;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 2.9.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe.watch3;
@@ -2709,15 +2584,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73C3C8DC2840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeExt" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				73C3C8DD2840F6C50001BF37 /* Debug */,
-				73C3C8DE2840F6C50001BF37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2799,6 +2665,10 @@
 			productName = SimpleImageViewer;
 		};
 		73BEAFCD2913C1A100DE9656 /* V3Interface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = V3Interface;
+		};
+		73FA91792B944338003FAC13 /* V3Interface */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = V3Interface;
 		};
