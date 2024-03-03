@@ -211,7 +211,7 @@
 		733BC95326880E9700F821D6 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC95226880E9700F821D6 /* Result+Convenience.swift */; };
 		733BC955268821A800F821D6 /* ZStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733BC954268821A800F821D6 /* ZStackView.swift */; };
 		73BEAFCE2913C1A100DE9656 /* V3Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73BEAFCD2913C1A100DE9656 /* V3Interface */; };
-		73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 73C3C8C82840F6C40001BF37 /* WatchMeExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8DB2840F6C50001BF37 /* WaterMe.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 73C3C8C02840F6C30001BF37 /* WaterMe.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		73C3C8E72840FA870001BF37 /* WatchMeMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733A72672840D0300040640B /* WatchMeMain.swift */; };
 		73C3C8E82840FA8B0001BF37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733A726B2840D0310040640B /* Assets.xcassets */; };
@@ -310,15 +310,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		73C3C8DF2840F6C50001BF37 /* Embed App Extensions */ = {
+		73C3C8DF2840F6C50001BF37 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed App Extensions */,
+				73C3C8C92840F6C40001BF37 /* WatchMeExt.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		73C3C8E32840F6C50001BF37 /* Embed Watch Content */ = {
@@ -1401,7 +1401,7 @@
 			buildConfigurationList = 73C3C8E02840F6C50001BF37 /* Build configuration list for PBXNativeTarget "WatchMeApp" */;
 			buildPhases = (
 				73C3C8BE2840F6C30001BF37 /* Resources */,
-				73C3C8DF2840F6C50001BF37 /* Embed App Extensions */,
+				73C3C8DF2840F6C50001BF37 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1440,7 +1440,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1520;
 				ORGANIZATIONNAME = "Saturday Apps";
 				TargetAttributes = {
 					48A7B0D22467FCB100DC0861 = {
