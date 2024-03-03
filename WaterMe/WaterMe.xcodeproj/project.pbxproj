@@ -219,6 +219,7 @@
 		73D02F74263F864500E90138 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 7313858D260E15B000CDC138 /* CropViewController */; };
 		73D02F75263F864500E90138 /* SimpleImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 73730857260E2F22000B99DB /* SimpleImageViewer */; };
 		73F2D73726B17D8300A4D353 /* Logger+Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */; };
+		73FA917B2B9459A4003FAC13 /* V3Interface in Frameworks */ = {isa = PBXBuildFile; productRef = 73FA91792B944338003FAC13 /* V3Interface */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -610,6 +611,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FA917B2B9459A4003FAC13 /* V3Interface in Frameworks */,
 				73BEAFCE2913C1A100DE9656 /* V3Interface in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1144,8 +1146,6 @@
 				733A72672840D0300040640B /* WatchMeMain.swift */,
 				73FA917A2B944338003FAC13 /* WatchMeApp-Info.plist */,
 				73C3C92C284344980001BF37 /* Assets.xcassets */,
-				73C3C92B284344830001BF37 /* Extension */,
-				73C3C92A284344760001BF37 /* App */,
 			);
 			name = WatchMe;
 			path = WaterMe/WatchMe;
@@ -1169,20 +1169,6 @@
 				733A727F2840F0FE0040640B /* CloudKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		73C3C92A284344760001BF37 /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		73C3C92B284344830001BF37 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		73D02F63263F680F00E90138 /* SchemaMigration */ = {
@@ -2420,6 +2406,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "WaterMe/Miscellaneous/WaterMe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -2450,6 +2439,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.saturdayapps.WaterMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "WaterMe/Miscellaneous/WaterMe-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
