@@ -563,6 +563,7 @@
 		73D02F65263F683300E90138 /* TestDB.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TestDB.sqlite-wal"; sourceTree = "<group>"; };
 		73D02F68263F69ED00E90138 /* SchemaMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMigrationTests.swift; sourceTree = "<group>"; };
 		73F2D73526B02EC400A4D353 /* Logger+Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Exceptions.swift"; sourceTree = "<group>"; };
+		73FA91782B942F56003FAC13 /* WatchMeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchMeApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1193,6 +1194,7 @@
 		73C3C92A284344760001BF37 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				73FA91782B942F56003FAC13 /* WatchMeApp.entitlements */,
 				73C3C92C284344980001BF37 /* Assets.xcassets */,
 			);
 			path = App;
@@ -2578,6 +2580,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/App/WatchMeApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 290003;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
@@ -2609,6 +2612,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = WaterMe/WatchMe/App/WatchMeApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 290003;
 				DEVELOPMENT_TEAM = V6ESYGU6CV;
