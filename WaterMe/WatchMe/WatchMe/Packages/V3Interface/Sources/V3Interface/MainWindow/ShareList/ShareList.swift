@@ -44,10 +44,37 @@ internal struct ShareList: View {
         } onEmpty: {
             self.text.noContent.action(style: self.style.row).label
         }
+        .modifier(DEBUG_DataModifier())
         .navigationTitle(self.text.title)
         .onChange(of: self.data.count, initial: true) { _, newCount in
             guard newCount == 1, self.nav.detail.isPresented == nil else { return }
             self.nav.detail.isPresented = self.data.first
         }
+    }
+}
+
+fileprivate struct DEBUG_DataModifier: ViewModifier {
+    
+    @Controller private var controller
+    @DEBUG_VesselListQuery private var allVessels
+    
+    @State private var vesselID: Vessel.Identifier?
+    private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    
+    func body(content: Content) -> some View {
+        content
+            .onReceive(self.timer) { _ in
+                if let vesselID {
+                    NSLog("Deleting Vessel: \(vesselID.id)")
+                    _ = self.controller.delete([vesselID])
+                    self.vesselID = nil
+                } else {
+                    NSLog("Deleting All Vessels: \(self.allVessels.data.count)")
+                    _ = self.controller.delete(Set(self.allVessels.data))
+                    let newVessel = self.controller.createVessel().value
+                    self.vesselID = newVessel
+                    NSLog("Created Vessel: \(String(describing: vesselID?.id))")
+                }
+            }
     }
 }
