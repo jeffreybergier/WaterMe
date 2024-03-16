@@ -37,7 +37,7 @@ internal struct SyncIndicator: ViewModifier {
         content.overlay {
             self.syncIndicator
         }
-        .onLoadChange(of: self.syncProgress.id) { _ in
+        .onChange(of: self.syncProgress.id, initial: true) { _, _ in
             self.observer.progress = self.syncProgress.value.progress
             self.observer.newestError = self.syncProgress.value.errors.first
         }
