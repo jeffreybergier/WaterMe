@@ -60,7 +60,6 @@ extension QuickPerform {
                 .buttonStyle(.plain)
             }
             .navigationTitle(self.navigationTitle)
-            .containerBackground(self.containerBackground.gradient, for: .tabView)
         }
         
         private var navigationTitle: LocalizedString {
@@ -69,17 +68,6 @@ extension QuickPerform {
                 return self.text.sectionTitleLateAndToday
             case .tomorrow:
                 return self.text.sectionTitleTomorrow
-            case .late, .today, .thisWeek, .later, .disabled:
-                fatalError("Unsupported Configuration")
-            }
-        }
-        
-        private var containerBackground: Color {
-            switch self.section {
-            case .lateAndToday:
-                return self.style.backgroundLateAndToday
-            case .tomorrow:
-                return self.style.backgroundTomorrow
             case .late, .today, .thisWeek, .later, .disabled:
                 fatalError("Unsupported Configuration")
             }

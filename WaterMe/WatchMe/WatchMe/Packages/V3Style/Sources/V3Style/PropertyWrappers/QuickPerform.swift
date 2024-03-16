@@ -44,14 +44,8 @@ public struct QuickPerform: DynamicProperty {
         internal var kindIcon:    some ActionStyle = ActionStyleImp(labelStyle: .iconOnly, outerModifier: ReminderKindIcon())
         public var button:        some ActionStyle = ActionStyleDefault
         public var buttonToolbar: some ActionStyle = ActionStyleImp(labelStyle: .titleAndIcon)
-        public var backgroundTomorrow:     Color
-        public var backgroundLateAndToday: Color
 
-        internal init(scheme: ColorScheme) {
-            self.backgroundTomorrow     = .tintReminderTomorrow(scheme)
-            self.backgroundLateAndToday = .tintReminderLate(scheme)
-
-        }
+        internal init() { }
         
         public func icon(image: JSBImage, subtitle: LocalizedString) -> some View {
             VStack {
@@ -121,11 +115,9 @@ public struct QuickPerform: DynamicProperty {
         }
     }
     
-    @Environment(\.colorScheme) private var scheme
-    
     public init() {}
     
     public var wrappedValue: Value {
-        Value(scheme: self.scheme)
+        Value()
     }
 }
