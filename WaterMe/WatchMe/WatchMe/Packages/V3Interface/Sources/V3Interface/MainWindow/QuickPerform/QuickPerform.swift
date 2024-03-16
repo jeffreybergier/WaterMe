@@ -39,8 +39,7 @@ internal struct QuickPerform: View {
     @V3Localize.QuickPerform private var text
     @V3Settings.FeatureFlags private var features
     
-    @ReminderListQuery(.lateAndToday) private var queryLate
-    @ReminderListQuery(.tomorrow)     private var queryTomorrow
+    @ReminderListQuery(.lateAndToday) private var query
     
     private let id: Share.Identifier
     @Binding private var nav: V3Nav.QuickPerform
@@ -52,8 +51,11 @@ internal struct QuickPerform: View {
     
     internal var body: some View {
         TabView {
-            switch (self.queryLate.data.count, self.queryTomorrow.data.count) {
-            case (0, 0):
+            self.query.data.view { data in
+                Tab(data:    data,
+                    section: self.query.section,
+                    onTap:   self.$nav.hamburgerMenu)
+            } onEmpty: {
                 Button {
                     self.nav.hamburgerMenu = .init()
                     self.nav.hamburgerMenu.isPresented = true
@@ -62,21 +64,6 @@ internal struct QuickPerform: View {
                                     subtitle: self.text.feelGoodMessage)
                 }
                 .buttonStyle(.plain)
-            case (1..., 0):
-                Tab(data:    self.queryLate.data,
-                    section: self.queryLate.section,
-                    onTap:   self.$nav.hamburgerMenu)
-            case (0, 1...):
-                Tab(data:    self.queryTomorrow.data,
-                    section: self.queryTomorrow.section,
-                    onTap:   self.$nav.hamburgerMenu)
-            case (_, _):
-                Tab(data:    self.queryLate.data,
-                    section: self.queryLate.section,
-                    onTap:   self.$nav.hamburgerMenu)
-                Tab(data:    self.queryTomorrow.data,
-                    section: self.queryTomorrow.section,
-                    onTap:   self.$nav.hamburgerMenu)
             }
         }
         .tabViewStyle(.verticalPage)
@@ -98,8 +85,7 @@ internal struct QuickPerform: View {
             }
         }
         .onChange(of: self.id, initial: true) { _, newValue in
-            self.queryLate.filter     = .share(newValue)
-            self.queryTomorrow.filter = .share(newValue)
+            self.query.filter = .share(newValue)
         }
         .confirmationDialog(self.text.menuTitle(self.nav.hamburgerMenu.selection.count),
                             isPresented: self.$nav.hamburgerMenu.isPresented,
