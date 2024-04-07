@@ -42,62 +42,69 @@ extension QuickPerform.Tab {
         @VesselQuery private var vessel1
         @VesselQuery private var vessel2
         
-        private var display0: V3Style.QuickPerform.IconRequest? {
+        private var display0: V3Style.QuickPerform.Request.Description? {
             .init(reminder: self.reminder0.data,
                   vessel: self.vessel0.data,
                   localize: self.text)
         }
         
-        private var display1: V3Style.QuickPerform.IconRequest? {
+        private var display1: V3Style.QuickPerform.Request.Description? {
             .init(reminder: self.reminder1.data,
                   vessel: self.vessel1.data,
                   localize: self.text)
         }
         
-        private var display2: V3Style.QuickPerform.IconRequest? {
+        private var display2: V3Style.QuickPerform.Request.Description? {
             .init(reminder: self.reminder2.data,
                   vessel: self.vessel2.data,
                   localize: self.text)
         }
         
         private let data: C
-        private let dataMax: Int
-        private let dataExtra: Int?
         
         internal init(data: C) {
             self.data = data
-            self.dataMax = 3
-            self.dataExtra = self.data.count - 3 > 0 
-                             ? self.data.count - 3
-                             : nil
         }
         
         internal var body: some View {
-            self.style.threeUpIcon(self.display0,
-                                   self.display1,
-                                   self.display2,
-                                   self.dataExtra)
+            self.style.threeUpIcon
             // TODO: this data check could be better
-            .onChange(of: self.data.count, initial: true) { _, _ in
-                var identifiers = Set(self.data.prefix(self.dataMax))
-                self.reminder0.identifier = identifiers.popFirst()
-                self.reminder1.identifier = identifiers.popFirst()
-                self.reminder2.identifier = identifiers.popFirst()
-            }
-            .onChange(of: self.reminder0.data) { _, newValue in
-                self.vessel0.identifier = newValue?.vesselID
-            }
-            .onChange(of: self.reminder1.data) { _, newValue in
-                self.vessel1.identifier = newValue?.vesselID
-            }
-            .onChange(of: self.reminder2.data) { _, newValue in
-                self.vessel2.identifier = newValue?.vesselID
-            }
+                .onChange(of: self.data.count, initial: true) { _, _ in
+                    var identifiers = Set(self.data.prefix(self.dataMax))
+                    self.reminder0.identifier = identifiers.popFirst()
+                    self.reminder1.identifier = identifiers.popFirst()
+                    self.reminder2.identifier = identifiers.popFirst()
+                    self.updateRequest()
+                }
+                .onChange(of: self.reminder0.data) { _, newValue in
+                    self.vessel0.identifier = newValue?.vesselID
+                    self.updateRequest()
+                }
+                .onChange(of: self.reminder1.data) { _, newValue in
+                    self.vessel1.identifier = newValue?.vesselID
+                    self.updateRequest()
+                }
+                .onChange(of: self.reminder2.data) { _, newValue in
+                    self.vessel2.identifier = newValue?.vesselID
+                    self.updateRequest()
+                }
+        }
+        
+        private func updateRequest() {
+            self.style.request = .init(self.display0,
+                                       self.display1,
+                                       self.display2,
+                                       self.dataExtra)
+        }
+        
+        private let dataMax: Int = 3
+        private var dataExtra: Int? {
+            return self.data.count - 3 > 0 ? self.data.count - 3 : nil
         }
     }
 }
 
-extension V3Style.QuickPerform.IconRequest {
+extension V3Style.QuickPerform.Request.Description {
     fileprivate init?(reminder: Reminder?,
                       vessel: Vessel?,
                       localize: V3Localize.QuickPerform.Value)
