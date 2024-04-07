@@ -114,6 +114,23 @@ public struct QuickPerform: DynamicProperty {
             }
         }
         
+        private func kindSize(for total: Int) -> CGSize {
+            switch total {
+            case 1: return .init(width: .sizeKindIconLargeExtra,
+                                 height: .sizeKindIconLargeExtra)
+            case 2: return .init(width: .sizeKindIconLarge, 
+                                 height: .sizeKindIconLarge)
+            case 3: return .init(width: .sizeKindIconMedium, 
+                                 height: .sizeKindIconMedium)
+            case 4: return .init(width: .sizeKindIconSmall, 
+                                 height: .sizeKindIconSmall)
+            default:
+                assertionFailure()
+                return .init(width: .sizeKindIconSmall, 
+                             height: .sizeKindIconSmall)
+            }
+        }
+        
         private func icon(request: Request.Description) -> some View {
             ZStack(alignment: .bottomTrailing) {
                 VesselIcon(
@@ -124,6 +141,7 @@ public struct QuickPerform: DynamicProperty {
                 self.kindIcon
                     .action(text: request.reminderKind)
                     .label
+                    .frame(self.kindSize(for: self.request.total))
             }
             .aspectRatio(contentMode: .fit)
         }
@@ -146,5 +164,11 @@ public struct QuickPerform: DynamicProperty {
     public var wrappedValue: Value {
         get { Value(request:self.request) }
         nonmutating set { self.$request.wrappedValue = newValue.request }
+    }
+}
+
+fileprivate extension View {
+    func frame(_ size: CGSize, alignment: Alignment = .center) -> some View {
+        self.frame(width: size.width, height: size.height, alignment: alignment)
     }
 }
