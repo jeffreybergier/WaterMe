@@ -27,7 +27,7 @@ public struct ReminderKindIcon: ViewModifier {
     
     public func body(content: Content) -> some View {
         content
-            .frame(width: .sizeIconExtra, height: .sizeIconExtra, alignment: .center)
+            .frame(width: 36, height: 36, alignment: .center) // TODO: Magic numbers
             .background(Color.backgroundContent(self.scheme))
             .modifier(CircleModifierImage())
     }

@@ -73,13 +73,10 @@ extension QuickPerform.Tab {
         }
         
         internal var body: some View {
-            // TODO: Not sure why this HStack is needed
-            HStack {
-                self.style.threeUpIcon(self.display0,
-                                       self.display1,
-                                       self.display2,
-                                       self.dataExtra)
-            }
+            self.style.threeUpIcon(self.display0,
+                                   self.display1,
+                                   self.display2,
+                                   self.dataExtra)
             // TODO: this data check could be better
             .onChange(of: self.data.count, initial: true) { _, _ in
                 var identifiers = Set(self.data.prefix(self.dataMax))

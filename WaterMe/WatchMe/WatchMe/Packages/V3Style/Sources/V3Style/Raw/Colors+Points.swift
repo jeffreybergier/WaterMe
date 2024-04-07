@@ -30,11 +30,14 @@ extension TimeInterval {
 }
 
 extension Font {
-    internal static let prominent: Font   = .headline
-    internal static let normal: Font      = .body
-    internal static let small: Font       = .caption
-    internal static let emojiSmall: Font  = .custom("Helvetica", size: 36, relativeTo: .title3)
-    internal static let emojiMedium: Font = .custom("Helvetica", size: 47, relativeTo: .title3)
+    internal static let prominent: Font       = .headline
+    internal static let normal: Font          = .body
+    internal static let small: Font           = .caption
+    internal static let emojiSmall: Font      = .custom("Helvetica", size: 48, relativeTo: .title3)
+    internal static let emojiMedium: Font     = .custom("Helvetica", size: 48, relativeTo: .title3)
+    internal static let emojiLarge: Font      = .custom("Helvetica", size: 60, relativeTo: .title3)
+    internal static let emojiLargeExtra: Font = .custom("Helvetica", size: 96, relativeTo: .title3)
+    internal static let emojiExtra: Font      = .headline
 }
 
 extension CGFloat {
@@ -42,7 +45,6 @@ extension CGFloat {
     internal static let thumbnailMedium: CGFloat   = 128
     internal static let thumbnailLarge: CGFloat    = 280
     internal static let paddingVesselKind: CGFloat = 4
-    internal static let sizeIconExtra: CGFloat     = 36
     internal static let strokeWidth: CGFloat       = 2
 }
 

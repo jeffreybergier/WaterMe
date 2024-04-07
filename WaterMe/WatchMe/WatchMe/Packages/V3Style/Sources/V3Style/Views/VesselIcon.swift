@@ -32,21 +32,25 @@ internal struct VesselIcon: View {
     }
     
     internal var body: some View {
-        if let emoji {
-            Text(emoji)
-                .modifier(CircleModifierEmoji())
-        } else if let image {
+        ZStack {
+            Color.clear
+            self.display
+        }
+        .modifier(CircleModifierEmoji())
+    }
+    
+    @ViewBuilder private var display: some View {
+        if let image {
             Image(jsbImage: image)
                 .resizable()
                 .scaledToFill()
                 .clipShape(Circle())
-                .frame(width: .thumbnailSmall, height: .thumbnailSmall, alignment: .center)
-                .modifier(CircleModifierImage())
+        } else if let emoji {
+            Text(emoji)
         } else {
             Text("🌸")
                 .preference(key: isFallbackKey.self, value: true)
                 .modifier(FallbackAlphaModifier())
-                .modifier(CircleModifierEmoji())
         }
     }
     

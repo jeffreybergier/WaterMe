@@ -64,54 +64,62 @@ public struct QuickPerform: DynamicProperty {
                                              _ extra:    Int?)
                                              -> some View
         {
-            if let request0, let request1, let request2, let extra {
-                Grid {
-                    GridRow {
-                        self.icon(request: request0)
-                        self.icon(request: request1)
+            let total: Int = (request0 == nil ? 0 : 1) 
+                           + (request1 == nil ? 0 : 1)
+                           + (request2 == nil ? 0 : 1)
+                           + (extra == nil ? 0 : 1)
+            VStack(spacing: 0) {
+                HStack {
+                    if let request0 {
+                        self.icon(request: request0, total: total)
                     }
-                    GridRow {
-                        self.icon(request: request2)
+                    if let request1 {
+                        self.icon(request: request1, total: total)
+                    }
+                }
+                HStack {
+                    if let request2 {
+                        self.icon(request: request2, total: total)
+                    }
+                    if let extra {
                         self.icon(extra: extra)
                     }
                 }
-            } else if let request0, let request1, let request2 {
-                VStack {
-                    HStack {
-                        self.icon(request: request0)
-                        self.icon(request: request1)
-                    }
-                    self.icon(request: request2)
-                }
-            } else if let request0, let request1 {
-                HStack {
-                    self.icon(request: request0)
-                    self.icon(request: request1)
-                }
-            } else if let request0 {
-                self.icon(request: request0)
             }
         }
         
-        private func icon(request: IconRequest) -> some View {
+        private func emojiFont(for total: Int) -> Font {
+            switch total {
+            case 1: return .emojiLargeExtra
+            case 2: return .emojiLarge
+            case 3: return .emojiMedium
+            case 4: return .emojiSmall
+            default: assertionFailure(); return .emojiSmall;
+            }
+        }
+        
+        private func icon(request: IconRequest, total: Int) -> some View {
             ZStack(alignment: .bottomTrailing) {
-                VesselIcon(image: request.vesselIconImage,
-                           emoji: request.vesselIconEmoji)
-                    .modifier(FontModifier(.emojiSmall))
-                    .padding([.trailing, .bottom], .paddingVesselKind)
+                VesselIcon(
+                    image: request.vesselIconImage,
+                    emoji: request.vesselIconEmoji
+                )
+                .modifier(FontModifier(self.emojiFont(for: total)))
                 self.kindIcon
                     .action(text: request.reminderKind)
                     .label
             }
+            .aspectRatio(contentMode: .fit)
         }
         
         private func icon(extra: Int) -> some View {
-            Text("+" + String(describing: extra))
-                .font(.prominent)
-                .frame(width: .sizeIconExtra,
-                       height: .sizeIconExtra,
-                       alignment: .center)
-                .modifier(CircleModifierEmoji())
+            ZStack {
+                Color.clear
+                Text("+" + String(describing: extra))
+                    .font(.emojiExtra)
+            }
+            .aspectRatio(contentMode: .fit)
+            .modifier(CircleModifierEmoji())
         }
     }
     
