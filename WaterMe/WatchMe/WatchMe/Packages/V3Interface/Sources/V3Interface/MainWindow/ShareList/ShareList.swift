@@ -58,23 +58,26 @@ fileprivate struct DEBUG_DataModifier: ViewModifier {
     @Controller private var controller
     @DEBUG_VesselListQuery private var allVessels
     
-    @State private var vesselID: Vessel.Identifier?
+    @State private var vesselIDs: Set<Vessel.Identifier> = []
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
     func body(content: Content) -> some View {
         content
             .onReceive(self.timer) { _ in
-                if let vesselID {
-                    NSLog("Deleting Vessel: \(vesselID.id)")
-                    _ = self.controller.delete([vesselID])
-                    self.vesselID = nil
+                if vesselIDs.count < 4 {
+                    let newVesselID = self.controller.createVessel().value
+                    _ = newVesselID.map { self.vesselIDs.insert($0) }
+                    NSLog("Created Vessel: \(String(describing: newVesselID?.id))")
                 } else {
-                    NSLog("Deleting All Vessels: \(self.allVessels.data.count)")
                     _ = self.controller.delete(Set(self.allVessels.data))
-                    let newVessel = self.controller.createVessel().value
-                    self.vesselID = newVessel
-                    NSLog("Created Vessel: \(String(describing: vesselID?.id))")
+                    self.vesselIDs = []
+                    NSLog("Deleted All Vessels: \(self.allVessels.data.count)")
                 }
+            }
+            .onAppear() {
+                _ = self.controller.delete(Set(self.allVessels.data))
+                self.vesselIDs = []
+                NSLog("Deleted All Vessels: \(self.allVessels.data.count)")
             }
     }
 }
