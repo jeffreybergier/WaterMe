@@ -32,8 +32,8 @@ public struct Interface: Scene {
     }()
     
     // TODO: Make this read the actual setting
-    @StateObject private var controller     = Controller.newEnvironment(.sync)
-    @StateObject private var errorStorage   = ErrorStorage.newEnvironment()
+    @StateObject private var controller   = Controller.newEnvironment(.local)
+    @StateObject private var errorStorage = ErrorStorage.newEnvironment()
     
     private let localizeBundle = LocalizeBundle
 
