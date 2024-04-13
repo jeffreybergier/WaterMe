@@ -84,8 +84,8 @@ public struct QuickPerform: DynamicProperty {
         }
         
         @ViewBuilder public var threeUpIcon: some View {
-            VStack(spacing: 0) {
-                HStack {
+            Grid(verticalSpacing: 0) {
+                GridRow {
                     if let request0 = self.request.request0 {
                         self.icon(request: request0)
                     }
@@ -93,7 +93,7 @@ public struct QuickPerform: DynamicProperty {
                         self.icon(request: request1)
                     }
                 }
-                HStack {
+                GridRow {
                     if let request2 = self.request.request2 {
                         self.icon(request: request2)
                     }
@@ -147,13 +147,11 @@ public struct QuickPerform: DynamicProperty {
         }
         
         private func icon(extra: Int) -> some View {
-            ZStack {
-                Color.clear
-                Text("+" + String(describing: extra))
-                    .font(.emojiExtra)
-            }
-            .aspectRatio(contentMode: .fit)
-            .modifier(CircleModifierEmoji())
+            Text("+" + String(describing: extra))
+                .font(.emojiExtra)
+                .aspectRatio(contentMode: .fit)
+                .layoutPriority(-2)
+                .modifier(CircleModifierEmoji())
         }
     }
     
