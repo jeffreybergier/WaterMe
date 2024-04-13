@@ -390,11 +390,17 @@ extension CD_Controller {
             let fetchResult = try context.fetch(fetchRequest)
             switch fetchResult.count {
             case 0:
+                #if os(watchOS)
+                // WatchOS should not create a vesselshare because watchOS
+                // waits for syncing from iCloud
+                return .failure(.maintenanceOneTrueVesselShare)
+                #else
                 let share = CD_VesselShare(context: context)
                 context.insert(share)
                 try context.save()
                 NSLog("0 VesselShares present, but was able to create")
                 return .success(share)
+                #endif
             case 1:
                 let originalVesselShare = fetchResult[0]
                 return .success(originalVesselShare)
@@ -627,6 +633,10 @@ extension CD_Controller {
     }
 
     private class func copySampleDBIfNeeded() {
+        #if os(watchOS)
+        // WatchOS waits for iCloud sync, so it does not need the sample DB
+        return
+        #endif
         guard
             !self.RLM_legacyStoreExists,
             !self.storeExists
