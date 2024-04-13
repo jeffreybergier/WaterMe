@@ -44,27 +44,32 @@ internal struct ShareList: View {
         } onEmpty: {
             self.text.noContent.action(style: self.style.row).label
         }
-        .modifier(DEBUG_DataModifier())
         .navigationTitle(self.text.title)
         .onChange(of: self.data.count, initial: true) { _, newCount in
             guard newCount == 1, self.nav.detail.isPresented == nil else { return }
             self.nav.detail.isPresented = self.data.first
         }
+        // Uncomment if fake data is needed
+        .modifier(DEBUG_DataModifier())
     }
 }
 
+#if DEBUG
 fileprivate struct DEBUG_DataModifier: ViewModifier {
+    
+    private static let delay: TimeInterval = 1
+    private let resetCount: Int = 15
     
     @Controller private var controller
     @DEBUG_VesselListQuery private var allVessels
     
     @State private var vesselIDs: Set<Vessel.Identifier> = []
-    private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: delay, on: .main, in: .common).autoconnect()
     
     func body(content: Content) -> some View {
         content
             .onReceive(self.timer) { _ in
-                if vesselIDs.count < 4 {
+                if vesselIDs.count < self.resetCount {
                     let newVesselID = self.controller.createVessel().value
                     _ = newVesselID.map { self.vesselIDs.insert($0) }
                     NSLog("Created Vessel: \(String(describing: newVesselID?.id))")
@@ -81,3 +86,4 @@ fileprivate struct DEBUG_DataModifier: ViewModifier {
             }
     }
 }
+#endif
