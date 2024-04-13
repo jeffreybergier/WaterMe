@@ -411,6 +411,9 @@ Used for explanations and other sentences
 /* You're all set message for when all the plants are watered. */
 "You're All Set" = "You're All Set"; // TODO: Translate into Italian
 
+/* Explain the complex situation where after first install, the watch needs to be charging to perform the first sync */
+"Waiting for first sync" = "Waiting for iCloud sync. When you charge Apple Watch, the first sync will occur. After that, syncing will happen without charging Apple Watch"; // TODO: Translate into Italian
+
 /* Tells the user they can mark X number of reminders as done */
 "Mark ^[%lld Reminder](inflect: true) as Done" = "Contrassegna ^[%lld promemoria come completato](inflect: true)"; // from google translate
 

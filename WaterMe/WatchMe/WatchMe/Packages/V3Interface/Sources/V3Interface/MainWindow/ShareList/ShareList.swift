@@ -42,7 +42,10 @@ internal struct ShareList: View {
                 Row($0)
             }
         } onEmpty: {
-            self.text.noContent.action(style: self.style.row).label
+            ScrollView {
+                // TODO: Improve view by moving icon above the text
+                self.text.firstSyncWait.action(style: self.style.row).label
+            }
         }
         .navigationTitle(self.text.title)
         .onChange(of: self.data.count, initial: true) { _, newCount in

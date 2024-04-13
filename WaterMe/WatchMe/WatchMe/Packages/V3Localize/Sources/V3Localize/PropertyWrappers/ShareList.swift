@@ -25,14 +25,14 @@ import Umbrella
 public struct ShareList: DynamicProperty {
     
     public struct Value {
-        public let title:     LocalizedString
-        public let rowTitle:  ActionLocalization
-        public let noContent: ActionLocalization
+        public let title:         LocalizedString
+        public let rowTitle:      ActionLocalization
+        public let firstSyncWait: ActionLocalization
 
         internal init(_ b: Bundle) {
-            self.title     = b.localized(key: Noun.libraries.rawValue)
-            self.rowTitle  = Action.home.localized(b)
-            self.noContent = Action.itemNotFound.localized(b)
+            self.title         = b.localized(key: Noun.libraries.rawValue)
+            self.rowTitle      = Action.home.localized(b)
+            self.firstSyncWait = Action.watch_syncInitialize.localized(b)
         }
     }
     

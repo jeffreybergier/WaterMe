@@ -40,5 +40,6 @@ internal enum Phrase: LocalizationKey {
     case errorUnknown               = "An unknown error occurred."
     case confirmDelete              = "Are you sure you want to delete this?"
     case youreAllSet                = "You're All Set"
+    case watch_syncInitialize       = "Waiting for first sync"
     static func markXAsDoneMarkdown(_ count: Int) -> String.LocalizationValue { "Mark ^[\(count) Reminder](inflect: true) as Done" }
 }

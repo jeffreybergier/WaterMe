@@ -170,6 +170,7 @@ internal enum Action {
     case syncUnavailable
     case syncSyncing
     case syncIdleSoon
+    case watch_syncInitialize
     
     private var raw: ActionLocalization {
         switch self {
@@ -261,6 +262,8 @@ internal enum Action {
             return Action.raw_syncSyncing
         case .syncIdleSoon:
             return Action.raw_syncIdleSoon
+        case .watch_syncInitialize:
+            return Action.raw_watch_syncInitialize
         }
     }
     
@@ -492,5 +495,10 @@ extension Action {
         .init(title: Verb.syncIdle.rawValue,
               hint:  nil,
               image: .system(Symbol.syncIdle.rawValue))
+    }()
+    private static let raw_watch_syncInitialize: ActionLocalization = {
+        .init(title: Phrase.watch_syncInitialize.rawValue,
+              hint:  nil,
+              image: .system(Symbol.syncSyncing.rawValue))
     }()
 }
