@@ -50,7 +50,7 @@ internal struct ShareList: View {
             self.nav.detail.isPresented = self.data.first
         }
         // Uncomment if fake data is needed
-        .modifier(DEBUG_DataModifier())
+        // .modifier(DEBUG_DataModifier())
     }
 }
 
