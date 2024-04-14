@@ -390,9 +390,11 @@ extension CD_Controller {
             let fetchResult = try context.fetch(fetchRequest)
             switch fetchResult.count {
             case 0:
-                #if os(watchOS)
+                #if os(watchOS) && RELEASE
                 // WatchOS should not create a vesselshare because watchOS
-                // waits for syncing from iCloud
+                // waits for syncing from iCloud.
+                // RELEASE check added because when debugging, the DB needs
+                // to work without syncing.
                 return .failure(.maintenanceOneTrueVesselShare)
                 #else
                 let share = CD_VesselShare(context: context)
