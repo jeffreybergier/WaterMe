@@ -74,8 +74,8 @@ public struct FallbackFontModifier: ViewModifier {
 }
 
 // TODO: change back to internal
-internal struct SingleLineModifier: ViewModifier {
-    internal func body(content: Content) -> some View {
+public struct SingleLineModifier: ViewModifier {
+    public func body(content: Content) -> some View {
         content.lineLimit(1, reservesSpace: true)
     }
 }
