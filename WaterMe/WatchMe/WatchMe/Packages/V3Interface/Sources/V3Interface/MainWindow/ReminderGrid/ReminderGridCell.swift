@@ -39,6 +39,15 @@ extension ReminderGrid {
         private let id: Reminder.Identifier
         private let action: () -> Void
         
+        /* Used to debug when fake images are needed
+        private var DEBUG_fakeImageData: JSBImage? {
+            let url = Bundle.module.url(forResource: "TEST_IMAGE", withExtension: "jpeg")!
+            let image = UIImage(contentsOfFile: url.path())
+            let randomNumber = Int.random(in: 0...1_000)
+            return randomNumber.isMultiple(of: 2) ? image : nil
+        }
+        */
+        
         internal init(_ id: Reminder.Identifier,
                       action: @escaping () -> Void)
         {

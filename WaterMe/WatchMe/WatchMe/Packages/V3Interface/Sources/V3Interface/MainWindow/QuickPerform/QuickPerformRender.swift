@@ -55,9 +55,15 @@ extension QuickPerform.Tab {
         }
         
         private var display2: V3Style.QuickPerform.Request.Description? {
-            .init(reminder: self.reminder2.data,
-                  vessel: self.vessel2.data,
-                  localize: self.text)
+            /* Used to debug having images
+            let url = Bundle.module.url(forResource: "TEST_IMAGE", withExtension: "jpeg")!
+            let imageData = try! Data(contentsOf: url)
+            var data = self.vessel2.data
+            data?.icon = .image(imageData)
+            */
+            return .init(reminder: self.reminder2.data,
+                         vessel: self.vessel2.data,
+                         localize: self.text)
         }
         
         private let data: C
