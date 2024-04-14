@@ -35,7 +35,9 @@ internal struct VesselIcon: View {
         ZStack {
             Color.clear
             self.display
+                .layoutPriority(-1)
         }
+        .aspectRatio(contentMode: .fill)
         .modifier(CircleModifierEmoji())
     }
     
@@ -44,7 +46,6 @@ internal struct VesselIcon: View {
             Image(jsbImage: image)
                 .resizable()
                 .scaledToFill()
-                .clipShape(Circle())
         } else if let emoji {
             Text(emoji)
         } else {

@@ -38,7 +38,6 @@ internal struct CircleModifierEmoji: ViewModifier {
     
     internal func body(content: Content) -> some View {
         content
-            .padding()
             .background(Color.backgroundContent(self.scheme))
             .clipShape(Circle())
             .overlay(

@@ -84,7 +84,7 @@ public struct QuickPerform: DynamicProperty {
         }
         
         @ViewBuilder public var threeUpIcon: some View {
-            Grid(verticalSpacing: 0) {
+            Grid {
                 GridRow {
                     if let request0 = self.request.request0 {
                         self.icon(request: request0)
@@ -150,7 +150,7 @@ public struct QuickPerform: DynamicProperty {
             Text("+" + String(describing: extra))
                 .font(.emojiExtra)
                 .aspectRatio(contentMode: .fit)
-                .layoutPriority(-2)
+                .padding()
                 .modifier(CircleModifierEmoji())
         }
     }
