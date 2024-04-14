@@ -26,13 +26,15 @@ public struct ReminderSummary: DynamicProperty {
     
     public struct Value {
         private var label:        some ActionStyle = ActionStyleDefault
-        public var content:       some ActionStyle = ActionStyleDefault
+        // TODO: Fix to show label again. Hiding because its either stretched or really really small
+        public var content:       some ActionStyle = ActionStyleImp(labelStyle: .titleOnly)
         public var button:        some ActionStyle = ActionStyleDefault
         public var sectionHeader: some ActionStyle = ActionStyleDefault
         public func icon(image: JSBImage?, emoji: String?) -> some View {
             VesselIcon(image: image, emoji: emoji)
-                .modifier(FontModifier(.emojiMedium))
+                .modifier(FontModifier(.emojiLargeExtra))
                 .modifier(FallbackAlphaModifier())
+                .padding()
         }
         public func content(_ content: ActionLocalization,
                             label: ActionLocalization)
