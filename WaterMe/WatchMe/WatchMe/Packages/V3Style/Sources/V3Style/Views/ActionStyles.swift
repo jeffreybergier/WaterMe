@@ -49,20 +49,34 @@ public struct FallbackFontModifier: ViewModifier {
     @State private var isFallback = false
     @Environment(\.colorScheme) private var scheme
     
+    private let font: Font
+    
+    public init(font: Font = .body) {
+        self.font = font
+    }
+    
     public func body(content: Content) -> some View {
         Group {
             if self.isFallback {
                 content
+                    .font(self.font.italic())
                     .tint(Color.grayDark(self.scheme))
                     .foregroundColor(Color.grayDark(self.scheme))
-                    .italic(true)
             } else {
                 content
+                    .font(self.font)
             }
         }
         .onPreferenceChange(isFallbackKey.self) {
             self.isFallback = $0
         }
+    }
+}
+
+// TODO: change back to internal
+internal struct SingleLineModifier: ViewModifier {
+    internal func body(content: Content) -> some View {
+        content.lineLimit(1, reservesSpace: true)
     }
 }
 

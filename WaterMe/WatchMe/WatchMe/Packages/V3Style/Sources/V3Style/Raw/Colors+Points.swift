@@ -32,7 +32,7 @@ extension TimeInterval {
 extension Font {
     internal static let prominent: Font       = .headline
     internal static let normal: Font          = .body
-    internal static let small: Font           = .caption
+    internal static let small: Font           = .footnote
     internal static let emojiSmall: Font      = .custom("Helvetica", size: 48, relativeTo: .title3)
     internal static let emojiMedium: Font     = .custom("Helvetica", size: 48, relativeTo: .title3)
     internal static let emojiLarge: Font      = .custom("Helvetica", size: 60, relativeTo: .title3)
