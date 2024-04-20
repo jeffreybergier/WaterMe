@@ -57,7 +57,6 @@ internal struct QuickPerform: View {
                     onTap:   self.$nav.hamburgerMenu)
             } onEmpty: {
                 Button {
-                    self.nav.hamburgerMenu = .init()
                     self.nav.hamburgerMenu.isPresented = true
                 } label: {
                     self.style.icon(image: self.text.feelGoodImage,

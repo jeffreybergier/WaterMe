@@ -36,8 +36,8 @@ internal struct MainWindow: View {
             ShareList.new(nav: self.$nav)
         } detail: {
             Root()
+                .modifier(SyncIndicator())
         }
-        .modifier(SyncIndicator())
     }
 }
 
