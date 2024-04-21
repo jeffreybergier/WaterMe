@@ -18,6 +18,7 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+import Combine
 import SwiftUI
 import Umbrella
 import V3Style
@@ -25,7 +26,7 @@ import V3Style
 internal class SyncIndicatorObserver: ObservableObject {
     
     @Published private(set) internal var visibility: V3Style.SyncIndicator.Visibility = .idle
-    
+    private var cancellable: AnyCancellable?
     private var idleTimer: Timer?
     
     internal var newestError: Swift.Error? {
@@ -36,12 +37,14 @@ internal class SyncIndicatorObserver: ObservableObject {
     
     internal var progress: Progress? {
         didSet {
-            self.updateVisibility()
+            self.cancellable?.cancel()
+            self.cancellable = self.progress?.publisher(for: \.fractionCompleted).sink { [weak self] _ in
+                self?.updateVisibility()
+            }
         }
     }
     
     internal func updateVisibility() {
-        self.configureTimer()
         if let newestError {
             if newestError is Umbrella.CPAccountStatus {
                 self.visibility = .unavailable
@@ -53,16 +56,16 @@ internal class SyncIndicatorObserver: ObservableObject {
             case 0, 1:
                 guard self.visibility != .idle else { return }
                 self.visibility = .idleSoon
+                self.configureIdleTimer()
             default:
                 self.visibility = .syncing
-                self.configureTimer()
             }
         } else {
             self.visibility = .idle
         }
     }
     
-    private func configureTimer() {
+    private func configureIdleTimer() {
         self.idleTimer?.invalidate()
         self.idleTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] timer in
             timer.invalidate()

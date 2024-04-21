@@ -67,22 +67,6 @@ internal struct QuickPerform: View {
         }
         .tabViewStyle(.verticalPage)
         .navigationTitle(self.text.title)
-        .toolbar {
-            if false { // remove if toolbar is desired
-                ToolbarItem(placement: .bottomBar) {
-                    self.style.buttonToolbar
-                        .action(text: self.text.menuButtonHamburger)
-                        .button
-                    {
-                        self.nav.hamburgerMenu = .init()
-                        self.nav.hamburgerMenu.isPresented = true
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
-                }
-            }
-        }
         .onChange(of: self.id, initial: true) { _, newValue in
             self.query.filter = .share(newValue)
         }

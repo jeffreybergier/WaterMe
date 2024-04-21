@@ -34,12 +34,30 @@ internal struct SyncIndicator: ViewModifier {
     internal init() { }
     
     internal func body(content: Content) -> some View {
-        content.overlay {
-            self.syncIndicator
-        }
+        content
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    self.syncIndicatorNew
+                }
+            }
         .onChange(of: self.syncProgress.id, initial: true) { _, _ in
             self.observer.progress = self.syncProgress.value.progress
             self.observer.newestError = self.syncProgress.value.errors.first
+        }
+    }
+    
+    @ViewBuilder private var syncIndicatorNew: some View {
+        switch self.observer.visibility {
+        case .idle:
+            EmptyView()
+        case .error:
+            Text("Error")
+        case .unavailable:
+            Text("Unavailable")
+        case .syncing:
+            Text("Syncing...")
+        case .idleSoon:
+            Text("Idle Soon")
         }
     }
     
