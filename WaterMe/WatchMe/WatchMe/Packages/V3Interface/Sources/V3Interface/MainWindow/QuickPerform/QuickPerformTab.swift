@@ -35,26 +35,22 @@ extension QuickPerform {
         @V3Style.QuickPerform private var style
         @V3Localize.QuickPerform private var text
         
-        @Binding private var onTap: V3Nav.QuickPerform.Hamburger
-        
         private let data: C
         private let section: Reminder.Section
+        private let onTap: () -> Void
         
         internal init(data: C,
                       section: Reminder.Section?,
-                      onTap: Binding<V3Nav.QuickPerform.Hamburger>)
+                      onTap: @escaping () -> Void)
         {
             self.data = data
             self.section = section ?? .lateAndToday
-            _onTap = onTap
+            self.onTap = onTap
         }
         
         internal var body: some View {
             self.data.view { data in
-                Button {
-                    self.onTap.isPresented = true
-                    self.onTap.selection = Set(data)
-                } label: {
+                Button(action: self.onTap) {
                     Render(data: data)
                 }
                 .buttonStyle(.plain)

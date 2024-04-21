@@ -52,12 +52,12 @@ internal struct QuickPerform: View {
     internal var body: some View {
         TabView {
             self.query.data.view { data in
-                Tab(data:    data,
-                    section: self.query.section,
-                    onTap:   self.$nav.hamburgerMenu)
+                Tab(data: data, section: self.query.section) {
+                    self.presentHamburgerMenu()
+                }
             } onEmpty: {
                 Button {
-                    self.nav.hamburgerMenu.isPresented = true
+                    self.presentHamburgerMenu()
                 } label: {
                     self.style.icon(image: self.text.feelGoodImage,
                                     subtitle: self.text.feelGoodMessage)
@@ -82,7 +82,7 @@ internal struct QuickPerform: View {
                     .appendNewPerformToReminders(with: reminders)
                     .switch(onFailure: self.errors.append)
                 {
-                    self.nav.isWatering = reminders
+                    self.presentWateringAnimation(reminders)
                 }
             }
             self.style.button
@@ -90,13 +90,33 @@ internal struct QuickPerform: View {
                 .button(isEnabled: self.features.contains(.addVessel))
             {
                 self.controller.createVessel().switch(onFailure: self.errors.append) {
-                    self.nav.vesselEdit.isPresented=$0
+                    self.presentVesselEdit($0)
                 }
             }
             self.style.button.action(text: self.text.menuButtonViewAll).button {
-                self.nav.reminderGrid.isPresented = self.id
+                self.presentReminderGrid()
             }
         } message: { _ in EmptyView() }
+    }
+    
+    private func presentHamburgerMenu() {
+        // TODO: Hack to make sure that the reminder grid can be presented reliably
+        self.nav.reminderGrid.isPresented = nil
+        // end TODO:
+        self.nav.hamburgerMenu.isPresented = true
+        self.nav.hamburgerMenu.selection = Set(self.query.data)
+    }
+    
+    private func presentReminderGrid() {
+        self.nav.reminderGrid.isPresented = self.id
+    }
+    
+    private func presentVesselEdit(_ vessel: Vessel.Identifier) {
+        self.nav.vesselEdit.isPresented = vessel
+    }
+    
+    private func presentWateringAnimation(_ reminders: Reminder.Selection) {
+        self.nav.isWatering = reminders
     }
 }
 
