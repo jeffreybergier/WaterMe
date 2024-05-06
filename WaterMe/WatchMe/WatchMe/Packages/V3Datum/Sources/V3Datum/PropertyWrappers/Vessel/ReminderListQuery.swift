@@ -37,10 +37,7 @@ public struct ReminderListQuery: DynamicProperty {
     @CDListQuery<CD_Reminder, Reminder.Identifier>(onRead: { .init($0.objectID) }) private var query
     
     @StateObject private var timeChange: SecretBox<Int> = .init(-1)
-    @StateObject private var timeChangeTrigger = NotificationCenter.default.observable(
-        // Stringly typed to avoid importing UIKit
-        .init(rawValue: "UIApplicationSignificantTimeChangeNotification")
-    )
+    @StateObject private var timeChangeTrigger: NotificationCenter.Observable = SignificantTimeChangeDetector()
     
     @State private var section: Reminder.Section?
     @State private var filter: Reminder.Filter
