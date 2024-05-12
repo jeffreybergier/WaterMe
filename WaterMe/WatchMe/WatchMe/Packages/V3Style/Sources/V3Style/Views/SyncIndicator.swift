@@ -65,11 +65,14 @@ public struct SyncIndicator: View {
     
     public var body: some View {
         VStack {
-            self.composed
-                .font(.largeTitle)
-                .opacity(self.opacity)
-                .scaleEffect(self.scale, anchor: .top)
-                .padding(.top, self.padding)
+            HStack {
+                Spacer()
+                self.composed
+                    .opacity(self.opacity)
+                    .scaleEffect(self.scale, anchor: .top)
+                    .padding(.top, self.padding)
+                Spacer()
+            }
             Spacer()
         }
         .animation(.default, value: self.state)
@@ -80,7 +83,16 @@ public struct SyncIndicator: View {
             self.action(self.state)
         }
         .buttonStyle(.borderedProminent)
+        .font(.largeTitle)
         .disabled(self.disabled)
+        .frame(maxWidth: self.indicatorWidth)
+    }
+    
+    private var indicatorWidth: CGFloat? {
+        switch self.state {
+        case .error, .unavailable: return nil
+        case .idle, .syncing, .idleSoon: return 72
+        }
     }
     
     private var localization: ActionLocalization {
