@@ -36,9 +36,6 @@ public struct ReminderListQuery: DynamicProperty {
     @Controller private var controller
     @CDListQuery<CD_Reminder, Reminder.Identifier>(onRead: { .init($0.objectID) }) private var query
     
-    @StateObject private var timeChange: SecretBox<Int> = .init(-1)
-    @StateObject private var timeChangeTrigger: NotificationCenter.Observable = SignificantTimeChangeDetector()
-    
     @State private var section: Reminder.Section?
     @State private var filter: Reminder.Filter
     
@@ -48,16 +45,8 @@ public struct ReminderListQuery: DynamicProperty {
     }
 
     public var wrappedValue: Value<some RandomAccessCollection<Reminder.Identifier>> {
+        get { .init(data: self.query.data, section: self.section, filter: self.filter) }
         nonmutating set { self.setQuery(newFilter: newValue.filter, newSection: newValue.section) }
-        get {
-            // Detect if significant time has changed. If so, update core data
-            if self.timeChange.value != self.timeChangeTrigger.randomNumber {
-                self.updateCoreData()
-            }
-            return .init(data: self.query.data, 
-                         section: self.section,
-                         filter: self.filter)
-        }
     }
     
     private func setQuery(newFilter: Reminder.Filter, newSection: Reminder.Section?) {
@@ -73,8 +62,6 @@ public struct ReminderListQuery: DynamicProperty {
         // 0) Make sure we always complete our mission
         var predicate = NSPredicate(value: false)
         defer {
-            // Capture a value so we can tell if the time changed since the last request
-            self.timeChange.value = self.timeChangeTrigger.randomNumber
             self.query.configuration.predicate = predicate
             // TODO: This needs more testing
             // Its very hard to tell what order this is with fake data
