@@ -40,6 +40,7 @@ internal struct QuickPerform: View {
     @V3Settings.FeatureFlags private var features
     
     @ReminderListQuery(.lateAndToday) private var query
+    @StateObject private var timeChange = SignificantTimeChangeDetector()
     
     private let id: Share.Identifier
     @Binding private var nav: V3Nav.QuickPerform
@@ -69,6 +70,10 @@ internal struct QuickPerform: View {
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.query.filter = .share(newValue)
+        }
+        .onReceive(self.timeChange.objectWillChange) { _ in
+            // Update the query when the time changes significantly (a day passes)
+            self.query.filter = .share(self.id)
         }
         .confirmationDialog(self.text.menuTitle(self.nav.hamburgerMenu.selection.count),
                             isPresented: self.$nav.hamburgerMenu.isPresented,
