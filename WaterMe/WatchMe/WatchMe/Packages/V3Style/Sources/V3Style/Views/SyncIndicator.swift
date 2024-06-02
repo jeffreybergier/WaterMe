@@ -84,7 +84,6 @@ public struct SyncIndicator: View {
         }
         .buttonStyle(.borderedProminent)
         .font(.largeTitle)
-        .disabled(self.disabled)
         .frame(maxWidth: self.indicatorWidth)
     }
     
@@ -102,13 +101,6 @@ public struct SyncIndicator: View {
         case .syncing:     return self.configuration.syncing
         case .idleSoon:    return self.configuration.idleSoon
         case .idle:        return self.configuration.idle
-        }
-    }
-    
-    private var disabled: Bool {
-        switch self.state {
-        case .idle, .syncing, .idleSoon: return true
-        case .error, .unavailable:       return false
         }
     }
     

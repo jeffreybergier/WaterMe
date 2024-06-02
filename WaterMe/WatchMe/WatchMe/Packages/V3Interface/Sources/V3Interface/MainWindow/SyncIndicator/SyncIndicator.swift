@@ -48,6 +48,7 @@ internal struct SyncIndicator: ViewModifier {
         .init(state: self.observer.visibility, configuration: self.configuration) {
             switch $0 {
             case .idle, .syncing, .idleSoon:
+                // TODO: This is still tappable. Add info screen about syncing?
                 assertionFailure()
             case .error, .unavailable:
                 let errors = self.syncProgress.value.errors
