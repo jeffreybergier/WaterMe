@@ -50,7 +50,7 @@
       "location" : "https://github.com/jeffreybergier/Umbrella.git",
       "state" : {
         "branch" : "waterme3-wOS10",
-        "revision" : "ed4c6b799db66d8cde736d51d3659780e772378b"
+        "revision" : "a79299cfa362ca1041faf11b2f7f14263185ced6"
       }
     },
     {
@@ -58,8 +58,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DaveWoodCom/XCGLogger.git",
       "state" : {
-        "revision" : "4def3c1c772ca90ad5e7bfc8ac437c3b0b4276cf",
-        "version" : "7.1.5"
+        "revision" : "3cae293fd145117d0f692148795a6d33e92cc634",
+        "version" : "7.1.1"
       }
     }
   ],
