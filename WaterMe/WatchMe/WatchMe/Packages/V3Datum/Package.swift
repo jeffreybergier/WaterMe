@@ -36,6 +36,7 @@ let package = Package(
     dependencies: [
         .package(path: "../V3Model"),
         .package(path: "../V3Settings"),
+        .package(path: "../V3Logger"),
         .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "waterme3-wOS10"),
     ],
     targets: [
@@ -44,6 +45,7 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "V3Model", condition: nil),
                 .byNameItem(name: "V3Settings", condition: nil),
+                .byNameItem(name: "V3Logger", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
             ],
             resources: [

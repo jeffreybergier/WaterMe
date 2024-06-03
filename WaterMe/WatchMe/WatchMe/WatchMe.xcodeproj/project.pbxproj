@@ -25,6 +25,7 @@
 		738F06AE27817A5A00579B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		738F06B127817A5A00579B01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		73C3C8E92841BD0D0001BF37 /* V3Settings */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Settings; path = Packages/V3Settings; sourceTree = "<group>"; };
+		73CFF4332C0D5E7E0081316C /* V3Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Logger; path = Packages/V3Logger; sourceTree = "<group>"; };
 		73D78C7F284CA30100E6F69E /* iPhoneMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iPhoneMe.entitlements; sourceTree = "<group>"; };
 		73D78C80284CA30400E6F69E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		73E8B81227C1E8B000A4B4E4 /* V3Localize */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = V3Localize; path = Packages/V3Localize; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 				7339DE6F277DD76A008B20DD /* V3Datum */,
 				7345459627818E360001EC2E /* V3Model */,
 				73C3C8E92841BD0D0001BF37 /* V3Settings */,
+				73CFF4332C0D5E7E0081316C /* V3Logger */,
 				738F06A927817A5900579B01 /* iPhoneMe */,
 				7339DE43277DD537008B20DD /* Products */,
 				7339DE72277DD85C008B20DD /* Frameworks */,
