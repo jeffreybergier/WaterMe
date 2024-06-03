@@ -23,6 +23,7 @@ import CoreData
 import Umbrella
 import V3Settings
 import V3Model
+import V3Logger
 
 internal class CD_Controller: ControllerProtocol {
 
@@ -80,16 +81,15 @@ internal class CD_Controller: ControllerProtocol {
                     let self = self,
                     self.syncProgress.value.progress.fractionCompleted == 1
                 else { return }
-                NSLog("Performing post syncing maintenance")
+                "Performing post syncing maintenance".log(as: .info)
                 // Perform maintenance and log any errors
-                let error = self.maintenance_fixDates()
+                self.maintenance_fixDates()
                     .reduce(self.maintenance_deleteOrphanedReminders)
                     .reduce(self.maintenance_oneTrueVesselShare)
                     .reduce(self.maintenance_fixOrphanedVessels(share:))
                     .reduce(self.maintenance_massageAllEntries)
-                    .error
-                guard let e = error else { return }
-                NSLog(String(describing: e))
+                    .error?
+                    .log()
             }
 
         //
@@ -269,7 +269,12 @@ internal class CD_Controller: ControllerProtocol {
                     else { return .failure(.objectMissing) }
                 let _object = try context.existingObject(with: id)
                 // if the object is the wrong type, log as an error
-                guard let object = _object as? T else { return .failure(.objectMissing) }
+                guard let object = _object as? T else {
+                    let e = "found: \(type(of: _object)) != expected: \(T.self))"
+                    assertionFailure(e)
+                    e.log()
+                    return .failure(.objectMissing)
+                }
                 return .success(object)
             } else if UUID(uuidString: uuid) != nil {
                 // Migrated Legacy Realm Reference
@@ -285,21 +290,21 @@ internal class CD_Controller: ControllerProtocol {
                     let e = ("\(T.self), id: \(uuid), count: \(count): "
                            + "There should only be 1 match")
                     assertionFailure(e)
-                    NSLog(e)
+                    e.log()
                 }
                 // if the object is the wrong type, log this as an error
                 let _object = results[0]
                 guard let object = _object as? T else {
                     let e = "found: \(type(of: _object)) != expected: \(T.self))"
                     assertionFailure(e)
-                    NSLog(e)
+                    e.log()
                     return .failure(.objectMissing)
                 }
                 return .success(object)
             } else {
                 let e = "\(uuid): does not appear to be Core Data or Realm identifier"
                 assertionFailure(e)
-                NSLog(e)
+                e.log()
                 return .failure(.objectMissing)
             }
         } catch {
@@ -370,7 +375,7 @@ extension CD_Controller {
             UserDefaults.standard.didRunWithoutCloudSync = false
             return .success(())
         } catch {
-            NSLog(String(describing: error))
+            error.log()
             return .failure(.maintenanceMassageAllEntries)
         }
     }
@@ -400,7 +405,7 @@ extension CD_Controller {
                 let share = CD_VesselShare(context: context)
                 context.insert(share)
                 try context.save()
-                NSLog("0 VesselShares present, but was able to create")
+                "0 VesselShares present, but was able to create".log(as: .notice)
                 return .success(share)
                 #endif
             case 1:
@@ -425,12 +430,12 @@ extension CD_Controller {
                 try context.save()
                 // 5. Mark the data as dirty so everything syncs
                 UserDefaults.standard.didRunWithoutCloudSync = true
-                NSLog("2+ VesselShares present, but was able to clean.")
+                "2+ VesselShares present, but was able to clean.".log(as: .notice)
                 return .success(willKeepShare)
             }
         } catch {
             assertionFailure(String(describing: error))
-            NSLog(String(describing: error))
+            error.log()
             return .failure(.maintenanceOneTrueVesselShare)
         }
     }
@@ -453,23 +458,23 @@ extension CD_Controller {
                 if $0.raw_dateCreated == nil {
                     let message = "DateCreated missing: \($0)"
                     assertionFailure(message)
-                    NSLog(message)
+                    message.log(as: .notice)
                     $0.raw_dateCreated = now
                 }
                 if $0.raw_dateModified == nil {
                     let message = "DateModified missing: \($0)"
                     assertionFailure(message)
-                    NSLog(message)
+                    message.log(as: .notice)
                     $0.raw_dateModified = now
                 }
             }
             try context.save()
-            NSLog("NIL Dates found: \(count)")
+            "NIL Dates found: \(count)".log(as: .notice)
             return .success(())
         } catch {
             let message = String(describing: error)
             assertionFailure(message)
-            NSLog(message)
+            message.log(as: .error)
             return .failure(.maintenanceFixDates)
         }
     }
@@ -550,7 +555,7 @@ extension CD_Controller {
             let url = Bundle.module.url(forResource: "WaterMe", withExtension: "momd"),
             let mom = NSManagedObjectModel(contentsOf: url)
         else {
-            NSLog("Unable to load MOM from application bundle")
+            "Unable to load MOM from application bundle".log(as: .emergency)
             return nil
         }
         switch kind {
@@ -588,7 +593,7 @@ extension CD_Controller {
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
         } else {
-            NSLog("App group container could not be found")
+            "App group container could not be found".log(as: .emergency)
             return fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
                 .appendingPathComponent("WaterMe", isDirectory: true)
                 .appendingPathComponent("CoreData", isDirectory: true)
@@ -647,7 +652,7 @@ extension CD_Controller {
             let sampleDB1URL = self.sampleDB1URL,
             let sampleDB2URL = self.sampleDB2URL
         else {
-            NSLog("Unable to find sample DB files in bundle")
+            "Unable to find sample DB files in bundle".log(as: .warning)
             return
         }
         let fm = FileManager.default
@@ -658,7 +663,7 @@ extension CD_Controller {
             try fm.copyItem(at: sampleDB1URL, to: self.dbFileURL1)
             try fm.copyItem(at: sampleDB2URL, to: self.dbFileURL2)
         } catch {
-            NSLog(String(describing: error))
+            error.log()
             try? fm.removeItem(at: self.storeDirectoryURL)
         }
     }
@@ -680,7 +685,7 @@ extension NSManagedObjectContext {
                 // we need to rollback the context
                 self.rollback()
             }
-            NSLog(String(describing: error))
+            error.log()
             return .failure(.write)
         }
     }
@@ -700,7 +705,7 @@ extension NSManagedObjectContext {
                 // we need to rollback the context
                 self.rollback()
             }
-            NSLog(String(describing: error))
+            error.log()
             return .failure(error)
         }
     }
