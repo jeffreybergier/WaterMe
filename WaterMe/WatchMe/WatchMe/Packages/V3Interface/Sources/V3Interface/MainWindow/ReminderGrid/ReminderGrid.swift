@@ -36,6 +36,7 @@ internal struct ReminderGrid: View {
     @V3Localize.ReminderGrid private var text
     
     @ReminderGridQuery private var sections
+    @StateObject private var timeChange = SignificantTimeChangeDetector()
 
     private let id: Share.Identifier
     @Binding private var nav: V3Nav.ReminderGrid
@@ -119,6 +120,10 @@ internal struct ReminderGrid: View {
         .navigationTitle(self.text.title)
         .onChange(of: self.id, initial: true) { _, newValue in
             self.sections.filter = .share(newValue)
+        }
+        .onReceive(self.timeChange.objectWillChange) { _ in
+            // Update the query when the time changes significantly (a day passes)
+            self.sections.filter = .share(self.id)
         }
     }
 }
