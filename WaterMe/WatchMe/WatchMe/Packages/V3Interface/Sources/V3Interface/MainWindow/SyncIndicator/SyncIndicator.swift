@@ -49,7 +49,7 @@ internal struct SyncIndicator: ViewModifier {
             switch $0 {
             case .idle, .syncing, .idleSoon:
                 // TODO: This is still tappable. Add info screen about syncing?
-                assertionFailure()
+                NSLog("Sync indicator tapped when syncing. No action taken.")
             case .error, .unavailable:
                 let errors = self.syncProgress.value.errors
                 guard errors.isEmpty == false else { return }

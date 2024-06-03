@@ -34,6 +34,7 @@ internal struct MainWindow: View {
     internal var body: some View {
         NavigationSplitView {
             ShareList.new(nav: self.$nav)
+                .modifier(SyncIndicator())
         } detail: {
             Root()
                 .modifier(SyncIndicator())
