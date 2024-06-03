@@ -26,6 +26,7 @@ import XCGLogger
 import ServerlessLogger
 import V3Protect
 
+// TODO: Update ServerlessLogger.Loggable to support everything needed here
 public func LoggableConfigure(with delegate: ServerlessLoggerErrorDelegate?) {
     let identifier = "WatchMe-Lambda-Logger"
     var _log: XCGLogger?

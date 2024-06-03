@@ -59,6 +59,9 @@ public struct Interface: Scene {
                         // TODO: Change this to .info after the app goes live and people are known to use it on the watch
                         "didAppear".log(as: .warning)
                     }
+                    .onReceive(controller.syncProgress.objectDidChange) { _ in
+                        controller.syncProgress.value.errors.last?.log()
+                    }
             case .failure(let error):
                 Text(String(describing: error))
             }
