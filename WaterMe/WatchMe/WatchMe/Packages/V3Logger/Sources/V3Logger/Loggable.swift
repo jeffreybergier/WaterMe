@@ -1,9 +1,8 @@
 //
 //  Loggable.swift
-//  Calculate
 //
-//  Created by Jeffrey Bergier on 2020/09/12.
-//  Copyright © 2020 Saturday Apps.
+//  Created by Jeffrey Bergier on 2024/06/03.
+//  Copyright © 2024 Saturday Apps.
 //
 //  This file is part of WaterMe.  Simple Plant Watering Reminders for iOS.
 //
@@ -21,22 +20,24 @@
 //  along with WaterMe.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import XCGLogger
+import Foundation
 import CryptoKit
+import XCGLogger
 import ServerlessLogger
+import V3Protect
 
 public func LoggableConfigure(with delegate: ServerlessLoggerErrorDelegate?) {
-    let identifier = "WaterMe-Lambda-Logger"
+    let identifier = "WatchMe-Lambda-Logger"
     var _log: XCGLogger?
-    if #available(iOS 13.0, *), let loggerEndpoint = PrivateKeys.kLoggerEndpoint {
+    if let loggerEndpoint = V3Secrets.kLoggerEndpoint {
         let endpoint = URLComponents(url: loggerEndpoint, resolvingAgainstBaseURL: false)!
-        let key = SymmetricKey(data: PrivateKeys.kLoggerKey)
+        let key = SymmetricKey(data: V3Secrets.kLoggerKey)
         var config = Logger.DefaultSecureConfiguration(identifier: identifier,
                                                        endpointURL: endpoint,
                                                        hmacKey: key,
                                                        logLevel: .warning,
                                                        errorDelegate: delegate)
-        config.storageLocation.appName = "WaterMe"
+        config.storageLocation.appName = "WatchMe"
         let destination = try? ExceptionDestination<Event>(configuration: config)
         _log = try? Logger(configuration: config, includeDefaultXCGDestinations: true, includeDefaultJSBDestinations: destination == nil)
         if let destination = destination {

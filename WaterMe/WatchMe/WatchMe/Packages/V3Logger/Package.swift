@@ -26,6 +26,7 @@ let PKGNAME = "V3Logger"
 
 let package = Package(
     name: PKGNAME,
+    platforms: [.iOS(.v16), .macOS(.v13), .watchOS(.v9)],
     products: [
         .library(
             name: PKGNAME,

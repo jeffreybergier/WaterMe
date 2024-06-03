@@ -23,11 +23,15 @@ import Umbrella
 import V3Datum
 import V3Settings
 import V3Localize
+import V3Logger
 
 public struct Interface: Scene {
     
+    private static let loggerDelegate = LoggerErrorDelegate()
+    
     private static let launchConfiguration: Void = {
         UserDefaults.standard.configure()
+        LoggableConfigure(with: Self.loggerDelegate)
         return ()
     }()
     
@@ -51,9 +55,22 @@ public struct Interface: Scene {
                     .environmentObject(controller.syncProgress)
                     .environment(\.bundle, self.localizeBundle)
                     .environment(\.managedObjectContext, controller.context)
+                    .onAppear {
+                        // TODO: Change this to .info after the app goes live and people are known to use it on the watch
+                        "didAppear".log(as: .warning)
+                    }
             case .failure(let error):
                 Text(String(describing: error))
             }
         }
+    }
+}
+
+import ServerlessLogger
+
+private class LoggerErrorDelegate: ServerlessLoggerErrorDelegate {
+    func logger(with configuration: ServerlessLoggerConfigurationProtocol, produced error: Logger.Error) {
+        // Print ServerlessLogger Error in DEBUG mode only
+        assert({ NSLog("LoggerErrorDelegate.error: \(error)"); return true }())
     }
 }
