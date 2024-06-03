@@ -29,15 +29,18 @@ let package = Package(
     products: [
         .library(
             name: PKGNAME,
-            targets: [PKGNAME]),
+            targets: [PKGNAME]
+        ),
     ],
     dependencies: [
+        .package(path: "../V3Protect"),
         .package(url: "https://github.com/jeffreybergier/JSBServerlessLogger.git", branch: "2.0"),
     ],
     targets: [
         .target(
             name: PKGNAME,
             dependencies: [
+                .byNameItem(name: "V3Protect", condition: nil),
                 .product(name: "ServerlessLogger", package: "JSBServerlessLogger"),
             ]
         ),
