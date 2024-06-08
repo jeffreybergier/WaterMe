@@ -58,15 +58,8 @@ public struct Interface: Scene {
                     .onReceive(controller.syncProgress.objectDidChange) { _ in
                         controller.syncProgress.value.errors.last?.log()
                     }
-                    // TODO: HACK: This is crappy but it works
-                    // I should build a way to monitor only when errors are appending to the store
-                    .onReceive(self.errorStorage.$identifiers) { [weak errorStorage] ids in
-                        guard
-                            let store = errorStorage,
-                            let id = ids.last,
-                            let error = store.error(for: id)
-                        else { return }
-                        error.log()
+                    .onReceive(self.errorStorage.onAppend) { [weak errorStorage] id in
+                        errorStorage?.error(for: id).map { $0.log() }
                     }
             case .failure(let error):
                 Text(String(describing: error))
