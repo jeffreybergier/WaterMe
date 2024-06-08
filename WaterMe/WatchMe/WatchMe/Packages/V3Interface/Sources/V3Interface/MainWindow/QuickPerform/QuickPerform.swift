@@ -75,6 +75,10 @@ internal struct QuickPerform: View {
             // Update the query when the time changes significantly (a day passes)
             self.query.filter = .share(self.id)
         }
+        .onAppear {
+            // TODO: Change this to .info after the app goes live and people are known to use it on the watch
+            "didAppear".log(as: .warning)
+        }
         .confirmationDialog(self.text.menuTitle(self.nav.hamburgerMenu.selection.count),
                             isPresented: self.$nav.hamburgerMenu.isPresented,
                             presenting: self.nav.hamburgerMenu.selection)
@@ -87,6 +91,7 @@ internal struct QuickPerform: View {
                     .appendNewPerformToReminders(with: reminders)
                     .switch(onFailure: self.errors.append)
                 {
+                    "performedAll".log()
                     self.presentWateringAnimation(reminders)
                 }
             }

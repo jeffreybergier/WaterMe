@@ -55,10 +55,6 @@ public struct Interface: Scene {
                     .environmentObject(controller.syncProgress)
                     .environment(\.bundle, self.localizeBundle)
                     .environment(\.managedObjectContext, controller.context)
-                    .onAppear {
-                        // TODO: Change this to .info after the app goes live and people are known to use it on the watch
-                        "didAppear".log(as: .warning)
-                    }
                     .onReceive(controller.syncProgress.objectDidChange) { _ in
                         controller.syncProgress.value.errors.last?.log()
                     }
