@@ -118,15 +118,21 @@ internal struct QuickPerform: View {
     }
     
     private func presentReminderGrid() {
-        self.nav.reminderGrid.isPresented = self.id
+        DispatchQueue.main.asyncAfter(deadline: ErrorStorage.Presenter.HACK_errorDelay) {
+            self.nav.reminderGrid.isPresented = self.id
+        }
     }
     
     private func presentVesselEdit(_ vessel: Vessel.Identifier) {
-        self.nav.vesselEdit.isPresented = vessel
+        DispatchQueue.main.asyncAfter(deadline: ErrorStorage.Presenter.HACK_errorDelay) {
+            self.nav.vesselEdit.isPresented = vessel
+        }
     }
     
     private func presentWateringAnimation(_ reminders: Reminder.Selection) {
-        self.nav.isWatering = reminders
+        DispatchQueue.main.asyncAfter(deadline: ErrorStorage.Presenter.HACK_errorDelay) {
+            self.nav.isWatering = reminders
+        }
     }
 }
 

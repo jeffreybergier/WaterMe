@@ -28,6 +28,8 @@ extension QuickPerform {
     internal static func new(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) -> some View {
         // MARK: .../QuickPerform
         QuickPerform(id, nav: nav)
+        // MARK: Sync Indicator
+            .modifier(SyncIndicator())
         // MARK: Error Presentation
             .modifier(ErrorStorage.Presenter(
                 isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
