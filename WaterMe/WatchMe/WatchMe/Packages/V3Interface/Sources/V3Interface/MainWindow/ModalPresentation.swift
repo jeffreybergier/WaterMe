@@ -28,6 +28,7 @@ extension QuickPerform {
     internal static func new(_ id: Share.Identifier, nav: Binding<V3Nav.QuickPerform>) -> some View {
         // MARK: .../QuickPerform
         QuickPerform(id, nav: nav)
+        // MARK: Error Presentation
             .modifier(ErrorStorage.Presenter(
                 isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
                 toPresent: nav.isError,
@@ -73,12 +74,8 @@ extension ReminderGrid {
 
 extension ShareList {
     internal static func new(nav: Binding<V3Nav.Root>) -> some View {
+        // Adding error handling here causes a bug where the error gets dismissed and presented twice
         ShareList()
-            .modifier(ErrorStorage.Presenter(
-                isAlreadyPresenting: nav.wrappedValue.isAlreadyPresenting,
-                toPresent: nav.isError,
-                router: errorRouter(_:)
-            ))
     }
 }
 

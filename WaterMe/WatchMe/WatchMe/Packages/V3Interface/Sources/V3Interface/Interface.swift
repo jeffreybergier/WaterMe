@@ -58,7 +58,7 @@ public struct Interface: Scene {
                     .onReceive(controller.syncProgress.objectDidChange) { _ in
                         controller.syncProgress.value.errors.last?.log()
                     }
-                    .onReceive(self.errorStorage.didAppend) { [weak errorStorage] id in
+                    .onReceive(self.errorStorage.didAppendPub) { [weak errorStorage] id in
                         errorStorage?.error(for: id).map { $0.log() }
                     }
             case .failure(let error):
