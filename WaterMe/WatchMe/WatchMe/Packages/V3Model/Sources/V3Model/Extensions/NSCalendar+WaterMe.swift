@@ -131,4 +131,11 @@ public enum ReminderDateCalculator {
         let endOfDays = Date.distantFuture
         return DateInterval(start: startOfNextWeek, end: endOfDays)
     }
+    
+    public static func lateAndToday(calendar: Calendar = Calendar.current, now: Date = Date()) -> DateInterval {
+        let start = self.late(calendar: calendar, now: now).start
+        let end = self.today(calendar: calendar, now: now).end
+        return .init(start: start, end: end)
+    }
+    
 }

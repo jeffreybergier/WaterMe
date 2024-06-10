@@ -33,7 +33,10 @@ extension Vessel.Icon {
         // all of this code assumes we're cropping to square image
         // it also assumes that we're converting it to a new image with a scale of 1
         // TODO: Add logging for NIL
-        guard let rawImage = UIImage(data: uncleanData) else { return nil }
+        guard let rawImage = UIImage(data: uncleanData) else {
+            "UIImage(data: uncleanData) returned NIL".log()
+            return nil
+        }
         let smallestDimension = rawImage.size.width > rawImage.size.height ? rawImage.size.height : rawImage.size.width
         let smallestScaledDimension = smallestDimension * rawImage.scale
         let originalSquareSize = CGSize(width: smallestScaledDimension, height: smallestScaledDimension)
@@ -42,7 +45,10 @@ extension Vessel.Icon {
         let reducedSize = originalSquareSize.width > max ? CGSize(width: max, height: max) : originalSquareSize
         let resized = cropped.resize(toTargetSize: reducedSize)
         // TODO: Add logging for NIL
-        guard let cleanData = resized.waterme_jpegData(maxBytes: UIImage.style_maxSize) else { return nil }
+        guard let cleanData = resized.waterme_jpegData(maxBytes: UIImage.style_maxSize) else {
+            "waterme_jpegData(maxBytes: UIImage.style_maxSize) returned NIL".log()
+            return nil
+        }
         self = .image(cleanData)
     }
 }

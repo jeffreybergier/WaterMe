@@ -57,13 +57,10 @@ extension Reminder {
                 return ReminderDateCalculator.thisWeek()
             case .later:
                 return ReminderDateCalculator.later()
+            case .lateAndToday:
+                return ReminderDateCalculator.lateAndToday()
             case .disabled:
                 fatalError("DISABLED does not have a date range")
-            case .lateAndToday:
-                // TODO: Put this into ReminderDateCalculator
-                let start = Section.late.dateInterval.start
-                let end = Section.today.dateInterval.end
-                return .init(start: start, end: end)
             }
         }
     }

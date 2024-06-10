@@ -110,9 +110,6 @@ internal struct QuickPerform: View {
     }
     
     private func presentHamburgerMenu() {
-        // TODO: Hack to make sure that the reminder grid can be presented reliably
-        self.nav.reminderGrid.isPresented = nil
-        // end TODO:
         self.nav.hamburgerMenu.isPresented = true
         self.nav.hamburgerMenu.selection = Set(self.query.data)
     }

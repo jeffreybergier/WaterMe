@@ -50,7 +50,7 @@ extension Controller {
             let controller = try CD_Controller(kind: kind)
             return .init(.success(controller))
         } catch let error as Error {
-            // TODO: Add logging
+            error.log()
             return .init(.failure(error))
         } catch {
             return .init(.failure(.load))
