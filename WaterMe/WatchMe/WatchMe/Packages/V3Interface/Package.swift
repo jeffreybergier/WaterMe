@@ -56,7 +56,12 @@ let package = Package(
                 .byNameItem(name: "V3Logger", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
             ],
-            resources: [.process("Resources")]
+            resources: [.process("Resources")],
+            swiftSettings: [
+              .enableExperimentalFeature("StrictConcurrency"),
+              .enableUpcomingFeature("StrictConcurrency")
+            ]
         ),
-    ]
+    ],
+    swiftLanguageVersions: [.version("5")]
 )
