@@ -21,6 +21,7 @@
 import SwiftUI
 import AVFoundation
 
+@MainActor
 internal class WateringAnimationTimeObserver: ObservableObject {
     
     private var observerToken: Any? = nil
@@ -53,7 +54,9 @@ internal class WateringAnimationTimeObserver: ObservableObject {
         self.observerToken = self.player.addPeriodicTimeObserver(forInterval: self.observeInterval,
                                                                  queue: nil)
         { [weak self] _ in
-            self?.resetTimer()
+            MainActor.assumeIsolated {
+                self?.resetTimer()
+            }
         }
     }
     
@@ -64,8 +67,10 @@ internal class WateringAnimationTimeObserver: ObservableObject {
                                                  repeats: false)
         { [weak self] timer in
             timer.invalidate()
-            self?.timeoutTimer = nil
-            self?.videoEnded = true
+            MainActor.assumeIsolated {
+                self?.timeoutTimer = nil
+                self?.videoEnded = true
+            }
         }
     }
     

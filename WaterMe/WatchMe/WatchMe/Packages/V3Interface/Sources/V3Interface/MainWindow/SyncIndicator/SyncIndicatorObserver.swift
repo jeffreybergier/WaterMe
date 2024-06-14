@@ -23,6 +23,7 @@ import SwiftUI
 import Umbrella
 import V3Style
 
+@MainActor
 internal class SyncIndicatorObserver: ObservableObject {
     
     @Published private(set) internal var visibility: V3Style.SyncIndicator.Visibility = .idle
@@ -69,10 +70,12 @@ internal class SyncIndicatorObserver: ObservableObject {
         self.idleTimer?.invalidate()
         self.idleTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] timer in
             timer.invalidate()
-            self?.idleTimer?.invalidate()
-            self?.idleTimer = nil
-            guard let self, case .idleSoon = self.visibility else { return }
-            self.visibility = .idle
+            MainActor.assumeIsolated {
+                self?.idleTimer?.invalidate()
+                self?.idleTimer = nil
+                guard let self, case .idleSoon = self.visibility else { return }
+                self.visibility = .idle
+            }
         }
     }
 }
