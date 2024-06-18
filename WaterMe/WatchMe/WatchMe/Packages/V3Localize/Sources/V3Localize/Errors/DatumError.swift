@@ -21,7 +21,7 @@
 import Umbrella
 import V3Datum
 
-extension V3Datum.Error: UserFacingError {
+extension V3Datum.Error: @retroactive UserFacingError {
     public var title: Umbrella.LocalizationKey {
         switch self {
         case .load:
