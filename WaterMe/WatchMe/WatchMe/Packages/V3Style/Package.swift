@@ -1,4 +1,4 @@
-// swift-tools-version:5.7.0
+// swift-tools-version:5.9.0
 
 //
 //  Created by Jeffrey Bergier on 2022/11/03.
@@ -41,7 +41,12 @@ let package = Package(
             name: PKGNAME,
             dependencies: [
                 .byNameItem(name: "Umbrella", condition: nil),
+            ],
+            swiftSettings: [
+              .enableExperimentalFeature("StrictConcurrency"),
+              .enableUpcomingFeature("StrictConcurrency")
             ]
          ),
-    ]
+    ],
+    swiftLanguageVersions: [.version("5")]
 )
