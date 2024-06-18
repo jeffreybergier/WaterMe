@@ -24,7 +24,7 @@ public struct Vessel: Identifiable, Hashable, Equatable {
 
     public typealias Selection = Set<Vessel.Identifier>
 
-    public struct Identifier: Hashable, Equatable, Codable, Identifiable {
+    public struct Identifier: Hashable, Equatable, Codable, Identifiable, Sendable {
         public var id: String { self.rawValue }
         public var rawValue: String
         public init(rawValue: String) {

@@ -24,7 +24,7 @@ public struct Reminder: Identifiable, Hashable, Equatable {
     
     public typealias Selection = Set<Reminder.Identifier>
 
-    public struct Identifier: Hashable, Equatable, Codable, Identifiable, Sendable {
+    public struct Identifier: Hashable, Codable, Identifiable, Sendable {
         public var id: String { self.rawValue }
         public var rawValue: String
         public init(rawValue: String) {

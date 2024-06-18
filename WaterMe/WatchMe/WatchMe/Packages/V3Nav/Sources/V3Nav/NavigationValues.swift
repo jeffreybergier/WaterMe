@@ -51,7 +51,7 @@ public struct QuickPerform: Codable, Sendable {
         || self.reminderGrid.isPresented != nil
         || self.hamburgerMenu.isPresented == true
     }
-    public struct Hamburger: Codable {
+    public struct Hamburger: Codable, Sendable {
         public var selection: Reminder.Selection = []
         public var isPresented: Bool = false {
             didSet {
