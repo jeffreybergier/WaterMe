@@ -22,7 +22,7 @@ import SwiftUI
 
 @propertyWrapper
 public struct FeatureFlags: DynamicProperty {
-    public struct Value: OptionSet {
+    public struct Value: OptionSet, Sendable {
         public let rawValue: UInt
         public static let editReminder    = Value(rawValue: 1 << 0)
         public static let addReminder     = Value(rawValue: 1 << 1)

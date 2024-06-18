@@ -29,7 +29,7 @@ public typealias Detail = QuickPerform
 public typealias Detail = ReminderGrid
 #endif
 
-public struct Root: Codable {
+public struct Root: Codable, Sendable {
     public var isError: ErrorStorage.Identifier?
     public var detail = Detail()
     public var isAlreadyPresenting: Bool {
@@ -37,7 +37,7 @@ public struct Root: Codable {
     }
 }
 
-public struct QuickPerform: Codable {
+public struct QuickPerform: Codable, Sendable {
     public var isPresented:  Share.Identifier?
     public var isError:      ErrorStorage.Identifier?
     public var isWatering:   Reminder.Selection = []
@@ -63,7 +63,7 @@ public struct QuickPerform: Codable {
     }
 }
 
-public struct ReminderGrid: Codable {
+public struct ReminderGrid: Codable, Sendable {
     public var isPresented:     Share.Identifier?
     public var isError:         ErrorStorage.Identifier?
     public var vesselEdit:      VesselEdit = .init()
@@ -75,7 +75,7 @@ public struct ReminderGrid: Codable {
     }
 }
 
-public struct ReminderEdit: Codable {
+public struct ReminderEdit: Codable, Sendable {
     public var isPresented: Reminder.Identifier?
     public var isError:     ErrorStorage.Identifier?
     public var isAlreadyPresenting: Bool {
@@ -83,7 +83,7 @@ public struct ReminderEdit: Codable {
     }
 }
 
-public struct VesselEdit: Codable {
+public struct VesselEdit: Codable, Sendable {
     public var isPresented:  Vessel.Identifier?
     public var isError:      ErrorStorage.Identifier?
     public var isPickerMenu: Vessel.Identifier?
@@ -97,7 +97,7 @@ public struct VesselEdit: Codable {
     }
 }
 
-public struct ReminderSummary: Codable {
+public struct ReminderSummary: Codable, Sendable {
     public var isPresented: Reminder.Identifier?
     public var isError:     ErrorStorage.Identifier?
     public var isWatering:  Reminder.Selection = []
@@ -111,7 +111,7 @@ public struct ReminderSummary: Codable {
     }
 }
 
-public enum PickerKind: Int, Codable, Identifiable {
+public enum PickerKind: Int, Codable, Identifiable, Sendable {
     public var id: Int { self.rawValue }
     case camera, library, emoji, viewPhoto
 }
