@@ -75,7 +75,9 @@ internal class WateringAnimationTimeObserver: ObservableObject {
     }
     
     deinit {
-        self.observerToken.map(self.player.removeTimeObserver(_:))
-        self.timeoutTimer?.invalidate()
+        MainActor.assumeIsolated {
+            self.observerToken.map(self.player.removeTimeObserver(_:))
+            self.timeoutTimer?.invalidate()
+        }
     }
 }
