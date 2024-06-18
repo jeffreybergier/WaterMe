@@ -21,9 +21,11 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct ReminderSummary: DynamicProperty {
     
+    @MainActor
     public struct Value {
         private var label:        some ActionStyle = ActionStyleDefault
         // TODO: Fix to show label again. Hiding because its either stretched or really really small

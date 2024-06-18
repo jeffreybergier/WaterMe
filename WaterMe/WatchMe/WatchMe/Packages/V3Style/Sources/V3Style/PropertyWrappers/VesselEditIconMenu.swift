@@ -22,10 +22,13 @@ import SwiftUI
 import Umbrella
 
 extension VesselEdit {
+    
+    @MainActor
     @propertyWrapper
     public struct IconMenu: DynamicProperty {
         
         // swiftlint:disable:next nesting
+        @MainActor
         public struct Value {
             public var button:  some ActionStyle = ActionStyleDefault
             public var message: some ActionStyle = ActionStyleDefault

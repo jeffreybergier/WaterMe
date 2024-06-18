@@ -21,8 +21,8 @@
 import SwiftUI
 import Umbrella
 
-internal let ActionStyleDefault:       some ActionStyle = ActionStyleImp(outerModifier: FallbackFontModifier())
-internal let ActionStyleSyncIndicator: some ActionStyle = ActionStyleImp(labelStyle: .iconOnly)
+@MainActor internal let ActionStyleDefault:       some ActionStyle = ActionStyleImp(outerModifier: FallbackFontModifier())
+@MainActor internal let ActionStyleSyncIndicator: some ActionStyle = ActionStyleImp(labelStyle: .iconOnly)
 
 internal struct FallbackAlphaModifier: ViewModifier {
     

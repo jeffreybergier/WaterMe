@@ -21,8 +21,11 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct MainWindow: DynamicProperty {
+    
+    @MainActor
     public struct Value {
         public var `default`: some ActionStyle = ActionStyleDefault
     }

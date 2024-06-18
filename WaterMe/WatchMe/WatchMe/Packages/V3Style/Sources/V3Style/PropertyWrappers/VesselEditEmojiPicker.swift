@@ -22,10 +22,12 @@ import SwiftUI
 import Umbrella
 
 extension VesselEdit {
+    
     @propertyWrapper
     public struct EmojiPicker: DynamicProperty {
         
         // swiftlint:disable:next nesting
+        @MainActor
         public struct Value {
             public var columns: [GridItem] = GridItem.emojiPickerSmall
             

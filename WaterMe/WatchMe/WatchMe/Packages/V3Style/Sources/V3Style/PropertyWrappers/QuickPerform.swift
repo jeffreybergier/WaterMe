@@ -21,6 +21,7 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct QuickPerform: DynamicProperty {
     
@@ -60,6 +61,7 @@ public struct QuickPerform: DynamicProperty {
         }
     }
     
+    @MainActor
     public struct Value {
         
         internal var kindIcon:    some ActionStyle = ActionStyleImp(labelStyle: .iconOnly, outerModifier: ReminderKindIcon())

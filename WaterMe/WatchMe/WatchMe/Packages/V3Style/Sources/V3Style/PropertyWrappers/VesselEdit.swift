@@ -21,9 +21,11 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct VesselEdit: DynamicProperty {
     
+    @MainActor
     public struct Value {
         public var button:        some ActionStyle = ActionStyleDefault
         public var delete:        some ActionStyle = ActionStyleImp(buttonRole: .destructive, outerModifier: ButtonDestructiveSimulated())

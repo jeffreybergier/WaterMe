@@ -21,9 +21,11 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct ReminderGrid: DynamicProperty {
     
+    @MainActor
     public struct Value {
         public var button:        some ViewModifier = ButtonBorderShapeModifier(.roundedRectangle)
         public var fallback:      some ActionStyle  = ActionStyleDefault

@@ -124,7 +124,7 @@ extension DarkMode {
 }
 */
 
-internal enum Action {
+internal enum Action: Sendable {
     
     case done
     case delete

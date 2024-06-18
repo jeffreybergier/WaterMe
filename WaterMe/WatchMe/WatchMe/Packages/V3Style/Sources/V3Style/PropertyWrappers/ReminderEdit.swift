@@ -21,9 +21,11 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct ReminderEdit: DynamicProperty {
     
+    @MainActor
     public struct Value {
         public var delete:        some ActionStyle = ActionStyleImp(buttonRole: .destructive, outerModifier: ButtonDestructiveSimulated())
         public var picker:        some ActionStyle = ActionStyleDefault

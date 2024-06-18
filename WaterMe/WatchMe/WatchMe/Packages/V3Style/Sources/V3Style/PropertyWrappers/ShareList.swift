@@ -21,8 +21,11 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 @propertyWrapper
 public struct ShareList: DynamicProperty {
+    
+    @MainActor
     public struct Value {
         public var row: some ActionStyle = ActionStyleDefault
     }
