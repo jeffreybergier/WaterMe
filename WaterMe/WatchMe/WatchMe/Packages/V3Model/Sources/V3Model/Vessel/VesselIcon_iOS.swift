@@ -21,6 +21,7 @@
 #if canImport(UIKit)
 import UIKit
 import Umbrella
+import V3Logger
 
 extension Vessel.Icon {
 
