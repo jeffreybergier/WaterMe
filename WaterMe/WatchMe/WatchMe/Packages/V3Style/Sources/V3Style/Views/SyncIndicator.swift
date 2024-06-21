@@ -79,6 +79,7 @@ public struct SyncIndicator: View {
     }
     
     private var composed: some View {
+        // TODO: There is a problem here when compiling in Swift 6 in release mode
         ActionStyleSyncIndicator.action(text: self.localization).button {
             self.action(self.state)
         }
