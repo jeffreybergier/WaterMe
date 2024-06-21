@@ -24,16 +24,15 @@ import Umbrella
 public struct DeleteVesselConfirmationError: CustomNSError {
     
     public typealias Selection = Vessel.Selection
+    public typealias Action = @MainActor @Sendable (Selection) -> Void
     
-    static public var errorDomain = "com.saturdayapps.WaterMe.model"
+    static public let errorDomain = "com.saturdayapps.WaterMe.model"
     public var errorCode: Int { 1002 }
     
     public var selection: Selection
-    public var onConfirmation: (Selection) -> Void
+    public var onConfirmation: Action
     
-    public init(_ selection: Selection,
-                onConfirmation: @escaping (Selection) -> Void)
-    {
+    public init(_ selection: Selection, onConfirmation: @escaping Action) {
         self.selection = selection
         self.onConfirmation = onConfirmation
     }
@@ -42,16 +41,15 @@ public struct DeleteVesselConfirmationError: CustomNSError {
 public struct DeleteReminderConfirmationError: CustomNSError {
     
     public typealias Selection = Reminder.Selection
+    public typealias Action = @MainActor @Sendable (Selection) -> Void
     
-    static public var errorDomain = "com.saturdayapps.WaterMe.model"
+    static public let errorDomain = "com.saturdayapps.WaterMe.model"
     public var errorCode: Int { 1002 }
     
     public var selection: Selection
-    public var onConfirmation: (Selection) -> Void
+    public var onConfirmation: Action
     
-    public init(_ selection: Selection,
-                onConfirmation: @escaping (Selection) -> Void)
-    {
+    public init(_ selection: Selection, onConfirmation: @escaping Action) {
         self.selection = selection
         self.onConfirmation = onConfirmation
     }

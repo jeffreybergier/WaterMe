@@ -23,7 +23,7 @@ import Umbrella
 
 public enum Error: Int, CustomNSError {
 
-    static public var errorDomain = "com.saturdayapps.WaterMe.datum"
+    static public let errorDomain = "com.saturdayapps.WaterMe.datum"
     public var errorCode: Int { return self.rawValue }
 
     case load

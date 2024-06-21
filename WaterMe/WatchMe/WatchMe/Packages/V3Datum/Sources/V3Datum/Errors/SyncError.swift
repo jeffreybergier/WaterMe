@@ -44,7 +44,7 @@ public struct SyncError: CustomNSError {
 extension SyncError {
     
     // See CKError.h for all errors
-    public enum Kind: Int {
+    public enum Kind: Int, Sendable {
         
         case password
         case network
