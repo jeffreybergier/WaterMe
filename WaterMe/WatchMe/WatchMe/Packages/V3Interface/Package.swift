@@ -41,7 +41,7 @@ let package = Package(
         .package(path: "../V3Localize"),
         .package(path: "../V3Settings"),
         .package(path: "../V3Logger"),
-        .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "waterme3-wOS10"),
+        .package(url: "https://github.com/jeffreybergier/Umbrella.git", branch: "waterme3-wOS10-Swift6"),
     ],
     targets: [
         .target(

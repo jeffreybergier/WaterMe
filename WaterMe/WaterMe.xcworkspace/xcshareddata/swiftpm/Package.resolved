@@ -1,5 +1,5 @@
 {
-  "originHash" : "da9d960872ee7239a2205d8f6320cacc1837adb9653e7845695d9a3a776f2f0d",
+  "originHash" : "3875679e8991a3d5658c8efea299dbcab994a2ceeaf070f58935b7abee0351eb",
   "pins" : [
     {
       "identity" : "easyconfetti",
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jeffreybergier/Umbrella.git",
       "state" : {
-        "branch" : "waterme3-wOS10",
-        "revision" : "e1cf2052ac26ed948f806b9a22400e2df4a0fdc2"
+        "branch" : "waterme3-wOS10-Swift6",
+        "revision" : "c67b8d993a738eb0bfc37a7d8e2cbfa6608aff34"
       }
     },
     {
