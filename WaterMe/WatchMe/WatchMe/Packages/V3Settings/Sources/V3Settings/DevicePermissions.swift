@@ -65,7 +65,7 @@ extension DevicePermissions {
             super.init()
             self.updateCamera()
             self.updateLibrary()
-            self.updateNotify()
+            Task { await self.updateNotify() }
             self.locationManager.delegate = self
         }
         
@@ -111,25 +111,25 @@ extension DevicePermissions {
             }
         }
         
-        private func updateNotify() {
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                DispatchQueue.main.async {
-                    switch settings.authorizationStatus {
-                    case .notDetermined:
-                        self.value.notify = .requestable
-                    case .denied:
-                        self.value.notify = .denied
-                    case .authorized:
-                        self.value.notify = .allowed
-                    case .provisional:
-                        self.value.notify = .requestable
-                    case .ephemeral:
-                        self.value.notify = .requestable
-                    @unknown default:
-                        self.value.notify = .denied
-                    }
-                }
+        private func updateNotify() async {
+            let settings = await UNUserNotificationCenter.current().notificationSettings()
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                self.value.notify = .requestable
+            case .denied:
+                self.value.notify = .denied
+            case .authorized:
+                self.value.notify = .allowed
+            case .provisional:
+                self.value.notify = .requestable
+            case .ephemeral:
+                self.value.notify = .requestable
+            @unknown default:
+                self.value.notify = .denied
             }
         }
     }
 }
+
+// TODO: Remove this extension when possible
+extension UNNotificationSettings: @retroactive @unchecked Sendable {}
