@@ -45,7 +45,7 @@ extension VesselEdit {
             ScrollView {
                 LazyVGrid(columns: self.style.columns) {
                     ForEach(self.data) {
-                        self.style.button(emoji: $0, isSelected: self.isSelected) {
+                        self.style.button(emoji: $0.value, isSelected: self.isSelected) {
                             self.$query?.wrappedValue.icon = .emoji($0)
                         }
                     }

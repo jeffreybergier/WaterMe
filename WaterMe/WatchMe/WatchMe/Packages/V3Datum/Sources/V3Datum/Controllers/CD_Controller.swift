@@ -528,7 +528,7 @@ extension CD_Controller {
 
 // MARK: Custom storage
 
-private class WaterMe_PersistentContainer: NSPersistentContainer {
+private class WaterMe_PersistentContainer: NSPersistentContainer, @unchecked Sendable {
     override class func defaultDirectoryURL() -> URL {
         return CD_Controller.storeDirectoryURL
     }
@@ -538,7 +538,7 @@ private class WaterMe_PersistentContainer: NSPersistentContainer {
 }
 
 @available(iOS 14.0, *)
-private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer {
+private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer, @unchecked Sendable {
     override class func defaultDirectoryURL() -> URL {
         return CD_Controller.storeDirectoryURL
     }
@@ -584,7 +584,8 @@ extension CD_Controller {
 
 extension CD_Controller {
     
-    fileprivate static let storeDirectoryURL: URL = {
+    
+    fileprivate nonisolated static let storeDirectoryURL: URL = {
         let fm = FileManager.default
         if let appGroup = fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.saturdayapps.WaterMe") {
             return appGroup
@@ -600,46 +601,46 @@ extension CD_Controller {
         }
     }()
     
-    fileprivate static var storeExists: Bool {
+    fileprivate nonisolated static var storeExists: Bool {
         let fm = FileManager.default
         let exists = fm.fileExists(atPath: self.dbFileURL1.path)
         return exists
     }
 
-    private static let sampleDB1URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite")
-    private static let sampleDB2URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite-wal")
+    private nonisolated static let sampleDB1URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite")
+    private nonisolated static let sampleDB2URL = Bundle.module.url(forResource: "SampleDB", withExtension: "sqlite-wal")
 
-    private static let dbFileURL1: URL = {
+    private nonisolated static let dbFileURL1: URL = {
         return CD_Controller
             .storeDirectoryURL
             .appendingPathComponent("WaterMe.sqlite", isDirectory: false)
     }()
 
-    private static let dbFileURL2: URL = {
+    private nonisolated static let dbFileURL2: URL = {
         return CD_Controller
             .storeDirectoryURL
             .appendingPathComponent("WaterMe.sqlite-wal", isDirectory: false)
     }()
 
-    private static let RLM_legacyStoreDirectoryURL: URL = {
+    private nonisolated static let RLM_legacyStoreDirectoryURL: URL = {
         return FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("WaterMe", isDirectory: true)
             .appendingPathComponent("Free", isDirectory: true)
     }()
 
-    private static let RLM_legacyRealmFile: URL = {
+    private nonisolated static let RLM_legacyRealmFile: URL = {
         return RLM_legacyStoreDirectoryURL
             .appendingPathComponent("Realm.realm", isDirectory: false)
     }()
 
-    internal class var RLM_legacyStoreExists: Bool {
+    internal nonisolated class var RLM_legacyStoreExists: Bool {
         let fm = FileManager.default
         let exists = fm.fileExists(atPath: self.RLM_legacyRealmFile.path)
         return exists
     }
 
-    private class func copySampleDBIfNeeded() {
+    private nonisolated class func copySampleDBIfNeeded() {
         #if os(watchOS)
         // WatchOS waits for iCloud sync, so it does not need the sample DB
         return
@@ -680,11 +681,7 @@ extension NSManagedObjectContext {
             try self.save()
             return .success(())
         } catch let error as NSError {
-            // doing this async stops the tableviews from crashing
-            DispatchQueue.main.async {
-                // we need to rollback the context
-                self.rollback()
-            }
+            self.rollback()
             error.log()
             return .failure(.write)
         }
@@ -699,12 +696,7 @@ extension NSManagedObjectContext {
             try self.save()
             return .success(())
         } catch let error {
-            // doing this async stops the tableviews from crashing
-            // TODO: Figure out how to remove this async
-            DispatchQueue.main.async {
-                // we need to rollback the context
-                self.rollback()
-            }
+            self.rollback()
             error.log()
             return .failure(error)
         }

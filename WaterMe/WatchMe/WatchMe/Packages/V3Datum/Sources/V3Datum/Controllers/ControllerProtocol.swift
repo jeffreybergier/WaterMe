@@ -29,6 +29,7 @@ import CoreData
 import Umbrella
 import V3Model
 
+@MainActor
 public protocol ControllerProtocol {
     
     var context: NSManagedObjectContext { get }
@@ -36,10 +37,14 @@ public protocol ControllerProtocol {
     // MARK: Sync
     var syncProgress: ContinousProgress.Environment { get }
 
-    // MARK: Websites CRUD
+    // MARK: MainActor Methods
     func createVessel() -> Result<Vessel.Selection.Element, Error>
     func createReminder(in vessel: Vessel.Identifier) -> Result<Reminder.Selection.Element, Error>
     func delete(_ vessels: Vessel.Selection) -> Result<Void, Error>
     func delete(_ reminder: Reminder.Selection) -> Result<Void, Error>
     func appendNewPerformToReminders(with ids: Reminder.Selection) -> Result<Void, Error>
+    
+    // MARK: Async Methods
+    // TODO: Async Methods
+    // nonisolated func somethingAsync() async -> Int
 }

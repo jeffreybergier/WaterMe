@@ -39,9 +39,3 @@ extension String {
         }
     }
 }
-
-extension String: Identifiable {
-    public var id: String {
-        return self
-    }
-}
