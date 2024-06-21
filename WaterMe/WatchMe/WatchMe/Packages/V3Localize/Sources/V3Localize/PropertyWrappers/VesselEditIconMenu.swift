@@ -23,6 +23,7 @@ import Umbrella
 import V3Settings
 
 extension VesselEdit {
+    @MainActor
     @propertyWrapper
     public struct IconMenu: DynamicProperty {
         
