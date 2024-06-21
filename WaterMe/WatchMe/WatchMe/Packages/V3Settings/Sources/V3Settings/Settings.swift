@@ -41,6 +41,7 @@ public struct CheckForUpdatesOnLaunch: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct LastRequestedReviewDate: DynamicProperty {
     @JSBAppStorage(
