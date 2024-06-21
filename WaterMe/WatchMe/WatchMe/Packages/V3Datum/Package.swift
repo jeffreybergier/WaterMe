@@ -1,4 +1,4 @@
-// swift-tools-version:5.9.0
+// swift-tools-version:6.0.0
 
 //
 //  Created by Jeffrey Bergier on 2022/11/03.
@@ -51,10 +51,6 @@ let package = Package(
             resources: [
                 .copy("Resources/SampleDB.sqlite"),
                 .copy("Resources/SampleDB.sqlite-wal"),
-            ],
-            swiftSettings: [
-              .enableExperimentalFeature("StrictConcurrency"),
-              .enableUpcomingFeature("StrictConcurrency")
             ]
         ),
        .testTarget(
@@ -62,5 +58,5 @@ let package = Package(
            dependencies: [.init(stringLiteral: PKGNAME)]
        ),
     ],
-    swiftLanguageVersions: [.version("5")]
+    swiftLanguageVersions: [.version("6")]
 )

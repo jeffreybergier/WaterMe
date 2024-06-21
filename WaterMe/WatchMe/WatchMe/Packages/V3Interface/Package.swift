@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0.0
 
 //
 //  Created by Jeffrey Bergier on 2022/11/03.
@@ -56,12 +56,10 @@ let package = Package(
                 .byNameItem(name: "V3Logger", condition: nil),
                 .byNameItem(name: "Umbrella", condition: nil),
             ],
-            resources: [.process("Resources")],
-            swiftSettings: [
-              .enableExperimentalFeature("StrictConcurrency"),
-              .enableUpcomingFeature("StrictConcurrency")
+            resources: [
+                .process("Resources")
             ]
         ),
     ],
-    swiftLanguageVersions: [.version("5")]
+    swiftLanguageVersions: [.version("6")]
 )

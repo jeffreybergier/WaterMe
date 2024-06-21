@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9.0
+// swift-tools-version: 6.0.0
 
 //
 //  Created by Jeffrey Bergier on 2024/06/03.
@@ -43,12 +43,8 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "V3Protect", condition: nil),
                 .product(name: "ServerlessLogger", package: "JSBServerlessLogger"),
-            ],
-            swiftSettings: [
-              .enableExperimentalFeature("StrictConcurrency"),
-              .enableUpcomingFeature("StrictConcurrency")
             ]
         ),
     ],
-    swiftLanguageVersions: [.version("5")]
+    swiftLanguageVersions: [.version("6")]
 )
