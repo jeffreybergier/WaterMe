@@ -1,4 +1,5 @@
 {
+  "originHash" : "da9d960872ee7239a2205d8f6320cacc1837adb9653e7845695d9a3a776f2f0d",
   "pins" : [
     {
       "identity" : "easyconfetti",
@@ -50,7 +51,7 @@
       "location" : "https://github.com/jeffreybergier/Umbrella.git",
       "state" : {
         "branch" : "waterme3-wOS10",
-        "revision" : "baba3d279c7fc6e92047babc6c7c69e5d21485cd"
+        "revision" : "e1cf2052ac26ed948f806b9a22400e2df4a0fdc2"
       }
     },
     {
@@ -63,5 +64,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
