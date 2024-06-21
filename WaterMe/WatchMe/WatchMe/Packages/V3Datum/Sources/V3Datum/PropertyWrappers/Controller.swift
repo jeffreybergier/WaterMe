@@ -23,6 +23,7 @@ import SwiftUI
 import Umbrella
 import V3Settings
 
+@MainActor
 @propertyWrapper
 public struct Controller: DynamicProperty {
     
