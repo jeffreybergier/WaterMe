@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 5.9.0
 
 //
 //  Created by Jeffrey Bergier on 2024/06/03.
@@ -35,7 +35,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../V3Protect"),
-        .package(url: "https://github.com/jeffreybergier/JSBServerlessLogger.git", branch: "2.0"),
+        .package(url: "https://github.com/jeffreybergier/JSBServerlessLogger.git", branch: "concurrency"),
     ],
     targets: [
         .target(
@@ -43,7 +43,12 @@ let package = Package(
             dependencies: [
                 .byNameItem(name: "V3Protect", condition: nil),
                 .product(name: "ServerlessLogger", package: "JSBServerlessLogger"),
+            ],
+            swiftSettings: [
+              .enableExperimentalFeature("StrictConcurrency"),
+              .enableUpcomingFeature("StrictConcurrency")
             ]
         ),
-    ]
+    ],
+    swiftLanguageVersions: [.version("5")]
 )

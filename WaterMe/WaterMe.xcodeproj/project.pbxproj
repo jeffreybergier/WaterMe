@@ -2612,7 +2612,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jeffreybergier/JSBServerlessLogger.git";
 			requirement = {
-				branch = 2.0;
+				branch = concurrency;
 				kind = branch;
 			};
 		};
