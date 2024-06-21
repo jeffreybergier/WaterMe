@@ -21,8 +21,10 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 public var store = UserDefaults.standard
 
+@MainActor
 @propertyWrapper
 public struct CheckForUpdatesOnLaunch: DynamicProperty {
     @AppStorage(
@@ -55,6 +57,7 @@ public struct LastRequestedReviewDate: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct LastBuildNumber: DynamicProperty {
     @AppStorage(
@@ -71,6 +74,7 @@ public struct LastBuildNumber: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct IncreaseContrast: DynamicProperty {
     @Environment(\.colorSchemeContrast) private var contrast
@@ -89,6 +93,7 @@ public struct IncreaseContrast: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct DarkModeProp: DynamicProperty {
     @AppStorage(
@@ -105,6 +110,7 @@ public struct DarkModeProp: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct AskForNotifications: DynamicProperty {
     @AppStorage(
@@ -121,6 +127,7 @@ public struct AskForNotifications: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct ControllerKindProp: DynamicProperty {
     @AppStorage(
@@ -148,6 +155,7 @@ public struct ControllerKindProp: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct CloudSyncInfoHasShown: DynamicProperty {
     @AppStorage(
@@ -164,6 +172,7 @@ public struct CloudSyncInfoHasShown: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct DidRunWithoutCloudSync: DynamicProperty {
     @AppStorage(
@@ -180,6 +189,7 @@ public struct DidRunWithoutCloudSync: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct ReminderHourProp: DynamicProperty {
     @AppStorage(
@@ -200,6 +210,7 @@ public struct ReminderHourProp: DynamicProperty {
     }
 }
 
+@MainActor
 @propertyWrapper
 public struct ReminderDaysProp: DynamicProperty {
     @AppStorage(

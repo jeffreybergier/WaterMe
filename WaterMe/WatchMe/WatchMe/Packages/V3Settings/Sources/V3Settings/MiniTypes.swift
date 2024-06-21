@@ -24,14 +24,14 @@ import SwiftUI
 import UIKit
 #endif
 
-public enum ReminderDays: Int, CaseIterable, Identifiable {
+public enum ReminderDays: Int, CaseIterable, Identifiable, Sendable {
     public var id: Int { self.rawValue }
     public static let `default`: ReminderDays = .days14
     case days7 = 7, days8, days9, days10, days11, days12, days13, days14,
          days15, days16, days17, days18, days19, days20, days21
 }
 
-public enum ReminderHours: Int, CaseIterable, Identifiable {
+public enum ReminderHours: Int, CaseIterable, Identifiable, Sendable {
     public var id: Int { self.rawValue }
     public static let `default`: ReminderHours = .hour8
     case hour4 = 4, hour5, hour6, hour7, hour8, hour9, hour10, hour11, hour12,
@@ -39,7 +39,7 @@ public enum ReminderHours: Int, CaseIterable, Identifiable {
          hour21, hour22, hour23
 }
 
-public enum ControllerKind: RawRepresentable, Equatable {
+public enum ControllerKind: RawRepresentable, Equatable, Sendable {
 
     case local
     case sync
@@ -62,7 +62,7 @@ public enum ControllerKind: RawRepresentable, Equatable {
     }
 }
 
-public enum DarkMode: Int, CaseIterable, Identifiable {
+public enum DarkMode: Int, CaseIterable, Identifiable, Sendable {
     public var id: Int { self.rawValue }
     case system = 0
     case forceLight = 1

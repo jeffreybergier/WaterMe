@@ -23,6 +23,7 @@ import AVFoundation
 import CoreLocation
 import UserNotifications
 
+@MainActor
 @propertyWrapper
 public struct DevicePermissions: DynamicProperty {
     
@@ -54,6 +55,7 @@ public struct DevicePermissions: DynamicProperty {
 
 extension DevicePermissions {
     
+    @MainActor
     internal class Observable: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         @Published internal var value: Value = .init()
@@ -89,20 +91,23 @@ extension DevicePermissions {
             self.value.library = .denied
         }
         
-        @objc internal func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-            switch manager.authorizationStatus {
-            case .notDetermined:
-                self.value.locate = .requestable
-            case .restricted:
-                self.value.locate = .denied
-            case .denied:
-                self.value.locate = .denied
-            case .authorizedAlways:
-                self.value.locate = .allowed
-            case .authorizedWhenInUse:
-                self.value.locate = .allowed
-            @unknown default:
-                self.value.locate = .denied
+        @objc nonisolated internal func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            let authorizationStatus = manager.authorizationStatus
+            MainActor.assumeIsolated {
+                switch authorizationStatus {
+                case .notDetermined:
+                    self.value.locate = .requestable
+                case .restricted:
+                    self.value.locate = .denied
+                case .denied:
+                    self.value.locate = .denied
+                case .authorizedAlways:
+                    self.value.locate = .allowed
+                case .authorizedWhenInUse:
+                    self.value.locate = .allowed
+                @unknown default:
+                    self.value.locate = .denied
+                }
             }
         }
         
