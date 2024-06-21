@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 5.10.0
 
 //
 //  Created by Jeffrey Bergier on 2024/06/03.
@@ -34,7 +34,12 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: PKGNAME
+            name: PKGNAME,
+            swiftSettings: [
+              .enableExperimentalFeature("StrictConcurrency"),
+              .enableUpcomingFeature("StrictConcurrency")
+            ]
         ),
-    ]
+    ],
+    swiftLanguageVersions: [.version("5")]
 )
