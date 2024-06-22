@@ -132,4 +132,4 @@ extension DevicePermissions {
 }
 
 // TODO: Remove this extension when possible
-extension UNNotificationSettings: @retroactive @unchecked Sendable {}
+// extension UNNotificationSettings: @retroactive @unchecked Sendable {}

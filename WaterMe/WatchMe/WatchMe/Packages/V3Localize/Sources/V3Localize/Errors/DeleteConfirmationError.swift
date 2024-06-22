@@ -21,7 +21,8 @@
 import Umbrella
 import V3Model
 
-extension DeleteVesselConfirmationError: @retroactive UserFacingError {
+// @retroactive
+extension DeleteVesselConfirmationError: UserFacingError {
     public var title: Umbrella.LocalizationKey {
         "" // Do we need a title? Should I set this to nillable?
     }
@@ -43,7 +44,8 @@ extension DeleteVesselConfirmationError: @retroactive UserFacingError {
     }
 }
 
-extension DeleteReminderConfirmationError: @retroactive UserFacingError {
+// @retroactive
+extension DeleteReminderConfirmationError: UserFacingError {
     public var title: Umbrella.LocalizationKey {
         "" // Do we need a title? Should I set this to nillable?
     }

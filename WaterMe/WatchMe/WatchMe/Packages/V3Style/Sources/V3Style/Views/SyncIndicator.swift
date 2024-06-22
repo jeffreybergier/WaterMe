@@ -21,6 +21,7 @@
 import SwiftUI
 import Umbrella
 
+@MainActor
 public struct SyncIndicator: View {
     
     public typealias Action = (Visibility) -> Void
