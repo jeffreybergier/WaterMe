@@ -20,7 +20,7 @@
 
 import Foundation
 
-public struct Vessel: Identifiable, Hashable, Equatable {
+public struct Vessel: Identifiable, Hashable, Equatable, Sendable {
 
     public typealias Selection = Set<Vessel.Identifier>
 
