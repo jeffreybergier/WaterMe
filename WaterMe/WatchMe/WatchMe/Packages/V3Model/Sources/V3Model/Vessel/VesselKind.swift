@@ -28,7 +28,7 @@ extension Vessel {
         public var id: String { self.rawValue }
     }
     
-    public enum Kind: String, Codable, Hashable, CaseIterable, Identifiable {
+    public enum Kind: String, Codable, Hashable, CaseIterable, Identifiable, Sendable {
         case plant
         public var id: String { self.rawValue }
     }

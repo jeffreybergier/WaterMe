@@ -22,7 +22,7 @@ import Foundation
 import Umbrella
 
 extension Vessel {
-    public enum Icon: Equatable, Hashable {
+    public enum Icon: Equatable, Hashable, Sendable {
         
         case emoji(String), image(Data)
         
