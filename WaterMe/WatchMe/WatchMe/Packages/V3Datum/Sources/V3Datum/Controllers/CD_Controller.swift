@@ -528,6 +528,7 @@ extension CD_Controller {
 
 // MARK: Custom storage
 
+// TODO: Remove Unchecked When Possible
 private class WaterMe_PersistentContainer: NSPersistentContainer, @unchecked Sendable {
     override class func defaultDirectoryURL() -> URL {
         return CD_Controller.storeDirectoryURL
@@ -537,6 +538,7 @@ private class WaterMe_PersistentContainer: NSPersistentContainer, @unchecked Sen
     }
 }
 
+// TODO: Remove Unchecked When Possible
 @available(iOS 14.0, *)
 private class WaterMe_PersistentSyncContainer: NSPersistentCloudKitContainer, @unchecked Sendable {
     override class func defaultDirectoryURL() -> URL {
